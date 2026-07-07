@@ -1,20 +1,19 @@
 # Dependencies
 node_modules/
 
-# Build output
+# Deployment and build cache
+.vercel/
 dist/
 build/
 out/
-.vite/
 
 # Logs
 *.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 
-# Environment and local config
+# Local environment
 .env
 .env.*
 !.env.example
@@ -27,18 +26,6 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 
-# Temporary files
-tmp/
-temp/
-*.tmp
-.cache/
-coverage/
-playwright-report/
-test-results/
-gitee-push-*/
-
-# Local Codex workspace metadata
+# Local workspace metadata
 .codex/
 .agents/
-
-.vercel/
