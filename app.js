@@ -1,16 +1,4 @@
-const navGroups = [
-  { title: "工作台", children: [{ id: "workbench", label: "业务工作台" }] },
-  { title: "项目管理", children: [{ id: "project", label: "项目全过程" }] },
-  { title: "采购管理", children: [{ id: "purchase", label: "采购全过程" }] },
-  { title: "合同管理", children: [{ id: "contract", label: "合同全过程" }] },
-  { title: "实施管理", children: [{ id: "implementation", label: "实施进度" }] },
-  { title: "付款管理", children: [{ id: "payment", label: "付款全过程" }] },
-  { title: "发票管理", children: [{ id: "invoice", label: "发票全过程" }] },
-  { title: "验收管理", children: [{ id: "acceptance", label: "验收整改" }] },
-  { title: "结项管理", children: [{ id: "closing", label: "结项归档" }] },
-  { title: "统计分析", children: [{ id: "analytics", label: "经营分析" }] },
-  { title: "系统管理", children: [{ id: "system", label: "平台配置" }] },
-];
+const navGroups = [];
 
 const labelMap = {
   id: "编号",
@@ -231,10 +219,78 @@ function field(key, label, type = "text", required = false, options = []) {
   return { key, label, type, required, options };
 }
 
+function pageId(module, tab) {
+  return tab ? `${module}::${tab}` : module;
+}
+
+const pageConfigs = buildPageConfigs();
+navGroups.push(...buildNavGroups());
+
+function buildPageConfigs() {
+  const pages = {
+    workbench: {
+      id: "workbench",
+      module: "workbench",
+      tab: "数据概览",
+      title: "业务工作台",
+      crumb: "工作台 / 业务工作台",
+      addLabel: "新建项目",
+      filters: moduleConfigs.workbench.filters,
+      form: moduleConfigs.project.form,
+      isWorkbench: true,
+    },
+  };
+  Object.entries(moduleConfigs).forEach(([module, config]) => {
+    if (module === "workbench") return;
+    config.tabs.forEach((tab) => {
+      const id = pageId(module, tab);
+      pages[id] = {
+        id,
+        module,
+        tab,
+        title: tab,
+        crumb: `${config.title} / ${tab}`,
+        addLabel: actionLabelFor(module, tab, config.addLabel),
+        filters: config.filters,
+        form: config.form,
+      };
+    });
+  });
+  return pages;
+}
+
+function buildNavGroups() {
+  return [
+    { title: "工作台", children: [{ id: "workbench", label: "业务工作台" }] },
+    ...Object.entries(moduleConfigs)
+      .filter(([module]) => module !== "workbench")
+      .map(([module, config]) => ({
+        title: config.title,
+        children: config.tabs.map((tab) => ({ id: pageId(module, tab), label: tab })),
+      })),
+  ];
+}
+
+function actionLabelFor(module, tab, fallback) {
+  if (tab.includes("审批")) return "处理审批";
+  if (tab.includes("详情")) return "查看详情";
+  if (tab.includes("变更")) return "发起变更";
+  if (tab.includes("归档")) return "生成归档";
+  if (tab.includes("招标")) return "登记招标";
+  if (tab.includes("供应商")) return "新增供应商";
+  if (tab.includes("履约")) return "更新履约";
+  if (tab.includes("预警")) return "处理预警";
+  if (tab.includes("统计") || tab.includes("大屏")) return "导出报表";
+  if (tab.includes("OCR")) return "上传识别";
+  if (tab.includes("整改")) return "新增整改";
+  if (tab.includes("校验")) return "重新校验";
+  if (module === "system") return "新增配置";
+  return fallback;
+}
+
 const state = {
   active: "workbench",
   expanded: Object.fromEntries(navGroups.map((group) => [group.title, true])),
-  tabs: {},
   filters: {},
   modal: null,
   confirm: null,
@@ -727,19 +783,18 @@ function renderNav() {
 
 function switchView(id) {
   state.active = id;
-  if (!state.tabs[id]) state.tabs[id] = moduleConfigs[id].tabs[0];
   renderNav();
   render();
 }
 
 function render() {
-  const config = moduleConfigs[state.active];
-  els.crumbText.textContent = config.title;
-  els.pageTitle.textContent = config.title;
-  els.dashboard.classList.toggle("hidden", state.active !== "workbench");
-  els.moduleView.classList.toggle("hidden", state.active === "workbench");
-  els.quickCreateBtn.textContent = state.active === "workbench" ? "新建项目" : config.addLabel;
-  if (state.active === "workbench") renderWorkbench();
+  const page = currentPage();
+  els.crumbText.textContent = page.crumb;
+  els.pageTitle.textContent = page.title;
+  els.dashboard.classList.toggle("hidden", !page.isWorkbench);
+  els.moduleView.classList.toggle("hidden", page.isWorkbench);
+  els.quickCreateBtn.textContent = page.addLabel;
+  if (page.isWorkbench) renderWorkbench();
   else renderModule();
   updateTodo();
 }
@@ -821,26 +876,38 @@ function renderBudgetCockpit() {
 }
 
 function renderModule() {
-  const config = moduleConfigs[state.active];
-  const tab = state.tabs[state.active] || config.tabs[0];
-  const rows = filteredRows(state.active, tab);
+  const page = currentPage();
+  const rows = filteredRows(page);
   els.moduleView.innerHTML = `
-    <div class="module-tabs">
-      ${config.tabs.map((name) => `<button class="tab-btn ${name === tab ? "active" : ""}" data-tab="${name}">${name}</button>`).join("")}
-    </div>
-    ${renderFilters(config.filters)}
-    ${state.active === "analytics" ? renderAnalyticsHeader(tab) : ""}
+    ${renderPageSummary(page)}
+    ${renderFilters(page.filters)}
+    ${page.module === "analytics" ? renderAnalyticsHeader(page.tab) : ""}
     <div class="table-toolbar">
-      <h3>${tab}列表</h3>
+      <h3>${page.title}列表</h3>
       <div class="table-actions">
         <button class="ghost-btn" data-export>导出</button>
-        <button class="primary-btn" data-add>${config.addLabel}</button>
+        <button class="primary-btn" data-add>${page.addLabel}</button>
       </div>
     </div>
     ${renderTable(rows, columnsFor(rows))}
     ${renderPager(rows.length)}
   `;
   bindModuleEvents();
+}
+
+function currentPage() {
+  return pageConfigs[state.active] || pageConfigs.workbench;
+}
+
+function renderPageSummary(page) {
+  const total = (state.data[page.module]?.[page.tab] || []).length;
+  return `<div class="page-summary">
+    <div>
+      <strong>${page.title}</strong>
+      <span>${page.crumb}</span>
+    </div>
+    <em>共 ${total} 条业务记录</em>
+  </div>`;
 }
 
 function renderFilters(filters) {
@@ -864,9 +931,9 @@ function renderAnalyticsHeader(tab) {
   </div>`;
 }
 
-function filteredRows(module, tab) {
-  const rows = state.data[module]?.[tab] || [];
-  const filter = state.filters[module] || {};
+function filteredRows(page) {
+  const rows = state.data[page.module]?.[page.tab] || [];
+  const filter = state.filters[state.active] || {};
   const keyword = Object.values(filter).filter(Boolean).join(" ");
   if (!keyword) return rows;
   return rows.filter((row) => JSON.stringify(row).includes(keyword));
@@ -910,7 +977,7 @@ function statusClass(value) {
 }
 
 function rowActions() {
-  const tab = state.tabs[state.active] || moduleConfigs[state.active].tabs[0];
+  const tab = currentPage().tab;
   const actions = ["详情", "编辑"];
   if (tab.includes("审批")) actions.push("审批通过", "驳回", "催办");
   if (tab.includes("进度")) actions.push("更新进度");
@@ -936,12 +1003,6 @@ function renderPager(total) {
 }
 
 function bindModuleEvents() {
-  els.moduleView.querySelectorAll("[data-tab]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      state.tabs[state.active] = btn.dataset.tab;
-      renderModule();
-    });
-  });
   els.moduleView.querySelector("[data-add]")?.addEventListener("click", () => openModal());
   els.moduleView.querySelector("[data-export]")?.addEventListener("click", () => showToast("已生成模拟导出任务"));
   els.moduleView.querySelector("[data-query]")?.addEventListener("click", () => {
@@ -979,7 +1040,7 @@ function handleAction(action, id) {
   requestConfirm({
     title: `确认${action}`,
     message: "该操作会更新当前记录状态，并同步刷新看板与列表数据。",
-    summary: `业务模块：${moduleConfigs[state.active].title}<br>当前记录：${row.name || row.project || row.id}<br>操作内容：${action}`,
+    summary: `业务页面：${currentPage().crumb}<br>当前记录：${row.name || row.project || row.id}<br>操作内容：${action}`,
     onConfirm: () => {
       row.status = map[action] || row.status;
       if (action === "填写意见") row.opinion = "通过";
@@ -991,15 +1052,19 @@ function handleAction(action, id) {
 }
 
 function findRow(id) {
-  const rows = state.data[state.active]?.[state.tabs[state.active] || moduleConfigs[state.active].tabs[0]] || [];
+  const page = currentPage();
+  const rows = state.data[page.module]?.[page.tab] || [];
   return rows.find((row) => row.id === id);
 }
 
 function openModal(row = null) {
-  const config = moduleConfigs[state.active === "workbench" ? "project" : state.active];
-  const module = state.active === "workbench" ? "project" : state.active;
-  state.modal = { module, row };
-  els.modalTitle.textContent = row ? `编辑${config.title}` : config.addLabel;
+  const page = currentPage();
+  const module = page.isWorkbench ? "project" : page.module;
+  const tab = page.isWorkbench ? "项目申请" : page.tab;
+  const config = moduleConfigs[module];
+  const addLabel = page.isWorkbench ? "新建项目" : page.addLabel;
+  state.modal = { module, tab, row };
+  els.modalTitle.textContent = row ? `编辑${page.isWorkbench ? config.title : page.title}` : addLabel;
   els.modalForm.innerHTML = buildForm(config.form || genericForm(), row);
   bindUploadBoxes();
   els.modalMask.classList.remove("hidden");
@@ -1063,7 +1128,7 @@ function saveModal() {
   if (!validateForm()) return;
   const form = Object.fromEntries(new FormData(els.modalForm).entries());
   const module = state.modal.module;
-  const tab = state.tabs[module] || moduleConfigs[module].tabs[0];
+  const tab = state.modal.tab;
   const rows = state.data[module][tab];
   if (state.modal.row) {
     Object.assign(state.modal.row, form);
@@ -1093,7 +1158,8 @@ function validateForm() {
 }
 
 function openDrawer(row) {
-  els.drawerKicker.textContent = moduleConfigs[state.active].title;
+  const page = currentPage();
+  els.drawerKicker.textContent = page.crumb;
   els.drawerTitle.textContent = row.name || row.project || row.id;
   els.drawerBody.innerHTML = `
     <div class="detail-grid">${Object.entries(row)
@@ -1140,8 +1206,9 @@ function closeConfirm() {
 }
 
 function openPrdModal() {
-  const doc = buildPrd(state.active, state.tabs[state.active] || moduleConfigs[state.active].tabs[0]);
-  els.prdTitle.textContent = `${moduleConfigs[state.active].title} PRD`;
+  const page = currentPage();
+  const doc = buildPrd(page.module, page.tab);
+  els.prdTitle.textContent = `${page.title} PRD`;
   els.prdBody.innerHTML = doc;
   els.prdMask.classList.remove("hidden");
 }
@@ -1208,9 +1275,7 @@ function showToast(message) {
 function bindGlobalEvents() {
   els.quickCreateBtn.addEventListener("click", () => openModal());
   els.approvalBtn.addEventListener("click", () => {
-    switchView("project");
-    state.tabs.project = "项目审批";
-    render();
+    switchView(pageId("project", "项目审批"));
   });
   els.modalClose.addEventListener("click", () => els.modalMask.classList.add("hidden"));
   els.modalCancel.addEventListener("click", () => els.modalMask.classList.add("hidden"));
