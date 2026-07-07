@@ -1,16 +1,11 @@
 {
-  "name": "songjian-hotpot-homepage",
+  "name": "education-procurement-management-prototype",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
+  "description": "Static prototype for education procurement project management.",
   "scripts": {
-    "dev": "vite --host 127.0.0.1",
-    "build": "vite build",
-    "preview": "vite preview --host 127.0.0.1"
-  },
-  "dependencies": {
-    "vite": "^6.3.5",
-    "vue": "^3.5.16"
-  },
-  "devDependencies": {}
+    "start": "node server.js",
+    "check": "node --check app.js && node --check server.js && node --check build-standalone.js",
+    "build:standalone": "node build-standalone.js"
+  }
 }

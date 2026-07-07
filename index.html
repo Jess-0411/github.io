@@ -3,67 +3,118 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>松间火锅 | 高端雅致中餐火锅</title>
-    <meta
-      name="description"
-      content="松间火锅是一家现代中式火锅店，主打手工锅底、精选鲜涮、雅致空间与电话订座服务。"
-    />
-    <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="stylesheet" href="src/assets/styles.css" />
-    <script type="importmap">
-      {
-        "imports": {
-          "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js"
-        }
-      }
-    </script>
+    <title>教学采购项目管理</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="app">
-      <header class="site-header" aria-label="主导航">
-        <a class="brand" href="#top" aria-label="松间火锅首页">
-          <span class="brand-mark">松</span>
-          <span>松间火锅</span>
-        </a>
-        <nav aria-label="页面导航">
-          <a href="#signature">招牌</a>
-          <a href="#menu">菜单</a>
-          <a href="#space">空间</a>
-          <a href="#booking">订座</a>
-        </nav>
-        <a class="header-cta" href="tel:057188081818">电话订座</a>
-      </header>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">教</span>
+          <span>采购项目管理</span>
+        </div>
+        <nav id="navList" class="nav-list"></nav>
+        <div class="sidebar-bottom">
+          <button class="flow-entry-btn" id="flowChartBtn" type="button">流程图</button>
+        </div>
+      </aside>
 
-      <main id="top">
-        <section class="hero" aria-label="松间火锅首页首屏">
-          <div class="hero-bg" role="img" aria-label="现代中式餐厅里的雅致火锅餐桌"></div>
-          <div class="hero-shade"></div>
-          <div class="hero-content">
-            <p class="eyebrow">现代中式火锅 · 雅致茶席 · 精选鲜涮</p>
-            <h1>在松间，慢慢吃一席有温度的火锅。</h1>
-            <p class="hero-copy">
-              松间火锅以清雅空间、手炒锅底和当季鲜涮为核心，把热气腾腾的中式火锅做得更从容。适合约会、家宴，也适合下班后好好吃一餐。
-            </p>
-            <div class="hero-actions" aria-label="首页主要操作">
-              <a class="primary-btn" href="#menu">查看菜单</a>
-              <a class="ghost-btn" href="#booking">预约到店</a>
-            </div>
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <div class="crumb">首页 / <span id="crumbText">业务看板</span></div>
+            <h1 id="pageTitle">业务看板</h1>
           </div>
-          <aside class="hero-note" aria-label="今日推荐">
-            <span>今日推荐</span>
-            <strong>松露菌汤锅 · ¥128</strong>
-            <small>建议搭配雪花和牛、山野菌拼盘与青笋尖，清鲜开场，越涮越有回甘。</small>
-          </aside>
-        </section>
+          <div class="top-actions">
+            <button class="prd-dot" id="prdDotBtn" title="查看当前页面 PRD 产品开发规则" aria-label="查看当前页面 PRD 产品开发规则"></button>
+            <button class="ghost-btn" id="approvalBtn" data-testid="approval-shortcut">待办审核 <b id="todoCount">0</b></button>
+            <button class="primary-btn" id="quickCreateBtn" data-testid="quick-create-project">新建项目</button>
+          </div>
+        </header>
 
-        <section class="signature-section" id="signature">
-          <div class="section-heading">
-            <p class="eyebrow dark">招牌锅底</p>
-            <h2>三种底味，照顾一桌人的不同偏爱。</h2>
-          </div>
-        </section>
+        <section id="dashboard" class="view"></section>
+        <section id="moduleView" class="view hidden"></section>
       </main>
     </div>
-    <script type="module" src="src/main.js"></script>
+
+    <div id="modalMask" class="modal-mask hidden">
+      <div class="modal">
+        <div class="modal-head">
+          <h2 id="modalTitle">新增</h2>
+          <button class="icon-btn" id="modalClose" aria-label="关闭">×</button>
+        </div>
+        <form id="modalForm" class="modal-body"></form>
+        <div class="modal-foot">
+          <button class="ghost-btn" id="modalCancel" type="button">取消</button>
+          <button class="primary-btn" id="modalSave" type="button">保存</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="prdMask" class="modal-mask hidden">
+      <div class="prd-modal">
+        <div class="modal-head">
+          <div>
+            <p class="prd-kicker">PRD 产品开发规则</p>
+            <h2 id="prdTitle">当前页面 PRD</h2>
+          </div>
+          <button class="icon-btn" id="prdClose" aria-label="关闭">×</button>
+        </div>
+        <div id="prdBody" class="prd-body"></div>
+        <div class="modal-foot">
+          <button class="primary-btn" id="prdConfirm" type="button">我知道了</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="flowMask" class="modal-mask hidden">
+      <div class="flow-modal">
+        <div class="modal-head">
+          <div>
+            <p class="prd-kicker">业务流程图 / 操作流程图</p>
+            <h2>教学采购项目管理流程总览</h2>
+          </div>
+          <button class="icon-btn" id="flowClose" aria-label="关闭">×</button>
+        </div>
+        <div id="flowBody" class="flow-body"></div>
+        <div class="modal-foot">
+          <button class="primary-btn" id="flowConfirm" type="button">我知道了</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="confirmMask" class="modal-mask hidden">
+      <div class="confirm-modal">
+        <div class="modal-head">
+          <div>
+            <p class="prd-kicker">二次确认</p>
+            <h2 id="confirmTitle">确认操作</h2>
+          </div>
+          <button class="icon-btn" id="confirmClose" aria-label="关闭">×</button>
+        </div>
+        <div class="confirm-body">
+          <p id="confirmMessage">请确认是否继续执行该操作。</p>
+          <div id="confirmSummary" class="confirm-summary"></div>
+        </div>
+        <div class="modal-foot">
+          <button class="ghost-btn" id="confirmCancel" type="button">取消</button>
+          <button class="primary-btn" id="confirmOk" type="button">确认</button>
+        </div>
+      </div>
+    </div>
+
+    <aside id="drawer" class="drawer hidden">
+      <div class="drawer-head">
+        <div>
+          <p id="drawerKicker">项目详情</p>
+          <h2 id="drawerTitle">项目名称</h2>
+        </div>
+        <button class="icon-btn" id="drawerClose" aria-label="关闭">×</button>
+      </div>
+      <div id="drawerBody" class="drawer-body"></div>
+    </aside>
+
+    <div id="toast" class="toast hidden"></div>
+    <script src="app.js"></script>
   </body>
 </html>
