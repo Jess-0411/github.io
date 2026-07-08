@@ -1245,14 +1245,7 @@ function openApprovalDrawer(row) {
       <div class="approval-code">编号：${row.id}</div>
       <h3>${row.project || row.name || "待审批事项"}</h3>
       <div class="approval-state">审批中，等待${row.owner || "审核人"}处理</div>
-      <div class="approval-divider"></div>
-      <div class="approval-info">
-        <div><span>业务页面</span><strong>${page.crumb}</strong></div>
-        <div><span>当前节点</span><strong>${row.node || "部门负责人审批"}</strong></div>
-        <div><span>审批人</span><strong>${row.owner || "待分配"}</strong></div>
-        <div><span>日期时间区间</span><strong>${row.date || "2026-07-08"} - ${row.deadline || "2026-07-15"}</strong></div>
-        <div><span>审批说明</span><strong>${row.note || "请按当前流程完成审批处理。"}</strong></div>
-      </div>
+      ${renderApprovalListInfo(row, page)}
       <div class="approval-divider"></div>
       <div class="approval-section-head">
         <span>流程</span>
@@ -1292,6 +1285,21 @@ function openApprovalDrawer(row) {
       },
     });
   });
+}
+
+function renderApprovalListInfo(row, page) {
+  const keys = columnsFor([row]).filter((key) => key !== "id");
+  const rows = [
+    ["业务页面", page.crumb],
+    ...keys.map((key) => [labelMap[key] || key, row[key]]),
+  ].filter(([, value]) => value !== undefined && value !== null && value !== "");
+  return `<div class="approval-list-info">${rows
+    .map(([label, value]) => `<div class="approval-list-row"><span>${label}</span><strong>${formatPlainValue(value)}</strong></div>`)
+    .join("")}</div>`;
+}
+
+function formatPlainValue(value) {
+  return String(value).replace(/<[^>]+>/g, "");
 }
 
 function renderApprovalFlow(row) {
