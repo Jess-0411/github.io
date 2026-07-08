@@ -223,6 +223,22 @@ function pageId(module, tab) {
   return tab ? `${module}::${tab}` : module;
 }
 
+const mergedPageDefs = {
+  project: [{ id: pageId("project", "项目申请审批"), label: "项目申请审批", title: "项目申请审批", tabs: ["项目申请", "项目审批"] }],
+  purchase: [{ id: pageId("purchase", "采购申请审批"), label: "采购申请审批", title: "采购申请审批", tabs: ["采购申请", "采购审批"] }],
+  contract: [{ id: pageId("contract", "合同登记审批"), label: "合同登记审批", title: "合同登记审批", tabs: ["合同登记", "合同审批"] }],
+  payment: [{ id: pageId("payment", "付款申请审核"), label: "付款申请审核", title: "付款申请审核", tabs: ["付款申请", "财务审核"] }],
+};
+
+const hiddenTabs = {
+  project: ["项目申请", "项目审批", "项目详情"],
+  purchase: ["采购申请", "采购审批"],
+  contract: ["合同登记", "合同审批"],
+  payment: ["付款申请", "财务审核"],
+};
+
+const hiddenModules = ["analytics"];
+
 const pageConfigs = buildPageConfigs();
 navGroups.push(...buildNavGroups());
 
@@ -242,7 +258,22 @@ function buildPageConfigs() {
   };
   Object.entries(moduleConfigs).forEach(([module, config]) => {
     if (module === "workbench") return;
+    if (hiddenModules.includes(module)) return;
+    (mergedPageDefs[module] || []).forEach((def) => {
+      pages[def.id] = {
+        id: def.id,
+        module,
+        tab: def.tabs[0],
+        tabs: def.tabs,
+        title: def.title,
+        crumb: `${config.title} / ${def.title}`,
+        addLabel: actionLabelFor(module, def.tabs[0], config.addLabel),
+        filters: config.filters,
+        form: config.form,
+      };
+    });
     config.tabs.forEach((tab) => {
+      if ((hiddenTabs[module] || []).includes(tab)) return;
       const id = pageId(module, tab);
       pages[id] = {
         id,
@@ -264,9 +295,13 @@ function buildNavGroups() {
     { title: "工作台", children: [{ id: "workbench", label: "业务工作台" }] },
     ...Object.entries(moduleConfigs)
       .filter(([module]) => module !== "workbench")
+      .filter(([module]) => !hiddenModules.includes(module))
       .map(([module, config]) => ({
         title: config.title,
-        children: config.tabs.map((tab) => ({ id: pageId(module, tab), label: tab })),
+        children: [
+          ...(mergedPageDefs[module] || []).map((def) => ({ id: def.id, label: def.label })),
+          ...config.tabs.filter((tab) => !(hiddenTabs[module] || []).includes(tab)).map((tab) => ({ id: pageId(module, tab), label: tab })),
+        ],
       })),
   ];
 }
@@ -291,6 +326,7 @@ function actionLabelFor(module, tab, fallback) {
 const state = {
   active: "workbench",
   expanded: Object.fromEntries(navGroups.map((group) => [group.title, true])),
+  subTabs: {},
   filters: {},
   modal: null,
   confirm: null,
@@ -807,19 +843,19 @@ function renderWorkbench() {
     </div>
     <div class="workbench-layout">
       <section class="panel">
-        <div class="panel-head"><h3>我的待办</h3><button class="text-btn" data-jump="project">查看审批</button></div>
+        <div class="panel-head"><h3>我的待办</h3><button class="text-btn" data-jump="${pageId("project", "项目申请审批")}">查看审批</button></div>
         ${renderTodoList(state.data.workbench["我的待办"])}
       </section>
       <section class="panel">
-        <div class="panel-head"><h3>预算执行驾驶舱</h3><button class="text-btn" data-jump="analytics">查看统计</button></div>
+        <div class="panel-head"><h3>预算执行驾驶舱</h3><button class="text-btn" data-jump="${pageId("payment", "付款申请审核")}">查看付款</button></div>
         ${renderBudgetCockpit()}
       </section>
       <section class="panel">
-        <div class="panel-head"><h3>我的项目</h3><button class="text-btn" data-jump="project">进入项目</button></div>
+        <div class="panel-head"><h3>我的项目</h3><button class="text-btn" data-jump="${pageId("project", "项目申请审批")}">进入项目</button></div>
         ${renderMiniTable(state.data.workbench["我的项目"])}
       </section>
       <section class="panel">
-        <div class="panel-head"><h3>消息通知</h3><button class="text-btn" data-jump="system">消息设置</button></div>
+        <div class="panel-head"><h3>消息通知</h3><button class="text-btn" data-jump="${pageId("system", "消息中心")}">消息设置</button></div>
         ${renderTodoList(state.data.workbench["消息通知"])}
       </section>
     </div>
@@ -870,15 +906,16 @@ function renderBudgetCockpit() {
 
 function renderModule() {
   const page = currentPage();
-  const rows = filteredRows(page);
+  const activeTab = activePageTab(page);
+  const rows = filteredRows(page, activeTab);
   els.moduleView.innerHTML = `
+    ${renderLocalTabs(page, activeTab)}
     ${renderFilters(page.filters)}
-    ${page.module === "analytics" ? renderAnalyticsHeader(page.tab) : ""}
     <div class="table-toolbar">
-      <h3>${page.title}列表</h3>
+      <h3>${activeTab}列表</h3>
       <div class="table-actions">
         <button class="ghost-btn" data-export>导出</button>
-        <button class="primary-btn" data-add>${page.addLabel}</button>
+        <button class="primary-btn" data-add>${actionLabelFor(page.module, activeTab, page.addLabel)}</button>
       </div>
     </div>
     ${renderTable(rows, columnsFor(rows))}
@@ -889,6 +926,17 @@ function renderModule() {
 
 function currentPage() {
   return pageConfigs[state.active] || pageConfigs.workbench;
+}
+
+function activePageTab(page) {
+  return state.subTabs?.[page.id] || page.tab;
+}
+
+function renderLocalTabs(page, activeTab) {
+  if (!page.tabs || page.tabs.length <= 1) return "";
+  return `<div class="module-tabs">${page.tabs
+    .map((tab) => `<button class="tab-btn ${tab === activeTab ? "active" : ""}" data-local-tab="${tab}">${tab}</button>`)
+    .join("")}</div>`;
 }
 
 function renderFilters(filters) {
@@ -912,8 +960,8 @@ function renderAnalyticsHeader(tab) {
   </div>`;
 }
 
-function filteredRows(page) {
-  const rows = state.data[page.module]?.[page.tab] || [];
+function filteredRows(page, activeTab = activePageTab(page)) {
+  const rows = state.data[page.module]?.[activeTab] || [];
   const filter = state.filters[state.active] || {};
   const keyword = Object.values(filter).filter(Boolean).join(" ");
   if (!keyword) return rows;
@@ -958,7 +1006,7 @@ function statusClass(value) {
 }
 
 function rowActions() {
-  const tab = currentPage().tab;
+  const tab = activePageTab(currentPage());
   if (tab.includes("审批")) return ["审批"];
   const actions = ["详情", "编辑"];
   if (tab.includes("进度")) actions.push("更新进度");
@@ -997,6 +1045,13 @@ function renderPager(total) {
 }
 
 function bindModuleEvents() {
+  els.moduleView.querySelectorAll("[data-local-tab]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const page = currentPage();
+      state.subTabs[page.id] = btn.dataset.localTab;
+      renderModule();
+    });
+  });
   els.moduleView.querySelector("[data-add]")?.addEventListener("click", () => openModal());
   els.moduleView.querySelector("[data-export]")?.addEventListener("click", () => showToast("已生成模拟导出任务"));
   els.moduleView.querySelector("[data-query]")?.addEventListener("click", () => {
@@ -1048,16 +1103,16 @@ function handleAction(action, id) {
 
 function findRow(id) {
   const page = currentPage();
-  const rows = state.data[page.module]?.[page.tab] || [];
+  const rows = state.data[page.module]?.[activePageTab(page)] || [];
   return rows.find((row) => row.id === id);
 }
 
 function openModal(row = null) {
   const page = currentPage();
   const module = page.isWorkbench ? "project" : page.module;
-  const tab = page.isWorkbench ? "项目申请" : page.tab;
+  const tab = page.isWorkbench ? "项目申请" : activePageTab(page);
   const config = moduleConfigs[module];
-  const addLabel = page.isWorkbench ? "新建项目" : page.addLabel;
+  const addLabel = page.isWorkbench ? "新建项目" : actionLabelFor(module, tab, page.addLabel);
   state.modal = { module, tab, row };
   els.modalTitle.textContent = row ? `编辑${page.isWorkbench ? config.title : page.title}` : addLabel;
   els.modalForm.innerHTML = buildForm(config.form || genericForm(), row);
@@ -1282,7 +1337,7 @@ function closeConfirm() {
 
 function openPrdModal() {
   const page = currentPage();
-  const doc = buildPrd(page.module, page.tab);
+  const doc = buildPrd(page.module, activePageTab(page));
   els.prdTitle.textContent = `${page.title} PRD`;
   els.prdBody.innerHTML = doc;
   els.prdMask.classList.remove("hidden");
