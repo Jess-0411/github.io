@@ -959,8 +959,8 @@ function statusClass(value) {
 
 function rowActions() {
   const tab = currentPage().tab;
+  if (tab.includes("审批")) return ["审批"];
   const actions = ["详情", "编辑"];
-  if (tab.includes("审批")) actions.push("审批通过", "驳回", "催办");
   if (tab.includes("进度")) actions.push("更新进度");
   if (tab.includes("履约")) actions.push("更新履约");
   if (tab.includes("预警")) actions.push("处理预警");
@@ -1015,6 +1015,7 @@ function bindModuleEvents() {
 function handleAction(action, id) {
   const row = findRow(id);
   if (!row) return showToast("当前记录不存在");
+  if (action === "审批") return openApprovalDrawer(row);
   if (action === "详情") return openDrawer(row);
   if (action === "编辑") return openModal(row);
   const map = {
@@ -1178,6 +1179,86 @@ function openDrawer(row) {
       onConfirm: () => showToast("当前节点已模拟完成"),
     });
   });
+}
+
+function openApprovalDrawer(row) {
+  const page = currentPage();
+  els.drawerKicker.textContent = "审批详情";
+  els.drawerTitle.textContent = row.project || row.name || row.id;
+  els.drawerBody.innerHTML = `
+    <div class="approval-detail">
+      <div class="approval-code">编号：${row.id}</div>
+      <h3>${row.project || row.name || "待审批事项"}</h3>
+      <div class="approval-state">审批中，等待${row.owner || "审核人"}处理</div>
+      <div class="approval-divider"></div>
+      <div class="approval-info">
+        <div><span>业务页面</span><strong>${page.crumb}</strong></div>
+        <div><span>当前节点</span><strong>${row.node || "部门负责人审批"}</strong></div>
+        <div><span>审批人</span><strong>${row.owner || "待分配"}</strong></div>
+        <div><span>日期时间区间</span><strong>${row.date || "2026-07-08"} - ${row.deadline || "2026-07-15"}</strong></div>
+        <div><span>审批说明</span><strong>${row.note || "请按当前流程完成审批处理。"}</strong></div>
+      </div>
+      <div class="approval-divider"></div>
+      <div class="approval-section-head">
+        <span>流程</span>
+        <b>⌄</b>
+      </div>
+      ${renderApprovalFlow(row)}
+    </div>
+    <div class="approval-actions">
+      <button class="outline-danger-btn" id="approvalReject" type="button">拒绝</button>
+      <button class="primary-btn" id="approvalAgree" type="button">同意</button>
+    </div>
+  `;
+  els.drawer.classList.remove("hidden");
+  document.getElementById("approvalReject").addEventListener("click", () => {
+    requestConfirm({
+      title: "确认拒绝审批",
+      message: "该操作会将当前审批记录标记为已拒绝。",
+      summary: `审批事项：${row.project || row.name || row.id}<br>当前节点：${row.node || "部门负责人审批"}`,
+      onConfirm: () => {
+        row.status = "已拒绝";
+        els.drawer.classList.add("hidden");
+        render();
+        showToast("审批已拒绝");
+      },
+    });
+  });
+  document.getElementById("approvalAgree").addEventListener("click", () => {
+    requestConfirm({
+      title: "确认同意审批",
+      message: "该操作会将当前审批记录标记为已通过，并推进下一业务节点。",
+      summary: `审批事项：${row.project || row.name || row.id}<br>当前节点：${row.node || "部门负责人审批"}`,
+      onConfirm: () => {
+        row.status = "已通过";
+        els.drawer.classList.add("hidden");
+        render();
+        showToast("审批已同意");
+      },
+    });
+  });
+}
+
+function renderApprovalFlow(row) {
+  const approvers = ["发起人", "审批人", "财务审核", "分管领导"];
+  return `<div class="approval-flow">
+    ${approvers
+      .map((name, index) => {
+        const current = index === 1;
+        const done = index === 0;
+        return `<div class="approval-flow-item ${done ? "done" : ""} ${current ? "current" : ""}">
+          <div class="approval-avatar">${done ? "✓" : name.slice(0, 1)}</div>
+          <div class="approval-flow-main">
+            <div class="approval-flow-title">
+              <strong>${name}</strong>
+              <span>${done ? "2026-07-08 09:30" : current ? "等待处理" : "待流转"}</span>
+            </div>
+            <p>${done ? "申请人已提交审批。" : current ? `${row.owner || "审核人"}正在审批，支持同意或拒绝。` : "通过后自动进入该节点。"}</p>
+          </div>
+        </div>`;
+      })
+      .join("")}
+  </div>`;
 }
 
 function requestConfirm({ title, message, summary, onConfirm }) {
