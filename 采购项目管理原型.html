@@ -193,7 +193,7 @@ button {
 }
 
 .topbar {
-  min-height: 62px;
+  min-height: 54px;
   background: #fff;
   border-radius: 8px 8px 0 0;
   border: 1px solid var(--line);
@@ -1361,13 +1361,7 @@ tbody tr:hover {
       <main class="workspace">
         <header class="topbar">
           <div>
-            <div class="crumb">首页 / <span id="crumbText">业务看板</span></div>
             <h1 id="pageTitle">业务看板</h1>
-          </div>
-          <div class="top-actions">
-            <button class="prd-dot" id="prdDotBtn" title="查看当前页面 PRD 产品开发规则" aria-label="查看当前页面 PRD 产品开发规则"></button>
-            <button class="ghost-btn" id="approvalBtn" data-testid="approval-shortcut">待办审核 <b id="todoCount">0</b></button>
-            <button class="primary-btn" id="quickCreateBtn" data-testid="quick-create-project">新建项目</button>
           </div>
         </header>
 
@@ -1756,20 +1750,15 @@ const state = {
 
 const els = {
   navList: document.getElementById("navList"),
-  crumbText: document.getElementById("crumbText"),
   pageTitle: document.getElementById("pageTitle"),
   dashboard: document.getElementById("dashboard"),
   moduleView: document.getElementById("moduleView"),
-  quickCreateBtn: document.getElementById("quickCreateBtn"),
-  approvalBtn: document.getElementById("approvalBtn"),
-  todoCount: document.getElementById("todoCount"),
   modalMask: document.getElementById("modalMask"),
   modalTitle: document.getElementById("modalTitle"),
   modalForm: document.getElementById("modalForm"),
   modalClose: document.getElementById("modalClose"),
   modalCancel: document.getElementById("modalCancel"),
   modalSave: document.getElementById("modalSave"),
-  prdDotBtn: document.getElementById("prdDotBtn"),
   prdMask: document.getElementById("prdMask"),
   prdTitle: document.getElementById("prdTitle"),
   prdBody: document.getElementById("prdBody"),
@@ -2246,11 +2235,9 @@ function switchView(id) {
 
 function render() {
   const page = currentPage();
-  els.crumbText.textContent = page.crumb;
   els.pageTitle.textContent = page.title;
   els.dashboard.classList.toggle("hidden", !page.isWorkbench);
   els.moduleView.classList.toggle("hidden", page.isWorkbench);
-  els.quickCreateBtn.textContent = page.addLabel;
   if (page.isWorkbench) renderWorkbench();
   else renderModule();
   updateTodo();
@@ -2715,11 +2702,6 @@ function money(value) {
 }
 
 function updateTodo() {
-  const count = Object.values(state.data)
-    .flatMap((tabs) => Object.values(tabs))
-    .flat()
-    .filter((row) => String(row.status || "").includes("待") || String(row.status || "").includes("审批")).length;
-  els.todoCount.textContent = count;
 }
 
 let toastTimer;
@@ -2731,14 +2713,9 @@ function showToast(message) {
 }
 
 function bindGlobalEvents() {
-  els.quickCreateBtn.addEventListener("click", () => openModal());
-  els.approvalBtn.addEventListener("click", () => {
-    switchView(pageId("project", "项目审批"));
-  });
   els.modalClose.addEventListener("click", () => els.modalMask.classList.add("hidden"));
   els.modalCancel.addEventListener("click", () => els.modalMask.classList.add("hidden"));
   els.modalSave.addEventListener("click", saveModal);
-  els.prdDotBtn.addEventListener("click", openPrdModal);
   els.prdClose.addEventListener("click", () => els.prdMask.classList.add("hidden"));
   els.prdConfirm.addEventListener("click", () => els.prdMask.classList.add("hidden"));
   els.flowChartBtn.addEventListener("click", openFlowChartModal);

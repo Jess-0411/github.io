@@ -299,20 +299,15 @@ const state = {
 
 const els = {
   navList: document.getElementById("navList"),
-  crumbText: document.getElementById("crumbText"),
   pageTitle: document.getElementById("pageTitle"),
   dashboard: document.getElementById("dashboard"),
   moduleView: document.getElementById("moduleView"),
-  quickCreateBtn: document.getElementById("quickCreateBtn"),
-  approvalBtn: document.getElementById("approvalBtn"),
-  todoCount: document.getElementById("todoCount"),
   modalMask: document.getElementById("modalMask"),
   modalTitle: document.getElementById("modalTitle"),
   modalForm: document.getElementById("modalForm"),
   modalClose: document.getElementById("modalClose"),
   modalCancel: document.getElementById("modalCancel"),
   modalSave: document.getElementById("modalSave"),
-  prdDotBtn: document.getElementById("prdDotBtn"),
   prdMask: document.getElementById("prdMask"),
   prdTitle: document.getElementById("prdTitle"),
   prdBody: document.getElementById("prdBody"),
@@ -789,11 +784,9 @@ function switchView(id) {
 
 function render() {
   const page = currentPage();
-  els.crumbText.textContent = page.crumb;
   els.pageTitle.textContent = page.title;
   els.dashboard.classList.toggle("hidden", !page.isWorkbench);
   els.moduleView.classList.toggle("hidden", page.isWorkbench);
-  els.quickCreateBtn.textContent = page.addLabel;
   if (page.isWorkbench) renderWorkbench();
   else renderModule();
   updateTodo();
@@ -1258,11 +1251,6 @@ function money(value) {
 }
 
 function updateTodo() {
-  const count = Object.values(state.data)
-    .flatMap((tabs) => Object.values(tabs))
-    .flat()
-    .filter((row) => String(row.status || "").includes("待") || String(row.status || "").includes("审批")).length;
-  els.todoCount.textContent = count;
 }
 
 let toastTimer;
@@ -1274,14 +1262,9 @@ function showToast(message) {
 }
 
 function bindGlobalEvents() {
-  els.quickCreateBtn.addEventListener("click", () => openModal());
-  els.approvalBtn.addEventListener("click", () => {
-    switchView(pageId("project", "项目审批"));
-  });
   els.modalClose.addEventListener("click", () => els.modalMask.classList.add("hidden"));
   els.modalCancel.addEventListener("click", () => els.modalMask.classList.add("hidden"));
   els.modalSave.addEventListener("click", saveModal);
-  els.prdDotBtn.addEventListener("click", openPrdModal);
   els.prdClose.addEventListener("click", () => els.prdMask.classList.add("hidden"));
   els.prdConfirm.addEventListener("click", () => els.prdMask.classList.add("hidden"));
   els.flowChartBtn.addEventListener("click", openFlowChartModal);

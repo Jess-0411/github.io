@@ -186,7 +186,7 @@ button {
 }
 
 .topbar {
-  min-height: 62px;
+  min-height: 54px;
   background: #fff;
   border-radius: 8px 8px 0 0;
   border: 1px solid var(--line);
