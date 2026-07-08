@@ -879,7 +879,6 @@ function renderModule() {
   const page = currentPage();
   const rows = filteredRows(page);
   els.moduleView.innerHTML = `
-    ${renderPageSummary(page)}
     ${renderFilters(page.filters)}
     ${page.module === "analytics" ? renderAnalyticsHeader(page.tab) : ""}
     <div class="table-toolbar">
@@ -897,17 +896,6 @@ function renderModule() {
 
 function currentPage() {
   return pageConfigs[state.active] || pageConfigs.workbench;
-}
-
-function renderPageSummary(page) {
-  const total = (state.data[page.module]?.[page.tab] || []).length;
-  return `<div class="page-summary">
-    <div>
-      <strong>${page.title}</strong>
-      <span>${page.crumb}</span>
-    </div>
-    <em>共 ${total} 条业务记录</em>
-  </div>`;
 }
 
 function renderFilters(filters) {
@@ -999,7 +987,20 @@ function renderMiniTable(rows) {
 }
 
 function renderPager(total) {
-  return `<div class="pager"><span>共 ${total} 条</span><button disabled>‹</button><button class="active">1</button><button>2</button><button>3</button><span>...</span><button>10</button><select><option>10 条/页</option><option>20 条/页</option></select><span>跳至</span><input /><span>页</span></div>`;
+  return `<div class="pager">
+    <span class="pager-total">共 ${total} 条</span>
+    <button class="pager-btn" disabled>‹</button>
+    <button class="pager-btn active">1</button>
+    <button class="pager-btn">2</button>
+    <button class="pager-btn">3</button>
+    <span class="pager-ellipsis">...</span>
+    <button class="pager-btn">10</button>
+    <button class="pager-btn">›</button>
+    <select class="pager-size"><option>10 条/页</option><option>20 条/页</option><option>50 条/页</option></select>
+    <span class="pager-jump">跳至</span>
+    <input class="pager-input" />
+    <span class="pager-jump">页</span>
+  </div>`;
 }
 
 function bindModuleEvents() {

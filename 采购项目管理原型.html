@@ -437,6 +437,71 @@ h1 {
   overflow-x: auto;
 }
 
+.pager {
+  min-height: 54px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px 10px;
+  color: #3f4a56;
+  background: #fff;
+}
+
+.pager-total,
+.pager-jump,
+.pager-ellipsis {
+  font-size: 13px;
+  color: #4f5b67;
+}
+
+.pager-btn {
+  min-width: 28px;
+  height: 28px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: #fff;
+  color: #344150;
+  padding: 0 8px;
+}
+
+.pager-btn:hover:not(:disabled),
+.pager-size:hover,
+.pager-input:hover {
+  border-color: var(--green);
+}
+
+.pager-btn:disabled {
+  color: #c3cad1;
+  background: #fafafa;
+  cursor: not-allowed;
+}
+
+.pager-btn.active {
+  color: #fff;
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.pager-size {
+  width: 92px;
+  height: 28px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  color: #344150;
+  background: #fff;
+  padding: 0 6px;
+}
+
+.pager-input {
+  width: 48px;
+  height: 28px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  padding: 0 6px;
+  text-align: center;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -2271,7 +2336,6 @@ function renderModule() {
   const page = currentPage();
   const rows = filteredRows(page);
   els.moduleView.innerHTML = `
-    ${renderPageSummary(page)}
     ${renderFilters(page.filters)}
     ${page.module === "analytics" ? renderAnalyticsHeader(page.tab) : ""}
     <div class="table-toolbar">
@@ -2289,17 +2353,6 @@ function renderModule() {
 
 function currentPage() {
   return pageConfigs[state.active] || pageConfigs.workbench;
-}
-
-function renderPageSummary(page) {
-  const total = (state.data[page.module]?.[page.tab] || []).length;
-  return `<div class="page-summary">
-    <div>
-      <strong>${page.title}</strong>
-      <span>${page.crumb}</span>
-    </div>
-    <em>共 ${total} 条业务记录</em>
-  </div>`;
 }
 
 function renderFilters(filters) {
@@ -2391,7 +2444,20 @@ function renderMiniTable(rows) {
 }
 
 function renderPager(total) {
-  return `<div class="pager"><span>共 ${total} 条</span><button disabled>‹</button><button class="active">1</button><button>2</button><button>3</button><span>...</span><button>10</button><select><option>10 条/页</option><option>20 条/页</option></select><span>跳至</span><input /><span>页</span></div>`;
+  return `<div class="pager">
+    <span class="pager-total">共 ${total} 条</span>
+    <button class="pager-btn" disabled>‹</button>
+    <button class="pager-btn active">1</button>
+    <button class="pager-btn">2</button>
+    <button class="pager-btn">3</button>
+    <span class="pager-ellipsis">...</span>
+    <button class="pager-btn">10</button>
+    <button class="pager-btn">›</button>
+    <select class="pager-size"><option>10 条/页</option><option>20 条/页</option><option>50 条/页</option></select>
+    <span class="pager-jump">跳至</span>
+    <input class="pager-input" />
+    <span class="pager-jump">页</span>
+  </div>`;
 }
 
 function bindModuleEvents() {
