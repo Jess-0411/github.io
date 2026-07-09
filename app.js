@@ -482,7 +482,6 @@ function render() {
   const rows = filteredRows();
   els.pageTitle.textContent = config.title;
   els.moduleView.innerHTML = `
-    ${renderOverview(config)}
     ${renderTabs(config, tab)}
     ${renderFilters(config.filters)}
     <div class="table-toolbar">
@@ -496,17 +495,6 @@ function render() {
     ${renderPager(rows.length)}
   `;
   bindModuleEvents();
-}
-
-function renderOverview(config) {
-  return `<section class="v1-overview">
-    <div>
-      <h2>${config.title}</h2>
-      <p>${config.subtitle}</p>
-    </div>
-    <div class="v1-metrics">${config.metrics.map(([label, value]) => `<div><span>${label}</span><strong>${value}</strong></div>`).join("")}</div>
-    <div class="v1-flow">${config.flow.map((step, index) => `<span class="${index === 0 ? "start" : index === config.flow.length - 1 ? "end" : ""}">${index + 1}. ${step}</span>`).join("")}</div>
-  </section>`;
 }
 
 function currentConfig() {
