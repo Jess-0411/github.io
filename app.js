@@ -1,332 +1,211 @@
-const navGroups = [];
-
 const labelMap = {
   id: "编号",
   name: "名称",
+  projectId: "项目编号",
   project: "所属项目",
-  category: "类别",
   type: "类型",
-  school: "所属学校",
-  dept: "所属部门",
-  owner: "负责人",
-  phone: "联系电话",
+  purpose: "项目目的",
+  content: "建设内容",
+  target: "预期目标",
+  cycle: "项目周期",
   budget: "预算金额",
-  amount: "金额",
-  paid: "已支付",
-  remain: "剩余金额",
-  source: "资金来源",
-  cycle: "实施周期",
-  start: "开始时间",
-  end: "结束时间",
+  dept: "责任部门",
+  owner: "负责人",
+  remark: "备注",
   status: "状态",
-  risk: "风险",
+  createdAt: "创建时间",
   node: "当前节点",
-  next: "下一节点",
+  role: "审批角色",
+  order: "审批顺序",
+  opinion: "审批意见",
+  record: "审批记录",
   method: "采购方式",
   supplier: "供应商",
-  contact: "联系人",
-  level: "等级",
-  count: "合作次数",
-  publish: "公告时间",
-  deadline: "截止时间",
-  winner: "中标单位",
+  purchase: "所属采购",
+  contract: "所属合同",
+  partner: "合作单位",
+  amount: "金额",
   signDate: "签订日期",
   period: "履约期限",
-  partner: "合作方",
+  due: "到期提醒",
+  month: "月份",
   percent: "完成比例",
-  milestone: "里程碑",
+  issue: "存在问题",
+  nextPlan: "下月计划",
+  delayReason: "延期原因",
+  payment: "所属付款",
+  invoiceNo: "发票号码",
   date: "日期",
-  stage: "节点",
-  invoice: "发票",
-  tax: "税额",
-  code: "发票代码",
-  number: "发票号码",
-  time: "时间",
-  place: "地点",
-  members: "参与人员",
-  opinion: "意见",
-  rectification: "整改要求",
-  docs: "资料",
-  result: "结果",
-  role: "角色",
-  permission: "权限",
-  condition: "条件",
-  channel: "渠道",
-  note: "说明",
+  checked: "核销状态",
+  members: "验收人员",
+  material: "验收材料",
+  rectification: "整改期限",
+  summary: "项目总结",
+  result: "成果附件",
+  check: "校验结果",
+  docs: "附件",
 };
 
-const moduleConfigs = {
-  workbench: {
-    title: "业务工作台",
-    addLabel: "新建项目",
-    tabs: ["数据概览", "我的待办", "我的项目", "消息通知"],
-    filters: ["关键字", "状态", "负责人", "日期"],
-  },
-  project: {
-    title: "项目管理",
-    addLabel: "新建项目",
-    tabs: ["项目申请", "项目审批", "项目详情", "项目变更", "项目归档"],
-    filters: ["项目名称", "项目类别", "所属学校", "状态"],
-    form: [
-      field("name", "项目名称", "text", true),
-      field("category", "项目类别", "select", true, ["教育教学设备采购", "教学用具补充", "图书资料采购", "实验耗材补充"]),
-      field("type", "项目类型", "select", true, ["新建", "改造", "补充", "维护"]),
-      field("school", "所属学校", "select", true, ["第一实验学校", "城北中学", "青澜小学"]),
-      field("dept", "所属部门", "text", true),
-      field("owner", "项目负责人", "text", true),
-      field("phone", "联系电话", "text"),
-      field("budget", "项目预算", "number", true),
-      field("source", "资金来源", "select", true, ["财政资金", "校内预算", "专项资金"]),
-      field("start", "开始时间", "date", true),
-      field("end", "结束时间", "date", true),
-      field("note", "建设内容", "textarea", true),
-      field("docs", "项目申请书/预算明细", "upload"),
-    ],
-  },
-  purchase: {
-    title: "采购管理",
-    addLabel: "新建采购",
-    tabs: ["采购申请", "采购审批", "招标管理", "供应商管理", "采购进度"],
-    filters: ["采购名称", "采购方式", "供应商", "状态"],
-    form: [
-      field("name", "采购名称", "text", true),
-      field("project", "所属项目", "select", true),
-      field("category", "采购类别", "select", true, ["设备", "耗材", "图书", "服务"]),
-      field("method", "采购方式", "select", true, ["公开招标", "询价", "竞争性谈判", "单一来源"]),
-      field("budget", "采购预算", "number", true),
-      field("owner", "采购负责人", "text", true),
-      field("note", "采购说明", "textarea"),
-      field("docs", "采购附件", "upload"),
-    ],
-  },
-  contract: {
-    title: "合同管理",
-    addLabel: "登记合同",
-    tabs: ["合同登记", "合同审批", "合同履约", "合同预警"],
-    filters: ["合同名称", "所属项目", "供应商", "状态"],
-    form: [
-      field("name", "合同名称", "text", true),
-      field("project", "所属项目", "select", true),
-      field("supplier", "供应商", "select", true),
-      field("amount", "合同金额", "number", true),
-      field("signDate", "签订日期", "date", true),
-      field("start", "开始日期", "date", true),
-      field("end", "结束日期", "date", true),
-      field("stage", "付款方式", "select", true, ["一次性支付", "分阶段支付", "验收后支付"]),
-      field("docs", "合同附件", "upload", true),
-    ],
-  },
-  implementation: {
-    title: "实施管理",
-    addLabel: "更新实施",
-    tabs: ["实施计划", "进度更新", "项目日志", "项目延期"],
-    filters: ["项目名称", "负责人", "里程碑", "风险状态"],
-    form: [
-      field("project", "项目名称", "select", true),
-      field("owner", "负责人", "text", true),
-      field("start", "开始时间", "date", true),
-      field("end", "结束时间", "date", true),
-      field("milestone", "里程碑", "text", true),
-      field("percent", "完成比例", "number"),
-      field("risk", "风险状态", "select", false, ["正常", "滞后", "风险", "已完成"]),
-      field("note", "进度说明", "textarea", true),
-      field("docs", "现场照片/附件", "upload"),
-    ],
-  },
-  payment: {
-    title: "付款管理",
-    addLabel: "发起付款",
-    tabs: ["付款申请", "财务审核", "支付记录", "付款统计"],
-    filters: ["项目名称", "合同编号", "付款节点", "状态"],
-    form: [
-      field("project", "所属项目", "select", true),
-      field("contract", "所属合同", "select", true),
-      field("amount", "付款金额", "number", true),
-      field("percent", "付款比例", "number", true),
-      field("stage", "付款节点", "select", true, ["首付款", "进度款", "尾款"]),
-      field("note", "付款说明", "textarea"),
-      field("docs", "验收凭证/发票", "upload", true),
-    ],
-  },
-  invoice: {
-    title: "发票管理",
-    addLabel: "登记发票",
-    tabs: ["发票登记", "OCR识别", "发票查询", "发票统计"],
-    filters: ["项目名称", "合同编号", "供应商", "开票日期"],
-    form: [
-      field("code", "发票代码", "text", true),
-      field("number", "发票号码", "text", true),
-      field("supplier", "开票单位", "select", true),
-      field("tax", "税号", "text", true),
-      field("amount", "金额", "number", true),
-      field("date", "开票日期", "date", true),
-      field("project", "所属项目", "select", true),
-      field("contract", "所属合同", "select", true),
-      field("docs", "发票扫描件", "upload", true),
-    ],
-  },
-  acceptance: {
-    title: "验收管理",
-    addLabel: "提交验收",
-    tabs: ["验收申请", "验收材料", "验收意见", "整改管理"],
-    filters: ["项目名称", "验收类型", "验收意见", "整改状态"],
-    form: [
-      field("project", "项目名称", "select", true),
-      field("type", "验收类型", "select", true, ["到货验收", "阶段验收", "最终验收"]),
-      field("time", "验收时间", "date", true),
-      field("place", "验收地点", "text", true),
-      field("members", "参与人员", "text", true),
-      field("opinion", "验收意见", "select", false, ["通过", "有条件通过", "不通过"]),
-      field("rectification", "整改意见", "textarea"),
-      field("docs", "验收报告/清单", "upload", true),
-    ],
-  },
-  closing: {
-    title: "结项管理",
-    addLabel: "发起结项",
-    tabs: ["结项申请", "结项审批", "自动校验", "项目归档"],
-    filters: ["项目名称", "结项状态", "负责人", "归档日期"],
-    form: [
-      field("project", "项目名称", "select", true),
-      field("owner", "负责人", "text", true),
-      field("note", "结项说明", "textarea", true),
-      field("result", "成果总结", "textarea", true),
-      field("docs", "结项附件", "upload", true),
-    ],
-  },
-  analytics: {
-    title: "统计分析",
-    addLabel: "导出报表",
-    tabs: ["项目统计", "预算统计", "合同统计", "采购统计", "发票统计", "验收统计", "可视化大屏"],
-    filters: ["统计周期", "所属学校", "项目类别", "资金来源"],
-  },
-  system: {
-    title: "系统管理",
-    addLabel: "新增配置",
-    tabs: ["组织管理", "用户管理", "角色权限", "流程管理", "表单配置", "字典管理", "消息中心", "日志管理", "系统设置"],
-    filters: ["名称", "类型", "状态", "更新时间"],
-    form: [
-      field("name", "配置名称", "text", true),
-      field("type", "配置类型", "select", true, ["组织", "用户", "角色", "流程", "表单", "字典", "消息", "日志", "系统"]),
-      field("condition", "适用条件", "text"),
-      field("role", "关联角色", "select", false, ["申请人", "审核人", "负责人", "财务人员", "系统管理员"]),
-      field("permission", "权限说明", "textarea", true),
-    ],
-  },
-};
+const projectOptions = ["智慧教室多媒体设备采购", "化学实验耗材补充项目", "图书馆教学参考书采购"];
+const suppliers = ["明德教育科技有限公司", "青澜教学设备有限公司", "华文书业集团"];
 
 function field(key, label, type = "text", required = false, options = []) {
   return { key, label, type, required, options };
 }
 
-function pageId(module, tab) {
-  return tab ? `${module}::${tab}` : module;
-}
-
-const mergedPageDefs = {
-  project: [{ id: pageId("project", "项目申请审批"), label: "项目申请审批", title: "项目申请审批", tabs: ["项目申请", "项目审批"] }],
-  purchase: [{ id: pageId("purchase", "采购申请审批"), label: "采购申请审批", title: "采购申请审批", tabs: ["采购申请", "采购审批"] }],
-  contract: [{ id: pageId("contract", "合同登记审批"), label: "合同登记审批", title: "合同登记审批", tabs: ["合同登记", "合同审批"] }],
-  payment: [{ id: pageId("payment", "付款申请审核"), label: "付款申请审核", title: "付款申请审核", tabs: ["付款申请", "财务审核"] }],
+const pageConfigs = {
+  project: {
+    title: "项目立项",
+    addLabel: "新建项目",
+    tabs: ["项目申请", "审批管理", "项目列表"],
+    filters: ["项目名称", "项目类型", "负责人", "状态"],
+    form: [
+      field("name", "项目名称", "text", true),
+      field("type", "项目类型", "select", true, ["教学设备采购", "图书采购", "实验室建设", "教学耗材", "校园维修"]),
+      field("purpose", "项目目的", "textarea", true),
+      field("content", "建设内容", "textarea", true),
+      field("target", "预期目标", "textarea", true),
+      field("cycle", "项目周期", "month", true),
+      field("budget", "项目预算", "number", true),
+      field("dept", "责任部门", "text", true),
+      field("owner", "项目负责人", "text", true),
+      field("remark", "备注", "textarea"),
+      field("docs", "项目申请书/预算附件/可行性说明", "upload"),
+    ],
+  },
+  purchase: {
+    title: "采购管理",
+    addLabel: "登记采购",
+    tabs: ["采购登记", "采购跟踪"],
+    filters: ["采购名称", "所属项目", "供应商", "状态"],
+    form: [
+      field("project", "所属项目", "select", true),
+      field("name", "采购名称", "text", true),
+      field("type", "采购类型", "select", true, ["设备", "耗材", "图书", "服务"]),
+      field("budget", "预算金额", "number", true),
+      field("method", "采购方式", "select", true, ["公开招标", "询价", "竞争性谈判"]),
+      field("date", "采购时间", "date", true),
+      field("supplier", "供应商", "select", true),
+      field("docs", "采购文件/报价单", "upload"),
+    ],
+  },
+  contract: {
+    title: "合同管理",
+    addLabel: "登记合同",
+    tabs: ["合同登记", "合同提醒"],
+    filters: ["合同编号", "所属项目", "合作单位", "状态"],
+    form: [
+      field("project", "所属项目", "select", true),
+      field("purchase", "所属采购", "select", true),
+      field("id", "合同编号", "text", true),
+      field("amount", "合同金额", "number", true),
+      field("partner", "合作单位", "select", true),
+      field("signDate", "签订日期", "date", true),
+      field("period", "履约期限", "date", true),
+      field("docs", "合同附件", "upload", true),
+    ],
+  },
+  progress: {
+    title: "项目进度",
+    addLabel: "更新进度",
+    tabs: ["月度进度", "项目时间轴"],
+    filters: ["项目名称", "负责人", "月份", "状态"],
+    form: [
+      field("project", "所属项目", "select", true),
+      field("month", "月份", "month", true),
+      field("content", "本月完成情况", "textarea", true),
+      field("percent", "当前完成比例", "number", true),
+      field("issue", "存在问题", "textarea"),
+      field("nextPlan", "下月计划", "textarea", true),
+      field("status", "项目状态", "select", true, ["正常", "延期", "完成"]),
+      field("delayReason", "延期原因", "textarea"),
+      field("docs", "附件/照片", "upload"),
+    ],
+  },
+  payment: {
+    title: "付款申请",
+    addLabel: "发起付款",
+    tabs: ["付款申请", "财务审核"],
+    filters: ["所属合同", "付款金额", "状态", "付款时间"],
+    form: [
+      field("contract", "所属合同", "select", true),
+      field("amount", "付款金额", "number", true),
+      field("percent", "付款比例", "number", true),
+      field("remark", "付款说明", "textarea", true),
+      field("date", "付款时间", "date"),
+      field("docs", "付款附件", "upload"),
+    ],
+  },
+  invoice: {
+    title: "发票管理",
+    addLabel: "登记发票",
+    tabs: ["发票登记", "预算统计"],
+    filters: ["所属项目", "所属合同", "发票号码", "日期"],
+    form: [
+      field("project", "所属项目", "select", true),
+      field("contract", "所属合同", "select", true),
+      field("payment", "所属付款", "select", true),
+      field("invoiceNo", "发票号码", "text", true),
+      field("amount", "金额", "number", true),
+      field("date", "日期", "date", true),
+      field("docs", "扫描件", "upload", true),
+    ],
+  },
+  acceptance: {
+    title: "验收管理",
+    addLabel: "提交验收",
+    tabs: ["验收申请", "验收记录"],
+    filters: ["所属项目", "验收人员", "验收结果", "状态"],
+    form: [
+      field("project", "所属项目", "select", true),
+      field("date", "验收时间", "date", true),
+      field("members", "验收人员", "text", true),
+      field("material", "验收材料", "textarea", true),
+      field("opinion", "验收意见", "select", true, ["通过", "整改", "不通过"]),
+      field("rectification", "整改期限", "date"),
+      field("docs", "验收附件/整改附件", "upload"),
+    ],
+  },
+  closing: {
+    title: "项目结项",
+    addLabel: "申请结项",
+    tabs: ["结项申请", "结项校验", "项目归档"],
+    filters: ["所属项目", "负责人", "状态", "校验结果"],
+    form: [
+      field("project", "所属项目", "select", true),
+      field("summary", "项目总结", "textarea", true),
+      field("result", "成果附件", "upload", true),
+      field("remark", "结项说明", "textarea", true),
+    ],
+  },
+  system: {
+    title: "系统管理",
+    addLabel: "新增配置",
+    tabs: ["流程配置", "编号规则", "项目类型"],
+    filters: ["名称", "类型", "状态", "更新时间"],
+    form: [
+      field("name", "配置名称", "text", true),
+      field("type", "配置类型", "select", true, ["审批流程", "审批角色", "编号规则", "项目类型"]),
+      field("remark", "配置说明", "textarea", true),
+    ],
+  },
 };
 
-const hiddenTabs = {
-  project: ["项目申请", "项目审批", "项目详情"],
-  purchase: ["采购申请", "采购审批"],
-  contract: ["合同登记", "合同审批"],
-  payment: ["付款申请", "财务审核"],
-};
-
-const hiddenModules = ["analytics"];
-
-const pageConfigs = buildPageConfigs();
-navGroups.push(...buildNavGroups());
-
-function buildPageConfigs() {
-  const pages = {
-    workbench: {
-      id: "workbench",
-      module: "workbench",
-      tab: "数据概览",
-      title: "业务工作台",
-      crumb: "工作台 / 业务工作台",
-      addLabel: "新建项目",
-      filters: moduleConfigs.workbench.filters,
-      form: moduleConfigs.project.form,
-      isWorkbench: true,
-    },
-  };
-  Object.entries(moduleConfigs).forEach(([module, config]) => {
-    if (module === "workbench") return;
-    if (hiddenModules.includes(module)) return;
-    (mergedPageDefs[module] || []).forEach((def) => {
-      pages[def.id] = {
-        id: def.id,
-        module,
-        tab: def.tabs[0],
-        tabs: def.tabs,
-        title: def.title,
-        crumb: `${config.title} / ${def.title}`,
-        addLabel: actionLabelFor(module, def.tabs[0], config.addLabel),
-        filters: config.filters,
-        form: config.form,
-      };
-    });
-    config.tabs.forEach((tab) => {
-      if ((hiddenTabs[module] || []).includes(tab)) return;
-      const id = pageId(module, tab);
-      pages[id] = {
-        id,
-        module,
-        tab,
-        title: tab,
-        crumb: `${config.title} / ${tab}`,
-        addLabel: actionLabelFor(module, tab, config.addLabel),
-        filters: config.filters,
-        form: config.form,
-      };
-    });
-  });
-  return pages;
-}
-
-function buildNavGroups() {
-  return [
-    { title: "工作台", children: [{ id: "workbench", label: "业务工作台" }] },
-    ...Object.entries(moduleConfigs)
-      .filter(([module]) => module !== "workbench")
-      .filter(([module]) => !hiddenModules.includes(module))
-      .map(([module, config]) => ({
-        title: config.title,
-        children: [
-          ...(mergedPageDefs[module] || []).map((def) => ({ id: def.id, label: def.label })),
-          ...config.tabs.filter((tab) => !(hiddenTabs[module] || []).includes(tab)).map((tab) => ({ id: pageId(module, tab), label: tab })),
-        ],
-      })),
-  ];
-}
-
-function actionLabelFor(module, tab, fallback) {
-  if (tab.includes("审批")) return "处理审批";
-  if (tab.includes("详情")) return "查看详情";
-  if (tab.includes("变更")) return "发起变更";
-  if (tab.includes("归档")) return "生成归档";
-  if (tab.includes("招标")) return "登记招标";
-  if (tab.includes("供应商")) return "新增供应商";
-  if (tab.includes("履约")) return "更新履约";
-  if (tab.includes("预警")) return "处理预警";
-  if (tab.includes("统计") || tab.includes("大屏")) return "导出报表";
-  if (tab.includes("OCR")) return "上传识别";
-  if (tab.includes("整改")) return "新增整改";
-  if (tab.includes("校验")) return "重新校验";
-  if (module === "system") return "新增配置";
-  return fallback;
-}
+const navItems = [
+  ["project", "项目立项"],
+  ["purchase", "采购管理"],
+  ["contract", "合同管理"],
+  ["progress", "项目进度"],
+  ["payment", "付款申请"],
+  ["invoice", "发票管理"],
+  ["acceptance", "验收管理"],
+  ["closing", "项目结项"],
+  ["system", "系统管理"],
+];
 
 const state = {
-  active: "workbench",
-  expanded: Object.fromEntries(navGroups.map((group) => [group.title, true])),
-  subTabs: {},
+  active: "project",
+  tabs: {},
   filters: {},
   modal: null,
   confirm: null,
@@ -344,6 +223,7 @@ const els = {
   modalClose: document.getElementById("modalClose"),
   modalCancel: document.getElementById("modalCancel"),
   modalSave: document.getElementById("modalSave"),
+  prdOpen: document.getElementById("prdOpen"),
   prdMask: document.getElementById("prdMask"),
   prdTitle: document.getElementById("prdTitle"),
   prdBody: document.getElementById("prdBody"),
@@ -369,674 +249,333 @@ const els = {
   toast: document.getElementById("toast"),
 };
 
-const baseProjects = ["智慧教室多媒体设备采购", "化学实验耗材补充项目", "图书馆教学参考书采购", "体育馆教学器材更新"];
-const suppliers = ["明德教育科技有限公司", "青澜教学设备有限公司", "华文书业集团", "启明工程服务有限公司"];
-
 function seedData() {
-  const projectApplications = [
-    row("P20260701001", "智慧教室多媒体设备采购", "教育教学设备采购", 480000, "第一实验学校", "教务处", "沈志彬", "待审批", "正常"),
-    row("P20260701002", "化学实验耗材补充项目", "教学用具补充", 86000, "城北中学", "实验教学中心", "杨剑兴", "进行中", "滞后"),
-    row("P20260618003", "图书馆教学参考书采购", "图书资料采购", 160000, "第一实验学校", "图书馆", "张俪源", "已通过", "正常"),
+  const projects = [
+    projectRow("XM20260001", "智慧教室多媒体设备采购", "教学设备采购", 480000, "教务处", "沈志彬", "待审批"),
+    projectRow("XM20260002", "化学实验耗材补充项目", "教学耗材", 86000, "实验教学中心", "杨剑兴", "采购中"),
+    projectRow("XM20260003", "图书馆教学参考书采购", "图书采购", 160000, "图书馆", "张俪源", "验收中"),
   ];
-  state.data.workbench = {
-    "数据概览": [],
-    "我的待办": makeRows("todo", ["待审批项目", "待处理采购", "待签合同", "待付款申请", "待验收项目", "待整改项目"]),
-    "我的项目": makeRows("my", ["我负责的项目", "我参与的项目", "我申请的项目"]),
-    "消息通知": makeRows("msg", ["审批提醒", "合同到期提醒", "项目延期提醒", "验收提醒", "付款提醒", "系统公告"]),
-  };
   state.data.project = {
-    "项目申请": projectApplications,
-    "项目审批": approvalRows("项目", baseProjects),
-    "项目详情": detailRows(projectApplications),
-    "项目变更": changeRows(),
-    "项目归档": archiveRows("项目"),
+    项目申请: projects,
+    审批管理: projects.map((item, index) => ({
+      id: `SP2026000${index + 1}`,
+      projectId: item.id,
+      project: item.name,
+      node: index === 1 ? "退回申请人修改" : "部门负责人审批",
+      role: "审核人",
+      order: index + 1,
+      owner: ["陈立", "刘月朝", "舒志建"][index],
+      status: ["待审批", "退回修改", "已通过"][index],
+      record: "申请人已提交，等待当前节点处理。",
+    })),
+    项目列表: projects,
   };
   state.data.purchase = {
-    "采购申请": purchaseRows("采购申请"),
-    "采购审批": approvalRows("采购", baseProjects),
-    "招标管理": tenderRows(),
-    "供应商管理": supplierRows(),
-    "采购进度": purchaseProgressRows(),
+    采购登记: purchaseRows(),
+    采购跟踪: purchaseRows().map((row, index) => ({ ...row, status: ["待采购", "采购中", "采购完成"][index] })),
   };
   state.data.contract = {
-    "合同登记": contractRows("合同登记"),
-    "合同审批": approvalRows("合同", baseProjects),
-    "合同履约": contractPerformanceRows(),
-    "合同预警": warningRows("合同"),
+    合同登记: contractRows(),
+    合同提醒: contractRows().map((row, index) => ({ ...row, due: ["30天后到期", "履约中", "已完成"][index] })),
   };
-  state.data.implementation = {
-    "实施计划": planRows(),
-    "进度更新": progressRows(),
-    "项目日志": logRows(),
-    "项目延期": delayRows(),
+  state.data.progress = {
+    月度进度: progressRows(),
+    项目时间轴: timelineRows(),
   };
   state.data.payment = {
-    "付款申请": paymentRows("付款申请"),
-    "财务审核": paymentRows("财务审核"),
-    "支付记录": payRecordRows(),
-    "付款统计": statRows("付款"),
+    付款申请: paymentRows(),
+    财务审核: paymentRows().map((row, index) => ({ ...row, status: ["待审核", "审核通过", "已付款"][index] })),
   };
   state.data.invoice = {
-    "发票登记": invoiceRows("发票登记"),
-    "OCR识别": invoiceRows("OCR识别"),
-    "发票查询": invoiceRows("发票查询"),
-    "发票统计": statRows("发票"),
+    发票登记: invoiceRows(),
+    预算统计: budgetRows(),
   };
   state.data.acceptance = {
-    "验收申请": acceptanceRows("验收申请"),
-    "验收材料": acceptanceRows("验收材料"),
-    "验收意见": acceptanceRows("验收意见"),
-    "整改管理": rectificationRows(),
+    验收申请: acceptanceRows(),
+    验收记录: acceptanceRows().map((row, index) => ({ ...row, record: ["首次验收待安排", "整改后复验通过", "验收意见已归档"][index] })),
   };
   state.data.closing = {
-    "结项申请": closingRows("结项申请"),
-    "结项审批": approvalRows("结项", baseProjects),
-    "自动校验": checkRows(),
-    "项目归档": archiveRows("结项"),
+    结项申请: closingRows(),
+    结项校验: closingRows().map((row, index) => ({ ...row, check: index === 0 ? "付款未完成" : "全部通过", status: index === 0 ? "不可结项" : "可结项" })),
+    项目归档: closingRows().map((row, index) => ({ ...row, docs: "项目申请、审批记录、合同、发票、验收报告", status: index === 2 ? "已归档" : "待归档" })),
   };
-  state.data.analytics = Object.fromEntries(moduleConfigs.analytics.tabs.map((tab) => [tab, analyticsRows(tab)]));
   state.data.system = {
-    "组织管理": systemRows("组织"),
-    "用户管理": systemRows("用户"),
-    "角色权限": systemRows("角色"),
-    "流程管理": systemRows("流程"),
-    "表单配置": systemRows("表单"),
-    "字典管理": systemRows("字典"),
-    "消息中心": systemRows("消息"),
-    "日志管理": systemRows("日志"),
-    "系统设置": systemRows("系统"),
+    流程配置: [
+      { id: "LC001", name: "小额教学耗材审批", type: "审批流程", role: "部门负责人", order: "1", status: "启用", remark: "适用于10万元以下项目。" },
+      { id: "LC002", name: "大额设备采购审批", type: "审批流程", role: "部门负责人-财务-校领导", order: "3", status: "启用", remark: "适用于10万元及以上项目。" },
+    ],
+    编号规则: [
+      { id: "BH001", name: "项目编号规则", type: "编号规则", remark: "XM+年份+四位流水，例如 XM20260001", status: "启用", date: "2026-07-09" },
+      { id: "BH002", name: "合同编号规则", type: "编号规则", remark: "HT+年份+四位流水，例如 HT20260001", status: "启用", date: "2026-07-09" },
+    ],
+    项目类型: ["教学设备采购", "图书采购", "实验室建设", "教学耗材", "校园维修"].map((name, index) => ({
+      id: `LX00${index + 1}`,
+      name,
+      type: "项目类型",
+      status: "启用",
+      remark: "管理员可维护，不在代码中写死。",
+    })),
   };
 }
 
-function row(id, name, category, budget, school, dept, owner, status, risk) {
+function projectRow(id, name, type, budget, dept, owner, status) {
   return {
     id,
     name,
-    category,
-    type: "新建",
-    school,
+    type,
+    purpose: "改善教学条件，提升课堂教学与实验教学质量。",
+    content: "完成设备、资料或耗材的采购、安装、使用交付。",
+    target: "按计划完成采购、验收和资料归档。",
+    cycle: "2026-07 至 2026-09",
+    budget,
     dept,
     owner,
-    phone: "13800000000",
-    budget,
-    source: "财政资金",
-    cycle: "2026-07 至 2026-12",
-    start: "2026-07-01",
-    end: "2026-12-31",
+    remark: "V1模拟项目数据。",
     status,
-    risk,
-    docs: "申请书、预算明细、可研报告",
+    createdAt: "2026-07-09",
+    docs: "项目申请书、预算附件、可行性说明",
   };
 }
 
-function makeRows(prefix, names) {
-  return names.map((name, index) => ({
-    id: `${prefix.toUpperCase()}${String(index + 1).padStart(3, "0")}`,
-    name,
-    project: baseProjects[index % baseProjects.length],
-    owner: ["沈志彬", "杨剑兴", "张俪源", "吴嘉敏"][index % 4],
-    date: `2026-07-${String(index + 7).padStart(2, "0")}`,
-    status: ["待处理", "进行中", "已完成", "已提醒"][index % 4],
-    note: `${name}需要在当前节点完成处理。`,
-  }));
-}
-
-function approvalRows(type, projects) {
-  return projects.map((project, index) => ({
-    id: `${type.slice(0, 1)}SP2026070${index + 1}`,
+function purchaseRows() {
+  return projectOptions.map((project, index) => ({
+    id: `CG2026000${index + 1}`,
     project,
-    node: ["部门负责人审批", "财务审核", "分管校领导审批", "验收组会签"][index % 4],
-    owner: ["陈立", "刘月朝", "舒志建", "吴嘉敏"][index % 4],
-    status: ["待审批", "退回修改", "已通过", "加签中"][index % 4],
-    note: "支持通过、驳回、退回修改、转交、加签、会签、催办。",
-  }));
-}
-
-function detailRows(projects) {
-  return projects.map((item, index) => ({
-    ...item,
-    contracts: index + 1,
-    invoices: index + 2,
-    paid: [120000, 41400, 152400][index],
-    percent: ["40%", "55%", "100%"][index],
-    opinion: ["未验收", "有条件通过", "通过"][index],
-  }));
-}
-
-function changeRows() {
-  return baseProjects.map((project, index) => ({
-    id: `BG2026070${index + 1}`,
-    project,
-    type: ["预算调整", "周期调整", "负责人变更", "范围调整"][index],
-    amount: [30000, 0, 0, 12000][index],
-    owner: ["沈志彬", "杨剑兴", "张俪源", "吴嘉敏"][index],
-    status: ["待审批", "已通过", "待提交", "退回修改"][index],
-    note: "变更需经原审批节点同意后更新计划。",
-  }));
-}
-
-function archiveRows(type) {
-  return baseProjects.map((project, index) => ({
-    id: `${type === "结项" ? "JX" : "GD"}2026070${index + 1}`,
-    project,
-    docs: "申请、审批、合同、发票、验收报告",
-    result: ["待归档", "已归档", "资料缺失", "自动归档中"][index],
-    owner: ["沈志彬", "杨剑兴", "张俪源", "吴嘉敏"][index],
-    date: `2026-09-${String(index + 10).padStart(2, "0")}`,
-    status: ["待处理", "已完成", "风险", "进行中"][index],
-  }));
-}
-
-function purchaseRows(tab) {
-  return baseProjects.map((project, index) => ({
-    id: `CG2026070${index + 1}`,
     name: `${project}采购`,
-    project,
-    category: ["设备", "耗材", "图书", "服务"][index],
-    method: ["公开招标", "询价", "竞争性谈判", "单一来源"][index],
-    budget: [480000, 86000, 160000, 98000][index],
-    owner: ["沈志彬", "杨剑兴", "张俪源", "吴嘉敏"][index],
+    type: ["设备", "耗材", "图书"][index],
+    budget: [460000, 82000, 150000][index],
+    method: ["公开招标", "询价", "询价"][index],
+    date: `2026-07-${12 + index}`,
     supplier: suppliers[index],
-    status: tab === "采购审批" ? "待审批" : ["招标中", "已定标", "待公告", "已完成"][index],
+    status: ["待采购", "采购中", "采购完成"][index],
+    docs: "采购文件、报价单",
   }));
 }
 
-function tenderRows() {
-  return baseProjects.map((project, index) => ({
-    id: `ZB2026070${index + 1}`,
+function contractRows() {
+  return projectOptions.map((project, index) => ({
+    id: `HT2026000${index + 1}`,
     project,
-    publish: `2026-07-${String(index + 3).padStart(2, "0")}`,
-    deadline: `2026-07-${String(index + 13).padStart(2, "0")}`,
-    count: 3 + index,
-    winner: suppliers[index],
-    amount: [468000, 82800, 152400, 94000][index],
-    status: ["公告中", "评标中", "已中标", "待开标"][index],
-  }));
-}
-
-function supplierRows() {
-  return suppliers.map((supplier, index) => ({
-    id: `GYS2026070${index + 1}`,
-    name: supplier,
-    contact: ["王倩", "李明", "周文", "赵启"][index],
-    phone: `1390000000${index + 1}`,
-    level: ["A", "A", "B", "A"][index],
-    count: [8, 5, 12, 3][index],
-    status: ["正常", "正常", "观察", "正常"][index],
-    docs: "营业执照、开户信息",
-  }));
-}
-
-function purchaseProgressRows() {
-  return ["采购申请", "审批", "招标", "评标", "中标", "签约", "到货", "验收", "完成"].map((stage, index) => ({
-    id: `CGJD${String(index + 1).padStart(3, "0")}`,
-    project: baseProjects[index % baseProjects.length],
-    stage,
-    owner: ["沈志彬", "杨剑兴", "张俪源"][index % 3],
-    date: `2026-07-${String(index + 1).padStart(2, "0")}`,
-    status: index < 5 ? "已完成" : index === 5 ? "进行中" : "待处理",
-    next: index < 8 ? ["采购申请", "审批", "招标", "评标", "中标", "签约", "到货", "验收", "完成"][index + 1] : "归档",
-  }));
-}
-
-function contractRows(tab) {
-  return baseProjects.map((project, index) => ({
-    id: `HT2026070${index + 1}`,
-    name: `${project}合同`,
-    project,
-    supplier: suppliers[index],
+    purchase: `CG2026000${index + 1}`,
+    amount: [455000, 81000, 148000][index],
     partner: suppliers[index],
-    amount: [468000, 82800, 152400, 94000][index],
-    signDate: `2026-07-${String(index + 8).padStart(2, "0")}`,
-    period: "2026-07 至 2026-12",
-    status: tab === "合同审批" ? "待审批" : ["已生效", "待签订", "履约中", "即将到期"][index],
-    docs: "合同扫描件.pdf",
-  }));
-}
-
-function contractPerformanceRows() {
-  return contractRows("合同履约").map((item, index) => ({
-    ...item,
-    stage: ["供货中", "部分到货", "已验收", "履约延期"][index],
-    risk: ["正常", "正常", "正常", "风险"][index],
-    note: "履约日志、履约照片、履约附件、违约记录均已关联。",
-  }));
-}
-
-function warningRows() {
-  return contractRows("合同预警").map((item, index) => ({
-    ...item,
-    status: ["即将到期", "已到期", "付款延期", "履约延期"][index],
-    risk: ["风险", "风险", "滞后", "滞后"][index],
-    next: "通知负责人处理",
-  }));
-}
-
-function planRows() {
-  return baseProjects.map((project, index) => ({
-    id: `JH2026070${index + 1}`,
-    project,
-    owner: ["沈志彬", "杨剑兴", "张俪源", "吴嘉敏"][index],
-    start: `2026-07-${String(index + 1).padStart(2, "0")}`,
-    end: `2026-09-${String(index + 10).padStart(2, "0")}`,
-    milestone: ["完成招标", "到货入库", "完成编目", "安装调试"][index],
-    status: ["进行中", "滞后", "已完成", "待启动"][index],
+    signDate: `2026-07-${16 + index}`,
+    period: `2026-07-${16 + index} 至 2026-09-${16 + index}`,
+    status: ["待签订", "履约中", "已完成"][index],
+    docs: "合同扫描件",
   }));
 }
 
 function progressRows() {
-  return baseProjects.map((project, index) => ({
-    id: `JZ2026070${index + 1}`,
+  return projectOptions.map((project, index) => ({
+    id: `JD2026000${index + 1}`,
     project,
-    owner: ["沈志彬", "杨剑兴", "张俪源", "吴嘉敏"][index],
-    date: "2026-07",
-    percent: ["40%", "55%", "100%", "20%"][index],
-    risk: ["正常", "滞后", "已完成", "风险"][index],
-    docs: "现场照片、施工视频、月报附件",
-    note: "支持日报、周报、月报更新。",
+    month: "2026-07",
+    content: ["完成采购需求确认", "完成耗材询价", "完成图书到货清点"][index],
+    percent: [35, 55, 90][index],
+    issue: ["等待审批完成", "部分报价待补齐", "无"][index],
+    nextPlan: ["启动采购", "签订合同", "提交验收"][index],
+    delayReason: index === 0 ? "审批节点尚未完成" : "",
+    status: ["延期", "正常", "完成"][index],
+    docs: "进度附件、现场照片",
   }));
 }
 
-function logRows() {
-  return ["每日记录", "问题记录", "整改记录", "风险记录", "会议纪要"].map((type, index) => ({
-    id: `RZ2026070${index + 1}`,
-    type,
-    project: baseProjects[index % baseProjects.length],
-    owner: ["沈志彬", "杨剑兴", "张俪源"][index % 3],
-    date: `2026-07-${String(index + 8).padStart(2, "0")}`,
-    status: ["已记录", "待处理", "已整改", "风险", "已归档"][index],
-    note: `${type}已进入项目全过程资料中心。`,
-  }));
+function timelineRows() {
+  return [
+    { id: "TL001", project: projectOptions[0], month: "2026-06", content: "项目申请", status: "完成" },
+    { id: "TL002", project: projectOptions[0], month: "2026-07", content: "采购登记", status: "进行中" },
+    { id: "TL003", project: projectOptions[0], month: "2026-08", content: "设备安装", status: "待开始" },
+    { id: "TL004", project: projectOptions[0], month: "2026-09", content: "验收结项", status: "待开始" },
+  ];
 }
 
-function delayRows() {
-  return baseProjects.map((project, index) => ({
-    id: `YQ2026070${index + 1}`,
+function paymentRows() {
+  return projectOptions.map((project, index) => ({
+    id: `FK2026000${index + 1}`,
     project,
-    owner: ["沈志彬", "杨剑兴", "张俪源", "吴嘉敏"][index],
-    date: `2026-07-${String(index + 12).padStart(2, "0")}`,
-    count: [0, 12, 0, 7][index],
-    risk: ["正常", "滞后", "正常", "风险"][index],
-    status: ["无需延期", "延期审批中", "已关闭", "待提交"][index],
-    note: "延期申请需说明原因、天数并上传附件。",
+    contract: `HT2026000${index + 1}`,
+    amount: [136500, 40500, 148000][index],
+    percent: [30, 50, 100][index],
+    remark: ["首付款申请", "进度款申请", "尾款申请"][index],
+    date: index === 2 ? "2026-07-22" : "",
+    status: ["待审核", "审核通过", "已付款"][index],
+    docs: "付款申请附件",
   }));
 }
 
-function paymentRows(tab) {
-  return baseProjects.map((project, index) => ({
-    id: `FK2026070${index + 1}`,
+function invoiceRows() {
+  return projectOptions.map((project, index) => ({
+    id: `FP2026000${index + 1}`,
     project,
-    contract: `HT2026070${index + 1}`,
-    stage: ["首付款", "进度款", "尾款", "进度款"][index],
-    amount: [140000, 41400, 76200, 30000][index],
-    percent: [30, 50, 50, 30][index],
-    invoice: ["已上传", "已上传", "待上传", "已上传"][index],
-    status: tab === "财务审核" ? ["待审核", "退回", "已支付", "待审核"][index] : ["已提交", "财务审核中", "已支付", "草稿"][index],
+    contract: `HT2026000${index + 1}`,
+    payment: `FK2026000${index + 1}`,
+    invoiceNo: `24568210${index + 1}`,
+    amount: [136500, 40500, 148000][index],
+    date: `2026-07-${23 + index}`,
+    status: index === 2 ? "已核销" : "已登记",
+    docs: "发票扫描件",
   }));
 }
 
-function payRecordRows() {
-  return paymentRows("支付记录").map((item, index) => ({
-    ...item,
-    date: `2026-07-${String(index + 18).padStart(2, "0")}`,
-    account: "学校基本户",
-    number: `LSH202607${String(index + 1).padStart(4, "0")}`,
-    docs: "支付凭证.pdf",
-    status: ["已支付", "已支付", "待支付", "已支付"][index],
-  }));
+function budgetRows() {
+  return [
+    { id: "YS001", project: projectOptions[0], budget: 480000, contract: "455000", payment: "136500", amount: 136500, status: "匹配" },
+    { id: "YS002", project: projectOptions[1], budget: 86000, contract: "81000", payment: "40500", amount: 40500, status: "匹配" },
+    { id: "YS003", project: projectOptions[2], budget: 160000, contract: "148000", payment: "148000", amount: 148000, status: "匹配" },
+  ];
 }
 
-function invoiceRows(tab) {
-  return baseProjects.map((project, index) => ({
-    id: `FP2026070${index + 1}`,
-    code: `03100260071${index}`,
-    number: `2456821${index}`,
-    supplier: suppliers[index],
-    tax: `91330000MA${index}X`,
-    amount: [140000, 41400, 76200, 30000][index],
-    date: `2026-07-${String(index + 14).padStart(2, "0")}`,
+function acceptanceRows() {
+  return projectOptions.map((project, index) => ({
+    id: `YS2026000${index + 1}`,
     project,
-    contract: `HT2026070${index + 1}`,
-    status: tab === "OCR识别" ? ["待识别", "已识别", "人工修改", "识别失败"][index] : ["已匹配", "已匹配", "待匹配", "已匹配"][index],
-  }));
-}
-
-function acceptanceRows(tab) {
-  return baseProjects.map((project, index) => ({
-    id: `YS2026070${index + 1}`,
-    project,
-    type: ["到货验收", "阶段验收", "最终验收", "到货验收"][index],
-    time: `2026-08-${String(index + 20).padStart(2, "0")}`,
-    place: ["第一会议室", "实验楼", "图书馆", "体育馆"][index],
+    date: `2026-08-${10 + index}`,
     members: "教务处、资产处、验收组",
-    opinion: ["待填写", "有条件通过", "通过", "不通过"][index],
-    rectification: ["无", "补齐检测报告", "无", "重新安装调试"][index],
-    status: tab === "验收意见" ? ["待填写", "待整改", "已通过", "不通过"][index] : ["待验收", "材料待补", "已完成", "待验收"][index],
+    material: "验收报告、验收清单",
+    opinion: ["待填写", "整改", "通过"][index],
+    rectification: index === 1 ? "2026-08-20" : "",
+    status: ["待验收", "整改中", "已通过"][index],
+    docs: "验收附件",
   }));
 }
 
-function rectificationRows() {
-  return baseProjects.map((project, index) => ({
-    id: `ZG2026070${index + 1}`,
+function closingRows() {
+  return projectOptions.map((project, index) => ({
+    id: `JX2026000${index + 1}`,
     project,
-    owner: ["沈志彬", "杨剑兴", "张俪源", "吴嘉敏"][index],
-    date: `2026-08-${String(index + 24).padStart(2, "0")}`,
-    rectification: ["无", "补齐耗材检测报告", "无", "提交复验申请"][index],
-    result: ["无需整改", "整改中", "已完成", "待复验"][index],
-    status: ["已关闭", "待整改", "已完成", "复验中"][index],
-    docs: "整改照片、整改报告",
-  }));
-}
-
-function closingRows(tab) {
-  return baseProjects.map((project, index) => ({
-    id: `JX2026070${index + 1}`,
-    project,
-    owner: ["沈志彬", "杨剑兴", "张俪源", "吴嘉敏"][index],
-    note: "项目成果、总结、附件已汇总。",
-    result: ["待提交", "审批中", "已结项", "资料待补"][index],
-    docs: "成果总结、项目总结、附件包",
-    status: tab === "结项审批" ? ["待审批", "会签中", "已通过", "退回修改"][index] : ["草稿", "审批中", "已结项", "待补齐"][index],
-  }));
-}
-
-function checkRows() {
-  return ["采购是否完成", "合同是否完成", "付款是否完成", "发票是否完整", "验收是否通过", "资料是否齐全"].map((name, index) => ({
-    id: `JY${String(index + 1).padStart(3, "0")}`,
-    name,
-    project: baseProjects[index % baseProjects.length],
-    result: ["通过", "通过", "待确认", "通过", "不通过", "资料缺失"][index],
-    status: ["已通过", "已通过", "待处理", "已通过", "风险", "待补齐"][index],
-    note: "自动校验结果用于判断是否允许结项归档。",
-  }));
-}
-
-function statRows(type) {
-  return ["累计金额", "剩余金额", "执行比例", "趋势"].map((name, index) => ({
-    id: `${type}TJ${index + 1}`,
-    name,
-    amount: [836000, 324000, 72, 18][index],
-    percent: [72, 28, 72, 18][index],
-    status: ["正常", "正常", "达标", "上升"][index],
-    note: `${type}统计用于预算执行驾驶舱。`,
-  }));
-}
-
-function analyticsRows(tab) {
-  return ["项目数量", "项目金额", "完成率", "延期率", "预算执行率", "供应商排行"].map((name, index) => ({
-    id: `FX${String(index + 1).padStart(3, "0")}`,
-    name,
-    category: tab,
-    amount: [38, 2860000, 76, 12, 68, 6][index],
-    percent: [38, 86, 76, 12, 68, 42][index],
-    status: ["正常", "正常", "达标", "预警", "正常", "正常"][index],
-    note: `${tab}支持图表展示、导出和下钻。`,
-  }));
-}
-
-function systemRows(type) {
-  return ["基础配置", "权限配置", "流程规则", "预警规则"].map((name, index) => ({
-    id: `${type}${String(index + 1).padStart(3, "0")}`,
-    name: `${type}${name}`,
-    type,
-    role: ["管理员", "审核人", "财务人员", "申请人"][index],
-    condition: ["全校", "部门内", "金额条件", "状态条件"][index],
-    permission: ["菜单权限", "按钮权限", "数据权限", "字段权限"][index],
-    status: ["启用", "启用", "启用", "停用"][index],
-    note: `${type}模块配置项。`,
+    owner: ["沈志彬", "杨剑兴", "张俪源"][index],
+    summary: "项目资料已按V1要求汇总。",
+    remark: ["等待付款完成后结项", "已满足结项条件", "已完成结项归档"][index],
+    status: ["待校验", "待审批", "已结项"][index],
+    docs: "成果附件、项目总结",
   }));
 }
 
 function renderNav() {
-  els.navList.innerHTML = navGroups
-    .map(
-      (group) => `
-      <div class="nav-group">
-        <button class="nav-group-title" data-group="${group.title}">
-          <span>${group.title}</span><span>${state.expanded[group.title] ? "⌃" : "⌄"}</span>
-        </button>
-        <div class="nav-children ${state.expanded[group.title] ? "" : "collapsed"}">
-          ${group.children
-            .map((item) => `<button class="nav-item ${state.active === item.id ? "active" : ""}" data-nav="${item.id}">${item.label}</button>`)
-            .join("")}
-        </div>
-      </div>`
-    )
+  els.navList.innerHTML = navItems
+    .map(([id, label]) => `<button class="nav-item ${state.active === id ? "active" : ""}" data-nav="${id}">${label}</button>`)
     .join("");
-  els.navList.querySelectorAll("[data-group]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      state.expanded[btn.dataset.group] = !state.expanded[btn.dataset.group];
-      renderNav();
-    });
-  });
   els.navList.querySelectorAll("[data-nav]").forEach((btn) => btn.addEventListener("click", () => switchView(btn.dataset.nav)));
 }
 
 function switchView(id) {
   state.active = id;
+  els.dashboard.classList.add("hidden");
+  els.moduleView.classList.remove("hidden");
   renderNav();
   render();
 }
 
 function render() {
-  const page = currentPage();
-  els.pageTitle.textContent = page.title;
-  els.dashboard.classList.toggle("hidden", !page.isWorkbench);
-  els.moduleView.classList.toggle("hidden", page.isWorkbench);
-  if (page.isWorkbench) renderWorkbench();
-  else renderModule();
-  updateTodo();
-}
-
-function renderWorkbench() {
-  const totals = dashboardTotals();
-  els.dashboard.innerHTML = `
-    <div class="dashboard-grid">
-      ${statCard("项目总数", totals.projects, "本月新增 6 个")}
-      ${statCard("在建项目数", totals.active, "跨 3 所学校")}
-      ${statCard("已完成项目数", totals.done, "本月完成 4 个")}
-      ${statCard("已延期项目数", totals.delay, "需重点跟进")}
-      ${statCard("项目总预算", money(totals.budget), "年度预算口径")}
-      ${statCard("已支付金额", money(totals.paid), "付款执行")}
-      ${statCard("剩余预算", money(totals.budget - totals.paid), "预算余额")}
-      ${statCard("本月完成项目", totals.monthDone, "验收通过归档")}
-    </div>
-    <div class="workbench-layout">
-      <section class="panel">
-        <div class="panel-head"><h3>我的待办</h3><button class="text-btn" data-jump="${pageId("project", "项目申请审批")}">查看审批</button></div>
-        ${renderTodoList(state.data.workbench["我的待办"])}
-      </section>
-      <section class="panel">
-        <div class="panel-head"><h3>预算执行驾驶舱</h3><button class="text-btn" data-jump="${pageId("payment", "付款申请审核")}">查看付款</button></div>
-        ${renderBudgetCockpit()}
-      </section>
-      <section class="panel">
-        <div class="panel-head"><h3>我的项目</h3><button class="text-btn" data-jump="${pageId("project", "项目申请审批")}">进入项目</button></div>
-        ${renderMiniTable(state.data.workbench["我的项目"])}
-      </section>
-      <section class="panel">
-        <div class="panel-head"><h3>消息通知</h3><button class="text-btn" data-jump="${pageId("system", "消息中心")}">消息设置</button></div>
-        ${renderTodoList(state.data.workbench["消息通知"])}
-      </section>
-    </div>
-  `;
-  els.dashboard.querySelectorAll("[data-jump]").forEach((btn) => btn.addEventListener("click", () => switchView(btn.dataset.jump)));
-}
-
-function dashboardTotals() {
-  const projects = state.data.project["项目申请"];
-  const budget = projects.reduce((sum, item) => sum + Number(item.budget || 0), 0);
-  const paid = state.data.payment["支付记录"].reduce((sum, item) => sum + Number(item.amount || 0), 0);
-  return {
-    projects: projects.length,
-    active: projects.filter((item) => item.status.includes("进行") || item.status.includes("审批")).length,
-    done: projects.filter((item) => item.status.includes("通过") || item.status.includes("完成")).length,
-    delay: projects.filter((item) => item.risk === "滞后" || item.risk === "风险").length,
-    budget,
-    paid,
-    monthDone: 4,
-  };
-}
-
-function statCard(label, value, sub) {
-  return `<div class="stat-card"><span>${label}</span><strong>${value}</strong><em>${sub}</em></div>`;
-}
-
-function renderTodoList(rows) {
-  return `<div class="todo-list">${rows
-    .map(
-      (row) => `<button class="todo-item" data-detail="${row.id}">
-        <span>${row.name}</span><strong>${row.status}</strong><em>${row.project}</em>
-      </button>`
-    )
-    .join("")}</div>`;
-}
-
-function renderBudgetCockpit() {
-  const items = [
-    ["预算执行率", 68],
-    ["合同签订率", 74],
-    ["付款完成率", 52],
-    ["发票匹配率", 81],
-  ];
-  return `<div class="bars">${items
-    .map(([name, value]) => `<div class="bar-row"><span>${name}</span><div class="bar"><i style="width:${value}%"></i></div><strong>${value}%</strong></div>`)
-    .join("")}</div>`;
-}
-
-function renderModule() {
-  const page = currentPage();
-  const activeTab = activePageTab(page);
-  const rows = filteredRows(page, activeTab);
+  const config = currentConfig();
+  const tab = activeTab();
+  const rows = filteredRows();
+  els.pageTitle.textContent = config.title;
   els.moduleView.innerHTML = `
-    ${renderLocalTabs(page, activeTab)}
-    ${renderFilters(page.filters)}
+    ${renderTabs(config, tab)}
+    ${renderFilters(config.filters)}
     <div class="table-toolbar">
-      <h3>${activeTab}列表</h3>
+      <h3>${tab}列表</h3>
       <div class="table-actions">
-        <button class="ghost-btn" data-export>导出</button>
-        <button class="primary-btn" data-add>${actionLabelFor(page.module, activeTab, page.addLabel)}</button>
+        <button class="ghost-btn" data-export type="button">导出</button>
+        <button class="primary-btn" data-add type="button">${actionLabel(tab, config.addLabel)}</button>
       </div>
     </div>
-    ${renderTable(rows, columnsFor(rows))}
+    ${renderTable(rows)}
     ${renderPager(rows.length)}
   `;
   bindModuleEvents();
 }
 
-function currentPage() {
-  return pageConfigs[state.active] || pageConfigs.workbench;
+function currentConfig() {
+  return pageConfigs[state.active];
 }
 
-function activePageTab(page) {
-  return state.subTabs?.[page.id] || page.tab;
+function activeTab() {
+  const config = currentConfig();
+  return state.tabs[state.active] || config.tabs[0];
 }
 
-function renderLocalTabs(page, activeTab) {
-  if (!page.tabs || page.tabs.length <= 1) return "";
-  return `<div class="module-tabs">${page.tabs
-    .map((tab) => `<button class="tab-btn ${tab === activeTab ? "active" : ""}" data-local-tab="${tab}">${tab}</button>`)
+function renderTabs(config, tab) {
+  if (config.tabs.length <= 1) return "";
+  return `<div class="module-tabs">${config.tabs
+    .map((name) => `<button class="tab-btn ${name === tab ? "active" : ""}" data-tab="${name}" type="button">${name}</button>`)
     .join("")}</div>`;
 }
 
 function renderFilters(filters) {
   return `<div class="filter-bar">${filters
-    .map((name, index) => `<label>${name}：<input data-filter="${index}" placeholder="${filterPlaceholder(name)}" value="${state.filters[state.active]?.[index] || ""}" /></label>`)
-    .join("")}<button class="primary-btn" data-query>查询</button><button class="ghost-btn" data-reset>重置</button></div>`;
+    .map((name, index) => `<label>${name}：<input data-filter="${index}" placeholder="${name.includes("状态") || name.includes("类型") ? "请选择" : "请输入"}" value="${state.filters[state.active]?.[index] || ""}" /></label>`)
+    .join("")}<button class="primary-btn" data-query type="button">查询</button><button class="ghost-btn" data-reset type="button">重置</button></div>`;
 }
 
-function filterPlaceholder(name) {
-  if (name.includes("日期") || name.includes("周期")) return "请选择";
-  if (name.includes("状态") || name.includes("类型") || name.includes("类别")) return "请选择";
-  return "请输入";
-}
-
-function renderAnalyticsHeader(tab) {
-  if (tab !== "可视化大屏") return "";
-  return `<div class="screen-grid">
-    ${["项目状态分布", "年度资金执行情况", "月度新增趋势", "项目类型占比", "合同到期预警", "项目地图"].map((name, index) => `
-      <div class="screen-card"><h4>${name}</h4><div class="mock-chart chart-${index + 1}">${[42, 68, 35, 76, 54].map((v) => `<i style="height:${v}%"></i>`).join("")}</div></div>
-    `).join("")}
-  </div>`;
-}
-
-function filteredRows(page, activeTab = activePageTab(page)) {
-  const rows = state.data[page.module]?.[activeTab] || [];
-  const filter = state.filters[state.active] || {};
-  const keyword = Object.values(filter).filter(Boolean).join(" ");
+function filteredRows() {
+  const rows = state.data[state.active]?.[activeTab()] || [];
+  const keyword = Object.values(state.filters[state.active] || {}).filter(Boolean).join(" ");
   if (!keyword) return rows;
   return rows.filter((row) => JSON.stringify(row).includes(keyword));
 }
 
-function columnsFor(rows) {
-  const preferred = ["id", "name", "project", "category", "type", "method", "supplier", "budget", "amount", "owner", "date", "status", "risk", "next"];
-  const keys = [...new Set(rows.flatMap((row) => Object.keys(row)))];
-  return preferred.filter((key) => keys.includes(key)).slice(0, 8);
-}
-
-function renderTable(rows, columns) {
+function renderTable(rows) {
   if (!rows.length) return `<div class="empty">暂无数据，请调整筛选条件或新增记录。</div>`;
+  const columns = columnsFor(rows);
   return `<div class="table-wrap"><table class="data-table">
     <thead><tr><th><input type="checkbox" /></th>${columns.map((key) => `<th>${labelMap[key] || key}</th>`).join("")}<th>操作</th></tr></thead>
     <tbody>${rows
-      .map(
-        (row) => `<tr>
-          <td><input type="checkbox" /></td>
-          ${columns.map((key) => `<td>${formatCell(key, row[key])}</td>`).join("")}
-          <td class="op-cell">${rowActions(row).map((action) => `<button class="link-btn" data-action="${action}" data-id="${row.id}">${action}</button>`).join("")}</td>
-        </tr>`
-      )
+      .map((row) => `<tr><td><input type="checkbox" /></td>${columns.map((key) => `<td>${formatCell(key, row[key])}</td>`).join("")}<td class="op-cell">${rowActions().map((item) => `<button class="link-btn" data-action="${item}" data-id="${row.id}" type="button">${item}</button>`).join("")}</td></tr>`)
       .join("")}</tbody>
   </table></div>`;
 }
 
+function columnsFor(rows) {
+  const preferred = ["id", "projectId", "name", "project", "type", "budget", "amount", "supplier", "partner", "contract", "percent", "owner", "status", "check", "date", "createdAt"];
+  const keys = [...new Set(rows.flatMap((row) => Object.keys(row)))];
+  return preferred.filter((key) => keys.includes(key)).slice(0, 8);
+}
+
 function formatCell(key, value) {
   if (value === undefined || value === null || value === "") return "--";
-  if (["budget", "amount", "paid", "remain"].includes(key)) return money(value);
-  if (key === "status" || key === "risk" || key === "result") return `<span class="status ${statusClass(value)}">${value}</span>`;
+  if (["budget", "amount"].includes(key)) return money(value);
+  if (key === "percent") return `${value}%`;
+  if (["status", "check", "opinion", "due"].includes(key)) return `<span class="status ${statusClass(value)}">${value}</span>`;
   return value;
 }
 
 function statusClass(value) {
   const text = String(value);
-  if (text.includes("风险") || text.includes("滞后") || text.includes("到期") || text.includes("不通过") || text.includes("失败") || text.includes("缺失")) return "danger";
-  if (text.includes("待") || text.includes("审批") || text.includes("退回") || text.includes("补")) return "pending";
-  if (text.includes("完成") || text.includes("通过") || text.includes("支付") || text.includes("归档") || text.includes("正常")) return "done";
-  return "active";
+  if (text.includes("待") || text.includes("退回") || text.includes("不可")) return "pending";
+  if (text.includes("中") || text.includes("审核") || text.includes("采购")) return "active";
+  if (text.includes("通过") || text.includes("完成") || text.includes("已") || text.includes("可结项") || text.includes("匹配")) return "done";
+  if (text.includes("驳回") || text.includes("延期") || text.includes("整改") || text.includes("终止") || text.includes("未")) return "danger";
+  return "gray";
 }
 
 function rowActions() {
-  const tab = activePageTab(currentPage());
-  if (tab.includes("审批")) return ["审批"];
+  const tab = activeTab();
+  if (tab === "审批管理") return ["审批"];
   const actions = ["详情", "编辑"];
-  if (tab.includes("进度")) actions.push("更新进度");
-  if (tab.includes("履约")) actions.push("更新履约");
-  if (tab.includes("预警")) actions.push("处理预警");
-  if (tab.includes("财务审核")) actions.push("审核通过");
-  if (tab.includes("OCR")) actions.push("OCR识别");
-  if (tab.includes("验收意见")) actions.push("填写意见");
-  if (tab.includes("整改")) actions.push("整改完成");
-  if (tab.includes("归档")) actions.push("确认归档");
-  if (tab.includes("校验")) actions.push("重新校验");
-  return actions;
-}
-
-function renderMiniTable(rows) {
-  return `<div class="mini-table">${rows
-    .map((row) => `<div><span>${row.project}</span><strong>${row.status}</strong><em>${row.owner}</em></div>`)
-    .join("")}</div>`;
+  if (tab === "项目申请") actions.push("提交审批", "撤回申请");
+  if (state.active === "purchase") actions.push("采购完成");
+  if (state.active === "contract") actions.push("合同终止");
+  if (state.active === "progress") actions.push("更新进度");
+  if (state.active === "payment") actions.push("财务审核");
+  if (state.active === "invoice") actions.push("发票核销");
+  if (state.active === "acceptance") actions.push("验收通过", "整改提交");
+  if (state.active === "closing") actions.push("结项校验", "结项归档");
+  return [...new Set(actions)];
 }
 
 function renderPager(total) {
   return `<div class="pager">
     <span class="pager-total">共 ${total} 条</span>
-    <button class="pager-btn" disabled>‹</button>
-    <button class="pager-btn active">1</button>
-    <button class="pager-btn">2</button>
-    <button class="pager-btn">3</button>
+    <button class="pager-btn" disabled type="button">‹</button>
+    <button class="pager-btn active" type="button">1</button>
+    <button class="pager-btn" type="button">2</button>
+    <button class="pager-btn" type="button">3</button>
     <span class="pager-ellipsis">...</span>
-    <button class="pager-btn">10</button>
-    <button class="pager-btn">›</button>
+    <button class="pager-btn" type="button">10</button>
+    <button class="pager-btn" type="button">›</button>
     <select class="pager-size"><option>10 条/页</option><option>20 条/页</option><option>50 条/页</option></select>
     <span class="pager-jump">跳至</span>
     <input class="pager-input" />
@@ -1045,118 +584,101 @@ function renderPager(total) {
 }
 
 function bindModuleEvents() {
-  els.moduleView.querySelectorAll("[data-local-tab]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const page = currentPage();
-      state.subTabs[page.id] = btn.dataset.localTab;
-      renderModule();
-    });
-  });
+  els.moduleView.querySelectorAll("[data-tab]").forEach((btn) => btn.addEventListener("click", () => {
+    state.tabs[state.active] = btn.dataset.tab;
+    render();
+  }));
   els.moduleView.querySelector("[data-add]")?.addEventListener("click", () => openModal());
   els.moduleView.querySelector("[data-export]")?.addEventListener("click", () => showToast("已生成模拟导出任务"));
   els.moduleView.querySelector("[data-query]")?.addEventListener("click", () => {
     state.filters[state.active] = Object.fromEntries([...els.moduleView.querySelectorAll("[data-filter]")].map((input) => [input.dataset.filter, input.value]));
-    renderModule();
+    render();
   });
   els.moduleView.querySelector("[data-reset]")?.addEventListener("click", () => {
     state.filters[state.active] = {};
-    renderModule();
+    render();
   });
-  els.moduleView.querySelectorAll("[data-action]").forEach((btn) => {
-    btn.addEventListener("click", () => handleAction(btn.dataset.action, btn.dataset.id));
-  });
+  els.moduleView.querySelectorAll("[data-action]").forEach((btn) => btn.addEventListener("click", () => handleAction(btn.dataset.action, btn.dataset.id)));
 }
 
 function handleAction(action, id) {
   const row = findRow(id);
   if (!row) return showToast("当前记录不存在");
-  if (action === "审批") return openApprovalDrawer(row);
   if (action === "详情") return openDrawer(row);
   if (action === "编辑") return openModal(row);
-  const map = {
-    审批通过: "已通过",
-    驳回: "已驳回",
-    催办: "已催办",
-    更新进度: "进行中",
-    更新履约: "履约中",
-    处理预警: "已处理",
-    审核通过: "已支付",
-    OCR识别: "已识别",
-    填写意见: "通过",
-    整改完成: "已完成",
-    确认归档: "已归档",
-    重新校验: "已通过",
+  if (action === "审批") return openApprovalDrawer(row);
+  const statusMap = {
+    提交审批: "待审批",
+    撤回申请: "草稿",
+    采购完成: "采购完成",
+    合同终止: "已终止",
+    更新进度: "正常",
+    财务审核: "审核通过",
+    发票核销: "已核销",
+    验收通过: "已通过",
+    整改提交: "整改中",
+    结项校验: "可结项",
+    结项归档: "已归档",
   };
   requestConfirm({
     title: `确认${action}`,
-    message: "该操作会更新当前记录状态，并同步刷新看板与列表数据。",
-    summary: `业务页面：${currentPage().crumb}<br>当前记录：${row.name || row.project || row.id}<br>操作内容：${action}`,
+    message: "该操作会更新当前记录状态，并同步刷新列表数据。",
+    summary: `业务页面：${currentConfig().title} / ${activeTab()}<br>当前记录：${row.name || row.project || row.id}<br>操作内容：${action}`,
     onConfirm: () => {
-      row.status = map[action] || row.status;
-      if (action === "填写意见") row.opinion = "通过";
-      if (action === "整改完成") row.result = "已完成";
+      if (action === "结项校验" && row.check && row.check !== "全部通过") {
+        row.status = "不可结项";
+        showToast("校验未通过，不能结项");
+      } else {
+        row.status = statusMap[action] || row.status;
+        if (action === "发票核销") row.checked = "已核销";
+        if (action === "验收通过") row.opinion = "通过";
+        showToast(`${action}已完成`);
+      }
       render();
-      showToast(`${action}已完成`);
     },
   });
 }
 
 function findRow(id) {
-  const page = currentPage();
-  const rows = state.data[page.module]?.[activePageTab(page)] || [];
-  return rows.find((row) => row.id === id);
+  return (state.data[state.active]?.[activeTab()] || []).find((row) => row.id === id);
 }
 
 function openModal(row = null) {
-  const page = currentPage();
-  const module = page.isWorkbench ? "project" : page.module;
-  const tab = page.isWorkbench ? "项目申请" : activePageTab(page);
-  const config = moduleConfigs[module];
-  const addLabel = page.isWorkbench ? "新建项目" : actionLabelFor(module, tab, page.addLabel);
-  state.modal = { module, tab, row };
-  els.modalTitle.textContent = row ? `编辑${page.isWorkbench ? config.title : page.title}` : addLabel;
-  els.modalForm.innerHTML = buildForm(config.form || genericForm(), row);
+  const config = currentConfig();
+  state.modal = { row, module: state.active, tab: activeTab() };
+  els.modalTitle.textContent = row ? `编辑${config.title}` : actionLabel(activeTab(), config.addLabel);
+  els.modalForm.innerHTML = buildForm(config.form, row);
   bindUploadBoxes();
   els.modalMask.classList.remove("hidden");
 }
 
-function genericForm() {
-  return [
-    field("name", "名称", "text", true),
-    field("type", "类型", "select", true, ["项目", "预算", "合同", "采购", "发票", "验收", "系统"]),
-    field("owner", "负责人", "text"),
-    field("note", "说明", "textarea"),
-  ];
-}
-
 function buildForm(fields, row) {
-  return fields
-    .map((item) => {
-      const value = row ? row[item.key] || "" : "";
-      const label = `<label>${item.required ? '<span class="required-star">*</span>' : ""}${item.label}</label>`;
-      if (item.type === "textarea") {
-        return `<div class="field wide" data-field="${item.key}">${label}<textarea name="${item.key}" data-required="${item.required}" placeholder="请输入${item.label}">${value}</textarea><div class="field-error">请填写${item.label}</div></div>`;
-      }
-      if (item.type === "select") {
-        const options = optionsFor(item);
-        return `<div class="field" data-field="${item.key}">${label}<select name="${item.key}" data-required="${item.required}"><option value="">请选择${item.label}</option>${options
-          .map((option) => `<option value="${option}" ${value === option ? "selected" : ""}>${option}</option>`)
-          .join("")}</select><div class="field-error">请选择${item.label}</div></div>`;
-      }
-      if (item.type === "upload") {
-        return `<div class="field wide" data-field="${item.key}">${label}<input type="hidden" name="${item.key}" data-required="${item.required}" value="${value}" /><div class="upload-box ${value ? "has-file" : ""}" data-upload="${item.key}" data-label="${item.label}">${value || `点击上传${item.label}`}</div><div class="field-error">请上传${item.label}</div></div>`;
-      }
-      return `<div class="field" data-field="${item.key}">${label}<input type="${item.type}" name="${item.key}" data-required="${item.required}" value="${value}" placeholder="请输入${item.label}" /><div class="field-error">请填写${item.label}</div></div>`;
-    })
-    .join("");
+  return fields.map((item) => {
+    const value = row ? row[item.key] || "" : "";
+    const label = `<label>${item.required ? '<span class="required-star">*</span>' : ""}${item.label}</label>`;
+    if (item.type === "textarea") {
+      return `<div class="field wide">${label}<textarea name="${item.key}" data-required="${item.required}" placeholder="请输入${item.label}">${value}</textarea><div class="field-error">请填写${item.label}</div></div>`;
+    }
+    if (item.type === "select") {
+      return `<div class="field">${label}<select name="${item.key}" data-required="${item.required}"><option value="">请选择${item.label}</option>${optionsFor(item)
+        .map((option) => `<option value="${option}" ${value === option ? "selected" : ""}>${option}</option>`)
+        .join("")}</select><div class="field-error">请选择${item.label}</div></div>`;
+    }
+    if (item.type === "upload") {
+      return `<div class="field wide">${label}<input type="hidden" name="${item.key}" data-required="${item.required}" value="${value}" /><div class="upload-box ${value ? "has-file" : ""}" data-upload="${item.key}" data-label="${item.label}">${value || `点击上传${item.label}`}</div><div class="field-error">请上传${item.label}</div></div>`;
+    }
+    return `<div class="field">${label}<input type="${item.type}" name="${item.key}" data-required="${item.required}" value="${value}" placeholder="请输入${item.label}" /><div class="field-error">请填写${item.label}</div></div>`;
+  }).join("");
 }
 
 function optionsFor(item) {
-  if (item.options?.length) return item.options;
-  if (item.key === "project") return baseProjects;
-  if (item.key === "supplier") return suppliers;
-  if (item.key === "contract") return ["HT20260701", "HT20260702", "HT20260703", "HT20260704"];
-  return ["启用", "停用", "待审批", "已通过"];
+  if (item.options.length) return item.options;
+  if (item.key === "project") return projectOptions;
+  if (item.key === "supplier" || item.key === "partner") return suppliers;
+  if (item.key === "purchase") return ["CG20260001", "CG20260002", "CG20260003"];
+  if (item.key === "contract") return ["HT20260001", "HT20260002", "HT20260003"];
+  if (item.key === "payment") return ["FK20260001", "FK20260002", "FK20260003"];
+  return ["启用", "停用"];
 }
 
 function bindUploadBoxes() {
@@ -1174,20 +696,13 @@ function bindUploadBoxes() {
 }
 
 function saveModal() {
-  if (!state.modal) return;
-  if (!validateForm()) return;
+  if (!state.modal || !validateForm()) return;
   const form = Object.fromEntries(new FormData(els.modalForm).entries());
-  const module = state.modal.module;
-  const tab = state.modal.tab;
-  const rows = state.data[module][tab];
+  const rows = state.data[state.modal.module][state.modal.tab];
   if (state.modal.row) {
     Object.assign(state.modal.row, form);
   } else {
-    rows.unshift({
-      id: `${module.slice(0, 2).toUpperCase()}${Date.now().toString().slice(-6)}`,
-      ...form,
-      status: "待处理",
-    });
+    rows.unshift({ id: nextId(state.modal.module), ...form, status: defaultStatus(state.modal.module) });
   }
   els.modalMask.classList.add("hidden");
   state.modal = null;
@@ -1195,12 +710,21 @@ function saveModal() {
   showToast("已保存，模拟数据已更新");
 }
 
+function nextId(module) {
+  const prefix = { project: "XM", purchase: "CG", contract: "HT", progress: "JD", payment: "FK", invoice: "FP", acceptance: "YS", closing: "JX", system: "PZ" }[module] || "JL";
+  return `${prefix}${new Date().getFullYear()}${String(Date.now()).slice(-4)}`;
+}
+
+function defaultStatus(module) {
+  return { project: "草稿", purchase: "待采购", contract: "待签订", progress: "正常", payment: "待审核", invoice: "已登记", acceptance: "待验收", closing: "待校验", system: "启用" }[module] || "待处理";
+}
+
 function validateForm() {
   let valid = true;
   els.modalForm.querySelectorAll("[data-required='true']").forEach((control) => {
-    const wrapper = control.closest(".field");
+    const fieldNode = control.closest(".field");
     const empty = !String(control.value || "").trim();
-    wrapper.classList.toggle("invalid", empty);
+    fieldNode.classList.toggle("invalid", empty);
     if (empty) valid = false;
   });
   if (!valid) showToast("请先补全必填项");
@@ -1208,120 +732,84 @@ function validateForm() {
 }
 
 function openDrawer(row) {
-  const page = currentPage();
-  els.drawerKicker.textContent = page.crumb;
+  els.drawerKicker.textContent = `${currentConfig().title} / ${activeTab()}`;
   els.drawerTitle.textContent = row.name || row.project || row.id;
   els.drawerBody.innerHTML = `
-    <div class="detail-grid">${Object.entries(row)
-      .map(([key, value]) => `<div class="detail-item"><span>${labelMap[key] || key}</span><strong>${formatCell(key, value)}</strong></div>`)
-      .join("")}</div>
+    <div class="detail-grid">${Object.entries(row).map(([key, value]) => `<div class="detail-item"><span>${labelMap[key] || key}</span><strong>${formatPlainValue(formatCell(key, value))}</strong></div>`).join("")}</div>
     <div class="timeline">
       <div class="panel-title">项目时间轴</div>
-      ${["立项申请", "审批流转", "采购合同", "付款发票", "验收结项"].map((name, index) => `<div class="timeline-item"><div class="timeline-date">2026-07-${10 + index}</div><div>${name}：${index < 2 ? "已完成" : "进行中"}</div></div>`).join("")}
-    </div>
-    <div class="timeline">
-      <div class="panel-title">全过程资料中心</div>
-      <div class="timeline-item"><div class="timeline-date">附件</div><div>${row.docs || "申请、审批、合同、发票、验收资料已关联"}</div></div>
-      <div class="timeline-item"><div class="timeline-date">操作</div><div><button class="primary-btn" id="drawerAction">执行当前节点</button></div></div>
+      ${["项目申请", "审批", "采购", "合同", "实施", "付款", "发票", "验收", "结项"].map((name, index) => `<div class="timeline-item"><div class="timeline-date">${index + 1}</div><div>${name}${index < 3 ? "已完成" : "待推进"}</div></div>`).join("")}
     </div>
   `;
   els.drawer.classList.remove("hidden");
-  document.getElementById("drawerAction").addEventListener("click", () => {
-    requestConfirm({
-      title: "确认执行当前节点",
-      message: "该操作会模拟推进当前业务节点。",
-      summary: `当前记录：${row.name || row.project || row.id}`,
-      onConfirm: () => showToast("当前节点已模拟完成"),
-    });
-  });
 }
 
 function openApprovalDrawer(row) {
-  const page = currentPage();
   els.drawerKicker.textContent = "审批详情";
   els.drawerTitle.textContent = row.project || row.name || row.id;
   els.drawerBody.innerHTML = `
     <div class="approval-detail">
       <div class="approval-code">编号：${row.id}</div>
-      <h3>${row.project || row.name || "待审批事项"}</h3>
+      <h3>${row.project || row.name}</h3>
       <div class="approval-state">审批中，等待${row.owner || "审核人"}处理</div>
-      ${renderApprovalListInfo(row, page)}
+      ${renderApprovalListInfo(row)}
       <div class="approval-divider"></div>
-      <div class="approval-section-head">
-        <span>流程</span>
-        <b>⌄</b>
-      </div>
+      <div class="approval-section-head"><span>流程</span><b>⌄</b></div>
       ${renderApprovalFlow(row)}
     </div>
     <div class="approval-actions">
-      <button class="outline-danger-btn" id="approvalReject" type="button">拒绝</button>
+      <button class="outline-danger-btn" id="approvalReject" type="button">驳回</button>
+      <button class="ghost-btn" id="approvalReturn" type="button">退回修改</button>
       <button class="primary-btn" id="approvalAgree" type="button">同意</button>
     </div>
   `;
   els.drawer.classList.remove("hidden");
-  document.getElementById("approvalReject").addEventListener("click", () => {
-    requestConfirm({
-      title: "确认拒绝审批",
-      message: "该操作会将当前审批记录标记为已拒绝。",
-      summary: `审批事项：${row.project || row.name || row.id}<br>当前节点：${row.node || "部门负责人审批"}`,
+  [
+    ["approvalReject", "驳回", "已驳回"],
+    ["approvalReturn", "退回修改", "退回修改"],
+    ["approvalAgree", "同意", "已通过"],
+  ].forEach(([id, action, status]) => {
+    document.getElementById(id).addEventListener("click", () => requestConfirm({
+      title: `确认${action}`,
+      message: "请确认审批意见，确认后将更新审批记录状态。",
+      summary: `审批事项：${row.project || row.name || row.id}<br>当前节点：${row.node || "部门负责人审批"}<br>审批动作：${action}`,
       onConfirm: () => {
-        row.status = "已拒绝";
+        row.status = status;
+        row.opinion = action;
         els.drawer.classList.add("hidden");
         render();
-        showToast("审批已拒绝");
+        showToast(`审批已${action}`);
       },
-    });
-  });
-  document.getElementById("approvalAgree").addEventListener("click", () => {
-    requestConfirm({
-      title: "确认同意审批",
-      message: "该操作会将当前审批记录标记为已通过，并推进下一业务节点。",
-      summary: `审批事项：${row.project || row.name || row.id}<br>当前节点：${row.node || "部门负责人审批"}`,
-      onConfirm: () => {
-        row.status = "已通过";
-        els.drawer.classList.add("hidden");
-        render();
-        showToast("审批已同意");
-      },
-    });
+    }));
   });
 }
 
-function renderApprovalListInfo(row, page) {
+function renderApprovalListInfo(row) {
   const keys = columnsFor([row]).filter((key) => key !== "id");
-  const rows = [
-    ["业务页面", page.crumb],
-    ...keys.map((key) => [labelMap[key] || key, row[key]]),
-  ].filter(([, value]) => value !== undefined && value !== null && value !== "");
+  const rows = keys.map((key) => [labelMap[key] || key, row[key]]).filter(([, value]) => value !== undefined && value !== "");
   return `<div class="approval-list-info">${rows
-    .map(([label, value]) => `<div class="approval-list-row"><span>${label}</span><strong>${formatPlainValue(value)}</strong></div>`)
+    .map(([label, value]) => `<div class="approval-list-row"><span>${label}</span><strong>${formatPlainValue(formatCell(label, value))}</strong></div>`)
     .join("")}</div>`;
 }
 
-function formatPlainValue(value) {
-  return String(value).replace(/<[^>]+>/g, "");
+function renderApprovalFlow(row) {
+  const steps = [
+    ["发起人", "申请人已提交审批。", "2026-07-09 09:00"],
+    ["审批人", `${row.owner || "审核人"}正在处理。`, "等待处理"],
+    ["记录归档", "通过后进入下一业务节点。", "待流转"],
+  ];
+  return `<div class="approval-flow">${steps.map((step, index) => `<div class="approval-flow-item ${index === 0 ? "done" : index === 1 ? "current" : ""}">
+    <div class="approval-avatar">${index === 0 ? "✓" : step[0].slice(0, 1)}</div>
+    <div class="approval-flow-main"><div class="approval-flow-title"><strong>${step[0]}</strong><span>${step[2]}</span></div><p>${step[1]}</p></div>
+  </div>`).join("")}</div>`;
 }
 
-function renderApprovalFlow(row) {
-  const approvers = ["发起人", "审批人", "财务审核", "分管领导"];
-  return `<div class="approval-flow">
-    ${approvers
-      .map((name, index) => {
-        const current = index === 1;
-        const done = index === 0;
-        return `<div class="approval-flow-item ${done ? "done" : ""} ${current ? "current" : ""}">
-          <div class="approval-avatar">${done ? "✓" : name.slice(0, 1)}</div>
-          <div class="approval-flow-main">
-            <div class="approval-flow-title">
-              <strong>${name}</strong>
-              <span>${done ? "2026-07-08 09:30" : current ? "等待处理" : "待流转"}</span>
-            </div>
-            <p>${done ? "申请人已提交审批。" : current ? `${row.owner || "审核人"}正在审批，支持同意或拒绝。` : "通过后自动进入该节点。"}</p>
-          </div>
-        </div>`;
-      })
-      .join("")}
-  </div>`;
+function actionLabel(tab, fallback) {
+  if (tab.includes("审批")) return "处理审批";
+  if (tab.includes("校验")) return "执行校验";
+  if (tab.includes("归档")) return "确认归档";
+  if (tab.includes("提醒")) return "处理提醒";
+  return fallback;
 }
 
 function requestConfirm({ title, message, summary, onConfirm }) {
@@ -1344,26 +832,25 @@ function closeConfirm() {
 }
 
 function openPrdModal() {
-  const page = currentPage();
-  const doc = buildPrd(page.module, activePageTab(page));
-  els.prdTitle.textContent = `${page.title} PRD`;
-  els.prdBody.innerHTML = doc;
+  const config = currentConfig();
+  const tab = activeTab();
+  els.prdTitle.textContent = `${config.title} PRD`;
+  els.prdBody.innerHTML = buildPrd(config, tab);
   els.prdMask.classList.remove("hidden");
 }
 
-function buildPrd(module, tab) {
-  const config = moduleConfigs[module];
-  const functions = config.tabs.map((name) => `<tr><td>${config.title}</td><td>${name}</td><td>支持${name}的数据登记、查询、详情查看、状态流转和资料关联。</td><td>${name === tab ? "P0" : "P1"}</td><td>原型使用前端模拟数据。</td></tr>`).join("");
+function buildPrd(config, tab) {
+  const rows = config.tabs.map((name) => `<tr><td>${config.title}</td><td>${name}</td><td>支持${name}的数据登记、查询、详情查看、状态流转和资料关联，满足V1业务闭环。</td><td>${name === tab ? "P0" : "P1"}</td><td>静态原型使用前端模拟数据。</td></tr>`).join("");
   return `
-    ${prdSection("1. 背景与目标", [`建设${config.title}能力，支撑教育行业项目全过程管理。`, `当前页面聚焦${tab}，用于覆盖申请、审批、执行、统计和归档闭环。`])}
-    ${prdSection("2. 用户与使用场景", ["申请人提交业务资料，审核人处理审批节点，负责人更新进度，财务人员审核付款与发票，管理员维护流程和权限。"])}
-    ${prdSection("3. 需求范围", ["In Scope：页面查询、新增、详情、状态流转、二次确认、附件模拟上传、PRD 与流程图查看。", "Out of Scope：真实后端、真实 OCR、真实短信邮件发送、真实 PDF/ZIP 文件生成。"])}
-    <h3>4. 功能需求列表</h3><table class="prd-table"><thead><tr><th>功能模块</th><th>功能点</th><th>需求描述</th><th>优先级（P0 / P1 / P2）</th><th>备注说明</th></tr></thead><tbody>${functions}</tbody></table>
-    ${prdSection("5. 核心流程与交互说明", [`用户进入${config.title}后，先通过标签页定位${tab}，再使用筛选、查看详情、新增或业务操作。`, "涉及审批、审核、更新、归档等关键动作时，必须弹出二次确认后才更新状态。"])}
-    ${prdSection("6. 异常场景与边界条件", ["必填字段为空时阻止保存并高亮字段。", "筛选无结果时展示空状态，不隐藏页面结构。", "资料上传仅做模拟展示，不读取本地文件。"])}
-    ${prdSection("7. 数据口径与埋点需求", ["看板统计来自前端模拟业务表。", "建议埋点：页面访问、查询、重置、新增、详情、审批确认、导出、PRD 查看、流程图查看。"])}
-    ${prdSection("8. 风险、依赖与限制", ["当前为静态原型，不具备真实权限、数据持久化和接口联调能力。", "后续生产化依赖组织用户、流程引擎、附件服务、消息服务和财务接口。"])}
-    ${prdSection("9. 验收标准", [`${config.title}下所有标签页可点击并显示业务数据。`, "新增弹窗必填标识仅在字段名前显示星号。", "关键动作均需二次确认并能看到状态变化。"])}
+    ${prdSection("1. 背景与目标", [`建设${config.title}能力，支撑学校项目从申请到结项的轻量级闭环管理。`, "V1不引入企业ERP能力，仅覆盖项目参数要求和必要流程断点。"])}
+    ${prdSection("2. 用户与使用场景", ["申请人提交项目资料，审核人处理审批，负责人更新进度，财务人员处理付款和发票，管理员维护流程、编号和项目类型。"])}
+    ${prdSection("3. 需求范围", ["In Scope：查询、新增、编辑、详情、状态流转、附件模拟上传、PRD查看、流程图查看。", "Out of Scope：真实后端、真实权限、OCR、供应商评级、统计大屏、地图、真实PDF或ZIP导出。"])}
+    <h3>4. 功能需求列表</h3><table class="prd-table"><thead><tr><th>功能模块</th><th>功能点</th><th>需求描述</th><th>优先级（P0 / P1 / P2）</th><th>备注说明</th></tr></thead><tbody>${rows}</tbody></table>
+    ${prdSection("5. 核心流程与交互说明", [`用户进入${config.title}后，通过顶部标签定位${tab}，再执行查询、新增、详情或业务动作。`, "提交审批、审批、财务审核、核销、验收、结项等关键动作必须二次确认。"])}
+    ${prdSection("6. 异常场景与边界条件", ["必填字段为空时阻止保存并高亮字段。", "筛选无结果时展示空状态。", "结项校验未通过时禁止结项归档。"])}
+    ${prdSection("7. 数据口径与埋点需求", ["项目编号为全流程唯一标识，采购、合同、付款、发票、验收、结项均通过项目或合同关联。", "建议埋点：页面访问、查询、新增、详情、状态确认、PRD查看、流程图查看。"])}
+    ${prdSection("8. 风险、依赖与限制", ["当前为静态原型，数据刷新仅在浏览器内模拟。", "生产化依赖组织用户、流程引擎、附件服务、财务接口和消息服务。"])}
+    ${prdSection("9. 验收标准", [`${config.title}页面可访问并显示模拟数据。`, "新增弹窗字段为空，必填项仅在字段名前显示星号。", "关键动作弹出二次确认并可更新列表状态。"])}
   `;
 }
 
@@ -1373,12 +860,12 @@ function prdSection(title, lines) {
 
 function openFlowChartModal() {
   const groups = [
-    ["项目全过程", ["项目申请", "项目审批", "采购申请", "合同登记", "实施更新", "付款申请", "发票登记", "验收整改", "结项归档"]],
-    ["审批操作流程", ["提交", "部门审核", "财务审核", "转交/加签/会签", "通过或驳回", "记录时间轴"]],
-    ["采购业务流程", ["采购申请", "采购审批", "发布公告", "供应商报名", "开标评标", "确定中标", "签约", "到货验收"]],
-    ["合同与付款流程", ["合同登记", "合同审批", "履约跟踪", "付款申请", "财务审核", "支付记录", "发票匹配"]],
-    ["验收结项流程", ["验收申请", "材料提交", "验收意见", "整改复验", "自动校验", "项目归档", "PDF/ZIP导出"]],
-    ["系统配置流程", ["组织用户", "角色权限", "流程节点", "表单字段", "字典规则", "消息模板", "日志审计"]],
+    ["V1项目全过程", ["项目申请", "审批", "采购", "合同", "项目实施", "付款申请", "发票登记", "验收", "结项"]],
+    ["项目立项操作", ["新建项目", "保存草稿", "提交审批", "同意/驳回/退回修改", "生成项目编号"]],
+    ["采购合同操作", ["关联项目", "登记采购", "确定供应商", "登记合同", "到期提醒"]],
+    ["付款发票操作", ["选择合同", "发起付款", "财务审核", "登记付款时间", "登记发票", "发票核销"]],
+    ["验收结项操作", ["提交验收", "填写意见", "整改", "保存验收记录", "结项校验", "自动归档"]],
+    ["系统配置操作", ["配置审批流程", "配置审批角色", "配置审批顺序", "维护编号规则", "维护项目类型"]],
   ];
   els.flowBody.innerHTML = groups.map(([title, steps]) => renderFlowGroup(title, steps)).join("");
   els.flowMask.classList.remove("hidden");
@@ -1390,11 +877,12 @@ function renderFlowGroup(title, steps) {
     .join("")}</div></section>`;
 }
 
-function money(value) {
-  return `¥${Number(value || 0).toLocaleString("zh-CN")}`;
+function formatPlainValue(value) {
+  return String(value).replace(/<[^>]+>/g, "");
 }
 
-function updateTodo() {
+function money(value) {
+  return `¥${Number(value || 0).toLocaleString("zh-CN")}`;
 }
 
 let toastTimer;
@@ -1409,6 +897,7 @@ function bindGlobalEvents() {
   els.modalClose.addEventListener("click", () => els.modalMask.classList.add("hidden"));
   els.modalCancel.addEventListener("click", () => els.modalMask.classList.add("hidden"));
   els.modalSave.addEventListener("click", saveModal);
+  els.prdOpen.addEventListener("click", openPrdModal);
   els.prdClose.addEventListener("click", () => els.prdMask.classList.add("hidden"));
   els.prdConfirm.addEventListener("click", () => els.prdMask.classList.add("hidden"));
   els.flowChartBtn.addEventListener("click", openFlowChartModal);
@@ -1423,4 +912,4 @@ function bindGlobalEvents() {
 seedData();
 renderNav();
 bindGlobalEvents();
-switchView("workbench");
+switchView("project");

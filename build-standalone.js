@@ -12,8 +12,8 @@ const css = fs.readFileSync(cssPath, "utf8");
 const js = fs.readFileSync(jsPath, "utf8");
 
 const standalone = html
-  .replace(/<link rel="stylesheet" href="styles\.css" \/>/, `<style>\n${css}\n</style>`)
-  .replace(/<script src="app\.js"><\/script>/, `<script>\n${js.replace(/<\/script>/gi, "<\\/script>")}\n</script>`);
+  .replace(/<link rel="stylesheet" href="styles\.css[^"]*" \/>/, `<style>\n${css}\n</style>`)
+  .replace(/<script src="app\.js[^"]*"><\/script>/, `<script>\n${js.replace(/<\/script>/gi, "<\\/script>")}\n</script>`);
 
 fs.writeFileSync(outputPath, standalone, "utf8");
 console.log(outputPath);

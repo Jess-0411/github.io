@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>教学采购项目管理</title>
-    <link rel="stylesheet" href="styles.css?v=20260708-2" />
+    <link rel="stylesheet" href="styles.css?v=20260709-v1" />
   </head>
   <body>
     <div class="app-shell">
@@ -22,12 +22,15 @@
       <main class="workspace">
         <header class="topbar">
           <div>
-            <h1 id="pageTitle">业务看板</h1>
+            <h1 id="pageTitle">项目立项</h1>
+          </div>
+          <div class="top-actions">
+            <button class="prd-dot" id="prdOpen" type="button" title="查看当前页面 PRD"></button>
           </div>
         </header>
 
-        <section id="dashboard" class="view"><div class="loading-state">页面加载中...</div></section>
-        <section id="moduleView" class="view hidden"></section>
+        <section id="dashboard" class="view hidden"></section>
+        <section id="moduleView" class="view"></section>
       </main>
     </div>
 
@@ -66,7 +69,7 @@
         <div class="modal-head">
           <div>
             <p class="prd-kicker">业务流程图 / 操作流程图</p>
-            <h2>教学采购项目管理流程总览</h2>
+            <h2>V1 项目全过程管理流程总览</h2>
           </div>
           <button class="icon-btn" id="flowClose" aria-label="关闭">×</button>
         </div>
@@ -100,7 +103,7 @@
     <aside id="drawer" class="drawer hidden">
       <div class="drawer-head">
         <div>
-          <p id="drawerKicker">项目详情</p>
+          <p id="drawerKicker">详情</p>
           <h2 id="drawerTitle">项目名称</h2>
         </div>
         <button class="icon-btn" id="drawerClose" aria-label="关闭">×</button>
@@ -109,6 +112,6 @@
     </aside>
 
     <div id="toast" class="toast hidden"></div>
-    <script src="app.js?v=20260708-2"></script>
+    <script src="app.js?v=20260709-v1"></script>
   </body>
 </html>
