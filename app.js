@@ -46,7 +46,7 @@ const labelMap = {
   docs: "附件",
 };
 
-const projectOptions = ["智慧教室多媒体设备采购", "化学实验耗材补充项目", "图书馆教学参考书采购"];
+const projects = ["智慧教室多媒体设备采购", "化学实验耗材补充项目", "图书馆教学参考书采购"];
 const suppliers = ["明德教育科技有限公司", "青澜教学设备有限公司", "华文书业集团"];
 
 function field(key, label, type = "text", required = false, options = []) {
@@ -56,6 +56,9 @@ function field(key, label, type = "text", required = false, options = []) {
 const pageConfigs = {
   project: {
     title: "项目立项",
+    subtitle: "完成项目申请、审批管理与项目主档生成。",
+    metrics: [["项目总数", "3"], ["待审批", "1"], ["退回修改", "1"], ["已通过", "1"]],
+    flow: ["填写申请", "提交审批", "审批处理", "生成项目编号"],
     addLabel: "新建项目",
     tabs: ["项目申请", "审批管理", "项目列表"],
     filters: ["项目名称", "项目类型", "负责人", "状态"],
@@ -75,6 +78,9 @@ const pageConfigs = {
   },
   purchase: {
     title: "采购管理",
+    subtitle: "关联已通过项目，登记采购信息并跟踪采购状态。",
+    metrics: [["待采购", "1"], ["采购中", "1"], ["采购完成", "1"], ["供应商", "3"]],
+    flow: ["关联项目", "登记采购", "确定供应商", "采购完成"],
     addLabel: "登记采购",
     tabs: ["采购登记", "采购跟踪"],
     filters: ["采购名称", "所属项目", "供应商", "状态"],
@@ -91,6 +97,9 @@ const pageConfigs = {
   },
   contract: {
     title: "合同管理",
+    subtitle: "关联采购结果，管理合同登记、履约状态与到期提醒。",
+    metrics: [["待签订", "1"], ["履约中", "1"], ["已完成", "1"], ["到期提醒", "1"]],
+    flow: ["选择采购", "登记合同", "上传附件", "到期提醒"],
     addLabel: "登记合同",
     tabs: ["合同登记", "合同提醒"],
     filters: ["合同编号", "所属项目", "合作单位", "状态"],
@@ -107,6 +116,9 @@ const pageConfigs = {
   },
   progress: {
     title: "项目进度",
+    subtitle: "负责人按月更新实施进度，记录延期原因与项目时间轴。",
+    metrics: [["正常", "1"], ["延期", "1"], ["完成", "1"], ["平均进度", "60%"]],
+    flow: ["月度更新", "上传附件", "标记延期", "时间轴展示"],
     addLabel: "更新进度",
     tabs: ["月度进度", "项目时间轴"],
     filters: ["项目名称", "负责人", "月份", "状态"],
@@ -124,6 +136,9 @@ const pageConfigs = {
   },
   payment: {
     title: "付款申请",
+    subtitle: "独立承载付款申请与财务审核，支撑发票资金闭环。",
+    metrics: [["待审核", "1"], ["审核通过", "1"], ["已付款", "1"], ["付款金额", "¥325,000"]],
+    flow: ["选择合同", "发起付款", "财务审核", "登记付款时间"],
     addLabel: "发起付款",
     tabs: ["付款申请", "财务审核"],
     filters: ["所属合同", "付款金额", "状态", "付款时间"],
@@ -138,6 +153,9 @@ const pageConfigs = {
   },
   invoice: {
     title: "发票管理",
+    subtitle: "登记发票并关联付款，展示预算、合同、付款与发票匹配情况。",
+    metrics: [["已登记", "2"], ["已核销", "1"], ["发票金额", "¥325,000"], ["预算匹配", "3"]],
+    flow: ["关联付款", "登记发票", "上传扫描件", "发票核销"],
     addLabel: "登记发票",
     tabs: ["发票登记", "预算统计"],
     filters: ["所属项目", "所属合同", "发票号码", "日期"],
@@ -153,6 +171,9 @@ const pageConfigs = {
   },
   acceptance: {
     title: "验收管理",
+    subtitle: "提交验收材料，记录验收意见、整改期限与历史记录。",
+    metrics: [["待验收", "1"], ["整改中", "1"], ["已通过", "1"], ["验收记录", "3"]],
+    flow: ["提交验收", "填写意见", "整改复验", "记录归档"],
     addLabel: "提交验收",
     tabs: ["验收申请", "验收记录"],
     filters: ["所属项目", "验收人员", "验收结果", "状态"],
@@ -168,6 +189,9 @@ const pageConfigs = {
   },
   closing: {
     title: "项目结项",
+    subtitle: "自动校验采购、合同、付款、验收状态，通过后归档核心资料。",
+    metrics: [["待校验", "1"], ["可结项", "1"], ["已结项", "1"], ["归档资料", "5类"]],
+    flow: ["申请结项", "自动校验", "审批通过", "自动归档"],
     addLabel: "申请结项",
     tabs: ["结项申请", "结项校验", "项目归档"],
     filters: ["所属项目", "负责人", "状态", "校验结果"],
@@ -180,6 +204,9 @@ const pageConfigs = {
   },
   system: {
     title: "系统管理",
+    subtitle: "维护审批流程、编号规则和项目类型，保持 V1 配置简洁。",
+    metrics: [["流程配置", "2"], ["编号规则", "2"], ["项目类型", "5"], ["启用项", "9"]],
+    flow: ["配置流程", "设置编号", "维护类型", "新业务生效"],
     addLabel: "新增配置",
     tabs: ["流程配置", "编号规则", "项目类型"],
     filters: ["名称", "类型", "状态", "更新时间"],
@@ -203,19 +230,11 @@ const navItems = [
   ["system", "系统管理"],
 ];
 
-const state = {
-  active: "project",
-  tabs: {},
-  filters: {},
-  modal: null,
-  confirm: null,
-  data: {},
-};
+const state = { active: "project", tabs: {}, filters: {}, modal: null, confirm: null, data: {} };
 
 const els = {
   navList: document.getElementById("navList"),
   pageTitle: document.getElementById("pageTitle"),
-  dashboard: document.getElementById("dashboard"),
   moduleView: document.getElementById("moduleView"),
   modalMask: document.getElementById("modalMask"),
   modalTitle: document.getElementById("modalTitle"),
@@ -250,14 +269,14 @@ const els = {
 };
 
 function seedData() {
-  const projects = [
-    projectRow("XM20260001", "智慧教室多媒体设备采购", "教学设备采购", 480000, "教务处", "沈志彬", "待审批"),
-    projectRow("XM20260002", "化学实验耗材补充项目", "教学耗材", 86000, "实验教学中心", "杨剑兴", "采购中"),
-    projectRow("XM20260003", "图书馆教学参考书采购", "图书采购", 160000, "图书馆", "张俪源", "验收中"),
+  const projectRows = [
+    projectRow("XM20260001", projects[0], "教学设备采购", 480000, "教务处", "沈志彬", "待审批"),
+    projectRow("XM20260002", projects[1], "教学耗材", 86000, "实验教学中心", "杨剑兴", "采购中"),
+    projectRow("XM20260003", projects[2], "图书采购", 160000, "图书馆", "张俪源", "验收中"),
   ];
   state.data.project = {
-    项目申请: projects,
-    审批管理: projects.map((item, index) => ({
+    项目申请: projectRows,
+    审批管理: projectRows.map((item, index) => ({
       id: `SP2026000${index + 1}`,
       projectId: item.id,
       project: item.name,
@@ -268,7 +287,7 @@ function seedData() {
       status: ["待审批", "退回修改", "已通过"][index],
       record: "申请人已提交，等待当前节点处理。",
     })),
-    项目列表: projects,
+    项目列表: projectRows,
   };
   state.data.purchase = {
     采购登记: purchaseRows(),
@@ -278,18 +297,12 @@ function seedData() {
     合同登记: contractRows(),
     合同提醒: contractRows().map((row, index) => ({ ...row, due: ["30天后到期", "履约中", "已完成"][index] })),
   };
-  state.data.progress = {
-    月度进度: progressRows(),
-    项目时间轴: timelineRows(),
-  };
+  state.data.progress = { 月度进度: progressRows(), 项目时间轴: timelineRows() };
   state.data.payment = {
     付款申请: paymentRows(),
     财务审核: paymentRows().map((row, index) => ({ ...row, status: ["待审核", "审核通过", "已付款"][index] })),
   };
-  state.data.invoice = {
-    发票登记: invoiceRows(),
-    预算统计: budgetRows(),
-  };
+  state.data.invoice = { 发票登记: invoiceRows(), 预算统计: budgetRows() };
   state.data.acceptance = {
     验收申请: acceptanceRows(),
     验收记录: acceptanceRows().map((row, index) => ({ ...row, record: ["首次验收待安排", "整改后复验通过", "验收意见已归档"][index] })),
@@ -338,7 +351,7 @@ function projectRow(id, name, type, budget, dept, owner, status) {
 }
 
 function purchaseRows() {
-  return projectOptions.map((project, index) => ({
+  return projects.map((project, index) => ({
     id: `CG2026000${index + 1}`,
     project,
     name: `${project}采购`,
@@ -353,7 +366,7 @@ function purchaseRows() {
 }
 
 function contractRows() {
-  return projectOptions.map((project, index) => ({
+  return projects.map((project, index) => ({
     id: `HT2026000${index + 1}`,
     project,
     purchase: `CG2026000${index + 1}`,
@@ -367,7 +380,7 @@ function contractRows() {
 }
 
 function progressRows() {
-  return projectOptions.map((project, index) => ({
+  return projects.map((project, index) => ({
     id: `JD2026000${index + 1}`,
     project,
     month: "2026-07",
@@ -383,15 +396,15 @@ function progressRows() {
 
 function timelineRows() {
   return [
-    { id: "TL001", project: projectOptions[0], month: "2026-06", content: "项目申请", status: "完成" },
-    { id: "TL002", project: projectOptions[0], month: "2026-07", content: "采购登记", status: "进行中" },
-    { id: "TL003", project: projectOptions[0], month: "2026-08", content: "设备安装", status: "待开始" },
-    { id: "TL004", project: projectOptions[0], month: "2026-09", content: "验收结项", status: "待开始" },
+    { id: "TL001", project: projects[0], month: "2026-06", content: "项目申请", status: "完成" },
+    { id: "TL002", project: projects[0], month: "2026-07", content: "采购登记", status: "进行中" },
+    { id: "TL003", project: projects[0], month: "2026-08", content: "设备安装", status: "待开始" },
+    { id: "TL004", project: projects[0], month: "2026-09", content: "验收结项", status: "待开始" },
   ];
 }
 
 function paymentRows() {
-  return projectOptions.map((project, index) => ({
+  return projects.map((project, index) => ({
     id: `FK2026000${index + 1}`,
     project,
     contract: `HT2026000${index + 1}`,
@@ -405,7 +418,7 @@ function paymentRows() {
 }
 
 function invoiceRows() {
-  return projectOptions.map((project, index) => ({
+  return projects.map((project, index) => ({
     id: `FP2026000${index + 1}`,
     project,
     contract: `HT2026000${index + 1}`,
@@ -420,14 +433,14 @@ function invoiceRows() {
 
 function budgetRows() {
   return [
-    { id: "YS001", project: projectOptions[0], budget: 480000, contract: "455000", payment: "136500", amount: 136500, status: "匹配" },
-    { id: "YS002", project: projectOptions[1], budget: 86000, contract: "81000", payment: "40500", amount: 40500, status: "匹配" },
-    { id: "YS003", project: projectOptions[2], budget: 160000, contract: "148000", payment: "148000", amount: 148000, status: "匹配" },
+    { id: "YS001", project: projects[0], budget: 480000, contract: "455000", payment: "136500", amount: 136500, status: "匹配" },
+    { id: "YS002", project: projects[1], budget: 86000, contract: "81000", payment: "40500", amount: 40500, status: "匹配" },
+    { id: "YS003", project: projects[2], budget: 160000, contract: "148000", payment: "148000", amount: 148000, status: "匹配" },
   ];
 }
 
 function acceptanceRows() {
-  return projectOptions.map((project, index) => ({
+  return projects.map((project, index) => ({
     id: `YS2026000${index + 1}`,
     project,
     date: `2026-08-${10 + index}`,
@@ -441,7 +454,7 @@ function acceptanceRows() {
 }
 
 function closingRows() {
-  return projectOptions.map((project, index) => ({
+  return projects.map((project, index) => ({
     id: `JX2026000${index + 1}`,
     project,
     owner: ["沈志彬", "杨剑兴", "张俪源"][index],
@@ -453,16 +466,12 @@ function closingRows() {
 }
 
 function renderNav() {
-  els.navList.innerHTML = navItems
-    .map(([id, label]) => `<button class="nav-item ${state.active === id ? "active" : ""}" data-nav="${id}">${label}</button>`)
-    .join("");
+  els.navList.innerHTML = navItems.map(([id, label]) => `<button class="nav-item ${state.active === id ? "active" : ""}" data-nav="${id}" type="button">${label}</button>`).join("");
   els.navList.querySelectorAll("[data-nav]").forEach((btn) => btn.addEventListener("click", () => switchView(btn.dataset.nav)));
 }
 
 function switchView(id) {
   state.active = id;
-  els.dashboard.classList.add("hidden");
-  els.moduleView.classList.remove("hidden");
   renderNav();
   render();
 }
@@ -473,6 +482,7 @@ function render() {
   const rows = filteredRows();
   els.pageTitle.textContent = config.title;
   els.moduleView.innerHTML = `
+    ${renderOverview(config)}
     ${renderTabs(config, tab)}
     ${renderFilters(config.filters)}
     <div class="table-toolbar">
@@ -488,6 +498,17 @@ function render() {
   bindModuleEvents();
 }
 
+function renderOverview(config) {
+  return `<section class="v1-overview">
+    <div>
+      <h2>${config.title}</h2>
+      <p>${config.subtitle}</p>
+    </div>
+    <div class="v1-metrics">${config.metrics.map(([label, value]) => `<div><span>${label}</span><strong>${value}</strong></div>`).join("")}</div>
+    <div class="v1-flow">${config.flow.map((step, index) => `<span class="${index === 0 ? "start" : index === config.flow.length - 1 ? "end" : ""}">${index + 1}. ${step}</span>`).join("")}</div>
+  </section>`;
+}
+
 function currentConfig() {
   return pageConfigs[state.active];
 }
@@ -498,16 +519,11 @@ function activeTab() {
 }
 
 function renderTabs(config, tab) {
-  if (config.tabs.length <= 1) return "";
-  return `<div class="module-tabs">${config.tabs
-    .map((name) => `<button class="tab-btn ${name === tab ? "active" : ""}" data-tab="${name}" type="button">${name}</button>`)
-    .join("")}</div>`;
+  return `<div class="module-tabs">${config.tabs.map((name) => `<button class="tab-btn ${name === tab ? "active" : ""}" data-tab="${name}" type="button">${name}</button>`).join("")}</div>`;
 }
 
 function renderFilters(filters) {
-  return `<div class="filter-bar">${filters
-    .map((name, index) => `<label>${name}：<input data-filter="${index}" placeholder="${name.includes("状态") || name.includes("类型") ? "请选择" : "请输入"}" value="${state.filters[state.active]?.[index] || ""}" /></label>`)
-    .join("")}<button class="primary-btn" data-query type="button">查询</button><button class="ghost-btn" data-reset type="button">重置</button></div>`;
+  return `<div class="filter-bar">${filters.map((name, index) => `<label>${name}：<input data-filter="${index}" placeholder="${name.includes("状态") || name.includes("类型") ? "请选择" : "请输入"}" value="${state.filters[state.active]?.[index] || ""}" /></label>`).join("")}<button class="primary-btn" data-query type="button">查询</button><button class="ghost-btn" data-reset type="button">重置</button></div>`;
 }
 
 function filteredRows() {
@@ -522,14 +538,12 @@ function renderTable(rows) {
   const columns = columnsFor(rows);
   return `<div class="table-wrap"><table class="data-table">
     <thead><tr><th><input type="checkbox" /></th>${columns.map((key) => `<th>${labelMap[key] || key}</th>`).join("")}<th>操作</th></tr></thead>
-    <tbody>${rows
-      .map((row) => `<tr><td><input type="checkbox" /></td>${columns.map((key) => `<td>${formatCell(key, row[key])}</td>`).join("")}<td class="op-cell">${rowActions().map((item) => `<button class="link-btn" data-action="${item}" data-id="${row.id}" type="button">${item}</button>`).join("")}</td></tr>`)
-      .join("")}</tbody>
+    <tbody>${rows.map((row) => `<tr><td><input type="checkbox" /></td>${columns.map((key) => `<td>${formatCell(key, row[key])}</td>`).join("")}<td class="op-cell">${rowActions().map((item) => `<button class="link-btn" data-action="${item}" data-id="${row.id}" type="button">${item}</button>`).join("")}</td></tr>`).join("")}</tbody>
   </table></div>`;
 }
 
 function columnsFor(rows) {
-  const preferred = ["id", "projectId", "name", "project", "type", "budget", "amount", "supplier", "partner", "contract", "percent", "owner", "status", "check", "date", "createdAt"];
+  const preferred = ["id", "projectId", "name", "project", "type", "budget", "amount", "supplier", "partner", "contract", "percent", "owner", "status", "check", "due", "date", "createdAt"];
   const keys = [...new Set(rows.flatMap((row) => Object.keys(row)))];
   return preferred.filter((key) => keys.includes(key)).slice(0, 8);
 }
@@ -660,9 +674,7 @@ function buildForm(fields, row) {
       return `<div class="field wide">${label}<textarea name="${item.key}" data-required="${item.required}" placeholder="请输入${item.label}">${value}</textarea><div class="field-error">请填写${item.label}</div></div>`;
     }
     if (item.type === "select") {
-      return `<div class="field">${label}<select name="${item.key}" data-required="${item.required}"><option value="">请选择${item.label}</option>${optionsFor(item)
-        .map((option) => `<option value="${option}" ${value === option ? "selected" : ""}>${option}</option>`)
-        .join("")}</select><div class="field-error">请选择${item.label}</div></div>`;
+      return `<div class="field">${label}<select name="${item.key}" data-required="${item.required}"><option value="">请选择${item.label}</option>${optionsFor(item).map((option) => `<option value="${option}" ${value === option ? "selected" : ""}>${option}</option>`).join("")}</select><div class="field-error">请选择${item.label}</div></div>`;
     }
     if (item.type === "upload") {
       return `<div class="field wide">${label}<input type="hidden" name="${item.key}" data-required="${item.required}" value="${value}" /><div class="upload-box ${value ? "has-file" : ""}" data-upload="${item.key}" data-label="${item.label}">${value || `点击上传${item.label}`}</div><div class="field-error">请上传${item.label}</div></div>`;
@@ -673,7 +685,7 @@ function buildForm(fields, row) {
 
 function optionsFor(item) {
   if (item.options.length) return item.options;
-  if (item.key === "project") return projectOptions;
+  if (item.key === "project") return projects;
   if (item.key === "supplier" || item.key === "partner") return suppliers;
   if (item.key === "purchase") return ["CG20260001", "CG20260002", "CG20260003"];
   if (item.key === "contract") return ["HT20260001", "HT20260002", "HT20260003"];
@@ -737,7 +749,7 @@ function openDrawer(row) {
   els.drawerBody.innerHTML = `
     <div class="detail-grid">${Object.entries(row).map(([key, value]) => `<div class="detail-item"><span>${labelMap[key] || key}</span><strong>${formatPlainValue(formatCell(key, value))}</strong></div>`).join("")}</div>
     <div class="timeline">
-      <div class="panel-title">项目时间轴</div>
+      <div class="panel-title">V1项目时间轴</div>
       ${["项目申请", "审批", "采购", "合同", "实施", "付款", "发票", "验收", "结项"].map((name, index) => `<div class="timeline-item"><div class="timeline-date">${index + 1}</div><div>${name}${index < 3 ? "已完成" : "待推进"}</div></div>`).join("")}
     </div>
   `;
@@ -787,9 +799,7 @@ function openApprovalDrawer(row) {
 function renderApprovalListInfo(row) {
   const keys = columnsFor([row]).filter((key) => key !== "id");
   const rows = keys.map((key) => [labelMap[key] || key, row[key]]).filter(([, value]) => value !== undefined && value !== "");
-  return `<div class="approval-list-info">${rows
-    .map(([label, value]) => `<div class="approval-list-row"><span>${label}</span><strong>${formatPlainValue(formatCell(label, value))}</strong></div>`)
-    .join("")}</div>`;
+  return `<div class="approval-list-info">${rows.map(([label, value]) => `<div class="approval-list-row"><span>${label}</span><strong>${formatPlainValue(formatCell(label, value))}</strong></div>`).join("")}</div>`;
 }
 
 function renderApprovalFlow(row) {
@@ -872,9 +882,7 @@ function openFlowChartModal() {
 }
 
 function renderFlowGroup(title, steps) {
-  return `<section class="flow-group"><div class="flow-group-head"><h3>${title}</h3><span>${steps.length} 个节点</span></div><div class="flow-track">${steps
-    .map((step, index) => `<div class="flow-node ${index === 0 ? "start" : index === steps.length - 1 ? "end" : index % 3 === 0 ? "decision" : ""}"><b>${index + 1}</b><span>${step}</span></div>${index < steps.length - 1 ? '<i class="flow-arrow">→</i>' : ""}`)
-    .join("")}</div></section>`;
+  return `<section class="flow-group"><div class="flow-group-head"><h3>${title}</h3><span>${steps.length} 个节点</span></div><div class="flow-track">${steps.map((step, index) => `<div class="flow-node ${index === 0 ? "start" : index === steps.length - 1 ? "end" : index % 3 === 0 ? "decision" : ""}"><b>${index + 1}</b><span>${step}</span></div>${index < steps.length - 1 ? '<i class="flow-arrow">→</i>' : ""}`).join("")}</div></section>`;
 }
 
 function formatPlainValue(value) {
