@@ -522,6 +522,7 @@ function closingRows() {
     owner,
     summary: "项目资料已按V1要求汇总。",
     remark: "项目已验收，待提交归档资料。",
+    result: "项目成果汇编.pdf",
     status,
     docs: "项目申请、审批记录、合同、发票、验收报告",
     archiveText: "已汇总项目实施、验收及成果资料，申请归档。",
@@ -1809,8 +1810,8 @@ function bindConfirmUploadBoxes() {
         box.classList.toggle("has-file", files.length > 0);
         return;
       }
-      if (key === "archiveDocs") {
-        const defaultFile = "项目归档资料.zip";
+      if (key === "archiveDocs" && !hiddenInput.value) {
+        const defaultFile = "项目归档资料.pdf";
         hiddenInput.value = hiddenInput.value || defaultFile;
         box.innerHTML = renderUploadBoxContent(hiddenInput.value, box.dataset.label);
         box.classList.add("has-file");

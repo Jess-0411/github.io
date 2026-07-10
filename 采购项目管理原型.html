@@ -3102,11 +3102,14 @@ function closingRows() {
     owner,
     summary: "项目资料已按V1要求汇总。",
     remark: "项目已验收，待提交归档资料。",
+    result: "项目成果汇编.pdf",
     status,
     docs: "项目申请、审批记录、合同、发票、验收报告",
-    archiveDocs: status === "待审批" ? "项目归档资料.zip" : "",
-    submittedAt: status === "已驳回" ? "" : `2026-07-${10 + index}`,
-    submitter: status === "已驳回" ? "" : "admin",
+    archiveText: "已汇总项目实施、验收及成果资料，申请归档。",
+    archiveDocs: "项目归档资料.zip",
+    submittedAt: `2026-07-${10 + index}`,
+    submitter: "admin",
+    opinion: status === "已驳回" ? "归档资料需补充成果附件说明。" : "",
   }));
 }
 
@@ -3654,7 +3657,8 @@ function rowActions(row) {
   if (state.active === "progress") actions.push("更新进度");
   if (state.active === "closing") {
     if (tab === "归档审核") return row.status === "待审批" ? ["详情", "审核"] : ["详情"];
-    if (["待审批", "已驳回"].includes(row.status)) return ["详情", "删除"];
+    if (row.status === "已驳回") return ["详情", "重新提交", "删除"];
+    if (row.status === "待审批") return ["详情", "删除"];
     return ["详情"];
   }
   return [...new Set(actions)];
@@ -3828,6 +3832,7 @@ function handleAction(action, id) {
   if (action === "审核" && state.active === "closing") return openClosingAuditPage(row);
   if (action === "提交整改" && state.active === "acceptance") return openAcceptanceRectifyConfirm(row);
   if (action === "提交" && state.active === "closing") return openArchiveSubmitConfirm(row);
+  if (action === "重新提交" && state.active === "closing") return openArchiveResubmitConfirm(row);
   if (action === "删除" && state.active === "closing") return deleteArchiveRow(row);
   const statusMap = {
     提交审批: "待审批",
@@ -4208,11 +4213,61 @@ function openArchiveSubmitConfirm(row) {
   bindConfirmUploadBoxes();
 }
 
+function openArchiveResubmitConfirm(row) {
+  requestConfirm({
+    title: "重新提交项目归档",
+    message: "请核对并修改上次提交的归档内容，重新提交后状态将变更为待审批。",
+    extra: buildArchiveResubmitForm(row),
+    onConfirm: () => {
+      const form = readConfirmExtraForm();
+      if (!["summary", "result", "remark", "archiveText", "archiveDocs"].every((key) => String(form[key] || "").trim())) {
+        showToast("请补全项目总结、成果附件、归档说明和归档附件");
+        return false;
+      }
+      Object.assign(row, {
+        summary: form.summary.trim(),
+        result: form.result.trim(),
+        remark: form.remark.trim(),
+        archiveText: form.archiveText.trim(),
+        archiveDocs: form.archiveDocs.trim(),
+        status: "待审批",
+        opinion: "",
+        submittedAt: formatDateTime(new Date()),
+        submitter: "admin",
+      });
+      syncClosingRows(row);
+      render();
+      showToast("归档资料已重新提交，状态已变更为待审批");
+      return true;
+    },
+  });
+  bindConfirmUploadBoxes();
+}
+
 function buildArchiveSubmitForm(row) {
   return `<div class="confirm-form">
     <label><span class="required-star">*</span>归档说明<textarea name="archiveText" placeholder="请输入归档说明">${row.archiveText || ""}</textarea></label>
     <label><span class="required-star">*</span>归档附件
       <input type="hidden" name="archiveDocs" value="${formatPlainValue(row.archiveDocs || "")}" />
+      <input class="upload-input" type="file" data-confirm-file="archiveDocs" multiple accept="${uploadRules.extensions.join(",")}" />
+      <div class="upload-box ${row.archiveDocs ? "has-file" : ""}" data-confirm-upload="archiveDocs" data-label="归档附件">${renderUploadBoxContent(row.archiveDocs, "归档附件")}</div>
+    </label>
+  </div>`;
+}
+
+function buildArchiveResubmitForm(row) {
+  return `<div class="confirm-form archive-resubmit-form">
+    <div class="confirm-summary">上次驳回意见：${escapeHtml(row.opinion || "未记录审批意见")}</div>
+    <label><span class="required-star">*</span>项目总结<textarea name="summary" maxlength="500" placeholder="请输入项目总结">${escapeHtml(row.summary || "")}</textarea></label>
+    <label><span class="required-star">*</span>成果附件
+      <input type="hidden" name="result" value="${escapeHtml(row.result || "")}" />
+      <input class="upload-input" type="file" data-confirm-file="result" multiple accept="${uploadRules.extensions.join(",")}" />
+      <div class="upload-box ${row.result ? "has-file" : ""}" data-confirm-upload="result" data-label="成果附件">${renderUploadBoxContent(row.result, "成果附件")}</div>
+    </label>
+    <label><span class="required-star">*</span>归档说明<textarea name="remark" maxlength="500" placeholder="请输入归档说明">${escapeHtml(row.remark || "")}</textarea></label>
+    <label><span class="required-star">*</span>提交说明<textarea name="archiveText" maxlength="500" placeholder="请输入提交说明">${escapeHtml(row.archiveText || row.remark || "")}</textarea></label>
+    <label><span class="required-star">*</span>归档附件
+      <input type="hidden" name="archiveDocs" value="${escapeHtml(row.archiveDocs || "")}" />
       <input class="upload-input" type="file" data-confirm-file="archiveDocs" multiple accept="${uploadRules.extensions.join(",")}" />
       <div class="upload-box ${row.archiveDocs ? "has-file" : ""}" data-confirm-upload="archiveDocs" data-label="归档附件">${renderUploadBoxContent(row.archiveDocs, "归档附件")}</div>
     </label>
@@ -4335,8 +4390,8 @@ function bindConfirmUploadBoxes() {
         box.classList.toggle("has-file", files.length > 0);
         return;
       }
-      if (key === "archiveDocs") {
-        const defaultFile = "项目归档资料.zip";
+      if (key === "archiveDocs" && !hiddenInput.value) {
+        const defaultFile = "项目归档资料.pdf";
         hiddenInput.value = hiddenInput.value || defaultFile;
         box.innerHTML = renderUploadBoxContent(hiddenInput.value, box.dataset.label);
         box.classList.add("has-file");
@@ -4363,6 +4418,13 @@ function bindConfirmUploadBoxes() {
 
 function syncAcceptanceRows(source) {
   Object.values(state.data.acceptance || {}).forEach((rows) => {
+    const target = rows.find((item) => item.id === source.id);
+    if (target && target !== source) Object.assign(target, source);
+  });
+}
+
+function syncClosingRows(source) {
+  Object.values(state.data.closing || {}).forEach((rows) => {
     const target = rows.find((item) => item.id === source.id);
     if (target && target !== source) Object.assign(target, source);
   });
