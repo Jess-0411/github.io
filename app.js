@@ -21,6 +21,7 @@ const labelMap = {
   role: "审批角色",
   order: "审批顺序",
   opinion: "审批意见",
+  rejectOpinion: "上次驳回意见",
   record: "审批记录",
   method: "采购方式",
   announceAt: "招标公告发布时间",
@@ -530,6 +531,7 @@ function closingRows() {
     submittedAt: `2026-07-${10 + index}`,
     submitter: "admin",
     opinion: status === "已驳回" ? "归档资料需补充成果附件说明。" : "",
+    rejectOpinion: status === "已驳回" ? "归档资料需补充成果附件说明。" : "",
   }));
 }
 
@@ -1159,7 +1161,7 @@ function bindModuleEvents() {
       action: "驳回",
       onConfirm: (opinion) => {
         const id = state.detailId;
-        Object.values(state.data.closing || {}).forEach((rows) => rows.find((item) => item.id === id) && Object.assign(rows.find((item) => item.id === id), { status: "已驳回", opinion }));
+        Object.values(state.data.closing || {}).forEach((rows) => rows.find((item) => item.id === id) && Object.assign(rows.find((item) => item.id === id), { status: "已驳回", opinion, rejectOpinion: opinion }));
         state.subPage = null;
         state.closingAuditMode = false;
         render();
@@ -1677,7 +1679,7 @@ function buildArchiveSubmitForm(row) {
 
 function buildArchiveResubmitForm(row) {
   return `<div class="confirm-form archive-resubmit-form">
-    <div class="confirm-summary">上次驳回意见：${escapeHtml(row.opinion || "未记录审批意见")}</div>
+    <div class="confirm-summary">上次驳回意见：${escapeHtml(row.rejectOpinion || row.opinion || "未记录审批意见")}</div>
     <label><span class="required-star">*</span>项目总结<textarea name="summary" maxlength="500" placeholder="请输入项目总结">${escapeHtml(row.summary || "")}</textarea></label>
     <label><span class="required-star">*</span>成果附件
       <input type="hidden" name="result" value="${escapeHtml(row.result || "")}" />
@@ -1764,6 +1766,8 @@ function renderArchiveSubmitInfo(row) {
     <div class="detail-item"><span>提交人员</span><strong>${row.submitter || "-"}</strong></div>
     <div class="detail-item"><span>提交时间</span><strong>${row.submittedAt || "-"}</strong></div>
     <div class="detail-item"><span>归档说明</span><strong>${row.archiveText || "-"}</strong></div>
+    <div class="detail-item"><span>上次驳回意见</span><strong>${row.rejectOpinion || "-"}</strong></div>
+    <div class="detail-item"><span>本次审批意见</span><strong>${row.opinion || "-"}</strong></div>
     ${renderAttachmentItem("归档附件", row.archiveDocs)}
   </div>`;
 }
@@ -1771,7 +1775,7 @@ function renderArchiveSubmitInfo(row) {
 function renderArchiveApprovalFlow(row) {
   const steps = [
     ["归档提交", row.submittedAt ? `${row.submitter || "admin"}已提交归档资料。` : "尚未提交归档资料。", row.submittedAt || "--", row.archiveDocs],
-    ["归档审批", row.status === "待审批" ? "管理员审核归档资料完整性。" : "提交后进入该节点。", row.status === "待审批" ? "处理中" : "待流转", ""],
+    ["归档审批", row.status === "待审批" ? `管理员审核归档资料完整性。${row.rejectOpinion ? ` 上次驳回意见：${row.rejectOpinion}` : ""}` : "提交后进入该节点。", row.status === "待审批" ? "处理中" : "待流转", ""],
     ["归档完成", row.status === "已归档" ? "项目资料已完成归档。" : "审批通过后完成归档。", row.status === "已归档" ? "已完成" : "待完成", ""],
   ];
   return `<div class="approval-flow archive-flow">${steps.map((step, index) => `<div class="approval-flow-item ${index === 0 && row.submittedAt ? "done" : index === 1 && row.status === "待审批" ? "current" : ""}">

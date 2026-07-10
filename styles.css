@@ -690,7 +690,10 @@ tbody tr:hover {
 
 .confirm-modal {
   width: 460px;
+  height: min(82vh, 760px);
   max-height: 82vh;
+  display: flex;
+  flex-direction: column;
   background: #fff;
   border-radius: 8px;
   box-shadow: var(--shadow);
@@ -698,7 +701,15 @@ tbody tr:hover {
 }
 
 .confirm-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   padding: 18px;
+}
+
+.confirm-modal .modal-head,
+.confirm-modal .modal-foot {
+  flex: 0 0 54px;
 }
 
 .confirm-body p {
