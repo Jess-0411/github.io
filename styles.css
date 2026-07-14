@@ -1,11 +1,15 @@
 :root {
-  --green: #1fbd8b;
-  --green-dark: #11a979;
-  --green-soft: #e5f8f1;
-  --bg: #f4f6f8;
+  --primary: #1677ff;
+  --primary-hover: #0958d9;
+  --primary-soft: #e6f4ff;
+  --primary-border: #91caff;
+  --success: #1fbd8b;
+  --success-dark: #0e8c65;
+  --success-soft: #e9f8f2;
+  --bg: #f3f6fa;
   --panel: #ffffff;
-  --line: #edf0f2;
-  --line-strong: #e5e9ed;
+  --line: #e8edf3;
+  --line-strong: #dbe3ec;
   --text: #232b35;
   --muted: #7b8794;
   --danger: #f05b5b;
@@ -35,6 +39,19 @@ textarea {
 
 button {
   cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 2px solid rgba(22, 119, 255, 0.28);
+  outline-offset: 2px;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.16);
 }
 
 .app-shell {
@@ -70,7 +87,7 @@ button {
   justify-content: center;
   border-radius: 5px;
   color: #fff;
-  background: var(--green);
+  background: var(--primary);
   font-size: 13px;
 }
 
@@ -118,13 +135,13 @@ button {
 }
 
 .nav-item:hover {
-  background: #f5fbf8;
+  background: #f0f7ff;
 }
 
 .nav-item.active {
-  color: var(--green-dark);
-  background: var(--green-soft);
-  border-left-color: var(--green);
+  color: var(--primary-hover);
+  background: var(--primary-soft);
+  border-left-color: var(--primary);
   font-weight: 700;
 }
 
@@ -136,15 +153,15 @@ button {
 .flow-entry-btn {
   width: 100%;
   height: 34px;
-  border: 1px solid var(--green);
+  border: 1px solid var(--primary);
   border-radius: 4px;
   color: #fff;
-  background: var(--green);
+  background: var(--primary);
   font-weight: 700;
 }
 
 .flow-entry-btn:hover {
-  background: var(--green-dark);
+  background: var(--primary-hover);
 }
 
 .nav-item {
@@ -166,9 +183,9 @@ button {
 }
 
 .nav-item.active {
-  color: var(--green-dark);
-  background: var(--green-soft);
-  border-left-color: var(--green);
+  color: var(--primary-hover);
+  background: var(--primary-soft);
+  border-left-color: var(--primary);
 }
 
 .nav-dot {
@@ -226,16 +243,16 @@ h1 {
 .prd-dot {
   width: 14px;
   height: 14px;
-  border: 2px solid #dff7ee;
+  border: 2px solid #d6e9ff;
   border-radius: 50%;
   padding: 0;
-  background: var(--green);
-  box-shadow: 0 0 0 3px rgba(31, 189, 139, 0.12);
+  background: var(--primary);
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.12);
 }
 
 .prd-dot:hover {
-  background: var(--green-dark);
-  box-shadow: 0 0 0 5px rgba(31, 189, 139, 0.16);
+  background: var(--primary-hover);
+  box-shadow: 0 0 0 5px rgba(22, 119, 255, 0.16);
 }
 
 .primary-btn,
@@ -250,12 +267,12 @@ h1 {
 
 .primary-btn {
   color: #fff;
-  background: var(--green);
-  border-color: var(--green);
+  background: var(--primary);
+  border-color: var(--primary);
 }
 
 .primary-btn:hover {
-  background: var(--green-dark);
+  background: var(--primary-hover);
 }
 
 .ghost-btn {
@@ -265,8 +282,8 @@ h1 {
 }
 
 .ghost-btn:hover {
-  color: var(--green-dark);
-  border-color: #b8e7d6;
+  color: var(--primary-hover);
+  border-color: var(--primary-border);
 }
 
 .danger-btn {
@@ -414,8 +431,8 @@ h1 {
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
-  border-color: var(--green);
-  box-shadow: 0 0 0 2px rgba(31, 189, 139, 0.12);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.16);
 }
 
 .module-tabs {
@@ -451,8 +468,8 @@ h1 {
 }
 
 .tab-btn.active {
-  color: var(--green-dark);
-  border-bottom-color: var(--green);
+  color: var(--primary-hover);
+  border-bottom-color: var(--primary);
   font-weight: 700;
 }
 
@@ -469,7 +486,7 @@ h1 {
   min-height: 28px;
   display: inline-flex;
   align-items: center;
-  border: 1px solid #dce8e3;
+  border: 1px solid #dbe7f5;
   border-radius: 4px;
   background: #fff;
   color: #52606d;
@@ -478,7 +495,7 @@ h1 {
 }
 
 .status-guide b {
-  color: var(--green-dark);
+  color: var(--primary-hover);
   margin-right: 4px;
 }
 
@@ -517,7 +534,7 @@ h1 {
 .pager-btn:hover:not(:disabled),
 .pager-size:hover,
 .pager-input:hover {
-  border-color: var(--green);
+  border-color: var(--primary);
 }
 
 .pager-btn:disabled {
@@ -528,8 +545,8 @@ h1 {
 
 .pager-btn.active {
   color: #fff;
-  background: var(--green);
-  border-color: var(--green);
+  background: var(--primary);
+  border-color: var(--primary);
 }
 
 .pager-size {
@@ -584,7 +601,7 @@ tbody tr:hover {
 .link-btn {
   border: 0;
   background: transparent;
-  color: var(--green-dark);
+  color: var(--primary-hover);
   padding: 0;
 }
 
@@ -647,8 +664,8 @@ tbody tr:hover {
 
 .page-box.active {
   color: #fff;
-  background: var(--green);
-  border-color: var(--green);
+  background: var(--primary);
+  border-color: var(--primary);
 }
 
 .modal-mask {
@@ -768,13 +785,13 @@ tbody tr:hover {
 .confirm-form input:focus,
 .confirm-form select:focus,
 .confirm-form textarea:focus {
-  border-color: var(--green);
-  box-shadow: 0 0 0 2px rgba(31, 189, 139, 0.12);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.16);
 }
 
 .prd-kicker {
   margin-bottom: 4px;
-  color: var(--green-dark);
+  color: var(--primary-hover);
   font-size: 12px;
   font-weight: 700;
 }
@@ -864,7 +881,7 @@ tbody tr:hover {
   align-items: center;
   justify-content: center;
   text-align: center;
-  border: 1px solid #ccebdd;
+  border: 1px solid #cfe2f7;
   border-radius: 5px;
   color: #26313d;
   background: #fff;
@@ -874,9 +891,9 @@ tbody tr:hover {
 }
 
 .flow-node.start {
-  color: #0e8c65;
-  background: #e9f8f2;
-  border-color: #aee3cf;
+  color: var(--primary-hover);
+  background: var(--primary-soft);
+  border-color: var(--primary-border);
   font-weight: 700;
 }
 
@@ -899,7 +916,7 @@ tbody tr:hover {
 
 .flow-arrow {
   flex: 0 0 auto;
-  color: var(--green-dark);
+  color: var(--primary-hover);
   font-weight: 700;
 }
 
@@ -991,8 +1008,8 @@ tbody tr:hover {
 
 .matrix-role {
   justify-content: flex-start;
-  color: #286753;
-  background: #f4faf7;
+  color: #245d9b;
+  background: #f0f7ff;
   font-size: 13px;
   font-weight: 700;
 }
@@ -1161,10 +1178,10 @@ tbody tr:hover {
 .upload-box {
   width: 100%;
   min-height: 70px;
-  border: 1px dashed #bed8d0;
+  border: 1px dashed var(--primary-border);
   border-radius: 4px;
   color: var(--muted);
-  background: #fbfefd;
+  background: #f8fbff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1174,9 +1191,9 @@ tbody tr:hover {
 }
 
 .upload-box.has-file {
-  color: var(--green-dark);
+  color: var(--primary-hover);
   border-style: solid;
-  background: var(--green-soft);
+  background: var(--primary-soft);
 }
 
 .upload-input {
@@ -1192,12 +1209,12 @@ tbody tr:hover {
 .upload-icon {
   width: 28px;
   height: 28px;
-  border: 1px solid #bde5d8;
+  border: 1px solid var(--primary-border);
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--green-dark);
+  color: var(--primary-hover);
   background: #fff;
   font-size: 16px;
 }
@@ -1213,11 +1230,11 @@ tbody tr:hover {
   min-height: 28px;
   display: flex;
   align-items: center;
-  border: 1px solid #cdeade;
+  border: 1px solid #cfe2f7;
   border-radius: 4px;
   background: #fff;
   padding: 0 9px;
-  color: #2f6f5d;
+  color: #245d9b;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1376,7 +1393,7 @@ tbody tr:hover {
 }
 
 .approval-flow-item.done::after {
-  background: var(--green);
+  background: var(--success);
 }
 
 .approval-avatar {
@@ -1392,9 +1409,12 @@ tbody tr:hover {
   font-weight: 700;
 }
 
-.approval-flow-item.done .approval-avatar,
+.approval-flow-item.done .approval-avatar {
+  background: var(--success);
+}
+
 .approval-flow-item.current .approval-avatar {
-  background: var(--green);
+  background: var(--primary);
 }
 
 .approval-flow-main {
@@ -1550,7 +1570,7 @@ tbody tr:hover {
 .link-btn {
   border: 0;
   background: transparent;
-  color: var(--green-dark);
+  color: var(--primary-hover);
   padding: 0;
 }
 
@@ -1573,8 +1593,8 @@ tbody tr:hover {
 }
 
 .todo-item:hover {
-  border-color: rgba(31, 189, 139, 0.45);
-  background: #fbfffd;
+  border-color: rgba(22, 119, 255, 0.45);
+  background: #f5f9ff;
 }
 
 .todo-item span {
@@ -1621,7 +1641,7 @@ tbody tr:hover {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: var(--green);
+  background: var(--primary);
 }
 
 .mini-table {
@@ -1643,7 +1663,7 @@ tbody tr:hover {
 }
 
 .mini-table strong {
-  color: var(--green-dark);
+  color: var(--primary-hover);
   font-size: 12px;
 }
 
@@ -1785,10 +1805,10 @@ tbody tr:hover {
   display: inline-flex;
   align-items: center;
   padding: 0 8px;
-  border: 1px solid #bfe8d8;
+  border: 1px solid #cfe2f7;
   border-radius: 4px;
-  color: #087657;
-  background: #f0fbf6;
+  color: #245d9b;
+  background: #f0f7ff;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1852,7 +1872,7 @@ tbody tr:hover {
 }
 
 .filter-bar .primary-btn.filter-action-btn {
-  box-shadow: 0 1px 2px rgba(31, 189, 139, 0.14);
+  box-shadow: 0 1px 2px rgba(22, 119, 255, 0.14);
 }
 
 .filter-bar .ghost-btn.filter-action-btn {
@@ -1861,8 +1881,8 @@ tbody tr:hover {
 }
 
 .filter-bar .ghost-btn.filter-action-btn:hover {
-  color: var(--green-dark);
-  background: #f5fffb;
+  color: var(--primary-hover);
+  background: #f0f7ff;
 }
 
 .flow-designer {
@@ -1903,13 +1923,16 @@ tbody tr:hover {
   font-size: 12px;
 }
 
-.flow-step.active,
+.flow-step.active {
+  color: var(--primary-hover);
+}
+
 .flow-step.done {
-  color: var(--green-dark);
+  color: var(--success-dark);
 }
 
 .flow-step.active {
-  border-bottom-color: var(--green);
+  border-bottom-color: var(--primary);
   font-weight: 700;
 }
 
@@ -2052,7 +2075,7 @@ tbody tr:hover {
 
 .segmented .active {
   color: #fff;
-  background: var(--green);
+  background: var(--primary);
 }
 
 .flow-control-palette h4,
@@ -2108,7 +2131,7 @@ tbody tr:hover {
 }
 
 .phone-field.selected {
-  border-left-color: var(--green);
+  border-left-color: var(--primary);
 }
 
 .phone-label {
@@ -2195,8 +2218,8 @@ tbody tr:hover {
   font-weight: 700;
 }
 
-.flow-node-card.green .node-card-head {
-  background: var(--green);
+.flow-node-card.primary .node-card-head {
+  background: var(--primary);
 }
 
 .flow-node-card.orange .node-card-head {
@@ -2228,7 +2251,7 @@ tbody tr:hover {
   border: 0;
   border-radius: 50%;
   color: #fff;
-  background: var(--green);
+  background: var(--primary);
   font-size: 18px;
 }
 
@@ -2385,7 +2408,7 @@ tbody tr:hover {
   flex: 1;
   min-width: 16px;
   border-radius: 4px 4px 0 0;
-  background: linear-gradient(180deg, #1fbd8b, #9ee8d0);
+  background: linear-gradient(180deg, var(--primary), #91caff);
 }
 
 .prd-table {
