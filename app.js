@@ -712,7 +712,7 @@ function renderFlowFormStep() {
 
 function renderFlowProcessStep() {
   const nodes = [
-    ["发起人", "仅教职工可见", "green", ""],
+    ["发起人", "仅教职工可见", "primary", ""],
     ["审批人", "发起人的直接主管", "orange", ""],
     ["审批人", "请选择审批人", "orange error", "未指定审批人"],
   ];
