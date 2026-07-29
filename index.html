@@ -1358,7 +1358,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       [&#39;buildings&#39;,&#39;building&#39;,&#39;建筑管理&#39;], [&#39;playgrounds&#39;,&#39;circle-dot&#39;,&#39;操场管理&#39;], [&#39;audit&#39;,&#39;history&#39;,&#39;修改记录&#39;]
     ],
     bureau: [
-      [&#39;building-query&#39;,&#39;building&#39;,&#39;建筑查询&#39;], [&#39;playground-query&#39;,&#39;circle-dot&#39;,&#39;操场查询&#39;], [&#39;audit&#39;,&#39;history&#39;,&#39;修改记录&#39;]
+      [&#39;building-query&#39;,&#39;building&#39;,&#39;建筑管理&#39;], [&#39;playground-query&#39;,&#39;circle-dot&#39;,&#39;操场管理&#39;]
     ]
   };
 
@@ -1437,7 +1437,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     if (state.purposeFilter) data = data.filter(v =&gt; v.purpose.includes(state.purposeFilter));
     if (state.yearFilter) data = data.filter(v =&gt; v.year &amp;&amp; String(v.year).startsWith(state.yearFilter));
     if (state.structureFilter) data = data.filter(v =&gt; v.structure === state.structureFilter);
-    const title = bureau ? type === &#39;BUILDING&#39; ? &#39;建筑查询&#39; : type === &#39;PLAYGROUND&#39; ? &#39;操场查询&#39; : &#39;学校场地查询&#39; : type === &#39;BUILDING&#39; ? &#39;建筑管理&#39; : &#39;操场管理&#39;;
+    const title = bureau ? type === &#39;BUILDING&#39; ? &#39;建筑管理&#39; : type === &#39;PLAYGROUND&#39; ? &#39;操场管理&#39; : &#39;学校场地查询&#39; : type === &#39;BUILDING&#39; ? &#39;建筑管理&#39; : &#39;操场管理&#39;;
     const desc = bureau || type === &#39;BUILDING&#39; ? &#39;&#39; : &#39;维护本校操场基础信息和器材档案&#39;;
     const hasFilter = Boolean(state.keyword || state.usageFilter || state.schoolFilter || state.typeFilter || state.purposeFilter || state.yearFilter || state.structureFilter || state.wallFilter);
     const bureauFilters = bureau ? `&lt;select class=&quot;form-select&quot; id=&quot;school-filter&quot; aria-label=&quot;按学校筛选&quot;&gt;&lt;option value=&quot;&quot;&gt;全部学校&lt;/option&gt;${[&#39;海淀区实验中学&#39;,&#39;浦东新区第二中学&#39;,&#39;天河区第一小学&#39;].map(x =&gt; `&lt;option${state.schoolFilter === x ? &#39; selected&#39; : &#39;&#39;}&gt;${x}&lt;/option&gt;`).join(&#39;&#39;)}&lt;/select&gt;` : &#39;&#39;;
