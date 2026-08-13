@@ -6388,7 +6388,15 @@ const BUILD_VERSION='2026.08.13-approval-modal-status-v13';
     if(!flowTitle){flowTitle=document.createElement('div');flowTitle.className='form-title p5-section';flowTitle.textContent='审批流程'}
     operation.before(flowTitle,flow);
   }
-  function normalizeForms(){normalizeContractForm();normalizePaymentApprovalFlow()}
+  function normalizeStartApprovalForm(){
+    const form=document.getElementById('p4StartReviewForm');
+    if(!form)return;
+    form.querySelectorAll('.start-approval-basic .detail-item').forEach(item=>{
+      const label=item.querySelector('label');
+      if(label?.textContent?.trim()==='审批状态')item.remove()
+    })
+  }
+  function normalizeForms(){normalizeContractForm();normalizePaymentApprovalFlow();normalizeStartApprovalForm()}
   new MutationObserver(normalizeForms).observe(document.body||document.documentElement,{childList:true,subtree:true});
   normalizeForms()
 })();
