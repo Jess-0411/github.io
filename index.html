@@ -271,12 +271,13 @@
         !p.scheme&&
         !(raw.projectArchives||[]).some(a=>a.projectId===p.id&&a.archiveStatus==='ARCHIVED')
       );
-      if(!hasSchemeCandidate&&!raw.projects.some(p=>p.id==='P20260721011')){
-        const candidate=demo('P20260721011','校园门禁系统升级项目','硬件建设-信息化建设',560000,'APPROVED','2026-07-22 09:20');
+      if(!hasSchemeCandidate&&!raw.projects.some(p=>p.id==='P-SCHEME-CREATE-001')){
+        const candidate=demo('P-SCHEME-CREATE-001','校园排水设施改造项目','硬件建设-工程改造',295000,'APPROVED','2026-07-24 09:10');
         candidate.sites=['S01'];
         candidate.meetingStatus='PENDING';
         candidate.schemeStatus='NOT_UPLOADED';
-        candidate.operationRecords=[purchaseRec('项目审批通过','王科长','教育局端','项目审批已完成，可维护项目方案。','2026-07-23 10:30')];
+        candidate.description='改造教学楼周边排水沟、雨水口及局部排水管线。';
+        candidate.operationRecords=[purchaseRec('项目审批通过','王科长','教育局端','项目审批已完成，可新增项目方案。','2026-07-25 09:20')];
         raw.projects.push(candidate);
       }
       localStorage.setItem(KEY,JSON.stringify(raw));return raw;
@@ -765,7 +766,6 @@
     function schemeCreate(){
       if(portal!=='school')return;
       const projects=store.projects.filter(p=>p.school===SCHOOL&&p.status==='APPROVED'&&!p.scheme&&!schemeProjectReadonly(p));
-      if(!projects.length)return toast('暂无可新增方案的审批通过项目',true);
       $('#modalRoot').innerHTML=`<div class="modal-mask"><form class="modal" id="p4SchemeCreateForm"><div class="modal-head"><div><h2>新增项目方案</h2></div><button type="button" class="close" data-p4-close>×</button></div><div class="modal-body"><div class="field"><label class="required">关联项目</label><select class="select full" name="projectId"><option value="">请选择项目</option>${projects.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><div class="field" style="margin-top:14px"><label class="required">方案名称</label><input class="input" name="name" placeholder="请输入方案名称"></div><div class="field" style="margin-top:14px"><label>方案说明</label><textarea class="textarea" name="description" rows="3" placeholder="请输入方案主要内容"></textarea></div><div class="field" style="margin-top:14px"><label class="required">方案附件</label><input class="p4-file-input" type="file" name="files" multiple><div class="field-help">支持多选；原型仅保存文件名称、大小和类型。</div></div></div><div class="modal-foot"><button type="button" class="btn" data-p4-close>取消</button><button class="btn primary">保存方案</button></div></form></div>`;
       bindModal();
       $('#p4SchemeCreateForm').onsubmit=e=>{e.preventDefault();const fd=new FormData(e.currentTarget),p=project(String(fd.get('projectId')||'')),name=String(fd.get('name')||'').trim(),files=[...e.currentTarget.files.files].map(meta);if(!p||!name||!files.length)return toast('请选择关联项目、填写方案名称并上传至少一个附件',true);const time=now();p.scheme={name,description:String(fd.get('description')||'').trim(),files,uploadedBy:'张老师',uploadedAt:time,updatedAt:time};p.schemeStatus='UPLOADED';p.updated=time;p.operationRecords=Array.isArray(p.operationRecords)?p.operationRecords:[];p.operationRecords.push(log('新增项目方案','学校端','张老师',`${name}，共${files.length}个附件`,'project',p.id));save();close();toast('项目方案已新增');render()}
@@ -5891,7 +5891,7 @@
   const money=value=>'¥ '+Number(value||0).toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2});
   const read=()=>{try{return window.normalizeSystemTimes(JSON.parse(localStorage.getItem(KEY)||'{}'))}catch{return{}}},write=data=>localStorage.setItem(KEY,JSON.stringify(data));
   const eligible=(data,project)=>project?.status==='APPROVED'||project?.acceptanceStatus==='PASSED'||project?.archiveStatus==='ARCHIVED'||project?.implementationStatus==='已终止'||arr(data.finalAcceptances).some(row=>row.projectId===project?.id&&['PASSED','APPROVED'].includes(row.status));
-  const ZERO_MEETING_PROJECT_ID='P-MEETING-ZERO-001';
+  const ZERO_MEETING_PROJECT_ID='P-MEETING-ZERO-001',SCHEME_CREATE_PROJECT_ID='P-SCHEME-CREATE-001';
   const token=project=>String(project.id||'PROJECT').replace(/[^A-Za-z0-9]/g,'').slice(-12)||'PROJECT';
   const file=(name,size,type='application/pdf')=>({name,size,type,selectedAt:'2026-07-25 09:30:00'}),approval=(node,person,result,opinion,time)=>({node,person,result,opinion,time});
   const paymentStatus={DRAFT:['草稿',''],SCHOOL_PENDING:['待学校审批','orange'],BUREAU_PENDING:['待教育局审批','blue'],APPROVING:['审批中','purple'],RETURNED:['审批退回','red'],SCHOOL_RETURNED:['审批退回','red'],BUREAU_RETURNED:['审批退回','red'],APPROVED:['审批通过','green'],WITHDRAWN:['已撤回','']};
@@ -5899,7 +5899,7 @@
   const statusTag=(map,status)=>{const item=map[status]||[status||'未知状态',''];return `<span class="tag ${item[1]}">${esc(item[0])}</span>`};
   function seed(){
     const data=read();data.projects=arr(data.projects);data.contracts=arr(data.contracts);data.startApplications=arr(data.startApplications);data.payments=arr(data.payments);data.invoices=arr(data.invoices);data.finalAcceptances=arr(data.finalAcceptances);data.meetingRecords=arr(data.meetingRecords);data.projectEvents=arr(data.projectEvents);data.projectArchives=arr(data.projectArchives);let changed=false;
-    data.projects.filter(project=>eligible(data,project)&&project.id!==ZERO_MEETING_PROJECT_ID).forEach((project,index)=>{
+    data.projects.filter(project=>eligible(data,project)&&![ZERO_MEETING_PROJECT_ID,SCHEME_CREATE_PROJECT_ID].includes(project.id)).forEach((project,index)=>{
       const key=token(project),day=String(18+(index%8)).padStart(2,'0');
       if(!project.planDate){project.planDate=`2026-08-${String(12+(index%10)).padStart(2,'0')}`;changed=true}
       if(!project.scheme||!arr(project.scheme.files).length){project.scheme={name:`${project.name.slice(0,16)}实施方案`,description:'明确建设范围、技术路线、实施计划、质量要求和验收标准。',files:[file('项目实施方案.pdf',358400),file('项目建设清单.xlsx',126976,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')],uploadedBy:project.applicant||'张老师',uploadedAt:`2026-07-${day} 11:20:00`,updatedAt:`2026-07-${day} 11:20:00`};changed=true}
@@ -5963,6 +5963,43 @@
       });
       changed=true
     }
+    const hasSchemeCreateCandidate=data.projects.some(project=>
+      project.status==='APPROVED'&&
+      project.school==='海淀区实验中学'&&
+      !project.scheme&&
+      project.acceptanceStatus!=='PASSED'&&
+      project.archiveStatus!=='ARCHIVED'&&
+      project.archived!==true
+    );
+    if(!hasSchemeCreateCandidate&&!data.projects.some(project=>project.id===SCHEME_CREATE_PROJECT_ID)){
+      data.projects.push({
+        id:SCHEME_CREATE_PROJECT_ID,
+        name:'校园排水设施改造项目',
+        school:'海淀区实验中学',
+        campus:'本部校区',
+        sites:['S01'],
+        type:'硬件建设-工程改造',
+        amount:295000,
+        applicant:'张老师',
+        phone:'13800000000',
+        content:'改造教学楼周边排水沟、雨水口及局部排水管线。',
+        reason:'解决强降雨期间局部积水问题，保障校园通行安全。',
+        status:'APPROVED',
+        meetingStatus:'PENDING',
+        meetingCount:0,
+        schemeStatus:'NOT_UPLOADED',
+        files:[file('校园排水设施改造项目申报材料.pdf',235520)],
+        records:[approval('教育局项目审批','王科长','通过','项目建设必要性明确，同意实施。','2026-07-25 09:20')],
+        operationRecords:[{action:'项目审批通过',person:'王科长',side:'教育局端',note:'项目审批已完成，可新增项目方案。',time:'2026-07-25 09:20'}],
+        procurements:[],
+        archived:false,
+        archiveStatus:'',
+        acceptanceStatus:'',
+        created:'2026-07-24 09:10',
+        updated:'2026-07-25 09:20'
+      });
+      changed=true
+    }
     data.startApplications.forEach(row=>{const contractIds=Array.isArray(row.contractIds)?row.contractIds:(row.contractId?[row.contractId]:[]);if(!Array.isArray(row.contractIds)){row.contractIds=contractIds;changed=true}});
     if(data.projectFinanceAcceptanceDemoVersion!==BUILD_VERSION){data.projectFinanceAcceptanceDemoVersion=BUILD_VERSION;changed=true}if(data.projectFullDetailDemoVersion!==BUILD_VERSION){data.projectFullDetailDemoVersion=BUILD_VERSION;changed=true}if(changed)write(data);return data
   }
@@ -6023,7 +6060,7 @@
   const MODULES=Object.freeze({
     project:{name:'项目管理',storage:'projects / meetingRecords / projects.scheme / purchases / contracts / startApplications / projectProgressRecords / payments / invoices / finalAcceptances / projectEvents / projectArchives',goal:'完成项目申报、可选校内审批、教育局审批、日常进度查看和项目全周期状态查询。',scope:'项目列表、新建或编辑申请、项目审批，以及项目概况、会议记录、项目方案、采购、合同、开工、日常进度、付款与发票、验收、项目事项和项目归档全部标签的只读全过程资料。',flow:'学校创建并提交项目 → 校内审批（配置开启时） → 教育局审批 → 审批通过；详情标签读取各业务数组的项目关联数据，会议记录按端别隔离且不属于审批节点。'},
     meeting:{name:'会议记录',storage:'meetingRecords',goal:'登记并维护当前端创建的项目会议记录。',scope:'列表筛选、新增、编辑、查看、附件元数据和项目详情只读展示。',flow:'选择项目 → 填写会议记录 → 选择模拟附件 → 保存 → 本端查看或编辑。'},
-    scheme:{name:'项目方案',storage:'projects.scheme',goal:'维护进行中项目的方案资料。',scope:'方案列表、新增或维护、详情和附件。',flow:'选择进行中项目 → 填写方案 → 选择附件 → 保存。'},
+    scheme:{name:'项目方案',storage:'projects.scheme',goal:'维护进行中项目的方案资料。',scope:'方案查询、新增、编辑、删除、详情和附件维护；已验收或已归档项目仅允许查看。',flow:'点击新增方案 → 打开新增项目方案弹窗 → 选择审批通过且未归档、尚无方案的本校项目 → 填写方案信息并选择附件 → 保存。'},
     procurement:{name:'采购管理',storage:'purchases / projects.procurements',goal:'完成采购申请、审批及审批通过后的招标与中标进展维护演示。',scope:'采购申请、采购方式、提交、首审前撤回、退回修改、重新提交、审批和采购进展更新；项目验收通过或归档后禁止更新采购；项目详情采购附件与审批轨迹使用全宽纵向单列结构。',flow:'学校创建采购申请 → 提交 → 可选校内审批 → 教育局审批 → 审批通过后学校维护采购进展；项目验收通过或归档后采购资料转为只读。项目详情展开采购包时，采购附件在上、审批轨迹在下，使用全宽纵向单列结构。'},
     contract:{name:'合同管理',storage:'contracts',goal:'登记项目合同及其项目、采购关联关系。',scope:'新增、编辑、查看、附件和合同状态。',flow:'选择进行中项目及采购 → 填写合同 → 保存 → 查看。'},
     start:{name:'开工申请',storage:'startApplications',goal:'完成开工资料提交及审批演示。',scope:'开工申请、关联合同、提交、首审前撤回、退回修改、重新提交和审批。',flow:'学校提交开工申请 → 可选校内审批 → 教育局审批 → 完成。'},
