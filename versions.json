@@ -7,15 +7,15 @@
       "status": "CURRENT",
       "path": "./v1.1/",
       "notesPath": "./v1.1/release-notes.html",
-      "releaseTag": "v1.1.0",
-      "summary": "当前审批策略增强版本。",
+      "releaseTag": "v1.1.1",
+      "summary": "当前教育局前置办理与审批衔接版本。",
       "changes": [
-        "教育局七类业务审批分别支持审批设置",
-        "首次通过类操作增加局端发起人二次确认",
-        "审批身份、部门快照和演示数据已补齐"
+        "教育局端新增项目处理菜单与七类业务办理标签",
+        "办理确认后按办理人所属部门发起正式审批",
+        "七类审批页移除首次审批人设置及首次审批确认"
       ],
-      "appSha256": "ab1428fb69a5df437a1c9f2f6bc7660ad0c34b865567d8ecd7bb6cbec1183438",
-      "appGitBlobSha": "d319980baa89ee4ce3ee34356ac89d5149233ffc",
+      "appSha256": "18a58152d32d6e683e6e793447fe0f389c2a19f0cce4a4571f9ba41050b7cfe7",
+      "appGitBlobSha": "3f781e65beacb9adc3c24545e827b5ecdf275c3d",
       "storageNamespace": "edu-prototype-v1.1:"
     },
     {
