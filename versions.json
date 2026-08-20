@@ -1,0 +1,40 @@
+{
+  "siteTitle": "教育项目全过程管理系统",
+  "versions": [
+    {
+      "version": "1.1",
+      "releaseDate": "2026-08-20",
+      "status": "CURRENT",
+      "path": "./v1.1/",
+      "notesPath": "./v1.1/release-notes.html",
+      "releaseTag": "v1.1.0",
+      "summary": "当前审批策略增强版本。",
+      "changes": [
+        "教育局七类业务审批分别支持审批设置",
+        "首次通过类操作增加局端发起人二次确认",
+        "审批身份、部门快照和演示数据已补齐"
+      ],
+      "appSha256": "ab1428fb69a5df437a1c9f2f6bc7660ad0c34b865567d8ecd7bb6cbec1183438",
+      "appGitBlobSha": "d319980baa89ee4ce3ee34356ac89d5149233ffc",
+      "storageNamespace": "edu-prototype-v1.1:"
+    },
+    {
+      "version": "1.0",
+      "releaseDate": "2026-08-15",
+      "status": "HISTORICAL",
+      "path": "./v1.0/",
+      "notesPath": "./v1.0/release-notes.html",
+      "releaseTag": "v1.0.0",
+      "sourceCommit": "84a2e267479940ca373e5aac203ee6fecd19bdda",
+      "summary": "发布前线上需求基线。",
+      "changes": [
+        "保留原学校端与教育局端交互",
+        "保留原页面内置 PRD 与演示数据规则",
+        "版本内容冻结，不再覆盖"
+      ],
+      "appSha256": "29f6b89ce0ffc23eba3055e7d8c9832974b1ff68b8671a6a45afff8526f4ee99",
+      "appGitBlobSha": "766689dc60cf033907097798cc399c51c93513d3",
+      "storageNamespace": "legacy-unversioned"
+    }
+  ]
+}
