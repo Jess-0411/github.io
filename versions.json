@@ -24,7 +24,7 @@
       "status": "HISTORICAL",
       "path": "./v1.0/",
       "notesPath": "./v1.0/release-notes.html",
-      "releaseTag": "v1.0.1",
+      "releaseTag": "v1.0.2",
       "sourceCommit": "84a2e267479940ca373e5aac203ee6fecd19bdda",
       "summary": "历史需求基线及付款审批演示数据补丁。",
       "changes": [
@@ -32,8 +32,8 @@
         "学校端付款审批补充五种审批状态演示记录",
         "付款审批仅待校审记录可执行审批，其余状态只读查看"
       ],
-      "appSha256": "2c46499bf34f010601f6d89970fce01f538fc0e680c9c1959d741cddeb9988ed",
-      "appGitBlobSha": "12599c842f71883da1ae6b9a9f62ef7beb9d6eef",
+      "appSha256": "e6f2c0e85f05c1b5a2b6268e703789cbf6bd9a9cadf0ff052ea67f7a9fcc4cfa",
+      "appGitBlobSha": "74fa708a5f6b69dbe60a121ac794a8c37b6abe65",
       "storageNamespace": "legacy-unversioned"
     }
   ]
