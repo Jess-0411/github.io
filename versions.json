@@ -7,15 +7,15 @@
       "status": "CURRENT",
       "path": "./v1.1/",
       "notesPath": "./v1.1/release-notes.html",
-      "releaseTag": "v1.1.1",
-      "summary": "当前教育局前置办理与审批衔接版本。",
+      "releaseTag": "v1.1.2",
+      "summary": "当前教育局项目办理与正式审批衔接版本。",
       "changes": [
-        "教育局端新增项目处理菜单与七类业务办理标签",
-        "办理确认后按办理人所属部门发起正式审批",
-        "七类审批页移除首次审批人设置及首次审批确认"
+        "教育局端项目管理下新增项目办理菜单与七类独立办理标签",
+        "七类办理列表使用各业务专属字段，办理确认突出发起部门",
+        "教育局审批待办补齐审批操作，原管理与审批双标签保留"
       ],
-      "appSha256": "18a58152d32d6e683e6e793447fe0f389c2a19f0cce4a4571f9ba41050b7cfe7",
-      "appGitBlobSha": "3f781e65beacb9adc3c24545e827b5ecdf275c3d",
+      "appSha256": "7f58633396ce61b5a16eb3c103c090eae1d26dbd803d45e7194f9c368b846d87",
+      "appGitBlobSha": "9379334022b59e7400f2e424c8639add6ccfa30d",
       "storageNamespace": "edu-prototype-v1.1:"
     },
     {
@@ -24,16 +24,16 @@
       "status": "HISTORICAL",
       "path": "./v1.0/",
       "notesPath": "./v1.0/release-notes.html",
-      "releaseTag": "v1.0.0",
+      "releaseTag": "v1.0.1",
       "sourceCommit": "84a2e267479940ca373e5aac203ee6fecd19bdda",
-      "summary": "发布前线上需求基线。",
+      "summary": "历史需求基线及付款审批演示数据补丁。",
       "changes": [
-        "保留原学校端与教育局端交互",
-        "保留原页面内置 PRD 与演示数据规则",
-        "版本内容冻结，不再覆盖"
+        "保留 V1.0 原学校端与教育局端业务交互",
+        "学校端付款审批补充五种审批状态演示记录",
+        "付款审批仅待校审记录可执行审批，其余状态只读查看"
       ],
-      "appSha256": "29f6b89ce0ffc23eba3055e7d8c9832974b1ff68b8671a6a45afff8526f4ee99",
-      "appGitBlobSha": "766689dc60cf033907097798cc399c51c93513d3",
+      "appSha256": "2c46499bf34f010601f6d89970fce01f538fc0e680c9c1959d741cddeb9988ed",
+      "appGitBlobSha": "12599c842f71883da1ae6b9a9f62ef7beb9d6eef",
       "storageNamespace": "legacy-unversioned"
     }
   ]
