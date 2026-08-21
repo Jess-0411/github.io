@@ -869,6 +869,8 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
             &lt;label class=&quot;form-label&quot;&gt;建设年份&lt;input class=&quot;form-control&quot; id=&quot;form-year&quot; name=&quot;year&quot; type=&quot;number&quot; min=&quot;1800&quot; max=&quot;2027&quot; placeholder=&quot;例如：2012&quot;&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label building-field&quot;&gt;建筑层数 &lt;b&gt;*&lt;/b&gt;&lt;input class=&quot;form-control&quot; id=&quot;form-floors&quot; name=&quot;floors&quot; type=&quot;number&quot; min=&quot;1&quot; max=&quot;199&quot; step=&quot;1&quot; aria-required=&quot;true&quot; placeholder=&quot;请输入 1—199 的整数&quot;&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label building-field&quot;&gt;结构类型 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;form-structure&quot; name=&quot;structure&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;砖混结构&lt;/option&gt;&lt;option&gt;框架结构&lt;/option&gt;&lt;option&gt;钢结构&lt;/option&gt;&lt;option&gt;砖木结构&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label building-field&quot;&gt;鉴定等级&lt;input class=&quot;form-control&quot; id=&quot;form-assessment-grade&quot; name=&quot;assessmentGrade&quot; type=&quot;text&quot; maxlength=&quot;20&quot; oninput=&quot;if(this.value.length&gt;20)this.value=this.value.slice(0,20)&quot; placeholder=&quot;选填，最多 20 个字符&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label building-field&quot;&gt;鉴定日期&lt;input class=&quot;form-control&quot; id=&quot;form-assessment-date&quot; name=&quot;assessmentDate&quot; type=&quot;date&quot;&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label playground-field&quot;&gt;场地类型 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;form-playground-type&quot; name=&quot;playgroundType&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;田径场&lt;/option&gt;&lt;option&gt;足球场&lt;/option&gt;&lt;option&gt;篮球场&lt;/option&gt;&lt;option&gt;排球场&lt;/option&gt;&lt;option&gt;网球场&lt;/option&gt;&lt;option&gt;综合场地&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label playground-field&quot;&gt;面层材质&lt;select class=&quot;form-select&quot; id=&quot;form-surface&quot; name=&quot;surface&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;塑胶&lt;/option&gt;&lt;option&gt;人工草坪&lt;/option&gt;&lt;option&gt;天然草坪&lt;/option&gt;&lt;option&gt;硅PU&lt;/option&gt;&lt;option&gt;水泥&lt;/option&gt;&lt;option&gt;沥青&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label&quot;&gt;使用状态&lt;select class=&quot;form-select&quot; id=&quot;form-usage&quot; name=&quot;usage&quot;&gt;&lt;option&gt;使用中&lt;/option&gt;&lt;option&gt;改造中&lt;/option&gt;&lt;option&gt;闲置&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
@@ -923,6 +925,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
           &lt;div id=&quot;waterproof-fields&quot; class=&quot;facility-extra-fields&quot; hidden&gt;
             &lt;div class=&quot;form-section-title form-section-secondary&quot;&gt;&lt;span&gt;防水信息&lt;/span&gt;&lt;small&gt;以下字段均为选填&lt;/small&gt;&lt;/div&gt;
             &lt;div class=&quot;form-grid&quot;&gt;
+              &lt;label class=&quot;form-label&quot;&gt;屋面类型&lt;select class=&quot;form-select&quot; id=&quot;facility-roof-type&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;可上人&lt;/option&gt;&lt;option&gt;不可上人&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
               &lt;label class=&quot;form-label&quot;&gt;防水部位&lt;select class=&quot;form-select&quot; id=&quot;facility-waterproof-location&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;屋面&lt;/option&gt;&lt;option&gt;卫生间&lt;/option&gt;&lt;option&gt;地下室&lt;/option&gt;&lt;option&gt;厨房地面&lt;/option&gt;&lt;option&gt;实验室地面&lt;/option&gt;&lt;option&gt;外墙面&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
               &lt;label class=&quot;form-label&quot;&gt;防水材料&lt;select class=&quot;form-select&quot; id=&quot;facility-waterproof-material&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;SBS改性沥青卷材&lt;/option&gt;&lt;option&gt;聚氨酯涂膜&lt;/option&gt;&lt;option&gt;TPO高分子卷材&lt;/option&gt;&lt;option&gt;防水混凝土+卷材&lt;/option&gt;&lt;option&gt;环氧树脂自流平&lt;/option&gt;&lt;option&gt;金属屋面防水系统&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
               &lt;label class=&quot;form-label&quot;&gt;防水等级&lt;select class=&quot;form-select&quot; id=&quot;facility-waterproof-grade&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;I级&lt;/option&gt;&lt;option&gt;II级&lt;/option&gt;&lt;option&gt;III级&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
@@ -1396,7 +1399,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   let facilities = [
     { type: &#39;门&#39;, name: &#39;教学楼东侧入口门&#39;, status: &#39;良好&#39;, year: 2021, doorType: &#39;防火门&#39;, doorLocation: &#39;教学楼东侧入口&#39;, doorCount: 4, doorHardwareStatus: &#39;完好&#39;, detail: &#39;开启顺畅，闭门器运行正常。&#39;, repairs: [{ date: &#39;2024-03-18&#39;, company: &#39;北京启安门窗工程有限公司&#39;, content: &#39;更换损坏五金件并完成调试。&#39;, warranty: &#39;2年&#39;, createdAt: &#39;2024-03-18 15:42:16&#39; }] },
     { type: &#39;窗&#39;, name: &#39;教学楼南立面窗&#39;, status: &#39;良好&#39;, year: 2021, windowType: &#39;平开窗&#39;, frameMaterial: &#39;断桥铝合金&#39;, glassType: &#39;双层中空Low-E&#39;, windowLocation: &#39;教学楼南立面&#39;, windowCount: 32, windowHardwareStatus: &#39;完好&#39;, windowSealingPerformance: &#39;良好&#39;, detail: &#39;窗扇启闭正常，密封条完整。&#39;, repairs: [] },
-    { type: &#39;防水&#39;, name: &#39;主楼屋面防水&#39;, status: &#39;正常&#39;, year: 2023, waterproofLocation: &#39;屋面&#39;, waterproofMaterial: &#39;SBS改性沥青卷材&#39;, waterproofGrade: &#39;I级&#39;, waterproofArea: 860.5, detail: &#39;排水口周边及女儿墙收口完整。&#39;, repairs: [{ date: &#39;2025-06-12&#39;, company: &#39;华北校园防水工程有限公司&#39;, content: &#39;修补屋面排水口周边开裂区域并重新铺设卷材。&#39;, warranty: &#39;至2028-06-11&#39;, createdAt: &#39;2025-06-12 10:18:35&#39; }] },
+    { type: &#39;防水&#39;, name: &#39;主楼屋面防水&#39;, status: &#39;正常&#39;, year: 2023, roofType: &#39;可上人&#39;, waterproofLocation: &#39;屋面&#39;, waterproofMaterial: &#39;SBS改性沥青卷材&#39;, waterproofGrade: &#39;I级&#39;, waterproofArea: 860.5, detail: &#39;排水口周边及女儿墙收口完整。&#39;, repairs: [{ date: &#39;2025-06-12&#39;, company: &#39;华北校园防水工程有限公司&#39;, content: &#39;修补屋面排水口周边开裂区域并重新铺设卷材。&#39;, warranty: &#39;至2028-06-11&#39;, createdAt: &#39;2025-06-12 10:18:35&#39; }] },
     { type: &#39;外墙&#39;, name: &#39;教学楼外墙&#39;, status: &#39;需维修&#39;, year: 2019, exteriorLocation: &#39;教学楼南立面&#39;, facadeMaterial: &#39;涂料&#39;, insulationType: &#39;外墙外保温&#39;, insulationMaterial: &#39;岩棉板&#39;, insulationThickness: &#39;60&#39;, detail: &#39;局部饰面需要修补。&#39;, repairs: [] },
     { type: &#39;内墙&#39;, name: &#39;教学楼三层走廊内墙&#39;, status: &#39;良好&#39;, year: 2022, interiorLocation: &#39;教学楼三层东侧走廊&#39;, interiorSpaceType: &#39;走廊&#39;, interiorWallType: &#39;非承重墙&#39;, interiorBaseMaterial: &#39;砖砌体&#39;, interiorFinishMaterial: &#39;乳胶漆&#39;, detail: &#39;墙面平整，饰面维护正常。&#39;, repairs: [] },
     { type: &#39;卫生间&#39;, name: &#39;一层东侧卫生间&#39;, status: &#39;正常&#39;, year: 2022, sanitaryLocation: &#39;教学楼一层东侧&#39;, sanitaryType: &#39;水冲式&#39;, fixtureType: &#39;陶瓷蹲便器+小便器&#39;, sanitaryArea: 86.5, detail: &#39;设施运行正常。&#39;, repairs: [{ date: &#39;2025-09-05&#39;, company: &#39;京诚校园设施服务有限公司&#39;, content: &#39;更换冲水阀及破损隔断五金，完成通水测试。&#39;, warranty: &#39;1年&#39;, createdAt: &#39;2025-09-05 16:05:22&#39; }] },
@@ -1599,7 +1602,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       : facility.type === &#39;窗&#39;
         ? [[&#39;窗户类型&#39;, facility.windowType], [&#39;窗框材质&#39;, facility.frameMaterial], [&#39;玻璃类型&#39;, facility.glassType], [&#39;所在位置&#39;, facility.windowLocation], [&#39;窗数量&#39;, facility.windowCount ? `${facility.windowCount}樘` : &#39;&#39;], [&#39;五金状态&#39;, facility.windowHardwareStatus], [&#39;密封性能&#39;, facility.windowSealingPerformance]]
       : facility.type === &#39;防水&#39;
-        ? [[&#39;防水部位&#39;, facility.waterproofLocation], [&#39;防水材料&#39;, facility.waterproofMaterial], [&#39;防水等级&#39;, facility.waterproofGrade], [&#39;防水面积&#39;, facility.waterproofArea ? `${facility.waterproofArea}㎡` : &#39;&#39;]]
+        ? [[&#39;屋面类型&#39;, facility.roofType], [&#39;防水部位&#39;, facility.waterproofLocation], [&#39;防水材料&#39;, facility.waterproofMaterial], [&#39;防水等级&#39;, facility.waterproofGrade], [&#39;防水面积&#39;, facility.waterproofArea ? `${facility.waterproofArea}㎡` : &#39;&#39;]]
         : facility.type === &#39;外墙&#39;
           ? [[&#39;所在位置&#39;, facility.exteriorLocation], [&#39;外立面材质&#39;, facility.facadeMaterial], [&#39;保温类型&#39;, facility.insulationType], [&#39;保温材料&#39;, facility.insulationMaterial], [&#39;保温厚度&#39;, facility.insulationThickness ? `${facility.insulationThickness}mm` : &#39;&#39;]]
           : facility.type === &#39;内墙&#39;
@@ -1645,7 +1648,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     if (!venue) { state.selectedVenue = null; render(); return; }
     const readonly = state.portal === &#39;bureau&#39;;
     const profile = venue.type === &#39;BUILDING&#39;
-      ? [[&#39;建筑类型&#39;, venue.buildingType || &#39;—&#39;], [&#39;建设年份&#39;, `${venue.year}年`], [&#39;建筑层数&#39;, `${venue.floors}层`], [&#39;结构类型&#39;, venue.structure], [&#39;建筑面积&#39;, `${format(venue.area)}㎡`], [&#39;使用面积&#39;, venue.usableArea ? `${format(venue.usableArea)}㎡` : &#39;—&#39;]]
+      ? [[&#39;建筑类型&#39;, venue.buildingType || &#39;—&#39;], [&#39;建设年份&#39;, venue.year ? `${venue.year}年` : &#39;—&#39;], [&#39;建筑层数&#39;, `${venue.floors}层`], [&#39;结构类型&#39;, venue.structure], [&#39;鉴定等级&#39;, venue.assessmentGrade || &#39;—&#39;], [&#39;鉴定日期&#39;, venue.assessmentDate || &#39;—&#39;], [&#39;建筑面积&#39;, `${format(venue.area)}㎡`], [&#39;使用面积&#39;, venue.usableArea ? `${format(venue.usableArea)}㎡` : &#39;—&#39;]]
       : [[&#39;场地类型&#39;, venue.playgroundType || &#39;—&#39;], [&#39;建设年份&#39;, venue.year ? `${venue.year}年` : &#39;—&#39;], [&#39;面层材质&#39;, venue.surface || &#39;—&#39;], [&#39;包含足球场&#39;, venue.football ? &#39;是&#39; : &#39;否&#39;], [&#39;面积&#39;, `${format(venue.area)}㎡`], [&#39;当前状态&#39;, venue.usage]];
     const selectedFacility = Number.isInteger(state.selectedFacility) ? facilities[state.selectedFacility] : null;
     const facilityHtml = venue.type === &#39;BUILDING&#39;
@@ -1684,6 +1687,8 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     document.getElementById(&#39;form-year&#39;).value = venue?.year || &#39;&#39;;
     document.getElementById(&#39;form-floors&#39;).value = venue?.floors || &#39;&#39;;
     document.getElementById(&#39;form-structure&#39;).value = venue?.structure || &#39;&#39;;
+    document.getElementById(&#39;form-assessment-grade&#39;).value = venue?.assessmentGrade || &#39;&#39;;
+    document.getElementById(&#39;form-assessment-date&#39;).value = venue?.assessmentDate || &#39;&#39;;
     document.getElementById(&#39;form-playground-type&#39;).value = venue?.playgroundType || &#39;&#39;;
     document.getElementById(&#39;form-surface&#39;).value = venue?.surface || &#39;&#39;;
     document.getElementById(&#39;form-usage&#39;).value = venue?.usage || &#39;使用中&#39;;
@@ -1713,6 +1718,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     document.getElementById(&#39;facility-window-count&#39;).value = facility?.windowCount || &#39;&#39;;
     document.getElementById(&#39;facility-window-hardware-status&#39;).value = facility?.windowHardwareStatus || &#39;&#39;;
     document.getElementById(&#39;facility-window-sealing-performance&#39;).value = facility?.windowSealingPerformance || &#39;&#39;;
+    document.getElementById(&#39;facility-roof-type&#39;).value = facility?.roofType || &#39;&#39;;
     document.getElementById(&#39;facility-waterproof-location&#39;).value = facility?.waterproofLocation || &#39;&#39;;
     document.getElementById(&#39;facility-waterproof-material&#39;).value = facility?.waterproofMaterial || &#39;&#39;;
     document.getElementById(&#39;facility-waterproof-grade&#39;).value = facility?.waterproofGrade || &#39;&#39;;
@@ -1769,7 +1775,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       : facility.type === &#39;窗&#39;
         ? [facility.windowType, facility.frameMaterial, facility.glassType, facility.windowLocation, facility.windowCount ? `${facility.windowCount}樘` : &#39;&#39;, facility.windowHardwareStatus, facility.windowSealingPerformance]
       : facility.type === &#39;防水&#39;
-        ? [facility.waterproofLocation, facility.waterproofMaterial, facility.waterproofGrade, facility.waterproofArea ? `${facility.waterproofArea}㎡` : &#39;&#39;]
+        ? [facility.roofType, facility.waterproofLocation, facility.waterproofMaterial, facility.waterproofGrade, facility.waterproofArea ? `${facility.waterproofArea}㎡` : &#39;&#39;]
         : facility.type === &#39;外墙&#39;
           ? [facility.exteriorLocation, facility.facadeMaterial, facility.insulationType, facility.insulationMaterial, facility.insulationThickness ? `${facility.insulationThickness}mm` : &#39;&#39;]
           : facility.type === &#39;内墙&#39;
@@ -2032,6 +2038,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       windowCount: isWindow ? numberOrNull(&#39;facility-window-count&#39;) : null,
       windowHardwareStatus: isWindow ? document.getElementById(&#39;facility-window-hardware-status&#39;).value : &#39;&#39;,
       windowSealingPerformance: isWindow ? document.getElementById(&#39;facility-window-sealing-performance&#39;).value : &#39;&#39;,
+      roofType: isWaterproof ? document.getElementById(&#39;facility-roof-type&#39;).value : &#39;&#39;,
       waterproofLocation: isWaterproof ? document.getElementById(&#39;facility-waterproof-location&#39;).value : &#39;&#39;,
       waterproofMaterial: isWaterproof ? document.getElementById(&#39;facility-waterproof-material&#39;).value : &#39;&#39;,
       waterproofGrade: isWaterproof ? document.getElementById(&#39;facility-waterproof-grade&#39;).value : &#39;&#39;,
@@ -2138,6 +2145,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     const buildingType = document.getElementById(&#39;form-building-type&#39;).value;
     const playgroundType = document.getElementById(&#39;form-playground-type&#39;).value;
     const structure = document.getElementById(&#39;form-structure&#39;).value;
+    const assessmentGrade = type === &#39;BUILDING&#39; ? document.getElementById(&#39;form-assessment-grade&#39;).value.trim() : &#39;&#39;;
     const floorsText = type === &#39;BUILDING&#39; ? document.getElementById(&#39;form-floors&#39;).value.trim() : &#39;&#39;;
     const floors = floorsText ? Number(floorsText) : null;
     const area = Number(document.getElementById(&#39;form-area&#39;).value);
@@ -2147,9 +2155,10 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     if (name.length &lt; 2 || !purpose || !(area &gt; 0)) { error.textContent = &#39;请完整填写名称、用途和有效面积。&#39;; error.hidden = false; return; }
     if (type === &#39;BUILDING&#39; &amp;&amp; (!buildingType || !structure)) { error.textContent = &#39;请选择建筑物类型和结构类型。&#39;; error.hidden = false; return; }
     if (type === &#39;BUILDING&#39; &amp;&amp; (!Number.isInteger(floors) || floors &lt;= 0 || floors &gt;= 200)) { error.textContent = &#39;建筑层数为必填项，请输入大于 0 且小于 200 的整数。&#39;; error.hidden = false; return; }
+    if (type === &#39;BUILDING&#39; &amp;&amp; assessmentGrade.length &gt; 20) { error.textContent = &#39;鉴定等级最多输入 20 个字符。&#39;; error.hidden = false; return; }
     if (type === &#39;PLAYGROUND&#39; &amp;&amp; !playgroundType) { error.textContent = &#39;请选择操场场地类型。&#39;; error.hidden = false; return; }
     if (type === &#39;BUILDING&#39; &amp;&amp; usableAreaText &amp;&amp; (!(usableArea &gt; 0) || usableArea &gt; area)) { error.textContent = &#39;使用面积填写时必须大于 0，且不能超过建筑面积。&#39;; error.hidden = false; return; }
-    const payload = { school: &#39;海淀区实验中学&#39;, type, name, buildingType: type === &#39;BUILDING&#39; ? buildingType : &#39;&#39;, playgroundType: type === &#39;PLAYGROUND&#39; ? playgroundType : &#39;&#39;, purpose, area, usableArea, year: Number(document.getElementById(&#39;form-year&#39;).value) || null, floors: type === &#39;BUILDING&#39; ? floors : null, structure: type === &#39;BUILDING&#39; ? structure : &#39;&#39;, surface: type === &#39;PLAYGROUND&#39; ? document.getElementById(&#39;form-surface&#39;).value : &#39;&#39;, football: false, usage: document.getElementById(&#39;form-usage&#39;).value, lifecycle: &#39;正常&#39;, remarks: document.getElementById(&#39;form-remarks&#39;).value.trim(), updated: &#39;2026-07-21 10:30:00&#39; };
+    const payload = { school: &#39;海淀区实验中学&#39;, type, name, buildingType: type === &#39;BUILDING&#39; ? buildingType : &#39;&#39;, playgroundType: type === &#39;PLAYGROUND&#39; ? playgroundType : &#39;&#39;, purpose, area, usableArea, year: Number(document.getElementById(&#39;form-year&#39;).value) || null, floors: type === &#39;BUILDING&#39; ? floors : null, structure: type === &#39;BUILDING&#39; ? structure : &#39;&#39;, assessmentGrade, assessmentDate: type === &#39;BUILDING&#39; ? document.getElementById(&#39;form-assessment-date&#39;).value : &#39;&#39;, surface: type === &#39;PLAYGROUND&#39; ? document.getElementById(&#39;form-surface&#39;).value : &#39;&#39;, football: false, usage: document.getElementById(&#39;form-usage&#39;).value, lifecycle: &#39;正常&#39;, remarks: document.getElementById(&#39;form-remarks&#39;).value.trim(), updated: &#39;2026-07-21 10:30:00&#39; };
     if (form.dataset.editId) { const index = venues.findIndex(v =&gt; v.id === form.dataset.editId); venues[index] = { ...venues[index], ...payload }; state.selectedVenue = form.dataset.editId; }
     else { const created = { id: `v${Date.now()}`, ...payload }; venues = [created, ...venues]; state.page = type === &#39;BUILDING&#39; ? &#39;buildings&#39; : &#39;playgrounds&#39;; }
     modal.hidden = true; render(); showToast(form.dataset.editId ? &#39;建筑物档案已更新&#39; : &#39;建筑物档案已新增&#39;);
@@ -2499,6 +2508,8 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
         ['建设年份','year','数字输入','用户输入','venues.year','否','1800–当前年份+1','四位年份','空','无','详情展示','建设年份不合法'],
         ['建筑层数','floors','数字输入','用户输入','venues.floors','是','1–199 整数','层','空','无','仅建筑显示','请输入大于 0 且小于 200 的整数'],
         ['结构类型','structure','下拉选择','配置枚举','venues.structure','是','单选','砖混结构、框架结构、钢结构、砖木结构','空','固定枚举','仅建筑显示','请选择结构类型'],
+        ['鉴定等级','assessmentGrade','单行文本','用户输入','venues.assessmentGrade','否','0–20 字符','普通文本','空','无','仅建筑显示','鉴定等级最多输入 20 个字符'],
+        ['鉴定日期','assessmentDate','日期选择','用户输入','venues.assessmentDate','否','合法日期','YYYY-MM-DD','空','无','仅建筑显示','请选择有效鉴定日期'],
         ['使用状态','usage','下拉选择','配置枚举','venues.usage','否','单选','使用中、改造中、闲置','使用中','固定枚举','影响列表状态标签','请选择使用状态'],
         ['档案状态','lifecycle','只读展示','系统生成','venues.lifecycle','否','系统状态','正常','正常','无','详情展示','无'],
         ['备注','remarks','多行文本','用户输入','venues.remarks','否','0–300 字符','普通文本','空','无','无','备注最多 300 字符'],
@@ -2518,6 +2529,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
         ['窗数量','windowCount','数字输入','用户输入','facilities[].windowCount','否','1–9999 整数','樘','空','无','仅窗显示','请输入有效整数'],
         ['窗五金状态','windowHardwareStatus','下拉选择','配置枚举','facilities[].windowHardwareStatus','否','单选','完好、轻微损坏、需更换','空','固定枚举','仅窗显示','无'],
         ['密封性能','windowSealingPerformance','下拉选择','配置枚举','facilities[].windowSealingPerformance','否','单选','良好、一般、较差','空','固定枚举','仅窗显示','无'],
+        ['屋面类型','roofType','下拉选择','配置枚举','facilities[].roofType','否','单选','可上人、不可上人','空','固定枚举','仅防水显示，位于防水信息首项','无'],
         ['防水部位','waterproofLocation','下拉选择','配置枚举','facilities[].waterproofLocation','否','单选','屋面、卫生间、地下室、厨房地面、实验室地面、外墙面','空','固定枚举','仅防水显示','无'],
         ['防水材料','waterproofMaterial','下拉选择','配置枚举','facilities[].waterproofMaterial','否','单选','SBS改性沥青卷材、聚氨酯涂膜、TPO高分子卷材、防水混凝土+卷材、环氧树脂自流平、金属屋面防水系统','空','固定枚举','仅防水显示','无'],
         ['防水等级','waterproofGrade','下拉选择','配置枚举','facilities[].waterproofGrade','否','单选','I级、II级、III级','空','固定枚举','仅防水显示','无'],
@@ -2585,7 +2597,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       return{root,isModal,type,controls,filters,fields,buttons,display};
     }
     const specFor=(name,type)=>(specs[type]||specs.building).find(row=>String(row[1]).split('/').includes(name)||String(row[1]).includes(name));
-    const textPolicy=(control,name,label=labelOf(control))=>{const n=String(name||''),l=String(label||'').replace(/\s+/g,'').replace(/[＊*]/g,'');if(control.tagName==='TEXTAREA'&&(/remarks?|notes?|memo/i.test(n)||/备注|说明/.test(l)))return{maxLength:200,limit:'0–200 字符',error:`${l||'备注'}最多输入 200 个字符`};if(control.tagName!=='TEXTAREA'&&(/name|title|topic/i.test(n)||/名称|标题|议题/.test(l))){const min=control.minLength>0?control.minLength:1;return{maxLength:20,limit:`${min}–20 字符`,error:`${l||'名称'}最多输入 20 个字符`}}return null};
+    const textPolicy=(control,name,label=labelOf(control))=>{const n=String(name||''),l=String(label||'').replace(/\s+/g,'').replace(/[＊*]/g,'');if(/assessmentGrade/i.test(n)||/鉴定等级/.test(l))return{maxLength:20,limit:'0–20 字符',error:'鉴定等级最多输入 20 个字符'};if(control.tagName==='TEXTAREA'&&(/remarks?|notes?|memo/i.test(n)||/备注|说明/.test(l)))return{maxLength:200,limit:'0–200 字符',error:`${l||'备注'}最多输入 200 个字符`};if(control.tagName!=='TEXTAREA'&&(/name|title|topic/i.test(n)||/名称|标题|议题/.test(l))){const min=control.minLength>0?control.minLength:1;return{maxLength:20,limit:`${min}–20 字符`,error:`${l||'名称'}最多输入 20 个字符`}}return null};
     function prd(title,type,isModal,contextRoot){
       const root=contextRoot||(isModal?doc.querySelector('.modal-panel,.modal'):doc.querySelector('.app-content'))||app,context=contextOf(root,isModal,type),contextId=`${side()} / ${isModal?'弹窗':'页面'} / ${title}`;
       const fieldRows=context.fields.map(control=>{const name=control.name||control.id||labelOf(control),label=labelOf(control),spec=specFor(name,type),policy=textPolicy(control,name,label),kind=control.tagName==='SELECT'?'下拉选择':control.tagName==='TEXTAREA'?'多行文本':control.type==='file'?'文件选择':control.type==='number'?'数字输入':control.type==='date'?'日期':'单行文本';return[label,name,spec?.[2]||kind,spec?.[3]||'当前界面输入',spec?.[4]||`venues.${name}`,spec?.[5]||(control.required?'是':'否'),policy?.limit||spec?.[6]||(control.maxLength>0?`最多 ${control.maxLength} 字符`:'按当前控件限制'),spec?.[7]||control.type||'普通文本',spec?.[8]||control.getAttribute('value')||'空',spec?.[9]||(control.tagName==='SELECT'?[...control.options].map(x=>x.textContent.trim()).join('、'):'无'),spec?.[10]||'仅影响当前界面',policy?.error||spec?.[11]||`请正确填写${label}`]});
