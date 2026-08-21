@@ -7,19 +7,21 @@
       "status": "CURRENT",
       "path": "./v1.1/",
       "notesPath": "./v1.1/release-notes.html",
-      "releaseTag": "v1.1.3",
-      "summary": "当前教育局项目办理与正式审批衔接版本，已完成线上运行稳定性优化。",
+      "releaseTag": "v1.1.4",
+      "summary": "当前教育局项目办理与正式审批衔接版本，七类办理已提供独立 PRD 与流程图。",
       "changes": [
         "教育局端项目管理下新增项目办理菜单与七类独立办理标签",
+        "七类办理分别提供页面、详情和办理弹窗 PRD 及前置办理流程图",
+        "PRD 同时说明原型数据来源、正式后端规划、状态生成规则和异常边界",
         "七类办理列表使用各业务专属字段，办理确认突出发起部门",
         "教育局审批待办补齐审批操作，原管理与审批双标签保留",
         "线上项目页面独立加载并合并 DOM 增强调度，降低长期运行内存压力"
       ],
       "appSha256": "ab90d38392f03e69ff7528abc8164f7cd62c207898ac694dc9d5e66d8d32e862",
       "appGitBlobSha": "df4111a91d34e51b3f9735e0d8373af76389c10f",
-      "projectSha256": "0829f17b1c879a8809572e6a13aa770b04a44fa75a1e1e157579748d9100ecb2",
-      "projectGitBlobSha": "45a74cf94813efbe85087e04aabeb5eb17725042",
-      "packageSha256": "b87f4b3fd7a80cfec3fc7c9089fd45eb4066dcf0a4aa79fd6e2917ab5744b8bd",
+      "projectSha256": "1b9f7cfb7b04896e0d27a0994a54dbd9f06e03fd279feb262a587169688d6dc0",
+      "projectGitBlobSha": "14010e0a0c823b22be93f7ae4c82a20c04b82abc",
+      "packageSha256": "deb1b68d87a156260ccb36586545186ddea172019079eb029465a4493be314f7",
       "storageNamespace": "edu-prototype-v1.1:"
     },
     {

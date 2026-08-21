@@ -33,7 +33,7 @@
   </main>
   <script>
     const fallback={versions:[
-      {version:'1.1',releaseDate:'2026-08-20',status:'CURRENT',path:'./v1.1/',notesPath:'./v1.1/release-notes.html',summary:'当前教育局项目办理与正式审批衔接版本。',changes:['教育局端项目管理下新增项目办理菜单与七类独立办理标签','七类办理列表使用各业务专属字段，办理确认突出发起部门','教育局审批待办补齐审批操作，原管理与审批双标签保留']},
+      {version:'1.1',releaseDate:'2026-08-20',status:'CURRENT',path:'./v1.1/',notesPath:'./v1.1/release-notes.html',summary:'当前教育局项目办理与正式审批衔接版本。',changes:['七类办理分别提供独立 PRD 与前置办理流程图','PRD 补充原型与正式后端双层数据口径、状态生成规则和异常边界','七类办理列表使用各业务专属字段，办理确认突出发起部门']},
       {version:'1.0',releaseDate:'2026-08-15',status:'HISTORICAL',path:'./v1.0/',notesPath:'./v1.0/release-notes.html',summary:'历史需求基线及付款审批演示数据补丁。',changes:['保留V1.0原学校端与教育局端业务交互','学校端付款审批补充五种审批状态演示记录','付款审批仅待校审记录可执行审批，其余状态只读查看']}
     ]};
     const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
