@@ -3,19 +3,23 @@
   "versions": [
     {
       "version": "1.1",
-      "releaseDate": "2026-08-20",
+      "releaseDate": "2026-08-21",
       "status": "CURRENT",
       "path": "./v1.1/",
       "notesPath": "./v1.1/release-notes.html",
-      "releaseTag": "v1.1.2",
-      "summary": "当前教育局项目办理与正式审批衔接版本。",
+      "releaseTag": "v1.1.3",
+      "summary": "当前教育局项目办理与正式审批衔接版本，已完成线上运行稳定性优化。",
       "changes": [
         "教育局端项目管理下新增项目办理菜单与七类独立办理标签",
         "七类办理列表使用各业务专属字段，办理确认突出发起部门",
-        "教育局审批待办补齐审批操作，原管理与审批双标签保留"
+        "教育局审批待办补齐审批操作，原管理与审批双标签保留",
+        "线上项目页面独立加载并合并 DOM 增强调度，降低长期运行内存压力"
       ],
-      "appSha256": "7f58633396ce61b5a16eb3c103c090eae1d26dbd803d45e7194f9c368b846d87",
-      "appGitBlobSha": "9379334022b59e7400f2e424c8639add6ccfa30d",
+      "appSha256": "ab90d38392f03e69ff7528abc8164f7cd62c207898ac694dc9d5e66d8d32e862",
+      "appGitBlobSha": "df4111a91d34e51b3f9735e0d8373af76389c10f",
+      "projectSha256": "0829f17b1c879a8809572e6a13aa770b04a44fa75a1e1e157579748d9100ecb2",
+      "projectGitBlobSha": "45a74cf94813efbe85087e04aabeb5eb17725042",
+      "packageSha256": "b87f4b3fd7a80cfec3fc7c9089fd45eb4066dcf0a4aa79fd6e2917ab5744b8bd",
       "storageNamespace": "edu-prototype-v1.1:"
     },
     {
@@ -24,16 +28,20 @@
       "status": "HISTORICAL",
       "path": "./v1.0/",
       "notesPath": "./v1.0/release-notes.html",
-      "releaseTag": "v1.0.2",
+      "releaseTag": "v1.0.3",
       "sourceCommit": "84a2e267479940ca373e5aac203ee6fecd19bdda",
-      "summary": "历史需求基线及付款审批演示数据补丁。",
+      "summary": "历史需求基线、学校付款审批数据及线上稳定性补丁。",
       "changes": [
         "保留 V1.0 原学校端与教育局端业务交互",
-        "学校端付款审批补充五种审批状态演示记录",
-        "付款审批仅待校审记录可执行审批，其余状态只读查看"
+        "学校端付款审批补充三条可连续处理的校内待审批记录",
+        "付款审批保留多状态数据，仅待校审记录可执行审批",
+        "修复重置后数据不恢复及页面重复运行异常"
       ],
-      "appSha256": "e6f2c0e85f05c1b5a2b6268e703789cbf6bd9a9cadf0ff052ea67f7a9fcc4cfa",
-      "appGitBlobSha": "74fa708a5f6b69dbe60a121ac794a8c37b6abe65",
+      "appSha256": "d7ce6e453f205723d841ea05cf5c6543600684eea88762981472e968efb3dafc",
+      "appGitBlobSha": "a098646a28c55669cbc128598426a4002e906f10",
+      "projectSha256": "c3dfc6595aa930dc8d8cd850d314ba424480d23ab1b295b42cb2c1d3e1831c69",
+      "projectGitBlobSha": "00bd4599bcf28416f502f0f4e7171d20f556d02b",
+      "packageSha256": "555fb08a52d6ec7bea65a3ff450b7c44df6d31db880f661603298a10620c5e10",
       "storageNamespace": "legacy-unversioned"
     }
   ]
