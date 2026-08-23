@@ -871,8 +871,8 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
             &lt;label class=&quot;form-label building-field&quot;&gt;结构类型 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;form-structure&quot; name=&quot;structure&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;砖混结构&lt;/option&gt;&lt;option&gt;框架结构&lt;/option&gt;&lt;option&gt;钢结构&lt;/option&gt;&lt;option&gt;砖木结构&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label building-field&quot;&gt;鉴定等级&lt;input class=&quot;form-control&quot; id=&quot;form-assessment-grade&quot; name=&quot;assessmentGrade&quot; type=&quot;text&quot; maxlength=&quot;20&quot; oninput=&quot;if(this.value.length&gt;20)this.value=this.value.slice(0,20)&quot; placeholder=&quot;选填，最多 20 个字符&quot;&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label building-field&quot;&gt;鉴定日期&lt;input class=&quot;form-control&quot; id=&quot;form-assessment-date&quot; name=&quot;assessmentDate&quot; type=&quot;date&quot;&gt;&lt;/label&gt;
-            &lt;label class=&quot;form-label playground-field&quot;&gt;场地类型 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;form-playground-type&quot; name=&quot;playgroundType&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;田径场&lt;/option&gt;&lt;option&gt;足球场&lt;/option&gt;&lt;option&gt;篮球场&lt;/option&gt;&lt;option&gt;排球场&lt;/option&gt;&lt;option&gt;网球场&lt;/option&gt;&lt;option&gt;综合场地&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
-            &lt;label class=&quot;form-label playground-field&quot;&gt;面层材质&lt;select class=&quot;form-select&quot; id=&quot;form-surface&quot; name=&quot;surface&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;塑胶&lt;/option&gt;&lt;option&gt;人工草坪&lt;/option&gt;&lt;option&gt;天然草坪&lt;/option&gt;&lt;option&gt;硅PU&lt;/option&gt;&lt;option&gt;水泥&lt;/option&gt;&lt;option&gt;沥青&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label playground-field&quot;&gt;场地类型 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;form-playground-type&quot; name=&quot;playgroundType&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;田径场&lt;/option&gt;&lt;option&gt;足球场&lt;/option&gt;&lt;option&gt;篮球场&lt;/option&gt;&lt;option&gt;排球场&lt;/option&gt;&lt;option&gt;网球场&lt;/option&gt;&lt;option&gt;综合场地&lt;/option&gt;&lt;option&gt;室外运动场地&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label playground-field&quot;&gt;土地属性&lt;select class=&quot;form-select&quot; id=&quot;form-land-attribute&quot; name=&quot;landAttribute&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;学校自用土地&lt;/option&gt;&lt;option&gt;租用&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label&quot;&gt;使用状态&lt;select class=&quot;form-select&quot; id=&quot;form-usage&quot; name=&quot;usage&quot;&gt;&lt;option&gt;使用中&lt;/option&gt;&lt;option&gt;改造中&lt;/option&gt;&lt;option&gt;闲置&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
           &lt;/div&gt;
           &lt;div class=&quot;form-section-title form-section-secondary&quot;&gt;&lt;span&gt;补充说明&lt;/span&gt;&lt;/div&gt;
@@ -880,6 +880,24 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
           &lt;p id=&quot;form-error&quot; class=&quot;text-destructive&quot; hidden&gt;&lt;/p&gt;
         &lt;/div&gt;
         &lt;div class=&quot;modal-actions&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-close-modal&gt;取消&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-save-venue&gt;保存档案&lt;/button&gt;&lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;school-area-modal&quot; class=&quot;modal-backdrop&quot; hidden&gt;
+    &lt;section class=&quot;modal-panel school-area-modal-panel&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;school-area-modal-title&quot;&gt;
+      &lt;div class=&quot;modal-head&quot;&gt;&lt;div&gt;&lt;strong id=&quot;school-area-modal-title&quot;&gt;编辑学校面积概况&lt;/strong&gt;&lt;/div&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost modal-close-button&quot; data-close-school-area aria-label=&quot;关闭&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
+      &lt;form id=&quot;school-area-form&quot;&gt;
+        &lt;div class=&quot;modal-body&quot;&gt;
+          &lt;div class=&quot;form-section-title school-area-required-note&quot;&gt;&lt;small&gt;标记 &lt;b&gt;*&lt;/b&gt; 的字段为必填项&lt;/small&gt;&lt;/div&gt;
+          &lt;div class=&quot;form-grid school-area-form-grid&quot;&gt;
+            &lt;label class=&quot;form-label&quot;&gt;学校整体面积（㎡） &lt;b&gt;*&lt;/b&gt;&lt;input class=&quot;form-control&quot; id=&quot;school-total-area&quot; name=&quot;totalArea&quot; type=&quot;number&quot; min=&quot;0.01&quot; step=&quot;0.01&quot; placeholder=&quot;请输入大于 0 的数值&quot; required&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;租赁面积（㎡） &lt;b&gt;*&lt;/b&gt;&lt;input class=&quot;form-control&quot; id=&quot;school-leased-area&quot; name=&quot;leasedArea&quot; type=&quot;number&quot; min=&quot;0&quot; step=&quot;0.01&quot; placeholder=&quot;请输入大于等于 0 的数值&quot; required&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;自有面积（㎡） &lt;b&gt;*&lt;/b&gt;&lt;input class=&quot;form-control&quot; id=&quot;school-owned-area&quot; name=&quot;ownedArea&quot; type=&quot;number&quot; min=&quot;0&quot; step=&quot;0.01&quot; placeholder=&quot;请输入大于等于 0 的数值&quot; required&gt;&lt;/label&gt;
+          &lt;/div&gt;
+          &lt;p id=&quot;school-area-difference&quot; class=&quot;school-area-difference&quot; hidden&gt;&lt;/p&gt;
+          &lt;p id=&quot;school-area-error&quot; class=&quot;text-destructive&quot; hidden&gt;&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;modal-actions&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-close-school-area&gt;取消&lt;/button&gt;&lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot; data-save-school-area&gt;保存面积概况&lt;/button&gt;&lt;/div&gt;
       &lt;/form&gt;
     &lt;/section&gt;
   &lt;/div&gt;
@@ -898,7 +916,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
           &lt;div class=&quot;form-grid&quot;&gt;
             &lt;label class=&quot;form-label&quot;&gt;设施类型 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;facility-type&quot;&gt;&lt;option&gt;门&lt;/option&gt;&lt;option&gt;窗&lt;/option&gt;&lt;option&gt;防水&lt;/option&gt;&lt;option&gt;外墙&lt;/option&gt;&lt;option&gt;内墙&lt;/option&gt;&lt;option&gt;卫生间&lt;/option&gt;&lt;option&gt;浴室&lt;/option&gt;&lt;option&gt;消防设施&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label&quot;&gt;档案名称 &lt;b&gt;*&lt;/b&gt;&lt;input class=&quot;form-control&quot; id=&quot;facility-name&quot; placeholder=&quot;例如：主楼防水&quot; required&gt;&lt;/label&gt;
-            &lt;label class=&quot;form-label&quot;&gt;当前状态 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;facility-status&quot;&gt;&lt;option&gt;正常&lt;/option&gt;&lt;option&gt;良好&lt;/option&gt;&lt;option&gt;需维修&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;当前状态 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;facility-status&quot;&gt;&lt;option&gt;良好&lt;/option&gt;&lt;option&gt;需维修&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label&quot;&gt;&lt;span id=&quot;facility-year-label&quot;&gt;最近改造年份&lt;/span&gt;&lt;input class=&quot;form-control&quot; id=&quot;facility-year&quot; type=&quot;number&quot; min=&quot;1900&quot; max=&quot;2027&quot; placeholder=&quot;例如：2022&quot;&gt;&lt;/label&gt;
           &lt;/div&gt;
           &lt;div id=&quot;door-fields&quot; class=&quot;facility-extra-fields&quot;&gt;
@@ -1003,6 +1021,36 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       &lt;/form&gt;
     &lt;/section&gt;
   &lt;/div&gt;
+  &lt;div id=&quot;playground-module-modal&quot; class=&quot;modal-backdrop&quot; hidden&gt;
+    &lt;section class=&quot;modal-panel&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;playground-module-title&quot;&gt;
+      &lt;div class=&quot;modal-head&quot;&gt;&lt;div&gt;&lt;strong id=&quot;playground-module-title&quot;&gt;新增场地模块&lt;/strong&gt;&lt;p&gt;一个操场可登记多个同类或不同类型的用途子档案。&lt;/p&gt;&lt;/div&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost modal-close-button&quot; data-close-playground-module aria-label=&quot;关闭&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
+      &lt;form id=&quot;playground-module-form&quot;&gt;
+        &lt;input type=&quot;hidden&quot; id=&quot;playground-module-id&quot;&gt;
+        &lt;div class=&quot;modal-body&quot;&gt;
+          &lt;div class=&quot;form-grid&quot;&gt;
+            &lt;label class=&quot;form-label&quot;&gt;模块类型 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;playground-module-type&quot;&gt;&lt;option&gt;户外草坪&lt;/option&gt;&lt;option&gt;田径场&lt;/option&gt;&lt;option&gt;足球场&lt;/option&gt;&lt;option&gt;篮球场&lt;/option&gt;&lt;option&gt;排球场&lt;/option&gt;&lt;option&gt;网球场&lt;/option&gt;&lt;option&gt;羽毛球场&lt;/option&gt;&lt;option&gt;乒乓球场&lt;/option&gt;&lt;option&gt;其他&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;模块名称 &lt;b&gt;*&lt;/b&gt;&lt;input class=&quot;form-control&quot; id=&quot;playground-module-name&quot; placeholder=&quot;例如：1号篮球场&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;面积（㎡） &lt;b&gt;*&lt;/b&gt;&lt;input class=&quot;form-control&quot; id=&quot;playground-module-area&quot; type=&quot;number&quot; min=&quot;0.01&quot; step=&quot;0.01&quot; placeholder=&quot;大于 0，最多两位小数&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;地面材质 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;playground-module-material&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;塑胶&lt;/option&gt;&lt;option&gt;人工草坪&lt;/option&gt;&lt;option&gt;天然草坪&lt;/option&gt;&lt;option&gt;硅PU&lt;/option&gt;&lt;option&gt;水泥&lt;/option&gt;&lt;option&gt;沥青&lt;/option&gt;&lt;option&gt;木地板&lt;/option&gt;&lt;option&gt;悬浮地板&lt;/option&gt;&lt;option&gt;其他&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot; id=&quot;playground-module-custom-material-field&quot; hidden&gt;其他材质 &lt;b&gt;*&lt;/b&gt;&lt;input class=&quot;form-control&quot; id=&quot;playground-module-custom-material&quot; placeholder=&quot;请填写材质名称&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;建造年份&lt;input class=&quot;form-control&quot; id=&quot;playground-module-built-year&quot; type=&quot;number&quot; min=&quot;1800&quot; step=&quot;1&quot; placeholder=&quot;选填&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;最近改造年份&lt;input class=&quot;form-control&quot; id=&quot;playground-module-renovated-year&quot; type=&quot;number&quot; min=&quot;1800&quot; step=&quot;1&quot; placeholder=&quot;选填&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;当前状态 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;playground-module-status&quot;&gt;&lt;option&gt;良好&lt;/option&gt;&lt;option&gt;需养护&lt;/option&gt;&lt;option&gt;改造中&lt;/option&gt;&lt;option&gt;停用&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label playground-module-extra&quot; data-module-extra=&quot;户外草坪&quot;&gt;灌溉方式&lt;select class=&quot;form-select&quot; id=&quot;playground-module-irrigation&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;自动喷灌&lt;/option&gt;&lt;option&gt;人工浇灌&lt;/option&gt;&lt;option&gt;滴灌&lt;/option&gt;&lt;option&gt;无灌溉设施&lt;/option&gt;&lt;option&gt;其他&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label playground-module-extra&quot; data-module-extra=&quot;田径场&quot; hidden&gt;跑道数量&lt;input class=&quot;form-control&quot; id=&quot;playground-module-lanes&quot; type=&quot;number&quot; min=&quot;1&quot; step=&quot;1&quot; placeholder=&quot;例如：6&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label playground-module-extra&quot; data-module-extra=&quot;田径场&quot; hidden&gt;跑道规格&lt;select class=&quot;form-select&quot; id=&quot;playground-module-track-spec&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;200米&lt;/option&gt;&lt;option&gt;300米&lt;/option&gt;&lt;option&gt;400米&lt;/option&gt;&lt;option&gt;其他&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label playground-module-extra&quot; data-module-extra=&quot;足球场&quot; hidden&gt;场地制式&lt;select class=&quot;form-select&quot; id=&quot;playground-module-football-format&quot;&gt;&lt;option value=&quot;&quot;&gt;请选择&lt;/option&gt;&lt;option&gt;5人制&lt;/option&gt;&lt;option&gt;7人制&lt;/option&gt;&lt;option&gt;8人制&lt;/option&gt;&lt;option&gt;11人制&lt;/option&gt;&lt;option&gt;其他&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label playground-module-extra&quot; data-module-extra=&quot;足球场&quot; hidden&gt;球门数量&lt;input class=&quot;form-control&quot; id=&quot;playground-module-goals&quot; type=&quot;number&quot; min=&quot;0&quot; step=&quot;1&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label playground-module-extra&quot; data-module-extra=&quot;ball&quot; hidden&gt;场地规格&lt;input class=&quot;form-control&quot; id=&quot;playground-module-court-spec&quot; placeholder=&quot;例如：标准全场&quot;&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label playground-module-extra&quot; data-module-extra=&quot;ball&quot; hidden&gt;场地数量&lt;input class=&quot;form-control&quot; id=&quot;playground-module-count&quot; type=&quot;number&quot; min=&quot;1&quot; step=&quot;1&quot; value=&quot;1&quot;&gt;&lt;/label&gt;
+          &lt;/div&gt;
+          &lt;label class=&quot;form-label detail-field&quot;&gt;备注&lt;textarea class=&quot;form-control&quot; id=&quot;playground-module-remarks&quot; rows=&quot;3&quot; placeholder=&quot;可填写场地位置、规格或养护情况&quot;&gt;&lt;/textarea&gt;&lt;/label&gt;
+          &lt;p id=&quot;playground-module-error&quot; class=&quot;text-destructive&quot; hidden&gt;&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;modal-actions&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-close-playground-module&gt;取消&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-save-playground-module&gt;保存场地模块&lt;/button&gt;&lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
   &lt;div id=&quot;playground-record-modal&quot; class=&quot;modal-backdrop&quot; hidden&gt;
     &lt;section class=&quot;modal-panel&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;playground-record-title&quot;&gt;
       &lt;div class=&quot;modal-head&quot;&gt;&lt;div&gt;&lt;strong id=&quot;playground-record-title&quot;&gt;新增器材信息&lt;/strong&gt;&lt;p id=&quot;playground-record-subtitle&quot;&gt;补充操场器材信息，保存后立即显示在档案中。&lt;/p&gt;&lt;/div&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost modal-close-button&quot; data-close-playground-record aria-label=&quot;关闭&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
@@ -1013,7 +1061,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
             &lt;label class=&quot;form-label&quot;&gt;器材分类 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;equipment-category&quot;&gt;&lt;option&gt;体育器材&lt;/option&gt;&lt;option&gt;健身器材&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label&quot;&gt;器材名称 &lt;b&gt;*&lt;/b&gt;&lt;input class=&quot;form-control&quot; id=&quot;equipment-name&quot; placeholder=&quot;例如：篮球架&quot; required&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label&quot;&gt;数量 &lt;b&gt;*&lt;/b&gt;&lt;input class=&quot;form-control&quot; id=&quot;equipment-quantity&quot; type=&quot;number&quot; min=&quot;1&quot; step=&quot;1&quot; placeholder=&quot;请输入数量&quot; required&gt;&lt;/label&gt;
-            &lt;label class=&quot;form-label&quot;&gt;当前状态 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;equipment-status&quot;&gt;&lt;option&gt;正常使用&lt;/option&gt;&lt;option&gt;需要维护&lt;/option&gt;&lt;option&gt;停用&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;当前状态 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;equipment-status&quot;&gt;&lt;option&gt;良好&lt;/option&gt;&lt;option&gt;需要维护&lt;/option&gt;&lt;option&gt;停用&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
           &lt;/div&gt;
           &lt;div id=&quot;renovation-record-fields&quot; hidden&gt;
             &lt;div class=&quot;form-grid&quot;&gt;
@@ -1060,6 +1108,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   #education-management-app .page-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px; margin-bottom: 16px; }
   #education-management-app .page-heading h2 { margin: 0 0 4px; font-weight: 500; }
   #education-management-app .page-heading p { margin: 0; color: var(--muted-foreground); }
+  #education-management-app .page-heading-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   #education-management-app .metric-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; margin-bottom: 14px; }
   #education-management-app .metric-card { display: flex; align-items: center; gap: 10px; min-width: 0; background: var(--card); border-color: color-mix(in srgb, var(--primary) 12%, var(--border)); }
   #education-management-app .metric-icon { display: grid; place-items: center; flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; background: color-mix(in srgb, var(--viz-series-1) 18%, transparent); color: var(--foreground); }
@@ -1078,6 +1127,17 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   #education-management-app .toolbar-group { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
   #education-management-app .toolbar .form-control,
   #education-management-app .toolbar .form-select { width: auto; min-width: 130px; }
+  #education-management-app .school-area-profile { margin: 12px 20px; padding: 10px 14px; border: 1px solid color-mix(in srgb, var(--primary) 14%, var(--border)); border-radius: 9px; background: color-mix(in srgb, var(--primary) 3%, var(--card)); }
+  #education-management-app .school-area-profile-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 8px; }
+  #education-management-app .school-area-profile-title { display: grid; gap: 2px; }
+  #education-management-app .school-area-profile-title strong { color: var(--foreground); font-size: 15px; }
+  #education-management-app .school-area-profile-title small { color: var(--muted-foreground); }
+  #education-management-app .school-area-metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
+  #education-management-app .school-area-metric { min-width: 0; padding: 8px 12px; border: 1px solid color-mix(in srgb, var(--primary) 10%, var(--border)); border-radius: 7px; background: var(--card); }
+  #education-management-app .school-area-metric span { display: block; margin-bottom: 2px; color: var(--muted-foreground); }
+  #education-management-app .school-area-metric strong { color: color-mix(in srgb, var(--primary) 78%, var(--foreground)); font-size: 17px; font-weight: 600; }
+  #education-management-app .school-area-empty { display: flex; align-items: center; justify-content: center; min-height: 86px; color: var(--muted-foreground); text-align: center; }
+  #education-management-app .school-area-difference { margin: 4px 0 12px; padding: 10px 12px; border-radius: 7px; background: color-mix(in srgb, var(--viz-series-3) 12%, var(--card)); color: color-mix(in srgb, var(--destructive) 82%, var(--foreground)); }
   #education-management-app .status-tag { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 999px; background: color-mix(in srgb, var(--primary) 8%, var(--card)); color: var(--foreground); border: 1px solid color-mix(in srgb, var(--primary) 12%, var(--border)); white-space: nowrap; }
   #education-management-app .status-tag.active { background: color-mix(in srgb, var(--viz-series-2) 14%, var(--card)); border-color: color-mix(in srgb, var(--viz-series-2) 34%, var(--border)); }
   #education-management-app .status-tag.warning { background: color-mix(in srgb, var(--viz-series-3) 16%, var(--card)); border-color: color-mix(in srgb, var(--viz-series-3) 38%, var(--border)); }
@@ -1141,7 +1201,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   #education-management-app .attachment-name { display: inline-flex; align-items: center; gap: 8px; color: var(--foreground); }
   #education-management-app .attachment-name svg { color: var(--primary); }
   #education-management-app .attachment-empty { display: grid; place-items: center; gap: 8px; padding: 34px 12px; color: var(--muted-foreground); text-align: center; }
-  #education-management-app #equipment-record-fields[hidden], #education-management-app #renovation-record-fields[hidden] { display: none !important; }
+  #education-management-app #equipment-record-fields[hidden], #education-management-app #renovation-record-fields[hidden], #education-management-app .playground-module-extra[hidden] { display: none !important; }
   #education-management-app .empty-state { text-align: center; padding: 42px 12px; color: var(--muted-foreground); }
   #education-management-app .school-bars { display: grid; gap: 12px; }
   #education-management-app .school-bar { display: grid; grid-template-columns: 120px 1fr 70px; gap: 10px; align-items: center; }
@@ -1152,6 +1212,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   #education-management-app .modal-panel { width: min(720px,100%); max-height: calc(100% - 24px); display: flex; flex-direction: column; overflow: hidden; padding: 0; border-radius: 14px; background: var(--popover); color: var(--popover-foreground); border: 1px solid color-mix(in srgb, var(--primary) 16%, var(--border)); box-shadow: 0 24px 72px color-mix(in srgb, var(--foreground) 26%, transparent); }
   #education-management-app .facility-modal-panel { width: min(640px,100%); }
   #education-management-app .repair-modal-panel { width: min(620px,100%); }
+  #education-management-app .school-area-modal-panel { width: min(780px,100%); }
   #education-management-app .modal-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; padding: 20px 24px 18px; border-bottom: 1px solid color-mix(in srgb, var(--primary) 12%, var(--border)); }
   #education-management-app .modal-head &gt; div { min-width: 0; }
   #education-management-app .modal-head strong { display: block; font-weight: 500; }
@@ -1173,6 +1234,8 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   #education-management-app .form-label b,
   #education-management-app .form-section-title b { color: var(--destructive); font-weight: 500; }
   #education-management-app .form-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 18px; row-gap: 16px; margin-bottom: 16px; }
+  #education-management-app .school-area-form-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  #education-management-app .school-area-required-note { justify-content: flex-end; }
   #education-management-app .form-label { display: block; margin: 0; }
   #education-management-app .form-label[hidden] { display: none; }
   #education-management-app .form-label &gt; .form-control,
@@ -1318,6 +1381,11 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   #education-management-app .modal-head { padding: 20px 24px; border-bottom-color: #e5ecf4; background: #fbfdff; }
   #education-management-app .modal-body { padding: 22px 24px 10px; }
   #education-management-app .modal-actions { border-top-color: #e5ecf4; background: #f8fbff; }
+  @media (max-width: 720px) {
+    #education-management-app .school-area-metrics,
+    #education-management-app .school-area-form-grid { grid-template-columns: 1fr; }
+    #education-management-app .school-area-profile-head { align-items: stretch; flex-direction: column; }
+  }
   #education-management-app .form-section-title { color: #2366b7; }
   #education-management-app .app-toast { right: 24px; bottom: 24px; border-radius: 9px; background: #17355c; color: #ffffff; box-shadow: 0 10px 28px rgb(16 37 74 / 20%); }
   #education-management-app.is-workspace .app-content { padding: 46px 38px 78px; }
@@ -1335,26 +1403,64 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   const content = document.getElementById(&#39;app-content&#39;);
   const portalSwitch = document.getElementById(&#39;portal-switch&#39;);
   const modal = document.getElementById(&#39;app-modal&#39;);
+  const schoolAreaModal = document.getElementById(&#39;school-area-modal&#39;);
+  const schoolAreaForm = document.getElementById(&#39;school-area-form&#39;);
   const confirmModal = document.getElementById(&#39;confirm-modal&#39;);
   const confirmAction = document.getElementById(&#39;confirm-action&#39;);
   const facilityModal = document.getElementById(&#39;facility-modal&#39;);
   const facilityForm = document.getElementById(&#39;facility-form&#39;);
   const repairModal = document.getElementById(&#39;repair-modal&#39;);
   const repairForm = document.getElementById(&#39;repair-form&#39;);
+  const playgroundModuleModal = document.getElementById(&#39;playground-module-modal&#39;);
+  const playgroundModuleForm = document.getElementById(&#39;playground-module-form&#39;);
   const playgroundRecordModal = document.getElementById(&#39;playground-record-modal&#39;);
   const playgroundRecordForm = document.getElementById(&#39;playground-record-form&#39;);
   const form = document.getElementById(&#39;venue-form&#39;);
   const toast = document.getElementById(&#39;app-toast&#39;);
 
   let venues = [
-    { id: &#39;v1&#39;, school: &#39;海淀区实验中学&#39;, type: &#39;BUILDING&#39;, name: &#39;致远教学楼&#39;, buildingType: &#39;教学楼&#39;, purpose: &#39;普通教学&#39;, area: 12680.5, usableArea: 10860, year: 2008, floors: 6, structure: &#39;框架结构&#39;, usage: &#39;使用中&#39;, lifecycle: &#39;正常&#39;, remarks: &#39;学校主要教学建筑，档案完整。&#39;, attachments: [{ id: &#39;a1&#39;, name: &#39;建筑平面图.pdf&#39;, size: 2453668, type: &#39;PDF&#39;, addedAt: &#39;2026-07-20 16:32:18&#39; }], updated: &#39;2026-07-20 16:35:00&#39; },
-    { id: &#39;v2&#39;, school: &#39;海淀区实验中学&#39;, type: &#39;BUILDING&#39;, name: &#39;博雅实验楼&#39;, buildingType: &#39;实验楼&#39;, purpose: &#39;实验教学&#39;, area: 8950, usableArea: 7640, year: 2015, floors: 5, structure: &#39;框架结构&#39;, usage: &#39;使用中&#39;, lifecycle: &#39;正常&#39;, remarks: &#39;包含物理、化学和生物实验室。&#39;, updated: &#39;2026-07-20 14:10:00&#39; },
-    { id: &#39;v3&#39;, school: &#39;海淀区实验中学&#39;, type: &#39;PLAYGROUND&#39;, name: &#39;中心操场&#39;, playgroundType: &#39;综合场地&#39;, purpose: &#39;田径与足球教学&#39;, area: 8200, year: 2006, surface: &#39;塑胶&#39;, football: true, usage: &#39;使用中&#39;, lifecycle: &#39;正常&#39;, remarks: &#39;2022年完成塑胶面层改造。&#39;, equipment: [{ id: &#39;e1&#39;, category: &#39;体育器材&#39;, name: &#39;篮球架&#39;, quantity: 4, status: &#39;正常使用&#39;, addedAt: &#39;2026-07-20 11:20:18&#39; }, { id: &#39;e2&#39;, category: &#39;体育器材&#39;, name: &#39;足球门&#39;, quantity: 2, status: &#39;正常使用&#39;, addedAt: &#39;2026-07-20 11:21:06&#39; }], renovations: [{ id: &#39;r1&#39;, date: &#39;2022-08-15&#39;, content: &#39;塑胶面层整体翻新&#39;, company: &#39;示范体育工程有限公司&#39;, addedAt: &#39;2022-08-15 16:30:22&#39; }], updated: &#39;2026-07-20 11:26:00&#39; },
-    { id: &#39;v4&#39;, school: &#39;海淀区实验中学&#39;, type: &#39;PLAYGROUND&#39;, name: &#39;篮球活动区&#39;, playgroundType: &#39;篮球场&#39;, purpose: &#39;篮球教学&#39;, area: 2300, year: 2016, surface: &#39;硅PU&#39;, football: false, usage: &#39;改造中&#39;, lifecycle: &#39;正常&#39;, remarks: &#39;暑期进行面层维护。&#39;, equipment: [], renovations: [], updated: &#39;2026-07-19 17:40:00&#39; },
-    { id: &#39;v5&#39;, school: &#39;浦东新区第二中学&#39;, type: &#39;BUILDING&#39;, name: &#39;启航综合楼&#39;, buildingType: &#39;办公楼&#39;, purpose: &#39;行政与综合教学&#39;, area: 15420, usableArea: 13250, year: 2011, floors: 8, structure: &#39;框架结构&#39;, usage: &#39;使用中&#39;, lifecycle: &#39;正常&#39;, remarks: &#39;&#39;, updated: &#39;2026-07-18 15:22:00&#39; },
-    { id: &#39;v6&#39;, school: &#39;浦东新区第二中学&#39;, type: &#39;PLAYGROUND&#39;, name: &#39;北侧运动场&#39;, playgroundType: &#39;足球场&#39;, purpose: &#39;体育教学&#39;, area: 10600, year: 2010, surface: &#39;人工草坪&#39;, football: true, usage: &#39;改造中&#39;, lifecycle: &#39;正常&#39;, remarks: &#39;&#39;, updated: &#39;2026-07-17 09:15:00&#39; },
-    { id: &#39;v7&#39;, school: &#39;天河区第一小学&#39;, type: &#39;BUILDING&#39;, name: &#39;晨曦教学楼&#39;, buildingType: &#39;教学楼&#39;, purpose: &#39;小学教学&#39;, area: 7600, usableArea: 6420, year: 1998, floors: 4, structure: &#39;砖混结构&#39;, usage: &#39;使用中&#39;, lifecycle: &#39;正常&#39;, remarks: &#39;&#39;, updated: &#39;2026-07-16 13:08:00&#39; }
+    { id: &#39;v1&#39;, school: &#39;海淀区实验中学&#39;, type: &#39;BUILDING&#39;, name: &#39;致远教学楼&#39;, buildingType: &#39;教学楼&#39;, purpose: &#39;普通教学&#39;, area: 12680.5, usableArea: 10860, year: 2008, floors: 6, structure: &#39;框架结构&#39;, usage: &#39;使用中&#39;, lifecycle: &#39;良好&#39;, remarks: &#39;学校主要教学建筑，档案完整。&#39;, attachments: [{ id: &#39;a1&#39;, name: &#39;建筑平面图.pdf&#39;, size: 2453668, type: &#39;PDF&#39;, addedAt: &#39;2026-07-20 16:32:18&#39; }], updated: &#39;2026-07-20 16:35:00&#39; },
+    { id: &#39;v2&#39;, school: &#39;海淀区实验中学&#39;, type: &#39;BUILDING&#39;, name: &#39;博雅实验楼&#39;, buildingType: &#39;实验楼&#39;, purpose: &#39;实验教学&#39;, area: 8950, usableArea: 7640, year: 2015, floors: 5, structure: &#39;框架结构&#39;, usage: &#39;使用中&#39;, lifecycle: &#39;良好&#39;, remarks: &#39;包含物理、化学和生物实验室。&#39;, updated: &#39;2026-07-20 14:10:00&#39; },
+    { id: &#39;v3&#39;, school: &#39;海淀区实验中学&#39;, type: &#39;PLAYGROUND&#39;, name: &#39;中心操场&#39;, playgroundType: &#39;综合场地&#39;, landAttribute: &#39;学校自用土地&#39;, purpose: &#39;田径与球类教学&#39;, area: 11321, year: 2006, usage: &#39;使用中&#39;, lifecycle: &#39;良好&#39;, remarks: &#39;已按用途分区建立场地模块子档案。&#39;, playgroundModules: [{ id: &#39;pm-track-1&#39;, type: &#39;田径场&#39;, name: &#39;6轨田径场&#39;, area: 4162, material: &#39;塑胶&#39;, builtYear: 2006, lastRenovatedYear: 2023, status: &#39;良好&#39;, remarks: &#39;标准田径教学区域。&#39;, details: { laneCount: 6, trackSpec: &#39;400米&#39; }, renovations: [{ id: &#39;pmr-track-1&#39;, date: &#39;2023-08-15&#39;, content: &#39;塑胶跑道面层整体翻新&#39;, company: &#39;示范体育工程有限公司&#39;, addedAt: &#39;2023-08-15 16:30:22&#39; }] }, { id: &#39;pm-football-1&#39;, type: &#39;足球场&#39;, name: &#39;11人制足球场&#39;, area: 3764, material: &#39;人工草坪&#39;, builtYear: 2006, lastRenovatedYear: 2020, status: &#39;良好&#39;, remarks: &#39;&#39;, details: { footballFormat: &#39;11人制&#39;, goalCount: 2 }, renovations: [] }, { id: &#39;pm-basketball-1&#39;, type: &#39;篮球场&#39;, name: &#39;1号篮球场&#39;, area: 900, material: &#39;硅PU&#39;, builtYear: 2009, lastRenovatedYear: 2021, status: &#39;良好&#39;, remarks: &#39;&#39;, details: { courtSpec: &#39;标准全场&#39;, courtCount: 1 }, renovations: [] }, { id: &#39;pm-basketball-2&#39;, type: &#39;篮球场&#39;, name: &#39;2号篮球场&#39;, area: 900, material: &#39;悬浮地板&#39;, builtYear: 2015, lastRenovatedYear: 2022, status: &#39;良好&#39;, remarks: &#39;用于社团训练。&#39;, details: { courtSpec: &#39;标准全场&#39;, courtCount: 1 }, renovations: [] }, { id: &#39;pm-turf-1&#39;, type: &#39;户外草坪&#39;, name: &#39;东侧户外草坪&#39;, area: 1595, material: &#39;天然草坪&#39;, builtYear: 2022, lastRenovatedYear: 2022, status: &#39;良好&#39;, remarks: &#39;&#39;, details: { irrigationMethod: &#39;自动喷灌&#39; }, renovations: [] }], equipment: [{ id: &#39;e1&#39;, category: &#39;体育器材&#39;, name: &#39;篮球架&#39;, quantity: 4, status: &#39;良好&#39;, addedAt: &#39;2026-07-20 11:20:18&#39; }, { id: &#39;e2&#39;, category: &#39;体育器材&#39;, name: &#39;足球门&#39;, quantity: 2, status: &#39;良好&#39;, addedAt: &#39;2026-07-20 11:21:06&#39; }], updated: &#39;2026-07-20 11:26:00&#39; },
+    { id: &#39;v4&#39;, school: &#39;海淀区实验中学&#39;, type: &#39;PLAYGROUND&#39;, name: &#39;篮球活动区&#39;, playgroundType: &#39;篮球场&#39;, landAttribute: &#39;学校自用土地&#39;, purpose: &#39;篮球教学&#39;, area: 2300, year: 2016, surface: &#39;硅PU&#39;, football: false, usage: &#39;改造中&#39;, lifecycle: &#39;良好&#39;, remarks: &#39;暑期进行面层维护。&#39;, equipment: [], renovations: [], updated: &#39;2026-07-19 17:40:00&#39; },
+    { id: &#39;v5&#39;, school: &#39;浦东新区第二中学&#39;, type: &#39;BUILDING&#39;, name: &#39;启航综合楼&#39;, buildingType: &#39;办公楼&#39;, purpose: &#39;行政与综合教学&#39;, area: 15420, usableArea: 13250, year: 2011, floors: 8, structure: &#39;框架结构&#39;, usage: &#39;使用中&#39;, lifecycle: &#39;良好&#39;, remarks: &#39;&#39;, updated: &#39;2026-07-18 15:22:00&#39; },
+    { id: &#39;v6&#39;, school: &#39;浦东新区第二中学&#39;, type: &#39;PLAYGROUND&#39;, name: &#39;北侧运动场&#39;, playgroundType: &#39;足球场&#39;, landAttribute: &#39;租用&#39;, purpose: &#39;体育教学&#39;, area: 10600, year: 2010, surface: &#39;人工草坪&#39;, football: true, usage: &#39;改造中&#39;, lifecycle: &#39;良好&#39;, remarks: &#39;&#39;, updated: &#39;2026-07-17 09:15:00&#39; },
+    { id: &#39;v7&#39;, school: &#39;天河区第一小学&#39;, type: &#39;BUILDING&#39;, name: &#39;晨曦教学楼&#39;, buildingType: &#39;教学楼&#39;, purpose: &#39;小学教学&#39;, area: 7600, usableArea: 6420, year: 1998, floors: 4, structure: &#39;砖混结构&#39;, usage: &#39;使用中&#39;, lifecycle: &#39;良好&#39;, remarks: &#39;&#39;, updated: &#39;2026-07-16 13:08:00&#39; }
   ];
+
+  const venueRecordStorageKey = &#39;edu-prototype-v1.1:education-venue-records-v1&#39;;
+  const toVenueCoreRecord = venue =&gt; {
+    const { attachments, playgroundModules, equipment, playgroundAudit, outdoorTurf, renovations, ...core } = venue || {};
+    return core;
+  };
+  try {
+    const storedVenueRecords = JSON.parse(localStorage.getItem(venueRecordStorageKey) || &#39;null&#39;);
+    if (Array.isArray(storedVenueRecords)) venues = storedVenueRecords.filter(record =&gt; record &amp;&amp; record.id &amp;&amp; record.school &amp;&amp; [&#39;BUILDING&#39;, &#39;PLAYGROUND&#39;].includes(record.type)).map(toVenueCoreRecord);
+  } catch (error) {
+    console.warn(&#39;建筑和操场基础档案读取失败，使用演示数据。&#39;, error);
+  }
+  const persistVenueRecords = () =&gt; {
+    try { localStorage.setItem(venueRecordStorageKey, JSON.stringify(venues.map(toVenueCoreRecord))); }
+    catch (error) { console.warn(&#39;建筑和操场基础档案暂存失败。&#39;, error); }
+  };
+
+  const schoolAreaProfileStorageKey = &#39;edu-prototype-v1.1:education-school-area-profiles-v2&#39;;
+  let schoolAreaProfiles = {};
+  try {
+    const storedProfiles = JSON.parse(localStorage.getItem(schoolAreaProfileStorageKey) || &#39;{}&#39;);
+    if (storedProfiles &amp;&amp; typeof storedProfiles === &#39;object&#39; &amp;&amp; !Array.isArray(storedProfiles)) {
+      Object.entries(storedProfiles).forEach(([school, profile]) =&gt; {
+        if (!profile || typeof profile !== &#39;object&#39;) return;
+        schoolAreaProfiles[school] = { ...profile, school, auditLogs: Array.isArray(profile.auditLogs) ? profile.auditLogs : [] };
+      });
+    }
+  } catch (error) {
+    console.warn(&#39;学校面积概况读取失败，使用演示数据。&#39;, error);
+  }
+  const persistSchoolAreaProfiles = () =&gt; {
+    try { localStorage.setItem(schoolAreaProfileStorageKey, JSON.stringify(schoolAreaProfiles)); }
+    catch (error) { console.warn(&#39;学校面积概况暂存失败。&#39;, error); }
+  };
 
   const attachmentStorageKey = &#39;edu-prototype-v1.1:education-venue-attachments-v1&#39;;
   try {
@@ -1373,14 +1479,29 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   };
 
   const playgroundRecordStorageKey = &#39;edu-prototype-v1.1:education-playground-records-v1&#39;;
+  let migratedLegacyPlaygroundRecords = false;
+  const migrateLegacyPlaygroundModules = (venue, record) =&gt; {
+    const hasLegacyTurf = record.outdoorTurf &amp;&amp; typeof record.outdoorTurf === &#39;object&#39; &amp;&amp; !Array.isArray(record.outdoorTurf) &amp;&amp; Object.values(record.outdoorTurf).some(value =&gt; value !== null &amp;&amp; value !== undefined &amp;&amp; value !== &#39;&#39;);
+    const legacyRenovations = Array.isArray(record.renovations) ? record.renovations : [];
+    if (!hasLegacyTurf &amp;&amp; legacyRenovations.length === 0) return false;
+    const modules = [];
+    if (hasLegacyTurf) {
+      const turf = record.outdoorTurf;
+      modules.push({ id: `pm-legacy-turf-${venue.id}`, type: &#39;户外草坪&#39;, name: &#39;户外草坪&#39;, area: Number(turf.area) || 1, material: turf.material || &#39;其他&#39;, customMaterial: turf.material ? &#39;&#39; : &#39;原草坪档案未填写&#39;, builtYear: turf.builtYear || null, lastRenovatedYear: turf.builtYear || null, status: turf.maintenanceStatus || &#39;良好&#39;, remarks: &#39;由原“户外草坪信息”自动迁移。&#39;, details: { irrigationMethod: turf.irrigationMethod || &#39;&#39; }, renovations: [] });
+    }
+    if (legacyRenovations.length) modules.push({ id: `pm-legacy-renovation-${venue.id}`, type: &#39;其他&#39;, name: &#39;原操场改造记录&#39;, area: 1, material: &#39;其他&#39;, customMaterial: &#39;原记录未区分地面材质&#39;, builtYear: null, lastRenovatedYear: Math.max(...legacyRenovations.map(item =&gt; Number(String(item.date || &#39;&#39;).slice(0, 4)) || 0)) || null, status: &#39;良好&#39;, remarks: &#39;原操场级改造记录无法明确关联具体模块，已完整迁入。&#39;, details: {}, renovations: legacyRenovations.map(item =&gt; ({ ...item, id: item.id || `pmr-legacy-${Date.now()}` })) });
+    venue.playgroundModules = modules;
+    return true;
+  };
   try {
     const storedRecords = JSON.parse(localStorage.getItem(playgroundRecordStorageKey) || &#39;{}&#39;);
     venues.filter(venue =&gt; venue.type === &#39;PLAYGROUND&#39;).forEach(venue =&gt; {
       const record = storedRecords[venue.id];
-      if (record &amp;&amp; Array.isArray(record.equipment) &amp;&amp; Array.isArray(record.renovations)) {
-        venue.equipment = record.equipment;
-        venue.renovations = record.renovations;
-      }
+      if (!record || typeof record !== &#39;object&#39;) return;
+      if (Array.isArray(record.equipment)) venue.equipment = record.equipment;
+      if (Array.isArray(record.playgroundAudit)) venue.playgroundAudit = record.playgroundAudit;
+      if (Array.isArray(record.playgroundModules)) venue.playgroundModules = record.playgroundModules;
+      else migratedLegacyPlaygroundRecords = migrateLegacyPlaygroundModules(venue, record) || migratedLegacyPlaygroundRecords;
     });
   } catch (error) {
     console.warn(&#39;操场扩展档案读取失败，使用演示数据。&#39;, error);
@@ -1389,22 +1510,24 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   const persistPlaygroundRecords = () =&gt; {
     const recordMap = Object.fromEntries(venues.filter(venue =&gt; venue.type === &#39;PLAYGROUND&#39;).map(venue =&gt; [venue.id, {
       equipment: Array.isArray(venue.equipment) ? venue.equipment : [],
-      renovations: Array.isArray(venue.renovations) ? venue.renovations : []
+      playgroundAudit: Array.isArray(venue.playgroundAudit) ? venue.playgroundAudit : [],
+      playgroundModules: Array.isArray(venue.playgroundModules) ? venue.playgroundModules : []
     }]));
     try { localStorage.setItem(playgroundRecordStorageKey, JSON.stringify(recordMap)); }
     catch (error) { console.warn(&#39;操场扩展档案暂存失败。&#39;, error); }
   };
+  if (migratedLegacyPlaygroundRecords) persistPlaygroundRecords();
 
-  const bathroomSeed = { type: &#39;浴室&#39;, name: &#39;体育馆一层公共浴室&#39;, status: &#39;正常&#39;, year: 2024, bathroomLocation: &#39;体育馆一层东侧&#39;, bathroomType: &#39;公共浴室&#39;, showerCount: 12, bathroomArea: 96.5, detail: &#39;浴室设施运行正常，地面及排水区域保持整洁。&#39;, repairs: [] };
+  const bathroomSeed = { type: &#39;浴室&#39;, name: &#39;体育馆一层公共浴室&#39;, status: &#39;良好&#39;, year: 2024, bathroomLocation: &#39;体育馆一层东侧&#39;, bathroomType: &#39;公共浴室&#39;, showerCount: 12, bathroomArea: 96.5, detail: &#39;浴室设施运行正常，地面及排水区域保持整洁。&#39;, repairs: [] };
   let facilities = [
     { type: &#39;门&#39;, name: &#39;教学楼东侧入口门&#39;, status: &#39;良好&#39;, year: 2021, doorType: &#39;防火门&#39;, doorLocation: &#39;教学楼东侧入口&#39;, doorCount: 4, doorHardwareStatus: &#39;完好&#39;, detail: &#39;开启顺畅，闭门器运行正常。&#39;, repairs: [{ date: &#39;2024-03-18&#39;, company: &#39;北京启安门窗工程有限公司&#39;, content: &#39;更换损坏五金件并完成调试。&#39;, warranty: &#39;2年&#39;, createdAt: &#39;2024-03-18 15:42:16&#39; }] },
     { type: &#39;窗&#39;, name: &#39;教学楼南立面窗&#39;, status: &#39;良好&#39;, year: 2021, windowType: &#39;平开窗&#39;, frameMaterial: &#39;断桥铝合金&#39;, glassType: &#39;双层中空Low-E&#39;, windowLocation: &#39;教学楼南立面&#39;, windowCount: 32, windowHardwareStatus: &#39;完好&#39;, windowSealingPerformance: &#39;良好&#39;, detail: &#39;窗扇启闭正常，密封条完整。&#39;, repairs: [] },
-    { type: &#39;防水&#39;, name: &#39;主楼屋面防水&#39;, status: &#39;正常&#39;, year: 2023, roofType: &#39;可上人&#39;, waterproofLocation: &#39;屋面&#39;, waterproofMaterial: &#39;SBS改性沥青卷材&#39;, waterproofGrade: &#39;I级&#39;, waterproofArea: 860.5, detail: &#39;排水口周边及女儿墙收口完整。&#39;, repairs: [{ date: &#39;2025-06-12&#39;, company: &#39;华北校园防水工程有限公司&#39;, content: &#39;修补屋面排水口周边开裂区域并重新铺设卷材。&#39;, warranty: &#39;至2028-06-11&#39;, createdAt: &#39;2025-06-12 10:18:35&#39; }] },
+    { type: &#39;防水&#39;, name: &#39;主楼屋面防水&#39;, status: &#39;良好&#39;, year: 2023, roofType: &#39;可上人&#39;, waterproofLocation: &#39;屋面&#39;, waterproofMaterial: &#39;SBS改性沥青卷材&#39;, waterproofGrade: &#39;I级&#39;, waterproofArea: 860.5, detail: &#39;排水口周边及女儿墙收口完整。&#39;, repairs: [{ date: &#39;2025-06-12&#39;, company: &#39;华北校园防水工程有限公司&#39;, content: &#39;修补屋面排水口周边开裂区域并重新铺设卷材。&#39;, warranty: &#39;至2028-06-11&#39;, createdAt: &#39;2025-06-12 10:18:35&#39; }] },
     { type: &#39;外墙&#39;, name: &#39;教学楼外墙&#39;, status: &#39;需维修&#39;, year: 2019, exteriorLocation: &#39;教学楼南立面&#39;, facadeMaterial: &#39;涂料&#39;, insulationType: &#39;外墙外保温&#39;, insulationMaterial: &#39;岩棉板&#39;, insulationThickness: &#39;60&#39;, detail: &#39;局部饰面需要修补。&#39;, repairs: [] },
     { type: &#39;内墙&#39;, name: &#39;教学楼三层走廊内墙&#39;, status: &#39;良好&#39;, year: 2022, interiorLocation: &#39;教学楼三层东侧走廊&#39;, interiorSpaceType: &#39;走廊&#39;, interiorWallType: &#39;非承重墙&#39;, interiorBaseMaterial: &#39;砖砌体&#39;, interiorFinishMaterial: &#39;乳胶漆&#39;, detail: &#39;墙面平整，饰面维护正常。&#39;, repairs: [] },
-    { type: &#39;卫生间&#39;, name: &#39;一层东侧卫生间&#39;, status: &#39;正常&#39;, year: 2022, sanitaryLocation: &#39;教学楼一层东侧&#39;, sanitaryType: &#39;水冲式&#39;, fixtureType: &#39;陶瓷蹲便器+小便器&#39;, sanitaryArea: 86.5, detail: &#39;设施运行正常。&#39;, repairs: [{ date: &#39;2025-09-05&#39;, company: &#39;京诚校园设施服务有限公司&#39;, content: &#39;更换冲水阀及破损隔断五金，完成通水测试。&#39;, warranty: &#39;1年&#39;, createdAt: &#39;2025-09-05 16:05:22&#39; }] },
+    { type: &#39;卫生间&#39;, name: &#39;一层东侧卫生间&#39;, status: &#39;良好&#39;, year: 2022, sanitaryLocation: &#39;教学楼一层东侧&#39;, sanitaryType: &#39;水冲式&#39;, fixtureType: &#39;陶瓷蹲便器+小便器&#39;, sanitaryArea: 86.5, detail: &#39;设施运行正常。&#39;, repairs: [{ date: &#39;2025-09-05&#39;, company: &#39;京诚校园设施服务有限公司&#39;, content: &#39;更换冲水阀及破损隔断五金，完成通水测试。&#39;, warranty: &#39;1年&#39;, createdAt: &#39;2025-09-05 16:05:22&#39; }] },
     bathroomSeed,
-    { type: &#39;消防设施&#39;, name: &#39;教学楼一层灭火器&#39;, status: &#39;正常&#39;, year: 2024, fireCategory: &#39;灭火器&#39;, fireLocation: &#39;教学楼一层东侧走廊&#39;, fireQuantity: 8, fireUnit: &#39;具&#39;, detail: &#39;4kg手提式干粉灭火器，摆放位置醒目且便于取用。&#39;, repairs: [] }
+    { type: &#39;消防设施&#39;, name: &#39;教学楼一层灭火器&#39;, status: &#39;良好&#39;, year: 2024, fireCategory: &#39;灭火器&#39;, fireLocation: &#39;教学楼一层东侧走廊&#39;, fireQuantity: 8, fireUnit: &#39;具&#39;, detail: &#39;4kg手提式干粉灭火器，摆放位置醒目且便于取用。&#39;, repairs: [] }
   ];
 
   const facilityStorageKey = &#39;edu-prototype-v1.1:education-building-facilities-v5&#39;;
@@ -1446,11 +1569,11 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       [&#39;buildings&#39;,&#39;building&#39;,&#39;建筑管理&#39;], [&#39;playgrounds&#39;,&#39;circle-dot&#39;,&#39;操场管理&#39;], [&#39;audit&#39;,&#39;history&#39;,&#39;修改记录&#39;]
     ],
     bureau: [
-      [&#39;building-query&#39;,&#39;building&#39;,&#39;建筑管理&#39;], [&#39;playground-query&#39;,&#39;circle-dot&#39;,&#39;操场管理&#39;]
+      [&#39;school-statistics&#39;,&#39;chart-no-axes-combined&#39;,&#39;学校统计&#39;], [&#39;building-query&#39;,&#39;building&#39;,&#39;建筑管理&#39;], [&#39;playground-query&#39;,&#39;circle-dot&#39;,&#39;操场管理&#39;]
     ]
   };
 
-  let state = { portal: &#39;school&#39;, module: &#39;workspace&#39;, page: &#39;buildings&#39;, selectedVenue: null, selectedFacility: null, detailTab: &#39;profile&#39;, keyword: &#39;&#39;, usageFilter: &#39;&#39;, schoolFilter: &#39;&#39;, typeFilter: &#39;&#39;, purposeFilter: &#39;&#39;, yearFilter: &#39;&#39;, structureFilter: &#39;&#39;, wallFilter: &#39;&#39;, pendingVenue: null, pageIndex: 1 };
+  let state = { portal: &#39;school&#39;, module: &#39;workspace&#39;, page: &#39;buildings&#39;, selectedVenue: null, selectedFacility: null, selectedPlaygroundModule: null, pendingPlaygroundModule: null, detailTab: &#39;profile&#39;, keyword: &#39;&#39;, schoolStatsKeyword: &#39;&#39;, schoolStatsPage: 1, usageFilter: &#39;&#39;, schoolFilter: &#39;&#39;, typeFilter: &#39;&#39;, purposeFilter: &#39;&#39;, yearFilter: &#39;&#39;, structureFilter: &#39;&#39;, wallFilter: &#39;&#39;, pendingVenue: null, pageIndex: 1 };
   const format = value =&gt; Number(value).toLocaleString(&#39;zh-CN&#39;, { maximumFractionDigits: 2 });
   const formatDateTime = (value = new Date()) =&gt; {
     const date = value instanceof Date ? value : new Date(value);
@@ -1468,7 +1591,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   const icon = name =&gt; `&lt;i data-lucide=&quot;${name}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;`;
   const portalVenueData = () =&gt; state.portal === &#39;school&#39; ? venues.filter(v =&gt; v.school === &#39;海淀区实验中学&#39;) : venues;
   const pageTitle = () =&gt; navs[state.portal].find(item =&gt; item[0] === state.page)?.[2] || &#39;档案详情&#39;;
-  const clearFilters = () =&gt; { state.keyword = &#39;&#39;; state.usageFilter = &#39;&#39;; state.schoolFilter = &#39;&#39;; state.typeFilter = &#39;&#39;; state.purposeFilter = &#39;&#39;; state.yearFilter = &#39;&#39;; state.structureFilter = &#39;&#39;; state.wallFilter = &#39;&#39;; };
+  const clearFilters = () =&gt; { state.keyword = &#39;&#39;; state.schoolStatsKeyword = &#39;&#39;; state.schoolStatsPage = 1; state.usageFilter = &#39;&#39;; state.schoolFilter = &#39;&#39;; state.typeFilter = &#39;&#39;; state.purposeFilter = &#39;&#39;; state.yearFilter = &#39;&#39;; state.structureFilter = &#39;&#39;; state.wallFilter = &#39;&#39;; };
   const currentVenueType = () =&gt; [&#39;buildings&#39;,&#39;building-query&#39;].includes(state.page) ? &#39;BUILDING&#39; : [&#39;playgrounds&#39;,&#39;playground-query&#39;].includes(state.page) ? &#39;PLAYGROUND&#39; : undefined;
   const refreshIcons = () =&gt; { if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } }); };
 
@@ -1495,7 +1618,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   }
 
   function heading(title, description, action = &#39;&#39;) {
-    return `&lt;div class=&quot;page-heading&quot;&gt;&lt;div&gt;&lt;h2&gt;${title}&lt;/h2&gt;${description ? `&lt;p&gt;${description}&lt;/p&gt;` : &#39;&#39;}&lt;/div&gt;${action}&lt;/div&gt;`;
+    return `&lt;div class=&quot;page-heading&quot;&gt;&lt;div&gt;&lt;h2&gt;${title}&lt;/h2&gt;${description ? `&lt;p&gt;${description}&lt;/p&gt;` : &#39;&#39;}&lt;/div&gt;&lt;div class=&quot;page-heading-actions&quot;&gt;${action}&lt;/div&gt;&lt;/div&gt;`;
   }
 
   function metric(label, value, iconName, suffix = &#39;&#39;) {
@@ -1558,7 +1681,18 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     const pageType = currentVenueType();
     const areaHeaders = pageType === &#39;PLAYGROUND&#39; ? &#39;&lt;th class=&quot;text-end&quot;&gt;面积（㎡）&lt;/th&gt;&#39; : `&lt;th class=&quot;text-end&quot;&gt;${pageType === &#39;BUILDING&#39; ? &#39;建筑面积&#39; : &#39;档案面积&#39;}（㎡）&lt;/th&gt;&lt;th class=&quot;text-end&quot;&gt;使用面积（㎡）&lt;/th&gt;`;
     const areaCells = venue =&gt; pageType === &#39;PLAYGROUND&#39; ? `&lt;td class=&quot;text-end&quot;&gt;${format(venue.area)}&lt;/td&gt;` : `&lt;td class=&quot;text-end&quot;&gt;${format(venue.area)}&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;${venue.type === &#39;BUILDING&#39; &amp;&amp; venue.usableArea ? format(venue.usableArea) : &#39;—&#39;}&lt;/td&gt;`;
-    return `&lt;div class=&quot;table-responsive&quot;&gt;&lt;table class=&quot;table table-sm&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;档案名称&lt;/th&gt;${state.portal === &#39;bureau&#39; ? &#39;&lt;th&gt;学校&lt;/th&gt;&#39; : &#39;&#39;}&lt;th&gt;类型&lt;/th&gt;${compact ? &#39;&#39; : `${areaHeaders}&lt;th&gt;使用状态&lt;/th&gt;`}&lt;th&gt;更新时间&lt;/th&gt;&lt;th&gt;操作&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${data.map(v =&gt; `&lt;tr&gt;&lt;td&gt;&lt;button class=&quot;action-link&quot; data-detail=&quot;${v.id}&quot;&gt;${v.name}&lt;/button&gt;&lt;/td&gt;${state.portal === &#39;bureau&#39; ? `&lt;td&gt;${v.school}&lt;/td&gt;` : &#39;&#39;}&lt;td&gt;&lt;span class=&quot;type-cell&quot;&gt;${icon(v.type === &#39;BUILDING&#39; ? &#39;building&#39; : &#39;circle-dot&#39;)}${v.type === &#39;BUILDING&#39; ? (v.buildingType || &#39;建筑&#39;) : &#39;操场&#39;}&lt;/span&gt;&lt;/td&gt;${compact ? &#39;&#39; : `${areaCells(v)}&lt;td&gt;&lt;span class=&quot;status-tag${v.lifecycle === &#39;已停用&#39; ? &#39; inactive&#39; : v.usage === &#39;改造中&#39; ? &#39; warning&#39; : &#39; active&#39;}&quot;&gt;${v.lifecycle === &#39;已停用&#39; ? &#39;已停用&#39; : v.usage}&lt;/span&gt;&lt;/td&gt;`}&lt;td class=&quot;text-nowrap&quot;&gt;${formatDateTime(v.updated)}&lt;/td&gt;&lt;td&gt;&lt;div class=&quot;action-group&quot;&gt;&lt;button class=&quot;action-link&quot; data-detail=&quot;${v.id}&quot;&gt;查看&lt;/button&gt;${state.portal === &#39;school&#39; &amp;&amp; !compact ? `&lt;button class=&quot;action-link&quot; data-edit-row=&quot;${v.id}&quot;&gt;编辑&lt;/button&gt;&lt;button class=&quot;action-link is-danger&quot; data-delete=&quot;${v.id}&quot;&gt;删除&lt;/button&gt;` : &#39;&#39;}&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;`).join(&#39;&#39;)}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;`;
+    const serialHeader = pageType === &#39;BUILDING&#39; ? &#39;&lt;th class=&quot;text-center&quot;&gt;序号&lt;/th&gt;&#39; : &#39;&#39;;
+    const serialCell = index =&gt; pageType === &#39;BUILDING&#39; ? `&lt;td class=&quot;text-center&quot;&gt;${index + 1}&lt;/td&gt;` : &#39;&#39;;
+    return `&lt;div class=&quot;table-responsive&quot;&gt;&lt;table class=&quot;table table-sm&quot;&gt;&lt;thead&gt;&lt;tr&gt;${serialHeader}&lt;th&gt;档案名称&lt;/th&gt;${state.portal === &#39;bureau&#39; ? &#39;&lt;th&gt;学校&lt;/th&gt;&#39; : &#39;&#39;}&lt;th&gt;类型&lt;/th&gt;${compact ? &#39;&#39; : `${areaHeaders}&lt;th&gt;使用状态&lt;/th&gt;`}&lt;th&gt;更新时间&lt;/th&gt;&lt;th&gt;操作&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${data.map((v, index) =&gt; `&lt;tr&gt;${serialCell(index)}&lt;td&gt;&lt;button class=&quot;action-link&quot; data-detail=&quot;${v.id}&quot;&gt;${v.name}&lt;/button&gt;&lt;/td&gt;${state.portal === &#39;bureau&#39; ? `&lt;td&gt;${v.school}&lt;/td&gt;` : &#39;&#39;}&lt;td&gt;&lt;span class=&quot;type-cell&quot;&gt;${icon(v.type === &#39;BUILDING&#39; ? &#39;building&#39; : &#39;circle-dot&#39;)}${v.type === &#39;BUILDING&#39; ? (v.buildingType || &#39;建筑&#39;) : &#39;操场&#39;}&lt;/span&gt;&lt;/td&gt;${compact ? &#39;&#39; : `${areaCells(v)}&lt;td&gt;&lt;span class=&quot;status-tag${v.lifecycle === &#39;已停用&#39; ? &#39; inactive&#39; : v.usage === &#39;改造中&#39; ? &#39; warning&#39; : &#39; active&#39;}&quot;&gt;${v.lifecycle === &#39;已停用&#39; ? &#39;已停用&#39; : v.usage}&lt;/span&gt;&lt;/td&gt;`}&lt;td class=&quot;text-nowrap&quot;&gt;${formatDateTime(v.updated)}&lt;/td&gt;&lt;td&gt;&lt;div class=&quot;action-group&quot;&gt;&lt;button class=&quot;action-link&quot; data-detail=&quot;${v.id}&quot;&gt;查看&lt;/button&gt;${state.portal === &#39;school&#39; &amp;&amp; !compact ? `&lt;button class=&quot;action-link&quot; data-edit-row=&quot;${v.id}&quot;&gt;编辑&lt;/button&gt;&lt;button class=&quot;action-link is-danger&quot; data-delete=&quot;${v.id}&quot;&gt;删除&lt;/button&gt;` : &#39;&#39;}&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;`).join(&#39;&#39;)}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;`;
+  }
+
+  function renderSchoolAreaProfile(type) {
+    if (type !== &#39;BUILDING&#39; || state.portal !== &#39;school&#39;) return &#39;&#39;;
+    const school = &#39;海淀区实验中学&#39;;
+    const profile = schoolAreaProfiles[school];
+    if (!profile) return `&lt;section class=&quot;school-area-profile&quot; data-school-area-profile&gt;&lt;div class=&quot;school-area-profile-head&quot;&gt;&lt;div class=&quot;school-area-profile-title&quot;&gt;&lt;strong&gt;学校面积概况&lt;/strong&gt;&lt;/div&gt;&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-edit-school-area&gt;编辑&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;school-area-empty&quot;&gt;暂未登记学校面积概况&lt;/div&gt;&lt;/section&gt;`;
+    const metrics = [[&#39;学校整体面积&#39;, profile.totalArea], [&#39;租赁面积&#39;, profile.leasedArea], [&#39;自有面积&#39;, profile.ownedArea]];
+    return `&lt;section class=&quot;school-area-profile&quot; data-school-area-profile&gt;&lt;div class=&quot;school-area-profile-head&quot;&gt;&lt;div class=&quot;school-area-profile-title&quot;&gt;&lt;strong&gt;学校面积概况&lt;/strong&gt;&lt;/div&gt;&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-edit-school-area&gt;编辑&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;school-area-metrics&quot;&gt;${metrics.map(([label, value]) =&gt; `&lt;div class=&quot;school-area-metric summary-item&quot;&gt;&lt;span&gt;${label}&lt;/span&gt;&lt;strong&gt;${format(value)}㎡&lt;/strong&gt;&lt;/div&gt;`).join(&#39;&#39;)}&lt;/div&gt;&lt;/section&gt;`;
   }
 
   function renderVenueList(type) {
@@ -1572,15 +1706,139 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     if (state.yearFilter) data = data.filter(v =&gt; v.year &amp;&amp; String(v.year).startsWith(state.yearFilter));
     if (state.structureFilter) data = data.filter(v =&gt; v.structure === state.structureFilter);
     const title = bureau ? type === &#39;BUILDING&#39; ? &#39;建筑管理&#39; : type === &#39;PLAYGROUND&#39; ? &#39;操场管理&#39; : &#39;学校建筑物查询&#39; : type === &#39;BUILDING&#39; ? &#39;建筑管理&#39; : &#39;操场管理&#39;;
-    const desc = bureau || type === &#39;BUILDING&#39; ? &#39;&#39; : &#39;维护本校操场基础信息和器材档案&#39;;
+    const desc = bureau || type === &#39;BUILDING&#39; ? &#39;&#39; : &#39;维护本校操场基础信息、场地模块和器材档案&#39;;
     const hasFilter = Boolean(state.keyword || state.usageFilter || state.schoolFilter || state.typeFilter || state.purposeFilter || state.yearFilter || state.structureFilter || state.wallFilter);
     const bureauFilters = bureau ? `&lt;select class=&quot;form-select&quot; id=&quot;school-filter&quot; aria-label=&quot;按学校筛选&quot;&gt;&lt;option value=&quot;&quot;&gt;全部学校&lt;/option&gt;${[&#39;海淀区实验中学&#39;,&#39;浦东新区第二中学&#39;,&#39;天河区第一小学&#39;].map(x =&gt; `&lt;option${state.schoolFilter === x ? &#39; selected&#39; : &#39;&#39;}&gt;${x}&lt;/option&gt;`).join(&#39;&#39;)}&lt;/select&gt;` : &#39;&#39;;
     content.innerHTML = heading(title, desc, !bureau ? `&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-add=&quot;${type}&quot;&gt;${icon(&#39;plus&#39;)} 新增${type === &#39;BUILDING&#39; ? &#39;建筑&#39; : &#39;操场&#39;}&lt;/button&gt;` : &#39;&#39;)
-      + `&lt;section class=&quot;card list-card&quot;&gt;&lt;div class=&quot;toolbar&quot;&gt;&lt;div class=&quot;toolbar-group&quot;&gt;&lt;input class=&quot;form-control&quot; id=&quot;venue-search&quot; aria-label=&quot;搜索档案或学校&quot; placeholder=&quot;搜索档案或学校&quot; value=&quot;${state.keyword}&quot;&gt;${bureauFilters}&lt;select class=&quot;form-select&quot; id=&quot;status-filter&quot; aria-label=&quot;按使用状态筛选&quot;&gt;&lt;option value=&quot;&quot;&gt;全部使用状态&lt;/option&gt;&lt;option${state.usageFilter === &#39;使用中&#39; ? &#39; selected&#39; : &#39;&#39;}&gt;使用中&lt;/option&gt;&lt;option${state.usageFilter === &#39;改造中&#39; ? &#39; selected&#39; : &#39;&#39;}&gt;改造中&lt;/option&gt;&lt;option${state.usageFilter === &#39;闲置&#39; ? &#39; selected&#39; : &#39;&#39;}&gt;闲置&lt;/option&gt;&lt;/select&gt;${hasFilter ? &#39;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-reset-filter&gt;重置筛选&lt;/button&gt;&#39; : &#39;&#39;}&lt;/div&gt;&lt;/div&gt;${venueTable(data)}&lt;div class=&quot;list-footer&quot;&gt;&lt;div class=&quot;pagination&quot;&gt;&lt;button class=&quot;btn page-button&quot; disabled aria-label=&quot;上一页&quot;&gt;‹&lt;/button&gt;&lt;button class=&quot;btn btn-primary page-button&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;&lt;button class=&quot;btn page-button&quot; disabled aria-label=&quot;下一页&quot;&gt;›&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;`;
+      + `&lt;section class=&quot;card list-card&quot;&gt;&lt;div class=&quot;toolbar&quot;&gt;&lt;div class=&quot;toolbar-group&quot;&gt;&lt;input class=&quot;form-control&quot; id=&quot;venue-search&quot; aria-label=&quot;搜索档案或学校&quot; placeholder=&quot;搜索档案或学校&quot; value=&quot;${state.keyword}&quot;&gt;${bureauFilters}&lt;select class=&quot;form-select&quot; id=&quot;status-filter&quot; aria-label=&quot;按使用状态筛选&quot;&gt;&lt;option value=&quot;&quot;&gt;全部使用状态&lt;/option&gt;&lt;option${state.usageFilter === &#39;使用中&#39; ? &#39; selected&#39; : &#39;&#39;}&gt;使用中&lt;/option&gt;&lt;option${state.usageFilter === &#39;改造中&#39; ? &#39; selected&#39; : &#39;&#39;}&gt;改造中&lt;/option&gt;&lt;option${state.usageFilter === &#39;闲置&#39; ? &#39; selected&#39; : &#39;&#39;}&gt;闲置&lt;/option&gt;&lt;/select&gt;${hasFilter ? &#39;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-reset-filter&gt;重置筛选&lt;/button&gt;&#39; : &#39;&#39;}&lt;/div&gt;&lt;/div&gt;${renderSchoolAreaProfile(type)}${venueTable(data)}&lt;div class=&quot;list-footer&quot;&gt;&lt;div class=&quot;pagination&quot;&gt;&lt;button class=&quot;btn page-button&quot; disabled aria-label=&quot;上一页&quot;&gt;‹&lt;/button&gt;&lt;button class=&quot;btn btn-primary page-button&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;&lt;button class=&quot;btn page-button&quot; disabled aria-label=&quot;下一页&quot;&gt;›&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;`;
+  }
+
+  const schoolStatisticsHeaders = [&#39;学校名称&#39;, &#39;学校总面积&#39;, &#39;学校租用面积&#39;, &#39;学校自有面积&#39;, &#39;学校建筑数量&#39;, &#39;学校建筑总面积&#39;, &#39;学校操场数量&#39;, &#39;学校操场总面积&#39;];
+  const schoolStatisticsPageSize = 10;
+
+  function schoolStatisticsRows() {
+    const schools = [...new Set([...venues.map(venue =&gt; venue.school), ...Object.keys(schoolAreaProfiles)].filter(Boolean))].sort((a, b) =&gt; a.localeCompare(b, &#39;zh-CN&#39;));
+    const keyword = state.schoolStatsKeyword.trim();
+    return (keyword ? schools.filter(school =&gt; school.includes(keyword)) : schools).map(school =&gt; {
+      const schoolVenues = venues.filter(venue =&gt; venue.school === school);
+      const buildings = schoolVenues.filter(venue =&gt; venue.type === &#39;BUILDING&#39;);
+      const playgrounds = schoolVenues.filter(venue =&gt; venue.type === &#39;PLAYGROUND&#39;);
+      const profile = schoolAreaProfiles[school];
+      const profileArea = key =&gt; profile &amp;&amp; Number.isFinite(Number(profile[key])) ? Number(profile[key]) : null;
+      return {
+        school,
+        totalArea: profileArea(&#39;totalArea&#39;),
+        leasedArea: profileArea(&#39;leasedArea&#39;),
+        ownedArea: profileArea(&#39;ownedArea&#39;),
+        buildingCount: buildings.length,
+        buildingArea: buildings.reduce((sum, venue) =&gt; sum + (Number(venue.area) || 0), 0),
+        playgroundCount: playgrounds.length,
+        playgroundArea: playgrounds.reduce((sum, venue) =&gt; sum + (Number(venue.area) || 0), 0)
+      };
+    });
+  }
+
+  const xlsxUint16 = value =&gt; new Uint8Array([value &amp; 255, (value &gt;&gt;&gt; 8) &amp; 255]);
+  const xlsxUint32 = value =&gt; new Uint8Array([value &amp; 255, (value &gt;&gt;&gt; 8) &amp; 255, (value &gt;&gt;&gt; 16) &amp; 255, (value &gt;&gt;&gt; 24) &amp; 255]);
+  const mergeXlsxBytes = chunks =&gt; {
+    const output = new Uint8Array(chunks.reduce((sum, chunk) =&gt; sum + chunk.length, 0));
+    let offset = 0;
+    chunks.forEach(chunk =&gt; { output.set(chunk, offset); offset += chunk.length; });
+    return output;
+  };
+  const xlsxCrcTable = Array.from({ length: 256 }, (_, index) =&gt; {
+    let value = index;
+    for (let bit = 0; bit &lt; 8; bit += 1) value = (value &amp; 1) ? (0xedb88320 ^ (value &gt;&gt;&gt; 1)) : (value &gt;&gt;&gt; 1);
+    return value &gt;&gt;&gt; 0;
+  });
+  const xlsxCrc32 = bytes =&gt; {
+    let crc = 0xffffffff;
+    bytes.forEach(byte =&gt; { crc = xlsxCrcTable[(crc ^ byte) &amp; 255] ^ (crc &gt;&gt;&gt; 8); });
+    return (crc ^ 0xffffffff) &gt;&gt;&gt; 0;
+  };
+
+  function createXlsxZip(files) {
+    const encoder = new TextEncoder();
+    const localParts = [];
+    const centralParts = [];
+    let localOffset = 0;
+    const now = new Date();
+    const dosTime = (now.getHours() &lt;&lt; 11) | (now.getMinutes() &lt;&lt; 5) | Math.floor(now.getSeconds() / 2);
+    const dosDate = ((now.getFullYear() - 1980) &lt;&lt; 9) | ((now.getMonth() + 1) &lt;&lt; 5) | now.getDate();
+    files.forEach(file =&gt; {
+      const name = encoder.encode(file.name);
+      const data = typeof file.content === &#39;string&#39; ? encoder.encode(file.content) : file.content;
+      const crc = xlsxCrc32(data);
+      const localHeader = mergeXlsxBytes([xlsxUint32(0x04034b50), xlsxUint16(20), xlsxUint16(0x0800), xlsxUint16(0), xlsxUint16(dosTime), xlsxUint16(dosDate), xlsxUint32(crc), xlsxUint32(data.length), xlsxUint32(data.length), xlsxUint16(name.length), xlsxUint16(0), name]);
+      localParts.push(localHeader, data);
+      centralParts.push(mergeXlsxBytes([xlsxUint32(0x02014b50), xlsxUint16(20), xlsxUint16(20), xlsxUint16(0x0800), xlsxUint16(0), xlsxUint16(dosTime), xlsxUint16(dosDate), xlsxUint32(crc), xlsxUint32(data.length), xlsxUint32(data.length), xlsxUint16(name.length), xlsxUint16(0), xlsxUint16(0), xlsxUint16(0), xlsxUint16(0), xlsxUint32(0), xlsxUint32(localOffset), name]));
+      localOffset += localHeader.length + data.length;
+    });
+    const centralDirectory = mergeXlsxBytes(centralParts);
+    const end = mergeXlsxBytes([xlsxUint32(0x06054b50), xlsxUint16(0), xlsxUint16(0), xlsxUint16(files.length), xlsxUint16(files.length), xlsxUint32(centralDirectory.length), xlsxUint32(localOffset), xlsxUint16(0)]);
+    return mergeXlsxBytes([...localParts, centralDirectory, end]);
+  }
+
+  function buildSchoolStatisticsXlsx(rows) {
+    const xmlEscape = value =&gt; new XMLSerializer().serializeToString(document.createTextNode(String(value)));
+    const columnName = index =&gt; String.fromCharCode(65 + index);
+    const textCell = (value, column, row) =&gt; `&lt;c r=&quot;${column}${row}&quot; t=&quot;inlineStr&quot;&gt;&lt;is&gt;&lt;t&gt;${xmlEscape(value)}&lt;/t&gt;&lt;/is&gt;&lt;/c&gt;`;
+    const numberCell = (value, column, row) =&gt; value === null ? &#39;&#39; : `&lt;c r=&quot;${column}${row}&quot; s=&quot;1&quot;&gt;&lt;v&gt;${Number(value)}&lt;/v&gt;&lt;/c&gt;`;
+    const headerXml = schoolStatisticsHeaders.map((header, index) =&gt; textCell(header, columnName(index), 1)).join(&#39;&#39;);
+    const rowXml = rows.map((item, index) =&gt; {
+      const rowNumber = index + 2;
+      const values = [item.school, item.totalArea, item.leasedArea, item.ownedArea, item.buildingCount, item.buildingArea, item.playgroundCount, item.playgroundArea];
+      return `&lt;row r=&quot;${rowNumber}&quot;&gt;${values.map((value, columnIndex) =&gt; columnIndex === 0 ? textCell(value, columnName(columnIndex), rowNumber) : numberCell(value, columnName(columnIndex), rowNumber)).join(&#39;&#39;)}&lt;/row&gt;`;
+    }).join(&#39;&#39;);
+    const worksheet = `&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;worksheet xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;&lt;dimension ref=&quot;A1:H${rows.length + 1}&quot;/&gt;&lt;sheetViews&gt;&lt;sheetView workbookViewId=&quot;0&quot;&gt;&lt;pane ySplit=&quot;1&quot; topLeftCell=&quot;A2&quot; activePane=&quot;bottomLeft&quot; state=&quot;frozen&quot;/&gt;&lt;/sheetView&gt;&lt;/sheetViews&gt;&lt;cols&gt;&lt;col min=&quot;1&quot; max=&quot;1&quot; width=&quot;26&quot; customWidth=&quot;1&quot;/&gt;&lt;col min=&quot;2&quot; max=&quot;8&quot; width=&quot;18&quot; customWidth=&quot;1&quot;/&gt;&lt;/cols&gt;&lt;sheetData&gt;&lt;row r=&quot;1&quot;&gt;${headerXml}&lt;/row&gt;${rowXml}&lt;/sheetData&gt;&lt;autoFilter ref=&quot;A1:H${rows.length + 1}&quot;/&gt;&lt;/worksheet&gt;`;
+    const files = [
+      { name: &#39;[Content_Types].xml&#39;, content: `&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;Types xmlns=&quot;http://schemas.openxmlformats.org/package/2006/content-types&quot;&gt;&lt;Default Extension=&quot;rels&quot; ContentType=&quot;application/vnd.openxmlformats-package.relationships+xml&quot;/&gt;&lt;Default Extension=&quot;xml&quot; ContentType=&quot;application/xml&quot;/&gt;&lt;Override PartName=&quot;/xl/workbook.xml&quot; ContentType=&quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml&quot;/&gt;&lt;Override PartName=&quot;/xl/worksheets/sheet1.xml&quot; ContentType=&quot;application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml&quot;/&gt;&lt;Override PartName=&quot;/xl/styles.xml&quot; ContentType=&quot;application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml&quot;/&gt;&lt;/Types&gt;` },
+      { name: &#39;_rels/.rels&#39;, content: `&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;Relationships xmlns=&quot;http://schemas.openxmlformats.org/package/2006/relationships&quot;&gt;&lt;Relationship Id=&quot;rId1&quot; Type=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument&quot; Target=&quot;xl/workbook.xml&quot;/&gt;&lt;/Relationships&gt;` },
+      { name: &#39;xl/workbook.xml&#39;, content: `&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;workbook xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot; xmlns:r=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships&quot;&gt;&lt;sheets&gt;&lt;sheet name=&quot;学校统计&quot; sheetId=&quot;1&quot; r:id=&quot;rId1&quot;/&gt;&lt;/sheets&gt;&lt;/workbook&gt;` },
+      { name: &#39;xl/_rels/workbook.xml.rels&#39;, content: `&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;Relationships xmlns=&quot;http://schemas.openxmlformats.org/package/2006/relationships&quot;&gt;&lt;Relationship Id=&quot;rId1&quot; Type=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet&quot; Target=&quot;worksheets/sheet1.xml&quot;/&gt;&lt;Relationship Id=&quot;rId2&quot; Type=&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles&quot; Target=&quot;styles.xml&quot;/&gt;&lt;/Relationships&gt;` },
+      { name: &#39;xl/styles.xml&#39;, content: `&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;styleSheet xmlns=&quot;http://schemas.openxmlformats.org/spreadsheetml/2006/main&quot;&gt;&lt;numFmts count=&quot;1&quot;&gt;&lt;numFmt numFmtId=&quot;164&quot; formatCode=&quot;0.##&quot;/&gt;&lt;/numFmts&gt;&lt;fonts count=&quot;1&quot;&gt;&lt;font&gt;&lt;sz val=&quot;11&quot;/&gt;&lt;name val=&quot;等线&quot;/&gt;&lt;/font&gt;&lt;/fonts&gt;&lt;fills count=&quot;1&quot;&gt;&lt;fill&gt;&lt;patternFill patternType=&quot;none&quot;/&gt;&lt;/fill&gt;&lt;/fills&gt;&lt;borders count=&quot;1&quot;&gt;&lt;border/&gt;&lt;/borders&gt;&lt;cellStyleXfs count=&quot;1&quot;&gt;&lt;xf numFmtId=&quot;0&quot; fontId=&quot;0&quot; fillId=&quot;0&quot; borderId=&quot;0&quot;/&gt;&lt;/cellStyleXfs&gt;&lt;cellXfs count=&quot;2&quot;&gt;&lt;xf numFmtId=&quot;0&quot; fontId=&quot;0&quot; fillId=&quot;0&quot; borderId=&quot;0&quot; xfId=&quot;0&quot;/&gt;&lt;xf numFmtId=&quot;164&quot; fontId=&quot;0&quot; fillId=&quot;0&quot; borderId=&quot;0&quot; xfId=&quot;0&quot; applyNumberFormat=&quot;1&quot;/&gt;&lt;/cellXfs&gt;&lt;/styleSheet&gt;` },
+      { name: &#39;xl/worksheets/sheet1.xml&#39;, content: worksheet }
+    ];
+    return createXlsxZip(files);
+  }
+
+  function exportSchoolStatistics() {
+    const rows = schoolStatisticsRows();
+    if (!rows.length) { showToast(&#39;暂无可导出的学校统计数据&#39;); return; }
+    try {
+      const workbook = buildSchoolStatisticsXlsx(rows);
+      const url = URL.createObjectURL(new Blob([workbook], { type: &#39;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&#39; }));
+      const anchor = document.createElement(&#39;a&#39;);
+      anchor.href = url;
+      anchor.download = &#39;学校建筑统计.xlsx&#39;;
+      document.body.append(anchor);
+      anchor.click();
+      anchor.remove();
+      window.setTimeout(() =&gt; URL.revokeObjectURL(url), 0);
+      showToast(`已导出 ${rows.length} 所学校的统计数据`);
+    } catch (error) {
+      console.error(&#39;学校统计 Excel 生成失败。&#39;, error);
+      showToast(&#39;导出失败，请重试&#39;);
+    }
+  }
+
+  function renderSchoolStatistics() {
+    const rows = schoolStatisticsRows();
+    const keyword = state.schoolStatsKeyword.trim();
+    const pageCount = Math.max(1, Math.ceil(rows.length / schoolStatisticsPageSize));
+    state.schoolStatsPage = Math.min(Math.max(1, state.schoolStatsPage), pageCount);
+    const pageRows = rows.slice((state.schoolStatsPage - 1) * schoolStatisticsPageSize, state.schoolStatsPage * schoolStatisticsPageSize);
+    const displayRow = item =&gt; [item.school, item.totalArea === null ? &#39;—&#39; : `${format(item.totalArea)}㎡`, item.leasedArea === null ? &#39;—&#39; : `${format(item.leasedArea)}㎡`, item.ownedArea === null ? &#39;—&#39; : `${format(item.ownedArea)}㎡`, `${item.buildingCount}栋`, `${format(item.buildingArea)}㎡`, `${item.playgroundCount}个`, `${format(item.playgroundArea)}㎡`];
+    const pageButtons = Array.from({ length: pageCount }, (_, index) =&gt; index + 1).map(page =&gt; `&lt;button type=&quot;button&quot; class=&quot;btn ${page === state.schoolStatsPage ? &#39;btn-primary &#39; : &#39;&#39;}page-button&quot; data-school-stats-page=&quot;${page}&quot;${page === state.schoolStatsPage ? &#39; aria-current=&quot;page&quot;&#39; : &#39;&#39;}&gt;${page}&lt;/button&gt;`).join(&#39;&#39;);
+    const pagination = rows.length ? `&lt;div class=&quot;list-footer&quot; data-school-statistics-pagination&gt;&lt;span class=&quot;filter-summary&quot;&gt;共 ${rows.length} 所学校，每页 ${schoolStatisticsPageSize} 所&lt;/span&gt;&lt;div class=&quot;pagination&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn page-button&quot; data-school-stats-page=&quot;${state.schoolStatsPage - 1}&quot; aria-label=&quot;上一页&quot;${state.schoolStatsPage === 1 ? &#39; disabled&#39; : &#39;&#39;}&gt;‹&lt;/button&gt;${pageButtons}&lt;button type=&quot;button&quot; class=&quot;btn page-button&quot; data-school-stats-page=&quot;${state.schoolStatsPage + 1}&quot; aria-label=&quot;下一页&quot;${state.schoolStatsPage === pageCount ? &#39; disabled&#39; : &#39;&#39;}&gt;›&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;` : &#39;&#39;;
+    const table = rows.length ? `&lt;div class=&quot;table-responsive&quot;&gt;&lt;table class=&quot;table table-sm&quot; data-school-statistics-table&gt;&lt;thead&gt;&lt;tr&gt;${schoolStatisticsHeaders.map(header =&gt; `&lt;th class=&quot;${header === &#39;学校名称&#39; ? &#39;&#39; : &#39;text-end&#39;}&quot;&gt;${header}&lt;/th&gt;`).join(&#39;&#39;)}&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${pageRows.map(item =&gt; `&lt;tr&gt;${displayRow(item).map((cell, index) =&gt; `&lt;td class=&quot;${index ? &#39;text-end&#39; : &#39;&#39;}&quot;&gt;${cell}&lt;/td&gt;`).join(&#39;&#39;)}&lt;/tr&gt;`).join(&#39;&#39;)}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;${pagination}` : `&lt;div class=&quot;empty-state&quot;&gt;${icon(&#39;inbox&#39;)}&lt;p&gt;暂无符合条件的学校&lt;/p&gt;&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-reset-school-statistics&gt;清空筛选&lt;/button&gt;&lt;/div&gt;`;
+    const exportButton = `&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-export-school-statistics${rows.length ? &#39;&#39; : &#39; disabled&#39;}&gt;${icon(&#39;download&#39;)} 导出&lt;/button&gt;`;
+    content.innerHTML = heading(&#39;学校统计&#39;, &#39;&#39;, exportButton) + `&lt;section class=&quot;card list-card&quot;&gt;&lt;div class=&quot;toolbar&quot;&gt;&lt;div class=&quot;toolbar-group&quot;&gt;&lt;input class=&quot;form-control&quot; id=&quot;school-statistics-search&quot; aria-label=&quot;按学校名称筛选&quot; placeholder=&quot;输入学校名称筛选&quot; value=&quot;${state.schoolStatsKeyword}&quot;&gt;${keyword ? &#39;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-reset-school-statistics&gt;重置筛选&lt;/button&gt;&#39; : &#39;&#39;}&lt;/div&gt;&lt;/div&gt;${table}&lt;/section&gt;`;
   }
 
   function renderAudit() {
-    const rows = [
+    const schoolAreaAudit = Object.values(schoolAreaProfiles).filter(profile =&gt; state.portal === &#39;bureau&#39; || profile.school === &#39;海淀区实验中学&#39;).flatMap(profile =&gt; Array.isArray(profile.auditLogs) ? profile.auditLogs : []);
+    const rows = [...schoolAreaAudit, ...venues.flatMap(venue =&gt; Array.isArray(venue.playgroundAudit) ? venue.playgroundAudit : []),
       [&#39;更新建筑档案&#39;,&#39;致远教学楼&#39;, state.portal === &#39;school&#39; ? &#39;张老师&#39; : &#39;张老师&#39;,&#39;2026-07-20 16:35&#39;],
       [&#39;新增专项设施&#39;,&#39;主楼屋面防水&#39;, state.portal === &#39;school&#39; ? &#39;张老师&#39; : &#39;张老师&#39;,&#39;2026-07-20 15:18&#39;],
       [&#39;停用建筑物档案&#39;,&#39;南侧活动场&#39;, &#39;陈老师&#39;,&#39;2026-07-19 10:42&#39;]
@@ -1621,17 +1879,34 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   function renderEquipmentPanel(venue, readonly) {
     const equipment = Array.isArray(venue.equipment) ? venue.equipment : [];
     const list = equipment.length
-      ? `&lt;div class=&quot;table-responsive&quot;&gt;&lt;table class=&quot;table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;器材分类&lt;/th&gt;&lt;th&gt;器材名称&lt;/th&gt;&lt;th&gt;数量&lt;/th&gt;&lt;th&gt;当前状态&lt;/th&gt;&lt;th&gt;添加时间&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${equipment.map(item =&gt; `&lt;tr&gt;&lt;td&gt;${item.category}&lt;/td&gt;&lt;td&gt;${item.name}&lt;/td&gt;&lt;td&gt;${item.quantity}&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;status-tag${item.status === &#39;正常使用&#39; ? &#39; active&#39; : &#39; warning&#39;}&quot;&gt;${item.status}&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;text-nowrap&quot;&gt;${formatDateTime(item.addedAt)}&lt;/td&gt;&lt;/tr&gt;`).join(&#39;&#39;)}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;`
+      ? `&lt;div class=&quot;table-responsive&quot;&gt;&lt;table class=&quot;table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;器材分类&lt;/th&gt;&lt;th&gt;器材名称&lt;/th&gt;&lt;th&gt;数量&lt;/th&gt;&lt;th&gt;当前状态&lt;/th&gt;&lt;th&gt;添加时间&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${equipment.map(item =&gt; `&lt;tr&gt;&lt;td&gt;${item.category}&lt;/td&gt;&lt;td&gt;${item.name}&lt;/td&gt;&lt;td&gt;${item.quantity}&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;status-tag${item.status === &#39;良好&#39; ? &#39; active&#39; : &#39; warning&#39;}&quot;&gt;${item.status}&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;text-nowrap&quot;&gt;${formatDateTime(item.addedAt)}&lt;/td&gt;&lt;/tr&gt;`).join(&#39;&#39;)}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;`
       : `&lt;div class=&quot;attachment-empty&quot;&gt;${icon(&#39;dumbbell&#39;)}&lt;span&gt;暂无器材信息&lt;/span&gt;&lt;/div&gt;`;
     return `&lt;div class=&quot;attachment-panel&quot;&gt;&lt;div class=&quot;attachment-toolbar&quot;&gt;&lt;div class=&quot;attachment-guidance&quot;&gt;&lt;strong&gt;器材信息（${equipment.length}）&lt;/strong&gt;&lt;small&gt;登记操场体育器材和健身器材的数量及使用状态。&lt;/small&gt;&lt;/div&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-add-equipment&gt;${icon(&#39;plus&#39;)} 新增器材&lt;/button&gt;`}&lt;/div&gt;${list}&lt;/div&gt;`;
   }
 
-  function renderRenovationPanel(venue, readonly) {
-    const renovations = Array.isArray(venue.renovations) ? venue.renovations : [];
-    const list = renovations.length
-      ? `&lt;div class=&quot;table-responsive&quot;&gt;&lt;table class=&quot;table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;改造时间&lt;/th&gt;&lt;th&gt;改造内容&lt;/th&gt;&lt;th&gt;施工单位&lt;/th&gt;&lt;th&gt;添加时间&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${renovations.map(item =&gt; `&lt;tr&gt;&lt;td class=&quot;text-nowrap&quot;&gt;${item.date}&lt;/td&gt;&lt;td&gt;${item.content}&lt;/td&gt;&lt;td&gt;${item.company}&lt;/td&gt;&lt;td class=&quot;text-nowrap&quot;&gt;${formatDateTime(item.addedAt)}&lt;/td&gt;&lt;/tr&gt;`).join(&#39;&#39;)}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;`
-      : `&lt;div class=&quot;attachment-empty&quot;&gt;${icon(&#39;history&#39;)}&lt;span&gt;暂无改造记录&lt;/span&gt;&lt;/div&gt;`;
-    return `&lt;div class=&quot;attachment-panel&quot;&gt;&lt;div class=&quot;attachment-toolbar&quot;&gt;&lt;div class=&quot;attachment-guidance&quot;&gt;&lt;strong&gt;历史改造记录（${renovations.length}）&lt;/strong&gt;&lt;small&gt;登记操场面层、足球场及配套设施的历次改造情况。&lt;/small&gt;&lt;/div&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-add-renovation&gt;${icon(&#39;plus&#39;)} 新增记录&lt;/button&gt;`}&lt;/div&gt;${list}&lt;/div&gt;`;
+  function playgroundModuleExtraSummary(module) {
+    const details = module.details || {};
+    if (module.type === &#39;户外草坪&#39;) return `灌溉：${details.irrigationMethod || &#39;—&#39;}`;
+    if (module.type === &#39;田径场&#39;) return `${details.laneCount ? `${details.laneCount}轨` : &#39;轨道数未填&#39;}；${details.trackSpec || &#39;规格未填&#39;}`;
+    if (module.type === &#39;足球场&#39;) return `${details.footballFormat || &#39;制式未填&#39;}；球门 ${details.goalCount ?? &#39;—&#39;} 个`;
+    if ([&#39;篮球场&#39;,&#39;排球场&#39;,&#39;网球场&#39;,&#39;羽毛球场&#39;,&#39;乒乓球场&#39;].includes(module.type)) return `${details.courtSpec || &#39;规格未填&#39;}；${details.courtCount || 1} 片`;
+    return &#39;—&#39;;
+  }
+
+  function renderPlaygroundModuleDetail(module, readonly) {
+    const renovations = Array.isArray(module.renovations) ? module.renovations : [];
+    const material = module.material === &#39;其他&#39; ? module.customMaterial || &#39;其他&#39; : module.material;
+    const fields = [[&#39;模块类型&#39;, module.type], [&#39;面积&#39;, `${format(module.area)}㎡`], [&#39;地面材质&#39;, material], [&#39;建造年份&#39;, module.builtYear ? `${module.builtYear}年` : &#39;—&#39;], [&#39;最近改造年份&#39;, module.lastRenovatedYear ? `${module.lastRenovatedYear}年` : &#39;—&#39;], [&#39;分类信息&#39;, playgroundModuleExtraSummary(module)], [&#39;当前状态&#39;, module.status], [&#39;备注&#39;, module.remarks || &#39;—&#39;]];
+    const history = renovations.length ? `&lt;div class=&quot;repair-list&quot;&gt;${renovations.slice().sort((a,b) =&gt; String(b.date).localeCompare(String(a.date))).map(item =&gt; `&lt;div class=&quot;repair-record&quot;&gt;&lt;div class=&quot;repair-record-head&quot;&gt;&lt;strong&gt;${item.date}&lt;/strong&gt;&lt;span class=&quot;repair-record-company&quot;&gt;${item.company}&lt;/span&gt;&lt;/div&gt;&lt;p&gt;${item.content}&lt;/p&gt;&lt;small class=&quot;repair-created-at&quot;&gt;记录时间：${formatDateTime(item.addedAt)}&lt;/small&gt;&lt;/div&gt;`).join(&#39;&#39;)}&lt;/div&gt;` : `&lt;p class=&quot;repair-empty&quot;&gt;暂无改造记录&lt;/p&gt;`;
+    return `&lt;div class=&quot;facility-detail-view&quot;&gt;&lt;div class=&quot;facility-detail-header&quot;&gt;&lt;div class=&quot;facility-detail-title&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-playground-module-back&gt;${icon(&#39;arrow-left&#39;)} 返回场地模块&lt;/button&gt;&lt;strong&gt;${module.name}&lt;/strong&gt;&lt;span class=&quot;facility-summary&quot;&gt;查看场地模块档案及历次改造记录&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;facility-detail-actions&quot;&gt;&lt;span class=&quot;status-tag${module.status === &#39;需养护&#39; || module.status === &#39;改造中&#39; ? &#39; warning&#39; : &#39; active&#39;}&quot;&gt;${module.status}&lt;/span&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-edit-playground-module=&quot;${module.id}&quot;&gt;编辑档案&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;detail-grid&quot;&gt;${fields.map(item =&gt; `&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;${item[0]}&lt;/span&gt;&lt;strong&gt;${item[1]}&lt;/strong&gt;&lt;/div&gt;`).join(&#39;&#39;)}&lt;/div&gt;&lt;div class=&quot;repair-section&quot;&gt;&lt;div class=&quot;repair-section-head&quot;&gt;&lt;div class=&quot;repair-section-title&quot;&gt;${icon(&#39;history&#39;)} &lt;strong&gt;改造记录&lt;/strong&gt;&lt;span class=&quot;repair-count&quot;&gt;${renovations.length} 条&lt;/span&gt;&lt;/div&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-add-module-renovation=&quot;${module.id}&quot;&gt;${icon(&#39;plus&#39;)} 登记改造&lt;/button&gt;`}&lt;/div&gt;${history}&lt;/div&gt;&lt;/div&gt;`;
+  }
+
+  function renderPlaygroundModulesPanel(venue, readonly) {
+    const modules = Array.isArray(venue.playgroundModules) ? venue.playgroundModules : [];
+    const selected = state.selectedPlaygroundModule ? modules.find(item =&gt; item.id === state.selectedPlaygroundModule) : null;
+    if (selected) return renderPlaygroundModuleDetail(selected, readonly);
+    const cards = modules.length ? `&lt;div class=&quot;facility-grid&quot;&gt;${modules.map(module =&gt; { const material = module.material === &#39;其他&#39; ? module.customMaterial || &#39;其他&#39; : module.material; return `&lt;div class=&quot;facility-row&quot;&gt;&lt;div class=&quot;facility-head&quot;&gt;&lt;div class=&quot;facility-head-main&quot;&gt;&lt;strong&gt;${module.type} &amp;#183; ${module.name}&lt;/strong&gt;&lt;span class=&quot;facility-summary&quot;&gt;面积：${format(module.area)}㎡；材质：${material}；最近改造：${module.lastRenovatedYear || &#39;—&#39;}；历史记录：${module.renovations?.length || 0} 条&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;facility-head-actions&quot;&gt;&lt;span class=&quot;status-tag${module.status === &#39;需养护&#39; || module.status === &#39;改造中&#39; ? &#39; warning&#39; : &#39; active&#39;}&quot;&gt;${module.status}&lt;/span&gt;&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-playground-module-detail=&quot;${module.id}&quot;&gt;查看详情&lt;/button&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-edit-playground-module=&quot;${module.id}&quot;&gt;编辑&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;action-link is-danger&quot; data-delete-playground-module=&quot;${module.id}&quot;&gt;删除&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`; }).join(&#39;&#39;)}&lt;/div&gt;` : `&lt;div class=&quot;attachment-empty&quot;&gt;${icon(&#39;layout-grid&#39;)}&lt;span&gt;尚未登记场地模块&lt;/span&gt;&lt;/div&gt;`;
+    return `&lt;div class=&quot;attachment-panel&quot;&gt;&lt;div class=&quot;attachment-toolbar&quot;&gt;&lt;div class=&quot;attachment-guidance&quot;&gt;&lt;strong&gt;场地模块（${modules.length}）&lt;/strong&gt;&lt;/div&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-add-playground-module&gt;${icon(&#39;plus&#39;)} 新增场地模块&lt;/button&gt;`}&lt;/div&gt;${cards}&lt;/div&gt;`;
   }
 
   function renderAttachmentPanel(venue, readonly) {
@@ -1649,21 +1924,22 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     const readonly = state.portal === &#39;bureau&#39;;
     const profile = venue.type === &#39;BUILDING&#39;
       ? [[&#39;建筑类型&#39;, venue.buildingType || &#39;—&#39;], [&#39;建设年份&#39;, venue.year ? `${venue.year}年` : &#39;—&#39;], [&#39;建筑层数&#39;, `${venue.floors}层`], [&#39;结构类型&#39;, venue.structure], [&#39;鉴定等级&#39;, venue.assessmentGrade || &#39;—&#39;], [&#39;鉴定日期&#39;, venue.assessmentDate || &#39;—&#39;], [&#39;建筑面积&#39;, `${format(venue.area)}㎡`], [&#39;使用面积&#39;, venue.usableArea ? `${format(venue.usableArea)}㎡` : &#39;—&#39;]]
-      : [[&#39;场地类型&#39;, venue.playgroundType || &#39;—&#39;], [&#39;建设年份&#39;, venue.year ? `${venue.year}年` : &#39;—&#39;], [&#39;面层材质&#39;, venue.surface || &#39;—&#39;], [&#39;包含足球场&#39;, venue.football ? &#39;是&#39; : &#39;否&#39;], [&#39;面积&#39;, `${format(venue.area)}㎡`], [&#39;当前状态&#39;, venue.usage]];
+      : (() =&gt; { const modules = Array.isArray(venue.playgroundModules) ? venue.playgroundModules : []; const moduleArea = modules.reduce((sum,item) =&gt; sum + (Number(item.area) || 0), 0); const purposes = [...new Set(modules.map(item =&gt; item.type))].join(&#39;、&#39;) || &#39;尚未登记&#39;; return [[&#39;场地类型&#39;, venue.playgroundType || &#39;—&#39;], [&#39;土地属性&#39;, venue.landAttribute || &#39;—&#39;], [&#39;建设年份&#39;, venue.year ? `${venue.year}年` : &#39;—&#39;], [&#39;操场总面积&#39;, `${format(venue.area)}㎡`], [&#39;场地模块数&#39;, `${modules.length}个`], [&#39;已登记模块面积&#39;, `${format(moduleArea)}㎡`], [&#39;用途摘要&#39;, purposes], [&#39;当前状态&#39;, venue.usage]]; })();
     const selectedFacility = Number.isInteger(state.selectedFacility) ? facilities[state.selectedFacility] : null;
     const facilityHtml = venue.type === &#39;BUILDING&#39;
       ? selectedFacility
         ? renderFacilityDetail(selectedFacility, state.selectedFacility, readonly)
         : `${readonly ? `&lt;div class=&quot;facility-toolbar&quot;&gt;&lt;span class=&quot;text-muted&quot;&gt;共 ${facilities.length} 项子档案&lt;/span&gt;&lt;/div&gt;` : `&lt;div class=&quot;facility-toolbar&quot;&gt;&lt;span class=&quot;text-muted&quot;&gt;共 ${facilities.length} 项子档案&lt;/span&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-add-facility&gt;${icon(&#39;plus&#39;)} 新增子档案&lt;/button&gt;&lt;/div&gt;`}&lt;div class=&quot;facility-grid&quot;&gt;${facilities.map((f,index) =&gt; `&lt;div class=&quot;facility-row&quot;&gt;&lt;div class=&quot;facility-head&quot;&gt;&lt;div class=&quot;facility-head-main&quot;&gt;&lt;strong&gt;${f.type} &amp;#183; ${f.name}&lt;/strong&gt;&lt;span class=&quot;facility-summary&quot;&gt;${facilitySummary(f)}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;facility-head-actions&quot;&gt;&lt;span class=&quot;status-tag${f.status === &#39;需维修&#39; ? &#39; warning&#39; : &#39; active&#39;}&quot;&gt;${f.status}&lt;/span&gt;&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-facility-detail=&quot;${index}&quot;&gt;查看详情&lt;/button&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-edit-facility=&quot;${index}&quot;&gt;编辑&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`).join(&#39;&#39;)}&lt;/div&gt;`
       : `&lt;div class=&quot;empty-state&quot;&gt;操场不包含建筑专项设施子档案&lt;/div&gt;`;
-    const tabContent = state.detailTab === &#39;profile&#39; ? `&lt;div class=&quot;detail-grid&quot;&gt;&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;档案名称&lt;/span&gt;&lt;strong&gt;${venue.name}&lt;/strong&gt;&lt;/div&gt;${readonly ? `&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;所属学校&lt;/span&gt;&lt;strong&gt;${venue.school}&lt;/strong&gt;&lt;/div&gt;` : &#39;&#39;}&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;档案类型&lt;/span&gt;&lt;strong&gt;${venue.type === &#39;BUILDING&#39; ? &#39;建筑&#39; : &#39;操场&#39;}&lt;/strong&gt;&lt;/div&gt;${profile.map(x =&gt; `&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;${x[0]}&lt;/span&gt;&lt;strong&gt;${x[1]}&lt;/strong&gt;&lt;/div&gt;`).join(&#39;&#39;)}&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;用途&lt;/span&gt;&lt;strong&gt;${venue.purpose}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;使用状态&lt;/span&gt;&lt;strong&gt;${venue.usage}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;档案状态&lt;/span&gt;&lt;strong&gt;${venue.lifecycle}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;最近更新&lt;/span&gt;&lt;strong&gt;${formatDateTime(venue.updated)}&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;` : state.detailTab === &#39;facilities&#39; ? facilityHtml : state.detailTab === &#39;equipment&#39; ? renderEquipmentPanel(venue, readonly) : state.detailTab === &#39;renovation&#39; ? renderRenovationPanel(venue, readonly) : renderAttachmentPanel(venue, readonly);
-    content.innerHTML = `&lt;section class=&quot;card&quot;&gt;&lt;div class=&quot;detail-tabs-bar&quot;&gt;&lt;div class=&quot;tabs&quot;&gt;&lt;button class=&quot;tab-button${state.detailTab === &#39;profile&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;profile&quot;&gt;基础信息&lt;/button&gt;${venue.type === &#39;BUILDING&#39; ? `&lt;button class=&quot;tab-button${state.detailTab === &#39;facilities&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;facilities&quot;&gt;专项设施&lt;/button&gt;` : `&lt;button class=&quot;tab-button${state.detailTab === &#39;equipment&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;equipment&quot;&gt;器材信息&lt;/button&gt;&lt;button class=&quot;tab-button${state.detailTab === &#39;renovation&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;renovation&quot;&gt;改造记录&lt;/button&gt;`}&lt;button class=&quot;tab-button${state.detailTab === &#39;attachments&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;attachments&quot;&gt;附件资料&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;detail-tabs-actions&quot;&gt;&lt;button class=&quot;btn&quot; data-back&gt;${icon(&#39;arrow-left&#39;)} 返回列表&lt;/button&gt;${readonly ? &#39;&#39; : &#39;&lt;button class=&quot;btn btn-primary&quot; data-edit&gt;编辑档案&lt;/button&gt;&#39;}&lt;/div&gt;&lt;/div&gt;${tabContent}&lt;/section&gt;`;
+    const tabContent = state.detailTab === &#39;profile&#39; ? `&lt;div class=&quot;detail-grid&quot;&gt;&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;档案名称&lt;/span&gt;&lt;strong&gt;${venue.name}&lt;/strong&gt;&lt;/div&gt;${readonly ? `&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;所属学校&lt;/span&gt;&lt;strong&gt;${venue.school}&lt;/strong&gt;&lt;/div&gt;` : &#39;&#39;}&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;档案类型&lt;/span&gt;&lt;strong&gt;${venue.type === &#39;BUILDING&#39; ? &#39;建筑&#39; : &#39;操场&#39;}&lt;/strong&gt;&lt;/div&gt;${profile.map(x =&gt; `&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;${x[0]}&lt;/span&gt;&lt;strong&gt;${x[1]}&lt;/strong&gt;&lt;/div&gt;`).join(&#39;&#39;)}&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;用途&lt;/span&gt;&lt;strong&gt;${venue.purpose}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;使用状态&lt;/span&gt;&lt;strong&gt;${venue.usage}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;档案状态&lt;/span&gt;&lt;strong&gt;${venue.lifecycle}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;最近更新&lt;/span&gt;&lt;strong&gt;${formatDateTime(venue.updated)}&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;` : state.detailTab === &#39;facilities&#39; ? facilityHtml : state.detailTab === &#39;playground-modules&#39; ? renderPlaygroundModulesPanel(venue, readonly) : state.detailTab === &#39;equipment&#39; ? renderEquipmentPanel(venue, readonly) : renderAttachmentPanel(venue, readonly);
+    content.innerHTML = `&lt;section class=&quot;card&quot;&gt;&lt;div class=&quot;detail-tabs-bar&quot;&gt;&lt;div class=&quot;tabs&quot;&gt;&lt;button class=&quot;tab-button${state.detailTab === &#39;profile&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;profile&quot;&gt;基础信息&lt;/button&gt;${venue.type === &#39;BUILDING&#39; ? `&lt;button class=&quot;tab-button${state.detailTab === &#39;facilities&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;facilities&quot;&gt;专项设施&lt;/button&gt;` : `&lt;button class=&quot;tab-button${state.detailTab === &#39;playground-modules&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;playground-modules&quot;&gt;场地模块&lt;/button&gt;&lt;button class=&quot;tab-button${state.detailTab === &#39;equipment&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;equipment&quot;&gt;器材信息&lt;/button&gt;`}&lt;button class=&quot;tab-button${state.detailTab === &#39;attachments&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;attachments&quot;&gt;附件资料&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;detail-tabs-actions&quot;&gt;&lt;button class=&quot;btn&quot; data-back&gt;${icon(&#39;arrow-left&#39;)} 返回列表&lt;/button&gt;${readonly ? &#39;&#39; : &#39;&lt;button class=&quot;btn btn-primary&quot; data-edit&gt;编辑档案&lt;/button&gt;&#39;}&lt;/div&gt;&lt;/div&gt;${tabContent}&lt;/section&gt;`;
   }
 
   function render() {
     renderChrome();
     if (state.module === &#39;workspace&#39;) renderWorkspace();
     else if (state.selectedVenue) renderDetail();
+    else if (state.page === &#39;school-statistics&#39;) renderSchoolStatistics();
     else if (state.page === &#39;buildings&#39;) renderVenueList(&#39;BUILDING&#39;);
     else if (state.page === &#39;building-query&#39;) renderVenueList(&#39;BUILDING&#39;);
     else if (state.page === &#39;playgrounds&#39;) renderVenueList(&#39;PLAYGROUND&#39;);
@@ -1690,7 +1966,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     document.getElementById(&#39;form-assessment-grade&#39;).value = venue?.assessmentGrade || &#39;&#39;;
     document.getElementById(&#39;form-assessment-date&#39;).value = venue?.assessmentDate || &#39;&#39;;
     document.getElementById(&#39;form-playground-type&#39;).value = venue?.playgroundType || &#39;&#39;;
-    document.getElementById(&#39;form-surface&#39;).value = venue?.surface || &#39;&#39;;
+    document.getElementById(&#39;form-land-attribute&#39;).value = venue?.landAttribute || &#39;&#39;;
     document.getElementById(&#39;form-usage&#39;).value = venue?.usage || &#39;使用中&#39;;
     document.getElementById(&#39;form-remarks&#39;).value = venue?.remarks || &#39;&#39;;
     document.getElementById(&#39;form-error&#39;).hidden = true;
@@ -1705,7 +1981,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     document.getElementById(&#39;facility-modal-title&#39;).textContent = facility ? &#39;编辑专项设施子档案&#39; : &#39;新增专项设施子档案&#39;;
     document.getElementById(&#39;facility-type&#39;).value = facility?.type || &#39;门&#39;;
     document.getElementById(&#39;facility-name&#39;).value = facility?.name || &#39;&#39;;
-    document.getElementById(&#39;facility-status&#39;).value = facility?.status || &#39;正常&#39;;
+    document.getElementById(&#39;facility-status&#39;).value = facility?.status || &#39;良好&#39;;
     document.getElementById(&#39;facility-year&#39;).value = facility?.year || &#39;&#39;;
     document.getElementById(&#39;facility-door-type&#39;).value = facility?.doorType || &#39;&#39;;
     document.getElementById(&#39;facility-door-location&#39;).value = facility?.doorLocation || &#39;&#39;;
@@ -1808,14 +2084,14 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   function openPlaygroundRecordModal(kind) {
     const equipmentMode = kind === &#39;equipment&#39;;
     document.getElementById(&#39;playground-record-kind&#39;).value = kind;
-    document.getElementById(&#39;playground-record-title&#39;).textContent = equipmentMode ? &#39;新增器材信息&#39; : &#39;新增改造记录&#39;;
-    document.getElementById(&#39;playground-record-subtitle&#39;).textContent = equipmentMode ? &#39;补充操场器材信息，保存后立即显示在档案中。&#39; : &#39;补充操场历史改造信息，保存后立即显示在档案中。&#39;;
+    document.getElementById(&#39;playground-record-title&#39;).textContent = equipmentMode ? &#39;新增器材信息&#39; : &#39;登记场地模块改造记录&#39;;
+    document.getElementById(&#39;playground-record-subtitle&#39;).textContent = equipmentMode ? &#39;补充操场器材信息，保存后立即显示在档案中。&#39; : &#39;改造记录仅归属当前场地模块，保存后同步更新最近改造年份。&#39;;
     document.getElementById(&#39;equipment-record-fields&#39;).hidden = !equipmentMode;
     document.getElementById(&#39;renovation-record-fields&#39;).hidden = equipmentMode;
     document.getElementById(&#39;equipment-category&#39;).value = &#39;体育器材&#39;;
     document.getElementById(&#39;equipment-name&#39;).value = &#39;&#39;;
     document.getElementById(&#39;equipment-quantity&#39;).value = &#39;&#39;;
-    document.getElementById(&#39;equipment-status&#39;).value = &#39;正常使用&#39;;
+    document.getElementById(&#39;equipment-status&#39;).value = &#39;良好&#39;;
     document.getElementById(&#39;renovation-date&#39;).value = &#39;&#39;;
     document.getElementById(&#39;renovation-company&#39;).value = &#39;&#39;;
     document.getElementById(&#39;renovation-content&#39;).value = &#39;&#39;;
@@ -1823,6 +2099,76 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     playgroundRecordModal.hidden = false;
     document.getElementById(equipmentMode ? &#39;equipment-name&#39; : &#39;renovation-date&#39;).focus();
     refreshIcons();
+  }
+
+  function syncPlaygroundModuleFields() {
+    const type = document.getElementById(&#39;playground-module-type&#39;).value;
+    const ballTypes = [&#39;篮球场&#39;,&#39;排球场&#39;,&#39;网球场&#39;,&#39;羽毛球场&#39;,&#39;乒乓球场&#39;];
+    root.querySelectorAll(&#39;[data-module-extra]&#39;).forEach(field =&gt; { field.hidden = !(field.dataset.moduleExtra === type || (field.dataset.moduleExtra === &#39;ball&#39; &amp;&amp; ballTypes.includes(type))); });
+    document.getElementById(&#39;playground-module-custom-material-field&#39;).hidden = document.getElementById(&#39;playground-module-material&#39;).value !== &#39;其他&#39;;
+  }
+
+  function openPlaygroundModuleModal(moduleId) {
+    const venue = venues.find(item =&gt; item.id === state.selectedVenue &amp;&amp; item.type === &#39;PLAYGROUND&#39;);
+    if (!venue || state.portal === &#39;bureau&#39;) return;
+    const module = (venue.playgroundModules || []).find(item =&gt; item.id === moduleId);
+    const details = module?.details || {};
+    document.getElementById(&#39;playground-module-title&#39;).textContent = module ? &#39;编辑场地模块&#39; : &#39;新增场地模块&#39;;
+    document.getElementById(&#39;playground-module-id&#39;).value = module?.id || &#39;&#39;;
+    document.getElementById(&#39;playground-module-type&#39;).value = module?.type || &#39;户外草坪&#39;;
+    document.getElementById(&#39;playground-module-name&#39;).value = module?.name || &#39;&#39;;
+    document.getElementById(&#39;playground-module-area&#39;).value = module?.area || &#39;&#39;;
+    document.getElementById(&#39;playground-module-material&#39;).value = module?.material || &#39;&#39;;
+    document.getElementById(&#39;playground-module-custom-material&#39;).value = module?.customMaterial || &#39;&#39;;
+    document.getElementById(&#39;playground-module-built-year&#39;).value = module?.builtYear || &#39;&#39;;
+    document.getElementById(&#39;playground-module-renovated-year&#39;).value = module?.lastRenovatedYear || &#39;&#39;;
+    document.getElementById(&#39;playground-module-status&#39;).value = module?.status || &#39;良好&#39;;
+    document.getElementById(&#39;playground-module-irrigation&#39;).value = details.irrigationMethod || &#39;&#39;;
+    document.getElementById(&#39;playground-module-lanes&#39;).value = details.laneCount || &#39;&#39;;
+    document.getElementById(&#39;playground-module-track-spec&#39;).value = details.trackSpec || &#39;&#39;;
+    document.getElementById(&#39;playground-module-football-format&#39;).value = details.footballFormat || &#39;&#39;;
+    document.getElementById(&#39;playground-module-goals&#39;).value = details.goalCount ?? &#39;&#39;;
+    document.getElementById(&#39;playground-module-court-spec&#39;).value = details.courtSpec || &#39;&#39;;
+    document.getElementById(&#39;playground-module-count&#39;).value = details.courtCount || 1;
+    document.getElementById(&#39;playground-module-remarks&#39;).value = module?.remarks || &#39;&#39;;
+    document.getElementById(&#39;playground-module-error&#39;).hidden = true;
+    [&#39;playground-module-built-year&#39;,&#39;playground-module-renovated-year&#39;].forEach(id =&gt; { document.getElementById(id).max = String(new Date().getFullYear() + 1); });
+    syncPlaygroundModuleFields();
+    playgroundModuleModal.hidden = false;
+    document.getElementById(&#39;playground-module-name&#39;).focus();
+  }
+
+  function savePlaygroundModule() {
+    const venue = venues.find(item =&gt; item.id === state.selectedVenue &amp;&amp; item.type === &#39;PLAYGROUND&#39;);
+    if (!venue || state.portal === &#39;bureau&#39;) return;
+    const moduleId = document.getElementById(&#39;playground-module-id&#39;).value;
+    const type = document.getElementById(&#39;playground-module-type&#39;).value;
+    const name = document.getElementById(&#39;playground-module-name&#39;).value.trim();
+    const areaText = document.getElementById(&#39;playground-module-area&#39;).value.trim();
+    const material = document.getElementById(&#39;playground-module-material&#39;).value;
+    const customMaterial = document.getElementById(&#39;playground-module-custom-material&#39;).value.trim();
+    const builtYearText = document.getElementById(&#39;playground-module-built-year&#39;).value.trim();
+    const renovatedYearText = document.getElementById(&#39;playground-module-renovated-year&#39;).value.trim();
+    const currentYear = new Date().getFullYear();
+    const error = document.getElementById(&#39;playground-module-error&#39;);
+    const validYear = value =&gt; !value || (Number.isInteger(Number(value)) &amp;&amp; Number(value) &gt;= 1800 &amp;&amp; Number(value) &lt;= currentYear + 1);
+    if (!type || !name || !areaText || !material) { error.textContent = &#39;请完整填写模块类型、名称、面积、地面材质和状态。&#39;; error.hidden = false; return; }
+    if (!/^\d+(\.\d{1,2})?$/.test(areaText) || Number(areaText) &lt;= 0) { error.textContent = &#39;面积请输入大于 0 且最多两位小数的数值。&#39;; error.hidden = false; return; }
+    if (!validYear(builtYearText) || !validYear(renovatedYearText)) { error.textContent = `年份请输入 1800—${currentYear + 1} 的四位整数。`; error.hidden = false; return; }
+    if (material === &#39;其他&#39; &amp;&amp; !customMaterial) { error.textContent = &#39;选择“其他”材质时必须填写材质名称。&#39;; error.hidden = false; return; }
+    const existing = (venue.playgroundModules || []).find(item =&gt; item.id === moduleId);
+    const ballTypes = [&#39;篮球场&#39;,&#39;排球场&#39;,&#39;网球场&#39;,&#39;羽毛球场&#39;,&#39;乒乓球场&#39;];
+    const details = type === &#39;户外草坪&#39; ? { irrigationMethod: document.getElementById(&#39;playground-module-irrigation&#39;).value } : type === &#39;田径场&#39; ? { laneCount: Number(document.getElementById(&#39;playground-module-lanes&#39;).value) || null, trackSpec: document.getElementById(&#39;playground-module-track-spec&#39;).value } : type === &#39;足球场&#39; ? { footballFormat: document.getElementById(&#39;playground-module-football-format&#39;).value, goalCount: Number(document.getElementById(&#39;playground-module-goals&#39;).value) || 0 } : ballTypes.includes(type) ? { courtSpec: document.getElementById(&#39;playground-module-court-spec&#39;).value.trim(), courtCount: Math.max(1, Number(document.getElementById(&#39;playground-module-count&#39;).value) || 1) } : {};
+    const saved = { id: existing?.id || `pm-${Date.now()}`, type, name, area: Number(areaText), material, customMaterial: material === &#39;其他&#39; ? customMaterial : &#39;&#39;, builtYear: builtYearText ? Number(builtYearText) : null, lastRenovatedYear: renovatedYearText ? Number(renovatedYearText) : null, status: document.getElementById(&#39;playground-module-status&#39;).value, remarks: document.getElementById(&#39;playground-module-remarks&#39;).value.trim(), details, renovations: existing?.renovations || [] };
+    venue.playgroundModules = existing ? venue.playgroundModules.map(item =&gt; item.id === existing.id ? saved : item) : [...(venue.playgroundModules || []), saved];
+    venue.playgroundAudit = [[existing ? &#39;编辑场地模块&#39; : &#39;新增场地模块&#39;, saved.name, &#39;张老师&#39;, formatDateTime()], ...(venue.playgroundAudit || [])];
+    venue.updated = formatDateTime();
+    persistVenueRecords();
+    persistPlaygroundRecords();
+    playgroundModuleModal.hidden = true;
+    renderDetail();
+    refreshIcons();
+    showToast(existing ? &#39;场地模块已更新&#39; : &#39;场地模块已新增&#39;);
   }
 
   function savePlaygroundRecord() {
@@ -1841,14 +2187,72 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       const company = document.getElementById(&#39;renovation-company&#39;).value.trim();
       const contentValue = document.getElementById(&#39;renovation-content&#39;).value.trim();
       if (!date || !company || !contentValue) { error.textContent = &#39;请完整填写改造时间、施工单位和改造内容。&#39;; error.hidden = false; return; }
-      venue.renovations = [...(Array.isArray(venue.renovations) ? venue.renovations : []), { id: `r${Date.now()}`, date, company, content: contentValue, addedAt }];
+      const module = (venue.playgroundModules || []).find(item =&gt; item.id === state.selectedPlaygroundModule);
+      if (!module) { error.textContent = &#39;当前场地模块不存在，请返回列表后重试。&#39;; error.hidden = false; return; }
+      module.renovations = [{ id: `pmr-${Date.now()}`, date, company, content: contentValue, addedAt }, ...(Array.isArray(module.renovations) ? module.renovations : [])];
+      const recordYear = Number(String(date).slice(0, 4));
+      if (recordYear &amp;&amp; (!module.lastRenovatedYear || recordYear &gt; module.lastRenovatedYear)) module.lastRenovatedYear = recordYear;
+      venue.playgroundAudit = [[&#39;新增模块改造记录&#39;, module.name, &#39;张老师&#39;, addedAt], ...(venue.playgroundAudit || [])];
     }
     venue.updated = addedAt;
+    persistVenueRecords();
     persistPlaygroundRecords();
     playgroundRecordModal.hidden = true;
     renderDetail();
     refreshIcons();
     showToast(kind === &#39;equipment&#39; ? &#39;器材信息已添加&#39; : &#39;改造记录已添加&#39;);
+  }
+
+  function syncSchoolAreaDifference() {
+    const totalText = document.getElementById(&#39;school-total-area&#39;).value.trim();
+    const leasedText = document.getElementById(&#39;school-leased-area&#39;).value.trim();
+    const ownedText = document.getElementById(&#39;school-owned-area&#39;).value.trim();
+    const hint = document.getElementById(&#39;school-area-difference&#39;);
+    const validNumber = value =&gt; /^\d+(\.\d{1,2})?$/.test(value);
+    if (![totalText, leasedText, ownedText].every(validNumber)) { hint.hidden = true; return; }
+    const total = Number(totalText);
+    const subtotal = Number(leasedText) + Number(ownedText);
+    const difference = Number((subtotal - total).toFixed(2));
+    if (difference === 0) { hint.hidden = true; return; }
+    hint.textContent = `自有面积与租赁面积合计 ${format(subtotal)}㎡，比学校整体面积${difference &gt; 0 ? &#39;多&#39; : &#39;少&#39;} ${format(Math.abs(difference))}㎡，仅提示不阻止保存。`;
+    hint.hidden = false;
+  }
+
+  function openSchoolAreaModal() {
+    if (state.portal !== &#39;school&#39;) return;
+    const school = &#39;海淀区实验中学&#39;;
+    const profile = schoolAreaProfiles[school];
+    document.getElementById(&#39;school-total-area&#39;).value = profile?.totalArea ?? &#39;&#39;;
+    document.getElementById(&#39;school-leased-area&#39;).value = profile?.leasedArea ?? &#39;&#39;;
+    document.getElementById(&#39;school-owned-area&#39;).value = profile?.ownedArea ?? &#39;&#39;;
+    document.getElementById(&#39;school-area-error&#39;).hidden = true;
+    syncSchoolAreaDifference();
+    schoolAreaModal.hidden = false;
+    refreshIcons();
+  }
+
+  function saveSchoolAreaProfile() {
+    if (state.portal !== &#39;school&#39;) return;
+    const totalText = document.getElementById(&#39;school-total-area&#39;).value.trim();
+    const leasedText = document.getElementById(&#39;school-leased-area&#39;).value.trim();
+    const ownedText = document.getElementById(&#39;school-owned-area&#39;).value.trim();
+    const error = document.getElementById(&#39;school-area-error&#39;);
+    const validNumber = value =&gt; /^\d+(\.\d{1,2})?$/.test(value);
+    if (![totalText, leasedText, ownedText].every(validNumber) || !(Number(totalText) &gt; 0) || Number(leasedText) &lt; 0 || Number(ownedText) &lt; 0) {
+      error.textContent = &#39;请完整填写面积：学校整体面积必须大于 0，租赁和自有面积必须大于等于 0，且均最多保留两位小数。&#39;;
+      error.hidden = false;
+      return;
+    }
+    const school = &#39;海淀区实验中学&#39;;
+    const current = schoolAreaProfiles[school] || { school, auditLogs: [] };
+    const updatedAt = formatDateTime();
+    const auditLog = [&#39;编辑学校面积概况&#39;, school, &#39;张老师&#39;, updatedAt];
+    schoolAreaProfiles[school] = { school, totalArea: Number(totalText), leasedArea: Number(leasedText), ownedArea: Number(ownedText), updatedAt, updatedBy: &#39;张老师&#39;, auditLogs: [auditLog, ...(Array.isArray(current.auditLogs) ? current.auditLogs : [])] };
+    persistSchoolAreaProfiles();
+    schoolAreaModal.hidden = true;
+    renderVenueList(&#39;BUILDING&#39;);
+    refreshIcons();
+    showToast(&#39;学校面积概况已更新&#39;);
   }
 
   portalSwitch.addEventListener(&#39;change&#39;, () =&gt; {
@@ -1868,19 +2272,29 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     const pageButton = event.target.closest(&#39;[data-page]&#39;);
     if (pageButton) { state.page = pageButton.dataset.page; state.selectedVenue = null; state.selectedFacility = null; clearFilters(); render(); return; }
     const detailButton = event.target.closest(&#39;[data-detail]&#39;);
-    if (detailButton) { state.selectedVenue = detailButton.dataset.detail; state.selectedFacility = null; state.detailTab = &#39;profile&#39;; render(); return; }
+    if (detailButton) { state.selectedVenue = detailButton.dataset.detail; state.selectedFacility = null; state.selectedPlaygroundModule = null; state.detailTab = &#39;profile&#39;; render(); return; }
     const addButton = event.target.closest(&#39;[data-add]&#39;);
     if (addButton) { openVenueModal(addButton.dataset.add); return; }
+    const editSchoolArea = event.target.closest(&#39;[data-edit-school-area]&#39;);
+    if (editSchoolArea) { openSchoolAreaModal(); return; }
+    const closeSchoolArea = event.target.closest(&#39;[data-close-school-area]&#39;);
+    if (closeSchoolArea) { schoolAreaModal.hidden = true; return; }
     const closeButton = event.target.closest(&#39;[data-close-modal]&#39;);
     if (closeButton) { modal.hidden = true; return; }
     const saveVenue = event.target.closest(&#39;[data-save-venue]&#39;);
     if (saveVenue) { saveVenueRecord(); return; }
+    const exportSchoolStatisticsButton = event.target.closest(&#39;[data-export-school-statistics]&#39;);
+    if (exportSchoolStatisticsButton) { exportSchoolStatistics(); return; }
+    const schoolStatisticsPageButton = event.target.closest(&#39;[data-school-stats-page]&#39;);
+    if (schoolStatisticsPageButton) { state.schoolStatsPage = Number(schoolStatisticsPageButton.dataset.schoolStatsPage) || 1; renderSchoolStatistics(); refreshIcons(); return; }
+    const resetSchoolStatistics = event.target.closest(&#39;[data-reset-school-statistics]&#39;);
+    if (resetSchoolStatistics) { state.schoolStatsKeyword = &#39;&#39;; state.schoolStatsPage = 1; renderSchoolStatistics(); refreshIcons(); return; }
     const resetButton = event.target.closest(&#39;[data-reset-filter]&#39;);
     if (resetButton) { clearFilters(); render(); return; }
     const backButton = event.target.closest(&#39;[data-back]&#39;);
     if (backButton) { const venue = venues.find(v =&gt; v.id === state.selectedVenue); state.page = venue?.type === &#39;BUILDING&#39; ? (state.portal === &#39;bureau&#39; ? &#39;building-query&#39; : &#39;buildings&#39;) : (state.portal === &#39;bureau&#39; ? &#39;playground-query&#39; : &#39;playgrounds&#39;); state.selectedVenue = null; state.selectedFacility = null; render(); return; }
     const tabButton = event.target.closest(&#39;[data-tab]&#39;);
-    if (tabButton) { state.detailTab = tabButton.dataset.tab; state.selectedFacility = null; renderDetail(); refreshIcons(); return; }
+    if (tabButton) { state.detailTab = tabButton.dataset.tab; state.selectedFacility = null; state.selectedPlaygroundModule = null; renderDetail(); refreshIcons(); return; }
     const editRowButton = event.target.closest(&#39;[data-edit-row]&#39;);
     if (editRowButton) {
       const venue = venues.find(v =&gt; v.id === editRowButton.dataset.editRow);
@@ -1911,20 +2325,34 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     if (editFacility) { openFacilityModal(Number(editFacility.dataset.editFacility)); return; }
     const addRepair = event.target.closest(&#39;[data-add-repair]&#39;);
     if (addRepair) { openRepairModal(Number(addRepair.dataset.addRepair)); return; }
+    const addPlaygroundModule = event.target.closest(&#39;[data-add-playground-module]&#39;);
+    if (addPlaygroundModule) { openPlaygroundModuleModal(); return; }
+    const playgroundModuleDetail = event.target.closest(&#39;[data-playground-module-detail]&#39;);
+    if (playgroundModuleDetail) { state.selectedPlaygroundModule = playgroundModuleDetail.dataset.playgroundModuleDetail; renderDetail(); refreshIcons(); return; }
+    const playgroundModuleBack = event.target.closest(&#39;[data-playground-module-back]&#39;);
+    if (playgroundModuleBack) { state.selectedPlaygroundModule = null; renderDetail(); refreshIcons(); return; }
+    const editPlaygroundModule = event.target.closest(&#39;[data-edit-playground-module]&#39;);
+    if (editPlaygroundModule) { openPlaygroundModuleModal(editPlaygroundModule.dataset.editPlaygroundModule); return; }
+    const deletePlaygroundModule = event.target.closest(&#39;[data-delete-playground-module]&#39;);
+    if (deletePlaygroundModule) { const venue = venues.find(item =&gt; item.id === state.selectedVenue); const module = venue?.playgroundModules?.find(item =&gt; item.id === deletePlaygroundModule.dataset.deletePlaygroundModule); if (!module || state.portal === &#39;bureau&#39;) return; state.pendingPlaygroundModule = module.id; document.getElementById(&#39;confirm-title&#39;).textContent = `确认删除“${module.name}”？`; document.getElementById(&#39;confirm-message&#39;).textContent = `删除后将同步移除该模块的 ${module.renovations?.length || 0} 条改造记录，操作将写入模拟日志。`; confirmAction.textContent = &#39;确认删除&#39;; confirmModal.hidden = false; refreshIcons(); return; }
+    const addModuleRenovation = event.target.closest(&#39;[data-add-module-renovation]&#39;);
+    if (addModuleRenovation) { state.selectedPlaygroundModule = addModuleRenovation.dataset.addModuleRenovation; openPlaygroundRecordModal(&#39;module-renovation&#39;); return; }
     const addEquipment = event.target.closest(&#39;[data-add-equipment]&#39;);
     if (addEquipment) { openPlaygroundRecordModal(&#39;equipment&#39;); return; }
-    const addRenovation = event.target.closest(&#39;[data-add-renovation]&#39;);
-    if (addRenovation) { openPlaygroundRecordModal(&#39;renovation&#39;); return; }
     const closeFacility = event.target.closest(&#39;[data-close-facility]&#39;);
     if (closeFacility) { facilityModal.hidden = true; return; }
     const closeRepair = event.target.closest(&#39;[data-close-repair]&#39;);
     if (closeRepair) { repairModal.hidden = true; return; }
+    const closePlaygroundModule = event.target.closest(&#39;[data-close-playground-module]&#39;);
+    if (closePlaygroundModule) { playgroundModuleModal.hidden = true; return; }
     const closePlaygroundRecord = event.target.closest(&#39;[data-close-playground-record]&#39;);
     if (closePlaygroundRecord) { playgroundRecordModal.hidden = true; return; }
     const saveFacility = event.target.closest(&#39;[data-save-facility]&#39;);
     if (saveFacility) { saveFacilityRecord(); return; }
     const saveRepair = event.target.closest(&#39;[data-save-repair]&#39;);
     if (saveRepair) { saveRepairRecord(); return; }
+    const savePlaygroundModuleButton = event.target.closest(&#39;[data-save-playground-module]&#39;);
+    if (savePlaygroundModuleButton) { savePlaygroundModule(); return; }
     const savePlaygroundRecordButton = event.target.closest(&#39;[data-save-playground-record]&#39;);
     if (savePlaygroundRecordButton) { savePlaygroundRecord(); return; }
     const deleteAttachment = event.target.closest(&#39;[data-delete-attachment]&#39;);
@@ -1947,13 +2375,22 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   });
 
   root.addEventListener(&#39;keydown&#39;, event =&gt; {
-    if (event.key === &#39;Escape&#39;) { modal.hidden = true; confirmModal.hidden = true; facilityModal.hidden = true; repairModal.hidden = true; playgroundRecordModal.hidden = true; }
+    if (event.key === &#39;Escape&#39;) { modal.hidden = true; confirmModal.hidden = true; facilityModal.hidden = true; repairModal.hidden = true; playgroundModuleModal.hidden = true; playgroundRecordModal.hidden = true; }
   });
-  root.querySelector(&#39;[data-cancel-confirm]&#39;).addEventListener(&#39;click&#39;, () =&gt; { confirmModal.hidden = true; state.pendingVenue = null; });
+  root.querySelector(&#39;[data-cancel-confirm]&#39;).addEventListener(&#39;click&#39;, () =&gt; { confirmModal.hidden = true; state.pendingVenue = null; state.pendingPlaygroundModule = null; });
   confirmAction.addEventListener(&#39;click&#39;, () =&gt; {
+    if (state.pendingPlaygroundModule) {
+      const venue = venues.find(item =&gt; item.id === state.selectedVenue &amp;&amp; item.type === &#39;PLAYGROUND&#39;);
+      const module = venue?.playgroundModules?.find(item =&gt; item.id === state.pendingPlaygroundModule);
+      if (venue &amp;&amp; module) { venue.playgroundModules = venue.playgroundModules.filter(item =&gt; item.id !== module.id); venue.updated = formatDateTime(); venue.playgroundAudit = [[&#39;删除场地模块&#39;, module.name, &#39;张老师&#39;, venue.updated], ...(venue.playgroundAudit || [])]; persistVenueRecords(); persistPlaygroundRecords(); }
+      state.pendingPlaygroundModule = null; state.selectedPlaygroundModule = null; confirmModal.hidden = true; renderDetail(); refreshIcons(); showToast(&#39;场地模块及其改造记录已删除&#39;); return;
+    }
     const venueIndex = venues.findIndex(v =&gt; v.id === state.pendingVenue);
     if (venueIndex &lt; 0) return;
     const [deletedVenue] = venues.splice(venueIndex, 1);
+    persistVenueRecords();
+    persistAttachments();
+    persistPlaygroundRecords();
     confirmModal.hidden = true;
     state.pendingVenue = null;
     if (state.selectedVenue === deletedVenue.id) { state.selectedVenue = null; state.selectedFacility = null; }
@@ -2136,6 +2573,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   });
   content.addEventListener(&#39;input&#39;, event =&gt; {
     if (event.target.id === &#39;venue-search&#39;) { state.keyword = event.target.value; renderVenueList(currentVenueType()); document.getElementById(&#39;venue-search&#39;).focus(); document.getElementById(&#39;venue-search&#39;).setSelectionRange(state.keyword.length, state.keyword.length); refreshIcons(); }
+    if (event.target.id === &#39;school-statistics-search&#39;) { state.schoolStatsKeyword = event.target.value; state.schoolStatsPage = 1; renderSchoolStatistics(); document.getElementById(&#39;school-statistics-search&#39;).focus(); document.getElementById(&#39;school-statistics-search&#39;).setSelectionRange(state.schoolStatsKeyword.length, state.schoolStatsKeyword.length); refreshIcons(); }
   });
 
   function saveVenueRecord() {
@@ -2144,6 +2582,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     const purpose = document.getElementById(&#39;form-purpose&#39;).value.trim();
     const buildingType = document.getElementById(&#39;form-building-type&#39;).value;
     const playgroundType = document.getElementById(&#39;form-playground-type&#39;).value;
+    const landAttribute = type === &#39;PLAYGROUND&#39; ? document.getElementById(&#39;form-land-attribute&#39;).value : &#39;&#39;;
     const structure = document.getElementById(&#39;form-structure&#39;).value;
     const assessmentGrade = type === &#39;BUILDING&#39; ? document.getElementById(&#39;form-assessment-grade&#39;).value.trim() : &#39;&#39;;
     const floorsText = type === &#39;BUILDING&#39; ? document.getElementById(&#39;form-floors&#39;).value.trim() : &#39;&#39;;
@@ -2158,9 +2597,12 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     if (type === &#39;BUILDING&#39; &amp;&amp; assessmentGrade.length &gt; 20) { error.textContent = &#39;鉴定等级最多输入 20 个字符。&#39;; error.hidden = false; return; }
     if (type === &#39;PLAYGROUND&#39; &amp;&amp; !playgroundType) { error.textContent = &#39;请选择操场场地类型。&#39;; error.hidden = false; return; }
     if (type === &#39;BUILDING&#39; &amp;&amp; usableAreaText &amp;&amp; (!(usableArea &gt; 0) || usableArea &gt; area)) { error.textContent = &#39;使用面积填写时必须大于 0，且不能超过建筑面积。&#39;; error.hidden = false; return; }
-    const payload = { school: &#39;海淀区实验中学&#39;, type, name, buildingType: type === &#39;BUILDING&#39; ? buildingType : &#39;&#39;, playgroundType: type === &#39;PLAYGROUND&#39; ? playgroundType : &#39;&#39;, purpose, area, usableArea, year: Number(document.getElementById(&#39;form-year&#39;).value) || null, floors: type === &#39;BUILDING&#39; ? floors : null, structure: type === &#39;BUILDING&#39; ? structure : &#39;&#39;, assessmentGrade, assessmentDate: type === &#39;BUILDING&#39; ? document.getElementById(&#39;form-assessment-date&#39;).value : &#39;&#39;, surface: type === &#39;PLAYGROUND&#39; ? document.getElementById(&#39;form-surface&#39;).value : &#39;&#39;, football: false, usage: document.getElementById(&#39;form-usage&#39;).value, lifecycle: &#39;正常&#39;, remarks: document.getElementById(&#39;form-remarks&#39;).value.trim(), updated: &#39;2026-07-21 10:30:00&#39; };
+    const payload = { school: &#39;海淀区实验中学&#39;, type, name, buildingType: type === &#39;BUILDING&#39; ? buildingType : &#39;&#39;, playgroundType: type === &#39;PLAYGROUND&#39; ? playgroundType : &#39;&#39;, landAttribute, purpose, area, usableArea, year: Number(document.getElementById(&#39;form-year&#39;).value) || null, floors: type === &#39;BUILDING&#39; ? floors : null, structure: type === &#39;BUILDING&#39; ? structure : &#39;&#39;, assessmentGrade, assessmentDate: type === &#39;BUILDING&#39; ? document.getElementById(&#39;form-assessment-date&#39;).value : &#39;&#39;, usage: document.getElementById(&#39;form-usage&#39;).value, lifecycle: &#39;良好&#39;, remarks: document.getElementById(&#39;form-remarks&#39;).value.trim(), updated: formatDateTime() };
     if (form.dataset.editId) { const index = venues.findIndex(v =&gt; v.id === form.dataset.editId); venues[index] = { ...venues[index], ...payload }; state.selectedVenue = form.dataset.editId; }
     else { const created = { id: `v${Date.now()}`, ...payload }; venues = [created, ...venues]; state.page = type === &#39;BUILDING&#39; ? &#39;buildings&#39; : &#39;playgrounds&#39;; }
+    persistVenueRecords();
+    persistAttachments();
+    persistPlaygroundRecords();
     modal.hidden = true; render(); showToast(form.dataset.editId ? &#39;建筑物档案已更新&#39; : &#39;建筑物档案已新增&#39;);
   }
 
@@ -2169,14 +2611,29 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     saveVenueRecord();
   });
 
+  schoolAreaForm.addEventListener(&#39;submit&#39;, event =&gt; {
+    event.preventDefault();
+    saveSchoolAreaProfile();
+  });
+  [&#39;school-total-area&#39;, &#39;school-leased-area&#39;, &#39;school-owned-area&#39;].forEach(id =&gt; document.getElementById(id).addEventListener(&#39;input&#39;, syncSchoolAreaDifference));
+
   playgroundRecordForm.addEventListener(&#39;submit&#39;, event =&gt; {
     event.preventDefault();
     savePlaygroundRecord();
   });
 
+  playgroundModuleForm.addEventListener(&#39;submit&#39;, event =&gt; {
+    event.preventDefault();
+    savePlaygroundModule();
+  });
+  document.getElementById(&#39;playground-module-type&#39;).addEventListener(&#39;change&#39;, syncPlaygroundModuleFields);
+  document.getElementById(&#39;playground-module-material&#39;).addEventListener(&#39;change&#39;, syncPlaygroundModuleFields);
+
   modal.addEventListener(&#39;click&#39;, event =&gt; { if (event.target === modal) modal.hidden = true; });
-  confirmModal.addEventListener(&#39;click&#39;, event =&gt; { if (event.target === confirmModal) { confirmModal.hidden = true; state.pendingVenue = null; } });
+  schoolAreaModal.addEventListener(&#39;click&#39;, event =&gt; { if (event.target === schoolAreaModal) schoolAreaModal.hidden = true; });
+  confirmModal.addEventListener(&#39;click&#39;, event =&gt; { if (event.target === confirmModal) { confirmModal.hidden = true; state.pendingVenue = null; state.pendingPlaygroundModule = null; } });
   facilityModal.addEventListener(&#39;click&#39;, event =&gt; { if (event.target === facilityModal) facilityModal.hidden = true; });
+  playgroundModuleModal.addEventListener(&#39;click&#39;, event =&gt; { if (event.target === playgroundModuleModal) playgroundModuleModal.hidden = true; });
   playgroundRecordModal.addEventListener(&#39;click&#39;, event =&gt; { if (event.target === playgroundRecordModal) playgroundRecordModal.hidden = true; });
   window.addEventListener(&#39;message&#39;, event =&gt; {
     if (!event.data || event.data.type !== &#39;set-portal&#39; || ![&#39;school&#39;,&#39;bureau&#39;].includes(event.data.portal)) return;
@@ -2500,6 +2957,9 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     const specs={
       building:[
         ['所属学校','school','只读上下文','PlatformContext','venues.school','是','当前学校','学校名称','当前学校','无','教育局端列表额外展示','无'],
+        ['学校整体面积','totalArea','数字输入','用户独立填报','schoolAreaProfiles[school].totalArea','是','>0，最多两位小数','平方米','空','无','不从建筑或操场面积汇总','请输入大于 0 且最多两位小数的学校整体面积'],
+        ['租赁面积','leasedArea','数字输入','用户独立填报','schoolAreaProfiles[school].leasedArea','是','≥0，最多两位小数','平方米','空','无','与自有面积合计不一致时仅提示','请输入大于等于 0 且最多两位小数的租赁面积'],
+        ['自有面积','ownedArea','数字输入','用户独立填报','schoolAreaProfiles[school].ownedArea','是','≥0，最多两位小数','平方米','空','无','与租赁面积合计不一致时仅提示','请输入大于等于 0 且最多两位小数的自有面积'],
         ['建筑物名称','name','单行文本','用户输入','venues.name','是','2–30 字符','普通文本','空','无','同一学校内不可重名','请输入 2–30 字符的建筑物名称'],
         ['建筑物类型','buildingType','下拉选择','配置枚举','venues.buildingType','是','单选','教学楼、实验楼、办公楼、图书馆、食堂、宿舍、体育馆','空','固定枚举','仅建筑显示','请选择建筑物类型'],
         ['用途','purpose','单行文本','用户输入','venues.purpose','是','1–200 字符','普通文本','空','无','项目关联时展示','请输入用途'],
@@ -2511,12 +2971,12 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
         ['鉴定等级','assessmentGrade','单行文本','用户输入','venues.assessmentGrade','否','0–20 字符','普通文本','空','无','仅建筑显示','鉴定等级最多输入 20 个字符'],
         ['鉴定日期','assessmentDate','日期选择','用户输入','venues.assessmentDate','否','合法日期','YYYY-MM-DD','空','无','仅建筑显示','请选择有效鉴定日期'],
         ['使用状态','usage','下拉选择','配置枚举','venues.usage','否','单选','使用中、改造中、闲置','使用中','固定枚举','影响列表状态标签','请选择使用状态'],
-        ['档案状态','lifecycle','只读展示','系统生成','venues.lifecycle','否','系统状态','正常','正常','无','详情展示','无'],
+        ['档案状态','lifecycle','只读展示','系统生成','venues.lifecycle','否','系统状态','良好','良好','无','详情展示','无'],
         ['备注','remarks','多行文本','用户输入','venues.remarks','否','0–300 字符','普通文本','空','无','无','备注最多 300 字符'],
         ['建筑附件','attachments','文件多选','用户选择','venues.attachments','否','最多 10 个；单个≤10MB','名称、大小、类型、添加时间','空列表','PDF、DOC、DOCX、XLS、XLSX、PNG、JPG、JPEG','只保存元数据，不保存二进制','请选择有效文件'],
         ['设施类型','facilityType','下拉选择','配置枚举','facilities[].type','是','单选','门、窗、防水、外墙、内墙、卫生间、浴室、消防设施','门','固定枚举','切换类型专属字段','请选择设施类型'],
         ['档案名称','facilityName','单行文本','用户输入','facilities[].name','是','非空文本','普通文本','空','无','专项设施列表标题','请输入档案名称'],
-        ['当前状态','facilityStatus','下拉选择','配置枚举','facilities[].status','是','单选','正常、良好、需维修','正常','固定枚举','不与消防检查结论自动联动','请选择当前状态'],
+        ['当前状态','facilityStatus','下拉选择','配置枚举','facilities[].status','是','单选','良好、需维修','良好','固定枚举','不与消防检查结论自动联动','请选择当前状态'],
         ['最近改造年份','facilityYear','数字输入','用户输入','facilities[].year','否','1900–当前年份+1','四位年份','空','无','全部专项设施统一显示','年份不合法'],
         ['门类型','doorType','下拉选择','配置枚举','facilities[].doorType','否','单选','防盗门、木门、防火门、玻璃门','空','固定枚举','仅门显示','无'],
         ['门所在位置','doorLocation','单行文本','用户输入','facilities[].doorLocation','否','0–100 字符','普通文本','空','无','仅门显示','最多 100 字符'],
@@ -2563,26 +3023,50 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       playground:[
         ['所属学校','school','只读上下文','PlatformContext','venues.school','是','当前学校','学校名称','当前学校','无','教育局端列表额外展示','无'],
         ['操场名称','name','单行文本','用户输入','venues.name','是','2–30 字符','普通文本','空','无','同一学校内不可重名','请输入 2–30 字符的操场名称'],
-        ['场地类型','playgroundType','下拉选择','配置枚举','venues.playgroundType','是','单选','田径场、足球场、篮球场、排球场、网球场、综合场地','空','固定枚举','仅操场显示','请选择操场类型'],
+        ['场地类型','playgroundType','下拉选择','配置枚举','venues.playgroundType','是','单选','田径场、足球场、篮球场、排球场、网球场、综合场地、室外运动场地','空','固定枚举','仅操场显示','请选择操场类型'],
+        ['土地属性','landAttribute','下拉选择','用户输入','venues.landAttribute','否','单选','学校自用土地、租用','空','固定枚举','仅操场显示','请选择土地属性'],
         ['用途','purpose','单行文本','用户输入','venues.purpose','是','1–200 字符','普通文本','空','无','项目关联时展示','请输入用途'],
         ['场地面积','area','数字输入','用户输入','venues.area','是','>0，最多两位小数','平方米','空','无','无','请输入大于 0 的面积'],
         ['建设年份','year','数字输入','用户输入','venues.year','否','1800–当前年份+1','四位年份','空','无','新增、编辑、详情一致展示','建设年份不合法'],
-        ['面层材质','surface','下拉选择','配置枚举','venues.surface','否','单选','塑胶、人工草坪、天然草坪、硅PU、水泥、沥青','空','固定枚举','仅操场显示','请选择面层材质'],
-        ['足球场配置','football','开关','用户输入','venues.football','否','布尔值','true/false','false','有、无','仅操场显示','请选择配置'],
         ['使用状态','usage','下拉选择','配置枚举','venues.usage','否','单选','使用中、改造中、闲置','使用中','固定枚举','影响列表状态标签','请选择使用状态'],
-        ['档案状态','lifecycle','只读展示','系统生成','venues.lifecycle','否','系统状态','正常','正常','无','详情展示','无'],
-        ['器材分类／名称／数量／状态','equipment.*','表单字段','用户输入','venues.equipment[]','新增器材时必填','名称非空；数量>0整数','文本／整数','空','体育器材、健身器材；正常使用、需要维护、停用','保存后生成添加时间','器材信息不完整'],
-        ['改造时间／施工单位／改造内容','renovations.*','表单字段','用户输入','venues.renovations[]','新增改造时必填','单位及内容非空','日期／文本','空','无','不设置改造结果；保存后生成添加时间','改造信息不完整'],
+        ['档案状态','lifecycle','只读展示','系统生成','venues.lifecycle','否','系统状态','良好','良好','无','详情展示','无'],
+        ['场地模块类型／名称','playgroundModules.type/name','下拉／文本','用户输入','venues.playgroundModules[]','是','名称非空','文本','户外草坪','户外草坪、田径场、足球场、篮球场、排球场、网球场、羽毛球场、乒乓球场、其他','同类型允许重复新增','请完整填写模块信息'],
+        ['模块面积／材质／状态','playgroundModules.area/material/status','数字／下拉','用户输入','venues.playgroundModules[]','是','面积>0，最多两位小数','㎡／文本','空','塑胶、人工草坪、天然草坪、硅PU、水泥、沥青、木地板、悬浮地板、其他','其他材质必须填名称','请输入有效面积和材质'],
+        ['模块建造／最近改造年份','playgroundModules.builtYear/lastRenovatedYear','数字输入','用户输入','venues.playgroundModules[]','否','1800–当前年份+1','四位年份','空','无','新增改造记录时同步更新','年份不合法'],
+        ['分类扩展信息','playgroundModules.details','动态表单','用户输入','venues.playgroundModules[].details','否','数量为非负整数','文本／整数','空','灌溉方式、跑道数、跑道规格、场地制式、球门数、球场规格和数量','按模块类型显示','数量格式不合法'],
+        ['器材分类／名称／数量／状态','equipment.*','表单字段','用户输入','venues.equipment[]','新增器材时必填','名称非空；数量>0整数','文本／整数','状态默认良好，其余为空','体育器材、健身器材；良好、需要维护、停用','保存后生成添加时间','器材信息不完整'],
+        ['模块改造时间／施工单位／内容','playgroundModules.renovations.*','表单字段','用户输入','venues.playgroundModules[].renovations[]','新增改造时必填','日期、单位及内容非空','日期／文本','空','无','仅在所属场地模块详情展示','改造信息不完整'],
         ['备注','remarks','多行文本','用户输入','venues.remarks','否','0–300 字符','普通文本','空','无','无','备注最多 300 字符'],
         ['操场附件','attachments','文件多选','用户选择','venues.attachments','否','最多 10 个；单个≤10MB','名称、大小、类型、添加时间','空列表','PDF、DOC、DOCX、XLS、XLSX、PNG、JPG、JPEG','只保存元数据，不保存二进制','请选择有效文件']
+      ],
+      'school-area':[
+        ['学校整体面积','totalArea','数字输入','学校端独立填报','schoolAreaProfiles[school].totalArea','是','>0，最多两位小数','平方米','空','无','与租赁、自有面积之和不一致时仅提示差额','请输入大于 0 且最多两位小数的数值'],
+        ['租赁面积','leasedArea','数字输入','学校端独立填报','schoolAreaProfiles[school].leasedArea','是','≥0，最多两位小数','平方米','空','无','不从操场土地属性或建筑档案反推','请输入大于等于 0 且最多两位小数的数值'],
+        ['自有面积','ownedArea','数字输入','学校端独立填报','schoolAreaProfiles[school].ownedArea','是','≥0，最多两位小数','平方米','空','无','不从建筑或操场面积反推','请输入大于等于 0 且最多两位小数的数值']
+      ],
+      'school-statistics':[
+        ['学校名称筛选','school-statistics-search','搜索输入','用户输入','页面临时筛选状态','否','0–100 字符','学校名称关键词','空','无','按学校名称模糊匹配，筛选变化后回到第 1 页','无符合条件学校时显示空状态'],
+        ['学校名称','school','只读展示','建筑、操场基础档案与学校面积概况中的学校并集','venues.school + schoolAreaProfiles 键','是','学校名称','文本','—','无','去重并按学校名称排序，每所学校一行','无'],
+        ['学校总面积','totalArea','只读展示','学校端建筑管理中独立维护的学校面积概况','schoolAreaProfiles[school].totalArea','否','最多两位小数','平方米','—','无','不从建筑或操场面积反推；未登记显示“—”','无'],
+        ['学校租用面积','leasedArea','只读展示','学校端建筑管理中独立维护的学校面积概况','schoolAreaProfiles[school].leasedArea','否','最多两位小数','平方米','—','无','不从建筑或操场土地属性反推；未登记显示“—”','无'],
+        ['学校自有面积','ownedArea','只读展示','学校端建筑管理中独立维护的学校面积概况','schoolAreaProfiles[school].ownedArea','否','最多两位小数','平方米','—','无','不从建筑或操场面积反推；未登记显示“—”','无'],
+        ['学校建筑数量','buildingCount','只读汇总','学校端建筑管理的基础档案','venues.filter(school,type=BUILDING).length','是','非负整数','栋','0','无','现存建筑档案有多少个即计多少栋；所有状态均计入，已删除不计','无'],
+        ['学校建筑总面积','buildingArea','只读汇总','学校端建筑管理的建筑面积','SUM(venues[type=BUILDING].area)','是','最多两位小数','平方米','0','无','将该学校全部现存楼栋的建筑面积 area 相加','无'],
+        ['学校操场数量','playgroundCount','只读汇总','学校端操场管理的基础档案','venues.filter(school,type=PLAYGROUND).length','是','非负整数','个','0','无','现存操场档案有多少个即计多少个；所有状态均计入，已删除不计','无'],
+        ['学校操场总面积','playgroundArea','只读汇总','学校端操场管理的操场面积','SUM(venues[type=PLAYGROUND].area)','是','最多两位小数','平方米','0','无','将该学校全部现存操场档案的面积 area 相加','无'],
+        ['分页','schoolStatsPage','页面控件','页面临时状态','state.schoolStatsPage','是','每页 10 所学校','页码','1','上一页、页码、下一页','筛选变化回到第 1 页；页码越界时自动修正','无'],
+        ['导出','export-school-statistics','页面操作','当前筛选后的全部统计结果','学校建筑统计.xlsx','否','八列，不受当前页码影响','XLSX','无','无','数量和面积使用数值单元格，未登记面积留空，无结果时按钮禁用','生成失败时提示重试']
       ],
       audit:[['操作类型','action','只读筛选','修改记录数据','audit.action','否','枚举','新增、编辑、删除、附件操作','全部','固定枚举','驱动列表筛选','无'],['操作对象','target','只读展示','建筑物档案','audit.target','是','1–80 字符','档案名称','—','无','关联场地','无'],['操作人／时间','operator/createdAt','只读展示','当前身份／系统生成','audit.operator/createdAt','是','姓名 20 字符；时间精确到秒','姓名／YYYY-MM-DD HH:mm:ss','当前用户／当前时间','无','不可编辑','无']]
     };
     const table=(heads,rows)=>`<div class="venue-table-wrap"><table class="venue-prd-table"><thead><tr>${heads.map(x=>`<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(x=>`<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
-    const typeOf=title=>/操场|器材|改造/.test(title)?'playground':/修改记录/.test(title)?'audit':'building';
+    const typeOf=title=>/学校统计/.test(title)?'school-statistics':/学校面积概况/.test(title)?'school-area':/操场|场地模块|器材|改造/.test(title)?'playground':/修改记录/.test(title)?'audit':'building';
     const defOf=(title,type)=>{
-      const readonly=portal()==='bureau',name=type==='playground'?'操场档案':type==='audit'?'修改记录':'建筑档案';
-      return{name,readonly,goal:type==='audit'?'追踪建筑物档案新增、编辑、删除及附件操作。':`${readonly?'查询':'维护'}${name}基础信息、专项资料和附件。`,flow:type==='audit'?['进入修改记录','设置筛选条件','读取操作日志','查看变更内容']:readonly?['教育局进入建筑物查询','选择学校及筛选条件','查看建筑物档案列表','打开建筑物档案详情','只读查看专项设施和附件']:['学校进入建筑物管理','新增或编辑建筑物档案','填写基础信息并校验','维护专项设施和附件','保存至 localStorage','项目申请可选择该场地']};
+      const readonly=portal()==='bureau',schoolArea=/学校面积概况/.test(title),schoolStatistics=type==='school-statistics',name=schoolStatistics?'学校统计':schoolArea?'学校面积概况':type==='playground'?'操场档案':type==='audit'?'修改记录':'建筑档案';
+      const flow=schoolStatistics?['教育局进入学校统计','输入学校名称关键词并回到第 1 页','按字段口径汇总面积概况及建筑、操场档案','每页查看 10 所学校','点击导出生成当前筛选结果的学校建筑统计.xlsx']:schoolArea?(readonly?['教育局进入建筑管理','选择具体学校','读取学校面积概况','只读查看三项面积']:['学校进入建筑管理','打开学校面积概况编辑弹窗','填写三项面积并校验','保存独立 localStorage 记录','写入修改记录']):type==='audit'?['进入修改记录','设置筛选条件','读取操作日志','查看变更内容']:type==='playground'?(readonly?['教育局进入操场管理','选择学校并查看操场列表','打开操场详情','只读查看场地模块、改造记录和附件']:['学校进入操场管理','打开操场详情','新增或编辑场地模块','维护模块改造记录','保存至 localStorage','教育局端只读同步']):(readonly?['教育局进入建筑物查询','选择学校及筛选条件','查看建筑物档案列表','打开建筑物档案详情','只读查看专项设施和附件']:['学校进入建筑物管理','新增或编辑建筑物档案','填写基础信息并校验','维护专项设施和附件','保存至 localStorage','项目申请可选择该场地']);
+      const goal=schoolStatistics?'按学校汇总面积概况、建筑数量与面积、操场数量与面积，支持模糊筛选、每页 10 条分页和 XLSX 导出。':schoolArea?`${readonly?'查询':'维护'}学校整体、租赁和自有面积，且不关联建筑或操场档案。`:type==='audit'?'追踪建筑物档案新增、编辑、删除及附件操作。':`${readonly?'查询':'维护'}${name}基础信息、专项资料和附件。`;
+      const note=schoolStatistics?'学校统计只读展示 localStorage 中的学校面积和场地档案汇总结果；导出包含当前筛选后的全部分页数据，不修改业务记录。':schoolArea?(readonly?'教育局端按所选学校只读查看面积概况，不提供编辑入口。':'学校面积概况独立保存，不参与建筑、操场及项目面积计算。'):(readonly?'教育局端只读取学校建筑物档案，不写入任何建筑物档案数据。':'学校保存的建筑物档案数据可被本校项目申请关联。');
+      return{name,readonly,goal,flow,note};
     };
     const unique=items=>[...new Set(items.filter(Boolean))];
     const side=()=>portal()==='bureau'?'教育局端':'学校端';
@@ -2601,18 +3085,26 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     function prd(title,type,isModal,contextRoot){
       const root=contextRoot||(isModal?doc.querySelector('.modal-panel,.modal'):doc.querySelector('.app-content'))||app,context=contextOf(root,isModal,type),contextId=`${side()} / ${isModal?'弹窗':'页面'} / ${title}`;
       const fieldRows=context.fields.map(control=>{const name=control.name||control.id||labelOf(control),label=labelOf(control),spec=specFor(name,type),policy=textPolicy(control,name,label),kind=control.tagName==='SELECT'?'下拉选择':control.tagName==='TEXTAREA'?'多行文本':control.type==='file'?'文件选择':control.type==='number'?'数字输入':control.type==='date'?'日期':'单行文本';return[label,name,spec?.[2]||kind,spec?.[3]||'当前界面输入',spec?.[4]||`venues.${name}`,spec?.[5]||(control.required?'是':'否'),policy?.limit||spec?.[6]||(control.maxLength>0?`最多 ${control.maxLength} 字符`:'按当前控件限制'),spec?.[7]||control.type||'普通文本',spec?.[8]||control.getAttribute('value')||'空',spec?.[9]||(control.tagName==='SELECT'?[...control.options].map(x=>x.textContent.trim()).join('、'):'无'),spec?.[10]||'仅影响当前界面',policy?.error||spec?.[11]||`请正确填写${label}`]});
-      const displayRows=context.display.map(name=>[name,'当前界面所关联的建筑物管理 localStorage 记录','按当前界面格式展示','无数据时显示“—”或空状态',portal()==='bureau'?'教育局管理范围内只读':'仅当前学校数据可见']);
+      const statisticsDisplayFields=new Set(['school','totalArea','leasedArea','ownedArea','buildingCount','buildingArea','playgroundCount','playgroundArea']);
+      const displayRows=type==='school-statistics'?specs['school-statistics'].filter(row=>statisticsDisplayFields.has(row[1])).map(row=>[row[0],`${row[3]}；${row[10]}；字段口径：${row[4]}`,row[7],row[1]==='school'?'学校并集为空时显示页面空状态':row[8]==='—'?'未登记显示“—”；导出时单元格留空':`无档案时显示 ${row[8]}`,portal()==='bureau'?'教育局端只读':'学校端维护源数据']):context.display.map(name=>[name,'当前界面所关联的建筑物管理 localStorage 记录','按当前界面格式展示','无数据时显示“—”或空状态',portal()==='bureau'?'教育局管理范围内只读':'仅当前学校数据可见']);
       const filterRows=context.filters.map(control=>[labelOf(control),control.name||control.id||labelOf(control),control.tagName==='SELECT'?'精确匹配':'包含或区间匹配',control.tagName==='SELECT'?control.options[control.selectedIndex]?.textContent.trim()||'全部':'空值代表不限制','保持当前页面既定排序']);
       const actionRows=context.buttons.map(item=>[item.label,item.disabled?(item.title||'当前条件不满足'):'当前界面展示该按钮',side(),item.disabled?'禁用':'按当前业务状态可用',item.disabled?'不执行操作':effect(item.label),/删除|撤回|退回/.test(item.label)?'是':'否']);
       const stateActions=unique(context.buttons.map(x=>x.label).filter(x=>/保存|提交|删除|撤回|退回/.test(x))),stateRows=stateActions.map(label=>['当前业务状态',label,/删除/.test(label)?'已删除':/撤回/.test(label)?'已撤回':/退回/.test(label)?'已退回':'保存后的当前状态',side(),'记录操作人、时间及当前字段变化',/撤回|退回/.test(label)?'按当前按钮规则处理':'不适用']);
-      const req=[[title,'当前界面展示',`仅展示“${title}”当前界面实际可见的字段、列表和状态信息。`,'P0',isModal?'当前弹窗':'当前页面']];if(context.filters.length)req.push([title,'筛选与查询','仅使用当前界面实际存在的筛选控件查询和重置。','P0','不包含其他页面筛选项']);if(context.fields.length)req.push([title,'字段录入','仅校验并保存当前界面实际存在的业务字段。','P0','不包含其他弹窗字段']);if(context.buttons.length)req.push([title,'业务操作',`支持当前界面实际展示的操作：${context.buttons.map(x=>x.label).join('、')}。`,'P0','按当前端别和状态控制']);req.push([title,'数据读取与保存','读取当前建筑物档案业务记录；仅写入当前操作涉及的数据。','P0','localStorage 交互原型']);
+      const req=[[title,'当前界面展示',`仅展示“${title}”当前界面实际可见的字段、列表和状态信息。`,'P0',isModal?'当前弹窗':'当前页面']];if(context.filters.length)req.push([title,'筛选与查询','仅使用当前界面实际存在的筛选控件查询和重置。','P0','不包含其他页面筛选项']);if(context.fields.length)req.push([title,'字段录入','仅校验并保存当前界面实际存在的业务字段。','P0','不包含其他弹窗字段']);if(type==='school-area'){req.push([title,'独立存储','学校面积概况按学校独立写入 schoolAreaProfiles，不写入建筑、操场或项目记录。','P0','默认无数据']);req.push([title,'差额提示','租赁面积与自有面积之和不等于学校整体面积时显示差额，但允许保存。','P0','保存后写入修改记录']);}if(type==='school-statistics'){req.push([title,'字段来源与统计口径','逐项展示八个统计字段的数据来源、计算方式、状态范围和删除排除规则。','P0','学校面积独立填报；建筑与操场按现存档案汇总']);req.push([title,'分页','默认第 1 页，每页展示 10 所学校；支持上一页、页码和下一页。筛选变化时回到第 1 页，页码越界时修正至最后一个有效页。','P0','分页仅影响页面展示']);req.push([title,'Excel 导出','导出当前学校名称筛选后的全部统计结果，不受当前页码影响；生成文件名固定为“学校建筑统计.xlsx”，工作表名称为“学校统计”。','P0','无符合条件数据时禁用']);}if(context.buttons.length)req.push([title,'业务操作',`支持当前界面实际展示的操作：${context.buttons.map(x=>x.label).join('、')}。`,'P0','按当前端别和状态控制']);req.push([title,'数据读取与保存','读取当前建筑物档案业务记录；仅写入当前操作涉及的数据。','P0','localStorage 交互原型']);
       const safeDisplay=displayRows.length?displayRows:[['不适用','当前界面无独立展示字段','—','—','按当前端权限显示']],safeFields=fieldRows.length?fieldRows:[['不适用','—','—','当前界面无业务编辑字段','—','否','—','—','—','—','—','—']],safeFilters=filterRows.length?filterRows:[['不适用','当前界面无筛选控件','—','—','—']],safeActions=actionRows.length?actionRows:[['不适用','当前界面无操作按钮',side(),'—','—','否']],safeStates=stateRows.length?stateRows:[['不适用','当前界面无状态流转操作','状态保持不变',side(),'不写入状态记录','不适用']];
       const actionNames=context.buttons.map(x=>x.label),steps=isModal?['打开当前弹窗',context.fields.length?'填写或核对当前弹窗字段':'核对当前弹窗信息',actionNames.length?`执行当前弹窗操作（${actionNames.join('、')}）`:'关闭当前弹窗']:['进入当前页面',context.filters.length?'设置当前页面筛选条件':'查看当前页面信息',actionNames.length?`执行当前页面操作（${actionNames.join('、')}）`:'离开当前页面'];
+      const definition=defOf(title,type),schoolStatistics=type==='school-statistics',schoolArea=type==='school-area';
+      const processSteps=schoolStatistics?definition.flow:steps;
+      const exceptionItems=schoolStatistics?['学校名称筛选无匹配结果时显示空状态，并禁用导出按钮。','筛选条件变化时分页回到第 1 页；数据变化导致页码越界时修正至最后一个有效页。','学校整体面积、租用面积或自有面积未登记时页面显示“—”，导出时对应单元格留空。','导出包含当前筛选后的全部结果，不受当前页码影响；生成失败时提示“导出失败，请重试”。','建筑和操场所有状态均计入统计，已删除档案不计入。']:['当前界面必填字段缺失或格式错误时阻止提交并显示字段错误。','禁用按钮不执行操作，并提供明确的禁用原因。','教育局端当前界面未展示的写入类操作不得通过 PRD 扩展解释。','附件仅保存名称、大小和类型，不保存文件二进制。'];
+      const dataRules=schoolStatistics?'学校名称取建筑/操场基础档案与学校面积概况中的学校并集。学校总面积、租用面积、自有面积读取学校端独立填报的 schoolAreaProfiles，不从建筑或操场反推；建筑数量与操场数量分别统计该学校现存 BUILDING、PLAYGROUND 档案数，建筑总面积与操场总面积分别汇总对应档案 area。页面进入、筛选、翻页和导出操作仅作为原型交互展示，不接入正式埋点。':'当前界面读取建筑物管理 localStorage 业务记录，仅记录当前页面的进入、筛选、查看和实际展示按钮的交互结果；原型不接入正式埋点。';
+      const acceptanceItems=schoolStatistics?['学校统计表格固定展示八列，字段来源与计算口径和第 4.1 节一致。','默认第 1 页且每页 10 所学校，上一页、页码、下一页状态正确，筛选后回到第 1 页。','导出当前筛选后的全部结果，文件名为“学校建筑统计.xlsx”，工作表名为“学校统计”。','Excel 数量和面积为数值单元格，面积最多保留两位小数，未登记学校面积留空。','无符合条件数据时显示空状态并禁用导出；导出和翻页均不修改 localStorage 业务数据。']:['PRD 仅出现当前“'+title+'”'+(isModal?'弹窗':'页面')+'实际存在的字段、筛选项、表头和操作。','不出现同模块其他页面、其他弹窗或当前界面不存在的状态。','当前界面每个可用按钮均产生明确交互结果，禁用按钮显示原因。','刷新后已保存数据仍可读取，页面不调用真实后端、数据库或文件服务器。'];
+      if(schoolArea)return `<article class="venue-prd"><h3>1. 背景与目标</h3><p>学校面积概况是学校级独立统计数据，用于维护学校整体面积、租赁面积和自有面积，不从建筑或操场反推。</p><h3>2. 用户与使用场景</h3><p>学校端建筑物管理员在建筑管理页面单独编辑三项面积；教育局仅在学校统计页面读取结果。</p><h3>3. 需求范围</h3><h4>In Scope</h4><p>三项面积录入、数值校验、差额提示、独立 localStorage 保存和修改记录。</p><h4>Out of Scope</h4><p>建筑或操场面积汇总、权证、租赁合同、附件、教育局编辑和正式统计审计。</p><h3>4. 功能需求列表</h3>${table(['功能模块','功能点','需求描述','优先级（P0 / P1 / P2）','备注说明'],req)}<h4>4.1 当前界面表单字段</h4>${table(['字段名称','字段键','控件类型','数据来源','localStorage 字段','必填','长度／范围','格式规则','默认值','枚举选项','联动规则','错误提示'],safeFields)}<h4>4.2 当前界面按钮与权限</h4>${table(['按钮','出现条件','可操作端','可操作状态','点击结果','二次确认'],safeActions)}<h3>5. 核心流程与交互说明</h3><p>学校进入建筑管理 → 打开面积概况编辑弹窗 → 填写三项面积并校验 → 查看非阻断差额提示 → 保存独立记录 → 写入修改记录。</p><h3>6. 异常场景与边界条件</h3><ul><li>学校整体面积必须大于 0，租赁和自有面积必须大于等于 0，均最多两位小数。</li><li>分项之和与整体面积不一致时仅提示差额，不阻止保存。</li><li>默认无记录时显示未登记状态，编辑弹窗使用空值。</li><li>教育局端不提供编辑入口。</li></ul><h3>7. 数据口径与埋点需求</h3><p>数据写入 edu-prototype-v1.1:education-school-area-profiles-v2 下当前学校记录；保存不修改建筑、操场、项目或其更新时间。原型以“编辑学校面积概况”修改记录代替正式埋点。</p><h3>8. 风险、依赖与限制</h3><p>数据仅保存在同一浏览器 localStorage；当前版本不包含正式面积统计口径、权证、合同、后端接口或生产级审计。</p><h3>9. 验收标准</h3><ul><li>默认无数据并可独立编辑三项面积。</li><li>校验、差额提示和保存反馈正确。</li><li>刷新后数据保留，且建筑、操场及项目数据不变。</li><li>教育局仅在学校统计中只读查看。</li></ul></article>`;
+      if(schoolStatistics)return `<article class="venue-prd"><h3>1. 背景与目标</h3><p>当前版本为教育项目全过程管理交互原型。建设教育局端学校统计只读页面，按学校汇总面积概况、建筑和操场档案，并提供筛选、每页 10 条分页与离线 XLSX 导出。</p><h3>2. 用户与使用场景</h3><p>教育局端建筑物管理业务人员按学校名称检索统计结果，分页核对各校面积、建筑和操场汇总数据，并导出当前筛选范围内的全部结果。</p><h3>3. 需求范围</h3><h4>In Scope</h4><p>八项统计字段及来源口径、学校名称模糊筛选、每页 10 条分页、当前筛选结果的完整 Excel 导出、空值与无数据处理。</p><h4>Out of Scope</h4><p>统计数据编辑、排序、分页条数切换、导出确认、导出记录、后端文件生成、数据库、跨浏览器同步和正式统计审计。</p><h3>4. 功能需求列表</h3>${table(['功能模块','功能点','需求描述','优先级（P0 / P1 / P2）','备注说明'],req)}<h4>4.1 当前界面展示字段</h4>${table(['字段名称','数据来源与计算方式','展示格式','空值规则','权限差异'],displayRows)}<h4>4.2 当前界面表单字段</h4>${table(['字段名称','字段键','控件类型','数据来源','localStorage 字段','必填','长度／范围','格式规则','默认值','枚举选项','联动规则','错误提示'],safeFields)}<h4>4.3 当前界面列表与筛选</h4>${table(['筛选项','匹配字段','匹配方式','默认值','默认排序'],safeFilters)}<h4>4.4 当前界面按钮与权限</h4>${table(['按钮','出现条件','可操作端','可操作状态','点击结果','二次确认'],safeActions)}<h4>4.5 当前界面状态流转</h4>${table(['当前状态','操作','目标状态','操作端','记录内容','退回规则'],safeStates)}<h3>5. 核心流程与交互说明</h3><p>${processSteps.join(' → ')}。</p><p>学校名称筛选影响列表总量、有效页数和导出范围；分页只切分页面展示，导出始终读取当前筛选后的全部统计行。</p><h3>6. 异常场景与边界条件</h3><ul>${exceptionItems.map(item=>`<li>${esc(item)}</li>`).join('')}</ul><h3>7. 数据口径与埋点需求</h3><p>${esc(dataRules)}</p><h3>8. 风险、依赖与限制</h3><p>依赖同一浏览器 localStorage 中的建筑、操场基础档案和学校面积概况。Excel 由前端原生 JavaScript 在离线环境生成最小 Office Open XML 工作簿，不依赖后端、CDN 或运行时第三方库；浏览器按本地规则处理同名文件。</p><h3>9. 验收标准</h3><ul>${acceptanceItems.map(item=>`<li>${esc(item)}</li>`).join('')}</ul></article>`;
       return `<article class="venue-prd"><h3>1. 背景与目标</h3><p>当前版本为教育项目全过程管理交互原型。当前 PRD 上下文为“${esc(contextId)}”，仅描述该界面打开时实际可见的内容和交互。</p><h3>2. 用户与使用场景</h3><p>${side()}建筑物管理业务人员在“${esc(title)}”${isModal?'弹窗':'页面'}中核对信息并执行当前界面提供的操作。</p><h3>3. 需求范围</h3><h4>In Scope</h4><p>${context.display.length?`展示字段：${context.display.join('、')}。`:'当前界面无独立展示字段。'}${context.fields.length?`录入字段：${context.fields.map(labelOf).join('、')}。`:''}${actionNames.length?`操作：${actionNames.join('、')}。`:''}</p><h4>Out of Scope</h4><p>同模块其他页面和其他弹窗；登录鉴权、真实后端、数据库、真实文件上传、生产级权限控制及第三方接口。</p><h3>4. 功能需求列表</h3>${table(['功能模块','功能点','需求描述','优先级（P0 / P1 / P2）','备注说明'],req)}<h4>4.1 当前界面展示字段</h4>${table(['字段名称','数据来源','展示格式','空值规则','权限差异'],safeDisplay)}<h4>4.2 当前界面表单字段</h4>${table(['字段名称','字段键','控件类型','数据来源','localStorage 字段','必填','长度／范围','格式规则','默认值','枚举选项','联动规则','错误提示'],safeFields)}<h4>4.3 当前界面列表与筛选</h4>${table(['筛选项','匹配字段','匹配方式','默认值','默认排序'],safeFilters)}<h4>4.4 当前界面按钮与权限</h4>${table(['按钮','出现条件','可操作端','可操作状态','点击结果','二次确认'],safeActions)}<h4>4.5 当前界面状态流转</h4>${table(['当前状态','操作','目标状态','操作端','记录内容','退回规则'],safeStates)}<h3>5. 核心流程与交互说明</h3><p>${steps.join(' → ')}。</p><p>保存操作仅校验第 4.2 节列出的当前字段，并写入当前界面对应的 localStorage 记录。</p><h3>6. 异常场景与边界条件</h3><ul><li>当前界面必填字段缺失或格式错误时阻止提交并显示字段错误。</li><li>禁用按钮不执行操作，并提供明确的禁用原因。</li><li>教育局端当前界面未展示的写入类操作不得通过 PRD 扩展解释。</li><li>附件仅保存名称、大小和类型，不保存文件二进制。</li></ul><h3>7. 数据口径与埋点需求</h3><p>当前界面读取建筑物管理 localStorage 业务记录，仅记录当前页面的进入、筛选、查看和实际展示按钮的交互结果；原型不接入正式埋点。</p><h3>8. 风险、依赖与限制</h3><p>依赖同一浏览器 localStorage 和预置演示数据。PRD 按“端别＋当前菜单＋页面/弹窗标题”生成；页面、标签页或弹窗层级变化后须重新打开 PRD。</p><h3>9. 验收标准</h3><ul><li>PRD 仅出现当前“${esc(title)}”${isModal?'弹窗':'页面'}实际存在的字段、筛选项、表头和操作。</li><li>不出现同模块其他页面、其他弹窗或当前界面不存在的状态。</li><li>当前界面每个可用按钮均产生明确交互结果，禁用按钮显示原因。</li><li>刷新后已保存数据仍可读取，页面不调用真实后端、数据库或文件服务器。</li></ul></article>`;
     }
     function flow(title,type){
       const d=defOf(title,type),cells=[];d.flow.forEach((n,i)=>{if(i)cells.push(`<div class="venue-flow-main"><div class="venue-flow-arrow"><span>${i===d.flow.length-1?'完成':''}</span></div></div><div class="venue-flow-side"></div>`);cells.push(`<div class="venue-flow-main"><div class="venue-flow-node ${(portal()==='school'&&/学校|新增|编辑|维护|保存/.test(n))||(portal()==='bureau'&&/教育局|查询|查看/.test(n))?'owner':''}">${esc(n)}</div></div><div class="venue-flow-side">${!d.readonly&&/校验/.test(n)?'<div class="venue-flow-return"><b>校验未通过</b><br>返回表单修改后重新保存</div>':''}</div>`)});
-      return `<div class="venue-flow">${cells.join('')}</div><div class="venue-flow-note"><b>流程说明：</b>${d.readonly?'教育局端只读取学校建筑物档案，不写入任何建筑物档案数据。':'学校保存的建筑物档案数据可被本校项目申请关联。'}</div>`;
+      return `<div class="venue-flow">${cells.join('')}</div><div class="venue-flow-note"><b>流程说明：</b>${d.note}</div>`;
     }
     function open(kind,title,type,isModal,contextRoot){
       const mask=doc.createElement('div');mask.className='venue-doc-mask';mask.dataset.venueDoc='1';mask.innerHTML=`<section class="venue-doc-modal"><header class="venue-doc-head"><i class="${kind==='flow'?'flow':''}"></i><h2>${esc(title)} · ${kind==='flow'?'业务流程图':'PRD'}</h2><button class="venue-doc-close" aria-label="关闭">&times;</button></header><div class="venue-doc-body">${kind==='flow'?flow(title,type):prd(title,type,isModal,contextRoot)}</div></section>`;doc.body.append(mask);mask.querySelector('.venue-doc-close').onclick=()=>mask.remove();mask.onclick=e=>{if(e.target===mask)mask.remove()};
@@ -2630,11 +3122,11 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     }
     const appWindow=app.ownerDocument?.defaultView;
     appWindow?.__venueEnhancerRuntime?.dispose?.();
-    let enhanceQueued=false,enhanceDisposed=false;
-    const scheduleEnhance=()=>{if(enhanceQueued||enhanceDisposed)return;enhanceQueued=true;appWindow?.requestAnimationFrame(()=>{enhanceQueued=false;if(!enhanceDisposed)enhance()})};
+    let enhanceQueued=false,enhanceDisposed=false,enhanceFrame=0;
+    const scheduleEnhance=()=>{if(enhanceQueued||enhanceDisposed)return;enhanceQueued=true;enhanceFrame=appWindow?.requestAnimationFrame(()=>{enhanceFrame=0;enhanceQueued=false;if(!enhanceDisposed)enhance()})||0};
     const enhanceObserver=appWindow?new appWindow.MutationObserver(scheduleEnhance):null;
-    enhanceObserver?.observe(app,{childList:true,subtree:true});
-    const disposeEnhance=()=>{enhanceDisposed=true;enhanceObserver?.disconnect()};
+    try{enhanceObserver?.observe(app,{childList:true,subtree:true})}catch{enhanceObserver?.disconnect()}
+    const disposeEnhance=()=>{enhanceDisposed=true;enhanceObserver?.disconnect();if(enhanceFrame)appWindow?.cancelAnimationFrame(enhanceFrame);enhanceFrame=0};
     if(appWindow){appWindow.__venueEnhancerRuntime={dispose:disposeEnhance};appWindow.addEventListener('pagehide',disposeEnhance,{once:true})}
     enhance();
   }

@@ -3,12 +3,12 @@
   "versions": [
     {
       "version": "1.1",
-      "releaseDate": "2026-08-21",
+      "releaseDate": "2026-08-23",
       "status": "CURRENT",
       "path": "./v1.1/",
       "notesPath": "./v1.1/release-notes.html",
-      "releaseTag": "v1.1.5",
-      "summary": "当前教育局项目办理与正式审批衔接版本，建筑档案与防水信息字段已补充。",
+      "releaseTag": "v1.1.6",
+      "summary": "建筑管理双端 PRD、学校面积概况、操场场地模块与教育局学校统计已同步更新。",
       "changes": [
         "教育局端项目管理下新增项目办理菜单与七类独立办理标签",
         "七类办理分别提供页面、详情和办理弹窗 PRD 及前置办理流程图",
@@ -16,13 +16,17 @@
         "七类办理列表使用各业务专属字段，办理确认突出发起部门",
         "教育局审批待办补齐审批操作，原管理与审批双标签保留",
         "线上项目页面独立加载并合并 DOM 增强调度，降低长期运行内存压力",
-        "建筑档案新增选填鉴定等级与鉴定日期，防水信息新增屋面类型"
+        "建筑档案新增选填鉴定等级与鉴定日期，防水信息新增屋面类型",
+        "学校端新增独立学校面积概况，建筑与操场基础档案通过 localStorage 跨端共享",
+        "操场使用可重复场地模块维护用途区域及模块改造记录",
+        "教育局端新增学校统计、每页 10 条分页及学校建筑统计 XLSX 导出",
+        "建筑管理双端页面内 PRD 与独立 Markdown PRD 已按当前原型全量同步"
       ],
-      "appSha256": "1ebccdc427b9c8b8f38215eabd24904d461826acd472c284788486d0d1fbe69f",
-      "appGitBlobSha": "e88e7cb4e5abf45e25a79997e456e4bb12f780fc",
+      "appSha256": "92a944c5976c7ea90d87da49882fa74d6aec1d7dd7a2c474dc63e2de692dfe2b",
+      "appGitBlobSha": "72946fe6c28471530977d79241fb33787f305f81",
       "projectSha256": "1b9f7cfb7b04896e0d27a0994a54dbd9f06e03fd279feb262a587169688d6dc0",
       "projectGitBlobSha": "14010e0a0c823b22be93f7ae4c82a20c04b82abc",
-      "packageSha256": "8a889b37a630b881db327e5d3919e67c817621aa359559fdcdb9b0e94b8e19b1",
+      "packageSha256": "4e44f833b54d1950ff63731ae8014fa7dbb4b7ffce17b6757c13fe5f0ae404c3",
       "storageNamespace": "edu-prototype-v1.1:"
     },
     {
