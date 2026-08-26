@@ -2328,6 +2328,16 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     showToast(&#39;学校面积概况已更新&#39;);
   }
 
+  const schoolAreaSaveButton = document.querySelector(&#39;[data-save-school-area]&#39;);
+  schoolAreaSaveButton.addEventListener(&#39;click&#39;, event =&gt; {
+    event.preventDefault();
+    saveSchoolAreaProfile();
+  });
+  schoolAreaForm.addEventListener(&#39;submit&#39;, event =&gt; {
+    event.preventDefault();
+    saveSchoolAreaProfile();
+  });
+
   portalSwitch.addEventListener(&#39;change&#39;, () =&gt; {
     state.portal = portalSwitch.value; state.module = &#39;workspace&#39;; state.page = state.portal === &#39;school&#39; ? &#39;buildings&#39; : &#39;building-query&#39;; state.selectedVenue = null; state.selectedFacility = null; clearFilters(); render(); showToast(`已切换到${state.portal === &#39;school&#39; ? &#39;学校端&#39; : &#39;教育局端&#39;}`);
   });
@@ -2350,8 +2360,6 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     if (addButton) { openVenueModal(addButton.dataset.add); return; }
     const editSchoolArea = event.target.closest(&#39;[data-edit-school-area]&#39;);
     if (editSchoolArea) { openSchoolAreaModal(); return; }
-    const saveSchoolArea = event.target.closest(&#39;[data-save-school-area]&#39;);
-    if (saveSchoolArea) { event.preventDefault(); saveSchoolAreaProfile(); return; }
     const closeSchoolArea = event.target.closest(&#39;[data-close-school-area]&#39;);
     if (closeSchoolArea) { schoolAreaModal.hidden = true; return; }
     const closeButton = event.target.closest(&#39;[data-close-modal]&#39;);
@@ -2686,10 +2694,6 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     saveVenueRecord();
   });
 
-  schoolAreaForm.addEventListener(&#39;submit&#39;, event =&gt; {
-    event.preventDefault();
-    saveSchoolAreaProfile();
-  });
   [&#39;school-total-area&#39;, &#39;school-leased-area&#39;, &#39;school-owned-area&#39;].forEach(id =&gt; document.getElementById(id).addEventListener(&#39;input&#39;, syncSchoolAreaDifference));
 
   playgroundRecordForm.addEventListener(&#39;submit&#39;, event =&gt; {
