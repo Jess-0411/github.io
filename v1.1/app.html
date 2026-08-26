@@ -1203,6 +1203,33 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   #education-management-app .attachment-empty { display: grid; place-items: center; gap: 8px; padding: 34px 12px; color: var(--muted-foreground); text-align: center; }
   #education-management-app #equipment-record-fields[hidden], #education-management-app #renovation-record-fields[hidden], #education-management-app .playground-module-extra[hidden] { display: none !important; }
   #education-management-app .empty-state { text-align: center; padding: 42px 12px; color: var(--muted-foreground); }
+  #education-management-app .cloud-widget-page { max-width: 1180px; margin: 0 auto; }
+  #education-management-app .cloud-widget-stage { padding: 20px; border-radius: 14px; background: #f2f5f8; }
+  #education-management-app .cloud-widget-card { overflow: hidden; padding: 0; border-color: #e3e9f0; box-shadow: 0 8px 28px rgb(37 72 119 / 7%); }
+  #education-management-app .cloud-widget-head { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 18px 22px; border-bottom: 1px solid #e8edf3; }
+  #education-management-app .cloud-widget-title { display: flex; align-items: center; gap: 11px; min-width: 0; }
+  #education-management-app .cloud-widget-app-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 11px; background: linear-gradient(145deg,#3294ff,#1677ff); color: #fff; box-shadow: 0 6px 14px rgb(22 119 255 / 22%); }
+  #education-management-app .cloud-widget-app-icon svg { width: 20px; height: 20px; }
+  #education-management-app .cloud-widget-title strong { color: #1f2d3d; font-size: 17px; font-weight: 600; }
+  #education-management-app .cloud-widget-more { display: inline-flex; align-items: center; gap: 3px; border: 0; background: transparent; color: #21b887; font-weight: 500; cursor: pointer; }
+  #education-management-app .cloud-widget-more:hover { color: #159d72; }
+  #education-management-app .cloud-widget-metrics { display: grid; min-height: 230px; padding: 30px 22px; }
+  #education-management-app .cloud-widget-metrics.is-school { grid-template-columns: minmax(230px,1.35fr) repeat(2,minmax(170px,1fr)); grid-template-rows: repeat(2,minmax(82px,1fr)); gap: 14px; }
+  #education-management-app .cloud-widget-metrics.is-bureau { grid-template-columns: repeat(4,minmax(0,1fr)); align-items: stretch; gap: 14px; }
+  #education-management-app .cloud-widget-metric { display: flex; align-items: center; gap: 14px; min-width: 0; padding: 20px; border: 1px solid #e8edf3; border-radius: 12px; background: #fbfdff; }
+  #education-management-app .cloud-widget-metric.is-primary { grid-row: 1 / span 2; flex-direction: column; align-items: flex-start; justify-content: center; padding: 28px; border-color: #d9eaff; background: linear-gradient(145deg,#f1f7ff,#fbfdff); }
+  #education-management-app .cloud-widget-metric-icon { display: grid; place-items: center; flex: 0 0 auto; width: 42px; height: 42px; border-radius: 10px; background: #eaf3ff; color: #1677ff; }
+  #education-management-app .cloud-widget-metric.is-primary .cloud-widget-metric-icon { width: 50px; height: 50px; }
+  #education-management-app .cloud-widget-metric-copy { min-width: 0; }
+  #education-management-app .cloud-widget-metric-copy span { display: block; margin-bottom: 7px; color: #7b8a9d; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #education-management-app .cloud-widget-metric-copy strong { display: flex; align-items: baseline; gap: 5px; color: #1e3553; font-size: clamp(22px,2vw,30px); font-weight: 600; line-height: 1.1; white-space: nowrap; }
+  #education-management-app .cloud-widget-metric.is-primary .cloud-widget-metric-copy strong { color: #126bd5; font-size: clamp(28px,2.7vw,40px); }
+  #education-management-app .cloud-widget-metric-copy small { color: #8a98aa; font-size: 13px; font-weight: 400; }
+  #education-management-app .cloud-widget-empty { padding: 0 22px 24px; color: #8a98aa; text-align: center; }
+  @media (max-width: 1050px) {
+    #education-management-app .cloud-widget-metrics.is-school { grid-template-columns: minmax(210px,1.2fr) repeat(2,minmax(140px,1fr)); }
+    #education-management-app .cloud-widget-metrics.is-bureau { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  }
   #education-management-app .school-bars { display: grid; gap: 12px; }
   #education-management-app .school-bar { display: grid; grid-template-columns: 120px 1fr 70px; gap: 10px; align-items: center; }
   #education-management-app .bar-track { height: 18px; background: var(--muted); border-radius: 4px; overflow: hidden; }
@@ -1566,10 +1593,10 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
 
   const navs = {
     school: [
-      [&#39;buildings&#39;,&#39;building&#39;,&#39;建筑管理&#39;], [&#39;playgrounds&#39;,&#39;circle-dot&#39;,&#39;操场管理&#39;], [&#39;audit&#39;,&#39;history&#39;,&#39;修改记录&#39;]
+      [&#39;cloud-home-widget&#39;,&#39;layout-dashboard&#39;,&#39;云首页组件&#39;], [&#39;buildings&#39;,&#39;building&#39;,&#39;建筑管理&#39;], [&#39;playgrounds&#39;,&#39;circle-dot&#39;,&#39;操场管理&#39;], [&#39;audit&#39;,&#39;history&#39;,&#39;修改记录&#39;]
     ],
     bureau: [
-      [&#39;school-statistics&#39;,&#39;chart-no-axes-combined&#39;,&#39;学校统计&#39;], [&#39;building-query&#39;,&#39;building&#39;,&#39;建筑管理&#39;], [&#39;playground-query&#39;,&#39;circle-dot&#39;,&#39;操场管理&#39;]
+      [&#39;cloud-home-widget&#39;,&#39;layout-dashboard&#39;,&#39;云首页组件&#39;], [&#39;school-statistics&#39;,&#39;chart-no-axes-combined&#39;,&#39;学校统计&#39;], [&#39;building-query&#39;,&#39;building&#39;,&#39;建筑管理&#39;], [&#39;playground-query&#39;,&#39;circle-dot&#39;,&#39;操场管理&#39;]
     ]
   };
 
@@ -1623,6 +1650,51 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
 
   function metric(label, value, iconName, suffix = &#39;&#39;) {
     return `&lt;div class=&quot;card metric-card&quot;&gt;&lt;div class=&quot;metric-icon&quot;&gt;${icon(iconName)}&lt;/div&gt;&lt;div&gt;&lt;span&gt;${label}&lt;/span&gt;&lt;strong&gt;${value}${suffix}&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;`;
+  }
+
+  function cloudWidgetMetric(label, value, iconName, unit, primary = false) {
+    const displayValue = value === null ? &#39;未登记&#39; : format(value);
+    return `&lt;div class=&quot;cloud-widget-metric${primary ? &#39; is-primary&#39; : &#39;&#39;}&quot;&gt;&lt;span class=&quot;cloud-widget-metric-icon&quot;&gt;${icon(iconName)}&lt;/span&gt;&lt;div class=&quot;cloud-widget-metric-copy&quot;&gt;&lt;span&gt;${label}&lt;/span&gt;&lt;strong&gt;${displayValue}${value === null || !unit ? &#39;&#39; : `&lt;small&gt;${unit}&lt;/small&gt;`}&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;`;
+  }
+
+  function cloudWidgetData() {
+    const school = &#39;海淀区实验中学&#39;;
+    if (state.portal === &#39;school&#39;) {
+      const records = venues.filter(venue =&gt; venue.school === school);
+      const buildings = records.filter(venue =&gt; venue.type === &#39;BUILDING&#39;);
+      const playgrounds = records.filter(venue =&gt; venue.type === &#39;PLAYGROUND&#39;);
+      const profile = schoolAreaProfiles[school];
+      const totalArea = profile &amp;&amp; Number.isFinite(Number(profile.totalArea)) ? Number(profile.totalArea) : null;
+      return {
+        empty: records.length === 0 &amp;&amp; totalArea === null,
+        target: &#39;buildings&#39;,
+        metrics: [
+          [&#39;学校总面积&#39;, totalArea, &#39;school&#39;, &#39;㎡&#39;, true],
+          [&#39;建筑总数&#39;, buildings.length, &#39;building-2&#39;, &#39;栋&#39;],
+          [&#39;建筑总面积&#39;, buildings.reduce((sum, venue) =&gt; sum + (Number(venue.area) || 0), 0), &#39;ruler&#39;, &#39;㎡&#39;],
+          [&#39;操场总数&#39;, playgrounds.length, &#39;circle-dot&#39;, &#39;个&#39;],
+          [&#39;操场总面积&#39;, playgrounds.reduce((sum, venue) =&gt; sum + (Number(venue.area) || 0), 0), &#39;scan&#39;, &#39;㎡&#39;]
+        ]
+      };
+    }
+    const rows = schoolStatisticsRows();
+    const registeredSchoolArea = rows.reduce((sum, row) =&gt; sum + (row.totalArea === null ? 0 : row.totalArea), 0);
+    return {
+      empty: rows.length === 0,
+      target: &#39;school-statistics&#39;,
+      metrics: [
+        [&#39;学校总数&#39;, rows.length, &#39;school&#39;, &#39;所&#39;],
+        [&#39;学校总面积&#39;, registeredSchoolArea, &#39;map&#39;, &#39;㎡&#39;],
+        [&#39;学校建筑总面积&#39;, rows.reduce((sum, row) =&gt; sum + row.buildingArea, 0), &#39;building-2&#39;, &#39;㎡&#39;],
+        [&#39;学校操场总面积&#39;, rows.reduce((sum, row) =&gt; sum + row.playgroundArea, 0), &#39;circle-dot&#39;, &#39;㎡&#39;]
+      ]
+    };
+  }
+
+  function renderCloudHomeWidget() {
+    const data = cloudWidgetData();
+    const school = state.portal === &#39;school&#39;;
+    content.innerHTML = `&lt;div class=&quot;cloud-widget-page&quot;&gt;${heading(&#39;云首页组件&#39;, &#39;建筑管理应用在学校云平台首页的 PC 端组件预览&#39;)}&lt;div class=&quot;cloud-widget-stage&quot;&gt;&lt;section class=&quot;card cloud-widget-card&quot;&gt;&lt;div class=&quot;cloud-widget-head&quot;&gt;&lt;div class=&quot;cloud-widget-title&quot;&gt;&lt;span class=&quot;cloud-widget-app-icon&quot;&gt;${icon(&#39;building-2&#39;)}&lt;/span&gt;&lt;strong&gt;建筑管理&lt;/strong&gt;&lt;/div&gt;&lt;button type=&quot;button&quot; class=&quot;cloud-widget-more&quot; data-page=&quot;${data.target}&quot;&gt;查看更多 ${icon(&#39;chevron-right&#39;)}&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;cloud-widget-metrics ${school ? &#39;is-school&#39; : &#39;is-bureau&#39;}&quot;&gt;${data.metrics.map(metricItem =&gt; cloudWidgetMetric(...metricItem)).join(&#39;&#39;)}&lt;/div&gt;${data.empty ? `&lt;div class=&quot;cloud-widget-empty&quot;&gt;${school ? &#39;当前学校暂无建筑、操场或学校面积数据&#39; : &#39;当前教育局范围内暂无学校、建筑或操场数据&#39;}&lt;/div&gt;` : &#39;&#39;}&lt;/section&gt;&lt;/div&gt;&lt;/div&gt;`;
   }
 
   function renderWorkspace() {
@@ -1939,6 +2011,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     renderChrome();
     if (state.module === &#39;workspace&#39;) renderWorkspace();
     else if (state.selectedVenue) renderDetail();
+    else if (state.page === &#39;cloud-home-widget&#39;) renderCloudHomeWidget();
     else if (state.page === &#39;school-statistics&#39;) renderSchoolStatistics();
     else if (state.page === &#39;buildings&#39;) renderVenueList(&#39;BUILDING&#39;);
     else if (state.page === &#39;building-query&#39;) renderVenueList(&#39;BUILDING&#39;);
@@ -2277,6 +2350,8 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     if (addButton) { openVenueModal(addButton.dataset.add); return; }
     const editSchoolArea = event.target.closest(&#39;[data-edit-school-area]&#39;);
     if (editSchoolArea) { openSchoolAreaModal(); return; }
+    const saveSchoolArea = event.target.closest(&#39;[data-save-school-area]&#39;);
+    if (saveSchoolArea) { event.preventDefault(); saveSchoolAreaProfile(); return; }
     const closeSchoolArea = event.target.closest(&#39;[data-close-school-area]&#39;);
     if (closeSchoolArea) { schoolAreaModal.hidden = true; return; }
     const closeButton = event.target.closest(&#39;[data-close-modal]&#39;);
