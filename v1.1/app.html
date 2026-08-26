@@ -3199,9 +3199,9 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     appWindow?.__venueEnhancerRuntime?.dispose?.();
     let enhanceQueued=false,enhanceDisposed=false,enhanceFrame=0;
     const scheduleEnhance=()=>{if(enhanceQueued||enhanceDisposed)return;enhanceQueued=true;enhanceFrame=appWindow?.requestAnimationFrame(()=>{enhanceFrame=0;enhanceQueued=false;if(!enhanceDisposed)enhance()})||0};
-    const enhanceObserver=appWindow?new appWindow.MutationObserver(scheduleEnhance):null;
-    try{enhanceObserver?.observe(app,{childList:true,subtree:true})}catch{enhanceObserver?.disconnect()}
-    const disposeEnhance=()=>{enhanceDisposed=true;enhanceObserver?.disconnect();if(enhanceFrame)appWindow?.cancelAnimationFrame(enhanceFrame);enhanceFrame=0};
+    const enhanceEvents=['click','change','input'];
+    enhanceEvents.forEach(type=>doc.addEventListener(type,scheduleEnhance,true));
+    const disposeEnhance=()=>{enhanceDisposed=true;enhanceEvents.forEach(type=>doc.removeEventListener(type,scheduleEnhance,true));if(enhanceFrame)appWindow?.cancelAnimationFrame(enhanceFrame);enhanceFrame=0};
     if(appWindow){appWindow.__venueEnhancerRuntime={dispose:disposeEnhance};appWindow.addEventListener('pagehide',disposeEnhance,{once:true})}
     enhance();
   }

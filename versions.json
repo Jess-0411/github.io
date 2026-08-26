@@ -23,11 +23,11 @@
         "建筑管理双端页面内 PRD 与独立 Markdown PRD 已按当前原型全量同步",
         "学校端和教育局端建筑管理新增 PC 云首页组件，展示角色范围内的学校、建筑和操场统计"
       ],
-      "appSha256": "6e7884da5e8c773818494a61312cf5672408a8f17ad5cc76eea7f8c1595df05d",
-      "appGitBlobSha": "4d15dd445cbb632b9cea659f61f00076d25438ee",
+      "appSha256": "45e1e2db69637d2faf2af39e0d7fdb71048265f0ca2e60ba36245b6fed60c596",
+      "appGitBlobSha": "b6426ce1eebbd1c68455a9846ec23aa56b88f3a6",
       "projectSha256": "1b9f7cfb7b04896e0d27a0994a54dbd9f06e03fd279feb262a587169688d6dc0",
       "projectGitBlobSha": "14010e0a0c823b22be93f7ae4c82a20c04b82abc",
-      "packageSha256": "fc2bfc83c02f9d817a44a5a38f85a463f9aa84cbde7a6d411c4c11c83705d49b",
+      "packageSha256": "9b0ab2e670f2af8605e8546cc416bf8d7ea38c4139c1ba6732bd4eb250513844",
       "storageNamespace": "edu-prototype-v1.1:"
     },
     {
