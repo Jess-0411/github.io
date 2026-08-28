@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<title>教育项目全过程管理系统 · 建筑物管理</title>
+<title>教育项目全过程管理系统 · 建筑管理</title>
 <style>:root{color-scheme:light;background:rgb(247 250 255)}html,body{margin:0;width:100%;min-width:1180px;overflow-x:auto}body{box-sizing:border-box;background:inherit}iframe{display:block;width:100%;min-width:1180px;max-width:none;height:100vh;margin:0;border:0;visibility:hidden}body.route-ready iframe{visibility:visible}.route-loader{position:fixed;z-index:9999;inset:0;display:grid;place-items:center;background:#f7faff;color:#1769e8;font:500 14px/1.5 \"Microsoft YaHei\",sans-serif}.route-loader span{display:flex;align-items:center;gap:10px}.route-loader i{width:18px;height:18px;border:2px solid #cfe0ff;border-top-color:#1769e8;border-radius:50%;animation:route-spin .7s linear infinite}@keyframes route-spin{to{transform:rotate(360deg)}}body.route-ready .route-loader{display:none}</style>
 </head>
 <body>
@@ -832,7 +832,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
 &lt;div id=&quot;education-management-app&quot; class=&quot;education-app&quot;&gt;
   &lt;div class=&quot;app-frame&quot;&gt;
     &lt;aside class=&quot;app-sidebar&quot; aria-label=&quot;应用导航&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;app-brand&quot; data-workspace&gt;&lt;span class=&quot;brand-icon&quot;&gt;&lt;i data-lucide=&quot;building-2&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span&gt;建筑物管理&lt;/span&gt;&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;app-brand&quot; data-workspace&gt;&lt;span class=&quot;brand-icon&quot;&gt;&lt;i data-lucide=&quot;building-2&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span&gt;建筑管理&lt;/span&gt;&lt;/button&gt;
       &lt;nav id=&quot;app-nav&quot;&gt;&lt;/nav&gt;
       &lt;div class=&quot;sidebar-foot&quot;&gt;&lt;span class=&quot;viz-badge&quot;&gt;第一阶段&lt;/span&gt;&lt;small&gt;建筑物信息管理&lt;/small&gt;&lt;/div&gt;
     &lt;/aside&gt;
@@ -1051,6 +1051,21 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       &lt;/form&gt;
     &lt;/section&gt;
   &lt;/div&gt;
+  &lt;div id=&quot;equipment-detail-modal&quot; class=&quot;modal-backdrop&quot; hidden&gt;
+    &lt;section class=&quot;modal-panel&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;equipment-detail-title&quot;&gt;
+      &lt;div class=&quot;modal-head&quot;&gt;&lt;div&gt;&lt;strong id=&quot;equipment-detail-title&quot;&gt;器材详情&lt;/strong&gt;&lt;/div&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost modal-close-button&quot; data-close-equipment-detail aria-label=&quot;关闭&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
+      &lt;div class=&quot;modal-body&quot;&gt;
+        &lt;div class=&quot;form-grid&quot;&gt;
+          &lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;器材分类&lt;/span&gt;&lt;strong id=&quot;equipment-detail-category&quot;&gt;—&lt;/strong&gt;&lt;/div&gt;
+          &lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;器材名称&lt;/span&gt;&lt;strong id=&quot;equipment-detail-name&quot;&gt;—&lt;/strong&gt;&lt;/div&gt;
+          &lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;数量&lt;/span&gt;&lt;strong id=&quot;equipment-detail-quantity&quot;&gt;—&lt;/strong&gt;&lt;/div&gt;
+          &lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;当前状态&lt;/span&gt;&lt;strong&gt;&lt;span id=&quot;equipment-detail-status&quot; class=&quot;status-tag&quot;&gt;—&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+          &lt;div class=&quot;detail-item detail-field&quot;&gt;&lt;span&gt;添加时间&lt;/span&gt;&lt;strong id=&quot;equipment-detail-added-at&quot;&gt;—&lt;/strong&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;modal-actions&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-close-equipment-detail&gt;关闭&lt;/button&gt;&lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
   &lt;div id=&quot;playground-record-modal&quot; class=&quot;modal-backdrop&quot; hidden&gt;
     &lt;section class=&quot;modal-panel&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;playground-record-title&quot;&gt;
       &lt;div class=&quot;modal-head&quot;&gt;&lt;div&gt;&lt;strong id=&quot;playground-record-title&quot;&gt;新增器材信息&lt;/strong&gt;&lt;p id=&quot;playground-record-subtitle&quot;&gt;补充操场器材信息，保存后立即显示在档案中。&lt;/p&gt;&lt;/div&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost modal-close-button&quot; data-close-playground-record aria-label=&quot;关闭&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
@@ -1174,6 +1189,14 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   #education-management-app .facility-head-main strong { font-weight: 500; overflow-wrap: anywhere; }
   #education-management-app .facility-summary { color: var(--muted-foreground); line-height: 1.7; overflow-wrap: anywhere; }
   #education-management-app .facility-head-actions { display: flex; align-items: center; justify-content: flex-end; gap: 12px; min-width: 116px; white-space: nowrap; }
+  #education-management-app .detail-list-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+  #education-management-app .detail-list-filters { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+  #education-management-app .detail-list-filters .form-control { width: 220px; }
+  #education-management-app .detail-list-filters .form-select { width: 160px; }
+  #education-management-app .detail-list-count { color: var(--muted-foreground); white-space: nowrap; }
+  #education-management-app .detail-list-table th,
+  #education-management-app .detail-list-table td { white-space: nowrap; }
+  #education-management-app .detail-list-table .record-name { min-width: 180px; white-space: normal; }
   #education-management-app .facility-detail-view { display: grid; gap: 18px; }
   #education-management-app .facility-detail-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
   #education-management-app .facility-detail-title { display: grid; gap: 6px; min-width: 0; }
@@ -1412,6 +1435,9 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     #education-management-app .school-area-metrics,
     #education-management-app .school-area-form-grid { grid-template-columns: 1fr; }
     #education-management-app .school-area-profile-head { align-items: stretch; flex-direction: column; }
+    #education-management-app .detail-list-toolbar { align-items: stretch; flex-direction: column; }
+    #education-management-app .detail-list-filters .form-control,
+    #education-management-app .detail-list-filters .form-select { width: 100%; }
   }
   #education-management-app .form-section-title { color: #2366b7; }
   #education-management-app .app-toast { right: 24px; bottom: 24px; border-radius: 9px; background: #17355c; color: #ffffff; box-shadow: 0 10px 28px rgb(16 37 74 / 20%); }
@@ -1440,6 +1466,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   const repairForm = document.getElementById(&#39;repair-form&#39;);
   const playgroundModuleModal = document.getElementById(&#39;playground-module-modal&#39;);
   const playgroundModuleForm = document.getElementById(&#39;playground-module-form&#39;);
+  const equipmentDetailModal = document.getElementById(&#39;equipment-detail-modal&#39;);
   const playgroundRecordModal = document.getElementById(&#39;playground-record-modal&#39;);
   const playgroundRecordForm = document.getElementById(&#39;playground-record-form&#39;);
   const form = document.getElementById(&#39;venue-form&#39;);
@@ -1557,8 +1584,8 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     { type: &#39;消防设施&#39;, name: &#39;教学楼一层灭火器&#39;, status: &#39;良好&#39;, year: 2024, fireCategory: &#39;灭火器&#39;, fireLocation: &#39;教学楼一层东侧走廊&#39;, fireQuantity: 8, fireUnit: &#39;具&#39;, detail: &#39;4kg手提式干粉灭火器，摆放位置醒目且便于取用。&#39;, repairs: [] }
   ];
 
-  const facilityStorageKey = &#39;edu-prototype-v1.1:education-building-facilities-v5&#39;;
-  const deprecatedFacilityStorageKeys = [&#39;edu-prototype-v1.1:education-building-facilities-v4&#39;, &#39;edu-prototype-v1.1:education-building-facilities-v3&#39;, &#39;edu-prototype-v1.1:education-building-facilities-v2&#39;, &#39;edu-prototype-v1.1:education-building-facilities-v1&#39;];
+  const facilityStorageKey = &#39;edu-prototype-v1.1:education-building-facilities-v6&#39;;
+  const deprecatedFacilityStorageKeys = [&#39;edu-prototype-v1.1:education-building-facilities-v5&#39;, &#39;edu-prototype-v1.1:education-building-facilities-v4&#39;, &#39;edu-prototype-v1.1:education-building-facilities-v3&#39;, &#39;edu-prototype-v1.1:education-building-facilities-v2&#39;, &#39;edu-prototype-v1.1:education-building-facilities-v1&#39;];
   const stripDeprecatedFacilityFields = facility =&gt; {
     const { warrantyPeriod, waterproofMethod, waterproofContractor, waterproofDate, waterproofExpiry, leakageStatus,
       interiorArea, interiorColor, interiorHeight, interiorFireRating, interiorAcoustic, interiorInspectionDate, interiorInspectionResult, interiorFunctions, interiorIssues,
@@ -1600,13 +1627,37 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     ]
   };
 
-  let state = { portal: &#39;school&#39;, module: &#39;workspace&#39;, page: &#39;buildings&#39;, selectedVenue: null, selectedFacility: null, selectedPlaygroundModule: null, pendingPlaygroundModule: null, detailTab: &#39;profile&#39;, keyword: &#39;&#39;, schoolStatsKeyword: &#39;&#39;, schoolStatsPage: 1, usageFilter: &#39;&#39;, schoolFilter: &#39;&#39;, typeFilter: &#39;&#39;, purposeFilter: &#39;&#39;, yearFilter: &#39;&#39;, structureFilter: &#39;&#39;, wallFilter: &#39;&#39;, pendingVenue: null, pageIndex: 1 };
+  let state = { portal: &#39;school&#39;, module: &#39;workspace&#39;, page: &#39;buildings&#39;, selectedVenue: null, selectedFacility: null, selectedPlaygroundModule: null, pendingPlaygroundModule: null, pendingFacility: null, pendingEquipment: null, detailTab: &#39;profile&#39;, keyword: &#39;&#39;, schoolStatsKeyword: &#39;&#39;, schoolStatsPage: 1, usageFilter: &#39;&#39;, schoolFilter: &#39;&#39;, typeFilter: &#39;&#39;, purposeFilter: &#39;&#39;, yearFilter: &#39;&#39;, structureFilter: &#39;&#39;, wallFilter: &#39;&#39;, playgroundModuleTypeFilter: &#39;&#39;, playgroundModuleNameFilter: &#39;&#39;, playgroundModuleStatusFilter: &#39;&#39;, facilityTypeFilter: &#39;&#39;, facilityNameFilter: &#39;&#39;, facilityStatusFilter: &#39;&#39;, pendingVenue: null, pageIndex: 1 };
   const format = value =&gt; Number(value).toLocaleString(&#39;zh-CN&#39;, { maximumFractionDigits: 2 });
   const formatDateTime = (value = new Date()) =&gt; {
     const date = value instanceof Date ? value : new Date(value);
     const pad = number =&gt; String(number).padStart(2, &#39;0&#39;);
     return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
   };
+  const ensureRecordMetadata = (record, prefix, fallback, index) =&gt; {
+    const timestamp = record.updatedAt || record.addedAt || fallback || formatDateTime();
+    return { ...record, id: record.id || `${prefix}-${Date.now()}-${index}`, addedAt: record.addedAt || timestamp, updatedAt: record.updatedAt || record.addedAt || timestamp };
+  };
+  let detailMetadataMigrated = false;
+  venues.filter(venue =&gt; venue.type === &#39;PLAYGROUND&#39;).forEach(venue =&gt; {
+    venue.playgroundModules = (Array.isArray(venue.playgroundModules) ? venue.playgroundModules : []).map((module, index) =&gt; {
+      const normalized = ensureRecordMetadata(module, `pm-${venue.id}`, venue.updated, index);
+      if (!module.addedAt || !module.updatedAt) detailMetadataMigrated = true;
+      return normalized;
+    });
+    venue.equipment = (Array.isArray(venue.equipment) ? venue.equipment : []).map((equipment, index) =&gt; {
+      const normalized = ensureRecordMetadata(equipment, `equipment-${venue.id}`, venue.updated, index);
+      if (!equipment.id || !equipment.addedAt || !equipment.updatedAt) detailMetadataMigrated = true;
+      return normalized;
+    });
+  });
+  facilities = facilities.map((facility, index) =&gt; {
+    const fallback = facility.repairs?.[0]?.createdAt || &#39;2026-07-20 10:00:00&#39;;
+    const normalized = ensureRecordMetadata(facility, &#39;facility&#39;, fallback, index);
+    if (!facility.id || !facility.addedAt || !facility.updatedAt) detailMetadataMigrated = true;
+    return normalized;
+  });
+  if (detailMetadataMigrated) { persistPlaygroundRecords(); persistFacilities(); }
   const formatFileSize = bytes =&gt; bytes &gt;= 1024 * 1024 ? `${(bytes / 1024 / 1024).toFixed(2)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`;
   const attachmentType = name =&gt; {
     const extension = name.split(&#39;.&#39;).pop()?.toLowerCase() || &#39;&#39;;
@@ -1619,6 +1670,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   const portalVenueData = () =&gt; state.portal === &#39;school&#39; ? venues.filter(v =&gt; v.school === &#39;海淀区实验中学&#39;) : venues;
   const pageTitle = () =&gt; navs[state.portal].find(item =&gt; item[0] === state.page)?.[2] || &#39;档案详情&#39;;
   const clearFilters = () =&gt; { state.keyword = &#39;&#39;; state.schoolStatsKeyword = &#39;&#39;; state.schoolStatsPage = 1; state.usageFilter = &#39;&#39;; state.schoolFilter = &#39;&#39;; state.typeFilter = &#39;&#39;; state.purposeFilter = &#39;&#39;; state.yearFilter = &#39;&#39;; state.structureFilter = &#39;&#39;; state.wallFilter = &#39;&#39;; };
+  const clearDetailFilters = () =&gt; { state.playgroundModuleTypeFilter = &#39;&#39;; state.playgroundModuleNameFilter = &#39;&#39;; state.playgroundModuleStatusFilter = &#39;&#39;; state.facilityTypeFilter = &#39;&#39;; state.facilityNameFilter = &#39;&#39;; state.facilityStatusFilter = &#39;&#39;; };
   const currentVenueType = () =&gt; [&#39;buildings&#39;,&#39;building-query&#39;].includes(state.page) ? &#39;BUILDING&#39; : [&#39;playgrounds&#39;,&#39;playground-query&#39;].includes(state.page) ? &#39;PLAYGROUND&#39; : undefined;
   const refreshIcons = () =&gt; { if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } }); };
 
@@ -1720,7 +1772,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
               &lt;span class=&quot;module-arrow&quot;&gt;${icon(&#39;arrow-up-right&#39;)}&lt;/span&gt;
             &lt;/span&gt;
             &lt;span class=&quot;module-card-copy&quot;&gt;
-              &lt;strong&gt;建筑物管理&lt;/strong&gt;
+              &lt;strong&gt;建筑管理&lt;/strong&gt;
               &lt;span&gt;${school ? &#39;维护校舍、操场及附属设施档案，持续更新建筑物使用状态。&#39; : &#39;查询辖区学校建筑物档案，查看校舍与操场基础信息。&#39;}&lt;/span&gt;
             &lt;/span&gt;
             &lt;span class=&quot;module-features&quot;&gt;${features(venueFeatures)}&lt;/span&gt;
@@ -1944,16 +1996,28 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
                 : facility.type === &#39;消防设施&#39;
                   ? [[&#39;消防设施类别&#39;, facility.fireCategory], [&#39;设置位置&#39;, facility.fireLocation], [&#39;数量&#39;, facility.fireQuantity ? `${facility.fireQuantity}${facility.fireUnit || &#39;&#39;}` : &#39;&#39;], [&#39;单位&#39;, !facility.fireQuantity ? facility.fireUnit : &#39;&#39;]]
           : [];
-    const fields = [[&#39;设施类型&#39;, facility.type], [&#39;当前状态&#39;, facility.status], [&#39;最近改造年份&#39;, facility.year ? `${facility.year}年` : &#39;&#39;], ...typeFields, [&#39;备注&#39;, facility.detail]].filter(item =&gt; item[1]);
+    const fields = [[&#39;设施类型&#39;, facility.type], [&#39;当前状态&#39;, facility.status], [&#39;最近改造年份&#39;, facility.year ? `${facility.year}年` : &#39;&#39;], [&#39;添加时间&#39;, formatDateTime(facility.addedAt)], [&#39;更新时间&#39;, formatDateTime(facility.updatedAt)], ...typeFields, [&#39;备注&#39;, facility.detail]].filter(item =&gt; item[1]);
     return `&lt;div class=&quot;facility-detail-view&quot;&gt;&lt;div class=&quot;facility-detail-header&quot;&gt;&lt;div class=&quot;facility-detail-title&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-facility-back&gt;${icon(&#39;arrow-left&#39;)} 返回专项设施&lt;/button&gt;&lt;strong&gt;${facility.type} &amp;#183; ${facility.name}&lt;/strong&gt;&lt;span class=&quot;facility-summary&quot;&gt;查看设施档案信息及历次维修记录&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;facility-detail-actions&quot;&gt;&lt;span class=&quot;status-tag${facility.status === &#39;需维修&#39; ? &#39; warning&#39; : &#39; active&#39;}&quot;&gt;${facility.status}&lt;/span&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-edit-facility=&quot;${facilityIndex}&quot;&gt;编辑档案&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;detail-grid&quot;&gt;${fields.map(item =&gt; `&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;${item[0]}&lt;/span&gt;&lt;strong&gt;${item[1]}&lt;/strong&gt;&lt;/div&gt;`).join(&#39;&#39;)}&lt;/div&gt;${renderRepairModule(facility, facilityIndex, readonly)}&lt;/div&gt;`;
   }
 
   function renderEquipmentPanel(venue, readonly) {
     const equipment = Array.isArray(venue.equipment) ? venue.equipment : [];
     const list = equipment.length
-      ? `&lt;div class=&quot;table-responsive&quot;&gt;&lt;table class=&quot;table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;器材分类&lt;/th&gt;&lt;th&gt;器材名称&lt;/th&gt;&lt;th&gt;数量&lt;/th&gt;&lt;th&gt;当前状态&lt;/th&gt;&lt;th&gt;添加时间&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${equipment.map(item =&gt; `&lt;tr&gt;&lt;td&gt;${item.category}&lt;/td&gt;&lt;td&gt;${item.name}&lt;/td&gt;&lt;td&gt;${item.quantity}&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;status-tag${item.status === &#39;良好&#39; ? &#39; active&#39; : &#39; warning&#39;}&quot;&gt;${item.status}&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;text-nowrap&quot;&gt;${formatDateTime(item.addedAt)}&lt;/td&gt;&lt;/tr&gt;`).join(&#39;&#39;)}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;`
+      ? `&lt;div class=&quot;table-responsive&quot;&gt;&lt;table class=&quot;table detail-list-table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th class=&quot;text-center&quot;&gt;序号&lt;/th&gt;&lt;th&gt;器材分类&lt;/th&gt;&lt;th&gt;器材名称&lt;/th&gt;&lt;th&gt;数量&lt;/th&gt;&lt;th&gt;当前状态&lt;/th&gt;&lt;th&gt;添加时间&lt;/th&gt;&lt;th&gt;操作&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${equipment.map((item, index) =&gt; `&lt;tr&gt;&lt;td class=&quot;text-center&quot;&gt;${index + 1}&lt;/td&gt;&lt;td&gt;${item.category}&lt;/td&gt;&lt;td class=&quot;record-name&quot;&gt;${item.name}&lt;/td&gt;&lt;td&gt;${item.quantity}&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;status-tag${item.status === &#39;良好&#39; ? &#39; active&#39; : item.status === &#39;停用&#39; ? &#39; inactive&#39; : &#39; warning&#39;}&quot;&gt;${item.status}&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;text-nowrap&quot;&gt;${formatDateTime(item.addedAt)}&lt;/td&gt;&lt;td&gt;&lt;div class=&quot;action-group&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-equipment-detail=&quot;${item.id}&quot;&gt;查看&lt;/button&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-edit-equipment=&quot;${item.id}&quot;&gt;编辑&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;action-link is-danger&quot; data-delete-equipment=&quot;${item.id}&quot;&gt;删除&lt;/button&gt;`}&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;`).join(&#39;&#39;)}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;`
       : `&lt;div class=&quot;attachment-empty&quot;&gt;${icon(&#39;dumbbell&#39;)}&lt;span&gt;暂无器材信息&lt;/span&gt;&lt;/div&gt;`;
     return `&lt;div class=&quot;attachment-panel&quot;&gt;&lt;div class=&quot;attachment-toolbar&quot;&gt;&lt;div class=&quot;attachment-guidance&quot;&gt;&lt;strong&gt;器材信息（${equipment.length}）&lt;/strong&gt;&lt;small&gt;登记操场体育器材和健身器材的数量及使用状态。&lt;/small&gt;&lt;/div&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-add-equipment&gt;${icon(&#39;plus&#39;)} 新增器材&lt;/button&gt;`}&lt;/div&gt;${list}&lt;/div&gt;`;
+  }
+
+  function renderFacilityList(readonly) {
+    const typeOptions = [&#39;门&#39;,&#39;窗&#39;,&#39;防水&#39;,&#39;外墙&#39;,&#39;内墙&#39;,&#39;卫生间&#39;,&#39;浴室&#39;,&#39;消防设施&#39;];
+    const rows = facilities.map((facility, index) =&gt; ({ facility, index }))
+      .filter(({ facility }) =&gt; !state.facilityTypeFilter || facility.type === state.facilityTypeFilter)
+      .filter(({ facility }) =&gt; !state.facilityNameFilter.trim() || facility.name.includes(state.facilityNameFilter.trim()))
+      .filter(({ facility }) =&gt; !state.facilityStatusFilter || facility.status === state.facilityStatusFilter);
+    const hasFilter = Boolean(state.facilityTypeFilter || state.facilityNameFilter.trim() || state.facilityStatusFilter);
+    const countText = hasFilter ? `共 ${rows.length} 项，全部 ${facilities.length} 项` : `共 ${facilities.length} 项子档案`;
+    const table = rows.length ? `&lt;div class=&quot;table-responsive&quot;&gt;&lt;table class=&quot;table table-sm detail-list-table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th class=&quot;text-center&quot;&gt;序号&lt;/th&gt;&lt;th&gt;设施类型&lt;/th&gt;&lt;th&gt;档案名称&lt;/th&gt;&lt;th&gt;最近改造年份&lt;/th&gt;&lt;th&gt;当前状态&lt;/th&gt;&lt;th&gt;添加时间&lt;/th&gt;&lt;th&gt;更新时间&lt;/th&gt;&lt;th&gt;操作&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${rows.map(({ facility, index }, serial) =&gt; `&lt;tr&gt;&lt;td class=&quot;text-center&quot;&gt;${serial + 1}&lt;/td&gt;&lt;td&gt;${facility.type}&lt;/td&gt;&lt;td class=&quot;record-name&quot;&gt;${facility.name}&lt;/td&gt;&lt;td&gt;${facility.year ? `${facility.year}年` : &#39;—&#39;}&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;status-tag${facility.status === &#39;需维修&#39; ? &#39; warning&#39; : &#39; active&#39;}&quot;&gt;${facility.status}&lt;/span&gt;&lt;/td&gt;&lt;td&gt;${formatDateTime(facility.addedAt)}&lt;/td&gt;&lt;td&gt;${formatDateTime(facility.updatedAt)}&lt;/td&gt;&lt;td&gt;&lt;div class=&quot;action-group&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-facility-detail=&quot;${index}&quot;&gt;查看&lt;/button&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-edit-facility=&quot;${index}&quot;&gt;编辑&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;action-link is-danger&quot; data-delete-facility=&quot;${facility.id}&quot;&gt;删除&lt;/button&gt;`}&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;`).join(&#39;&#39;)}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;` : `&lt;div class=&quot;empty-state&quot;&gt;${icon(&#39;inbox&#39;)}&lt;p&gt;暂无符合条件的专项设施&lt;/p&gt;${hasFilter ? &#39;&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-reset-facility-filter&gt;清空筛选&lt;/button&gt;&#39; : &#39;&#39;}&lt;/div&gt;`;
+    return `&lt;div class=&quot;attachment-panel&quot;&gt;&lt;div class=&quot;detail-list-toolbar&quot;&gt;&lt;div class=&quot;detail-list-filters&quot;&gt;&lt;select class=&quot;form-select&quot; id=&quot;facility-type-filter&quot; aria-label=&quot;按设施类型筛选&quot;&gt;&lt;option value=&quot;&quot;&gt;全部设施类型&lt;/option&gt;${typeOptions.map(type =&gt; `&lt;option${state.facilityTypeFilter === type ? &#39; selected&#39; : &#39;&#39;}&gt;${type}&lt;/option&gt;`).join(&#39;&#39;)}&lt;/select&gt;&lt;input class=&quot;form-control&quot; id=&quot;facility-name-filter&quot; aria-label=&quot;按档案名称筛选&quot; placeholder=&quot;输入档案名称筛选&quot; value=&quot;${state.facilityNameFilter}&quot;&gt;&lt;select class=&quot;form-select&quot; id=&quot;facility-status-filter&quot; aria-label=&quot;按当前状态筛选&quot;&gt;&lt;option value=&quot;&quot;&gt;全部当前状态&lt;/option&gt;${[&#39;良好&#39;,&#39;需维修&#39;].map(status =&gt; `&lt;option${state.facilityStatusFilter === status ? &#39; selected&#39; : &#39;&#39;}&gt;${status}&lt;/option&gt;`).join(&#39;&#39;)}&lt;/select&gt;${hasFilter ? &#39;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-reset-facility-filter&gt;重置筛选&lt;/button&gt;&#39; : &#39;&#39;}&lt;/div&gt;&lt;div class=&quot;action-group&quot;&gt;&lt;span class=&quot;detail-list-count&quot;&gt;${countText}&lt;/span&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-add-facility&gt;${icon(&#39;plus&#39;)} 新增子档案&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;${table}&lt;/div&gt;`;
   }
 
   function playgroundModuleExtraSummary(module) {
@@ -1968,7 +2032,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   function renderPlaygroundModuleDetail(module, readonly) {
     const renovations = Array.isArray(module.renovations) ? module.renovations : [];
     const material = module.material === &#39;其他&#39; ? module.customMaterial || &#39;其他&#39; : module.material;
-    const fields = [[&#39;模块类型&#39;, module.type], [&#39;面积&#39;, `${format(module.area)}㎡`], [&#39;地面材质&#39;, material], [&#39;建造年份&#39;, module.builtYear ? `${module.builtYear}年` : &#39;—&#39;], [&#39;最近改造年份&#39;, module.lastRenovatedYear ? `${module.lastRenovatedYear}年` : &#39;—&#39;], [&#39;分类信息&#39;, playgroundModuleExtraSummary(module)], [&#39;当前状态&#39;, module.status], [&#39;备注&#39;, module.remarks || &#39;—&#39;]];
+    const fields = [[&#39;模块类型&#39;, module.type], [&#39;面积&#39;, `${format(module.area)}㎡`], [&#39;地面材质&#39;, material], [&#39;建造年份&#39;, module.builtYear ? `${module.builtYear}年` : &#39;—&#39;], [&#39;最近改造年份&#39;, module.lastRenovatedYear ? `${module.lastRenovatedYear}年` : &#39;—&#39;], [&#39;分类信息&#39;, playgroundModuleExtraSummary(module)], [&#39;当前状态&#39;, module.status], [&#39;添加时间&#39;, formatDateTime(module.addedAt)], [&#39;更新时间&#39;, formatDateTime(module.updatedAt)], [&#39;备注&#39;, module.remarks || &#39;—&#39;]];
     const history = renovations.length ? `&lt;div class=&quot;repair-list&quot;&gt;${renovations.slice().sort((a,b) =&gt; String(b.date).localeCompare(String(a.date))).map(item =&gt; `&lt;div class=&quot;repair-record&quot;&gt;&lt;div class=&quot;repair-record-head&quot;&gt;&lt;strong&gt;${item.date}&lt;/strong&gt;&lt;span class=&quot;repair-record-company&quot;&gt;${item.company}&lt;/span&gt;&lt;/div&gt;&lt;p&gt;${item.content}&lt;/p&gt;&lt;small class=&quot;repair-created-at&quot;&gt;记录时间：${formatDateTime(item.addedAt)}&lt;/small&gt;&lt;/div&gt;`).join(&#39;&#39;)}&lt;/div&gt;` : `&lt;p class=&quot;repair-empty&quot;&gt;暂无改造记录&lt;/p&gt;`;
     return `&lt;div class=&quot;facility-detail-view&quot;&gt;&lt;div class=&quot;facility-detail-header&quot;&gt;&lt;div class=&quot;facility-detail-title&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-playground-module-back&gt;${icon(&#39;arrow-left&#39;)} 返回场地模块&lt;/button&gt;&lt;strong&gt;${module.name}&lt;/strong&gt;&lt;span class=&quot;facility-summary&quot;&gt;查看场地模块档案及历次改造记录&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;facility-detail-actions&quot;&gt;&lt;span class=&quot;status-tag${module.status === &#39;需养护&#39; || module.status === &#39;改造中&#39; ? &#39; warning&#39; : &#39; active&#39;}&quot;&gt;${module.status}&lt;/span&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-edit-playground-module=&quot;${module.id}&quot;&gt;编辑档案&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;detail-grid&quot;&gt;${fields.map(item =&gt; `&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;${item[0]}&lt;/span&gt;&lt;strong&gt;${item[1]}&lt;/strong&gt;&lt;/div&gt;`).join(&#39;&#39;)}&lt;/div&gt;&lt;div class=&quot;repair-section&quot;&gt;&lt;div class=&quot;repair-section-head&quot;&gt;&lt;div class=&quot;repair-section-title&quot;&gt;${icon(&#39;history&#39;)} &lt;strong&gt;改造记录&lt;/strong&gt;&lt;span class=&quot;repair-count&quot;&gt;${renovations.length} 条&lt;/span&gt;&lt;/div&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-add-module-renovation=&quot;${module.id}&quot;&gt;${icon(&#39;plus&#39;)} 登记改造&lt;/button&gt;`}&lt;/div&gt;${history}&lt;/div&gt;&lt;/div&gt;`;
   }
@@ -1977,8 +2041,14 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     const modules = Array.isArray(venue.playgroundModules) ? venue.playgroundModules : [];
     const selected = state.selectedPlaygroundModule ? modules.find(item =&gt; item.id === state.selectedPlaygroundModule) : null;
     if (selected) return renderPlaygroundModuleDetail(selected, readonly);
-    const cards = modules.length ? `&lt;div class=&quot;facility-grid&quot;&gt;${modules.map(module =&gt; { const material = module.material === &#39;其他&#39; ? module.customMaterial || &#39;其他&#39; : module.material; return `&lt;div class=&quot;facility-row&quot;&gt;&lt;div class=&quot;facility-head&quot;&gt;&lt;div class=&quot;facility-head-main&quot;&gt;&lt;strong&gt;${module.type} &amp;#183; ${module.name}&lt;/strong&gt;&lt;span class=&quot;facility-summary&quot;&gt;面积：${format(module.area)}㎡；材质：${material}；最近改造：${module.lastRenovatedYear || &#39;—&#39;}；历史记录：${module.renovations?.length || 0} 条&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;facility-head-actions&quot;&gt;&lt;span class=&quot;status-tag${module.status === &#39;需养护&#39; || module.status === &#39;改造中&#39; ? &#39; warning&#39; : &#39; active&#39;}&quot;&gt;${module.status}&lt;/span&gt;&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-playground-module-detail=&quot;${module.id}&quot;&gt;查看详情&lt;/button&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-edit-playground-module=&quot;${module.id}&quot;&gt;编辑&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;action-link is-danger&quot; data-delete-playground-module=&quot;${module.id}&quot;&gt;删除&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`; }).join(&#39;&#39;)}&lt;/div&gt;` : `&lt;div class=&quot;attachment-empty&quot;&gt;${icon(&#39;layout-grid&#39;)}&lt;span&gt;尚未登记场地模块&lt;/span&gt;&lt;/div&gt;`;
-    return `&lt;div class=&quot;attachment-panel&quot;&gt;&lt;div class=&quot;attachment-toolbar&quot;&gt;&lt;div class=&quot;attachment-guidance&quot;&gt;&lt;strong&gt;场地模块（${modules.length}）&lt;/strong&gt;&lt;/div&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-add-playground-module&gt;${icon(&#39;plus&#39;)} 新增场地模块&lt;/button&gt;`}&lt;/div&gt;${cards}&lt;/div&gt;`;
+    const typeOptions = [&#39;户外草坪&#39;,&#39;田径场&#39;,&#39;足球场&#39;,&#39;篮球场&#39;,&#39;排球场&#39;,&#39;网球场&#39;,&#39;羽毛球场&#39;,&#39;乒乓球场&#39;,&#39;其他&#39;];
+    const rows = modules.filter(module =&gt; !state.playgroundModuleTypeFilter || module.type === state.playgroundModuleTypeFilter)
+      .filter(module =&gt; !state.playgroundModuleNameFilter.trim() || module.name.includes(state.playgroundModuleNameFilter.trim()))
+      .filter(module =&gt; !state.playgroundModuleStatusFilter || module.status === state.playgroundModuleStatusFilter);
+    const hasFilter = Boolean(state.playgroundModuleTypeFilter || state.playgroundModuleNameFilter.trim() || state.playgroundModuleStatusFilter);
+    const countText = hasFilter ? `共 ${rows.length} 项，全部 ${modules.length} 项` : `共 ${modules.length} 项场地模块`;
+    const table = rows.length ? `&lt;div class=&quot;table-responsive&quot;&gt;&lt;table class=&quot;table table-sm detail-list-table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th class=&quot;text-center&quot;&gt;序号&lt;/th&gt;&lt;th&gt;模块类型&lt;/th&gt;&lt;th&gt;模块名称&lt;/th&gt;&lt;th&gt;建造年份&lt;/th&gt;&lt;th&gt;当前状态&lt;/th&gt;&lt;th&gt;添加时间&lt;/th&gt;&lt;th&gt;更新时间&lt;/th&gt;&lt;th&gt;操作&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${rows.map((module, index) =&gt; `&lt;tr&gt;&lt;td class=&quot;text-center&quot;&gt;${index + 1}&lt;/td&gt;&lt;td&gt;${module.type}&lt;/td&gt;&lt;td class=&quot;record-name&quot;&gt;${module.name}&lt;/td&gt;&lt;td&gt;${module.builtYear ? `${module.builtYear}年` : &#39;—&#39;}&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;status-tag${module.status === &#39;需养护&#39; || module.status === &#39;改造中&#39; ? &#39; warning&#39; : module.status === &#39;停用&#39; ? &#39; inactive&#39; : &#39; active&#39;}&quot;&gt;${module.status}&lt;/span&gt;&lt;/td&gt;&lt;td&gt;${formatDateTime(module.addedAt)}&lt;/td&gt;&lt;td&gt;${formatDateTime(module.updatedAt)}&lt;/td&gt;&lt;td&gt;&lt;div class=&quot;action-group&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-playground-module-detail=&quot;${module.id}&quot;&gt;查看&lt;/button&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-edit-playground-module=&quot;${module.id}&quot;&gt;编辑&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;action-link is-danger&quot; data-delete-playground-module=&quot;${module.id}&quot;&gt;删除&lt;/button&gt;`}&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;`).join(&#39;&#39;)}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;` : `&lt;div class=&quot;empty-state&quot;&gt;${icon(&#39;inbox&#39;)}&lt;p&gt;暂无符合条件的场地模块&lt;/p&gt;${hasFilter ? &#39;&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-reset-playground-module-filter&gt;清空筛选&lt;/button&gt;&#39; : &#39;&#39;}&lt;/div&gt;`;
+    return `&lt;div class=&quot;attachment-panel&quot;&gt;&lt;div class=&quot;detail-list-toolbar&quot;&gt;&lt;div class=&quot;detail-list-filters&quot;&gt;&lt;select class=&quot;form-select&quot; id=&quot;playground-module-type-filter&quot; aria-label=&quot;按模块类型筛选&quot;&gt;&lt;option value=&quot;&quot;&gt;全部模块类型&lt;/option&gt;${typeOptions.map(type =&gt; `&lt;option${state.playgroundModuleTypeFilter === type ? &#39; selected&#39; : &#39;&#39;}&gt;${type}&lt;/option&gt;`).join(&#39;&#39;)}&lt;/select&gt;&lt;input class=&quot;form-control&quot; id=&quot;playground-module-name-filter&quot; aria-label=&quot;按模块名称筛选&quot; placeholder=&quot;输入模块名称筛选&quot; value=&quot;${state.playgroundModuleNameFilter}&quot;&gt;&lt;select class=&quot;form-select&quot; id=&quot;playground-module-status-filter&quot; aria-label=&quot;按当前状态筛选&quot;&gt;&lt;option value=&quot;&quot;&gt;全部当前状态&lt;/option&gt;${[&#39;良好&#39;,&#39;需养护&#39;,&#39;改造中&#39;,&#39;停用&#39;].map(status =&gt; `&lt;option${state.playgroundModuleStatusFilter === status ? &#39; selected&#39; : &#39;&#39;}&gt;${status}&lt;/option&gt;`).join(&#39;&#39;)}&lt;/select&gt;${hasFilter ? &#39;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-reset-playground-module-filter&gt;重置筛选&lt;/button&gt;&#39; : &#39;&#39;}&lt;/div&gt;&lt;div class=&quot;action-group&quot;&gt;&lt;span class=&quot;detail-list-count&quot;&gt;${countText}&lt;/span&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-add-playground-module&gt;${icon(&#39;plus&#39;)} 新增场地模块&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;${table}&lt;/div&gt;`;
   }
 
   function renderAttachmentPanel(venue, readonly) {
@@ -2001,7 +2071,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     const facilityHtml = venue.type === &#39;BUILDING&#39;
       ? selectedFacility
         ? renderFacilityDetail(selectedFacility, state.selectedFacility, readonly)
-        : `${readonly ? `&lt;div class=&quot;facility-toolbar&quot;&gt;&lt;span class=&quot;text-muted&quot;&gt;共 ${facilities.length} 项子档案&lt;/span&gt;&lt;/div&gt;` : `&lt;div class=&quot;facility-toolbar&quot;&gt;&lt;span class=&quot;text-muted&quot;&gt;共 ${facilities.length} 项子档案&lt;/span&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-add-facility&gt;${icon(&#39;plus&#39;)} 新增子档案&lt;/button&gt;&lt;/div&gt;`}&lt;div class=&quot;facility-grid&quot;&gt;${facilities.map((f,index) =&gt; `&lt;div class=&quot;facility-row&quot;&gt;&lt;div class=&quot;facility-head&quot;&gt;&lt;div class=&quot;facility-head-main&quot;&gt;&lt;strong&gt;${f.type} &amp;#183; ${f.name}&lt;/strong&gt;&lt;span class=&quot;facility-summary&quot;&gt;${facilitySummary(f)}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;facility-head-actions&quot;&gt;&lt;span class=&quot;status-tag${f.status === &#39;需维修&#39; ? &#39; warning&#39; : &#39; active&#39;}&quot;&gt;${f.status}&lt;/span&gt;&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-facility-detail=&quot;${index}&quot;&gt;查看详情&lt;/button&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-edit-facility=&quot;${index}&quot;&gt;编辑&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`).join(&#39;&#39;)}&lt;/div&gt;`
+        : renderFacilityList(readonly)
       : `&lt;div class=&quot;empty-state&quot;&gt;操场不包含建筑专项设施子档案&lt;/div&gt;`;
     const tabContent = state.detailTab === &#39;profile&#39; ? `&lt;div class=&quot;detail-grid&quot;&gt;&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;档案名称&lt;/span&gt;&lt;strong&gt;${venue.name}&lt;/strong&gt;&lt;/div&gt;${readonly ? `&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;所属学校&lt;/span&gt;&lt;strong&gt;${venue.school}&lt;/strong&gt;&lt;/div&gt;` : &#39;&#39;}&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;档案类型&lt;/span&gt;&lt;strong&gt;${venue.type === &#39;BUILDING&#39; ? &#39;建筑&#39; : &#39;操场&#39;}&lt;/strong&gt;&lt;/div&gt;${profile.map(x =&gt; `&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;${x[0]}&lt;/span&gt;&lt;strong&gt;${x[1]}&lt;/strong&gt;&lt;/div&gt;`).join(&#39;&#39;)}&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;用途&lt;/span&gt;&lt;strong&gt;${venue.purpose}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;使用状态&lt;/span&gt;&lt;strong&gt;${venue.usage}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;档案状态&lt;/span&gt;&lt;strong&gt;${venue.lifecycle}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;最近更新&lt;/span&gt;&lt;strong&gt;${formatDateTime(venue.updated)}&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;` : state.detailTab === &#39;facilities&#39; ? facilityHtml : state.detailTab === &#39;playground-modules&#39; ? renderPlaygroundModulesPanel(venue, readonly) : state.detailTab === &#39;equipment&#39; ? renderEquipmentPanel(venue, readonly) : renderAttachmentPanel(venue, readonly);
     content.innerHTML = `&lt;section class=&quot;card&quot;&gt;&lt;div class=&quot;detail-tabs-bar&quot;&gt;&lt;div class=&quot;tabs&quot;&gt;&lt;button class=&quot;tab-button${state.detailTab === &#39;profile&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;profile&quot;&gt;基础信息&lt;/button&gt;${venue.type === &#39;BUILDING&#39; ? `&lt;button class=&quot;tab-button${state.detailTab === &#39;facilities&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;facilities&quot;&gt;专项设施&lt;/button&gt;` : `&lt;button class=&quot;tab-button${state.detailTab === &#39;playground-modules&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;playground-modules&quot;&gt;场地模块&lt;/button&gt;&lt;button class=&quot;tab-button${state.detailTab === &#39;equipment&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;equipment&quot;&gt;器材信息&lt;/button&gt;`}&lt;button class=&quot;tab-button${state.detailTab === &#39;attachments&#39; ? &#39; is-active&#39; : &#39;&#39;}&quot; data-tab=&quot;attachments&quot;&gt;附件资料&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;detail-tabs-actions&quot;&gt;&lt;button class=&quot;btn&quot; data-back&gt;${icon(&#39;arrow-left&#39;)} 返回列表&lt;/button&gt;${readonly ? &#39;&#39; : &#39;&lt;button class=&quot;btn btn-primary&quot; data-edit&gt;编辑档案&lt;/button&gt;&#39;}&lt;/div&gt;&lt;/div&gt;${tabContent}&lt;/section&gt;`;
@@ -2154,17 +2224,51 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     refreshIcons();
   }
 
-  function openPlaygroundRecordModal(kind) {
+  function closeEquipmentDetailModal() {
+    equipmentDetailModal.hidden = true;
+  }
+
+  function openEquipmentDetailModal(equipmentId) {
+    const venue = venues.find(item =&gt; item.id === state.selectedVenue &amp;&amp; item.type === &#39;PLAYGROUND&#39;);
+    const equipment = venue?.equipment?.find(item =&gt; item.id === equipmentId);
+    if (!equipment) { closeEquipmentDetailModal(); return; }
+    document.getElementById(&#39;equipment-detail-category&#39;).textContent = equipment.category || &#39;—&#39;;
+    document.getElementById(&#39;equipment-detail-name&#39;).textContent = equipment.name || &#39;—&#39;;
+    document.getElementById(&#39;equipment-detail-quantity&#39;).textContent = String(equipment.quantity || &#39;—&#39;);
+    const status = document.getElementById(&#39;equipment-detail-status&#39;);
+    status.textContent = equipment.status || &#39;—&#39;;
+    status.className = `status-tag${equipment.status === &#39;良好&#39; ? &#39; active&#39; : equipment.status === &#39;停用&#39; ? &#39; inactive&#39; : &#39; warning&#39;}`;
+    document.getElementById(&#39;equipment-detail-added-at&#39;).textContent = formatDateTime(equipment.addedAt);
+    equipmentDetailModal.hidden = false;
+    refreshIcons();
+  }
+
+  function openPlaygroundRecordModal(kind, equipmentId = &#39;&#39;) {
     const equipmentMode = kind === &#39;equipment&#39;;
+    const venue = venues.find(item =&gt; item.id === state.selectedVenue &amp;&amp; item.type === &#39;PLAYGROUND&#39;);
+    const equipment = equipmentMode ? venue?.equipment?.find(item =&gt; item.id === equipmentId) : null;
+    playgroundRecordForm.dataset.equipmentId = equipment?.id || &#39;&#39;;
     document.getElementById(&#39;playground-record-kind&#39;).value = kind;
-    document.getElementById(&#39;playground-record-title&#39;).textContent = equipmentMode ? &#39;新增器材信息&#39; : &#39;登记场地模块改造记录&#39;;
-    document.getElementById(&#39;playground-record-subtitle&#39;).textContent = equipmentMode ? &#39;补充操场器材信息，保存后立即显示在档案中。&#39; : &#39;改造记录仅归属当前场地模块，保存后同步更新最近改造年份。&#39;;
+    document.getElementById(&#39;playground-record-title&#39;).textContent = equipmentMode ? (equipment ? &#39;编辑器材信息&#39; : &#39;新增器材信息&#39;) : &#39;登记场地模块改造记录&#39;;
+    document.getElementById(&#39;playground-record-subtitle&#39;).textContent = equipmentMode ? (equipment ? &#39;修改器材分类、名称、数量和当前状态。&#39; : &#39;补充操场器材信息，保存后立即显示在档案中。&#39;) : &#39;改造记录仅归属当前场地模块，保存后同步更新最近改造年份。&#39;;
     document.getElementById(&#39;equipment-record-fields&#39;).hidden = !equipmentMode;
     document.getElementById(&#39;renovation-record-fields&#39;).hidden = equipmentMode;
-    document.getElementById(&#39;equipment-category&#39;).value = &#39;体育器材&#39;;
-    document.getElementById(&#39;equipment-name&#39;).value = &#39;&#39;;
-    document.getElementById(&#39;equipment-quantity&#39;).value = &#39;&#39;;
-    document.getElementById(&#39;equipment-status&#39;).value = &#39;良好&#39;;
+    const equipmentCategory = document.getElementById(&#39;equipment-category&#39;);
+    const equipmentStatus = document.getElementById(&#39;equipment-status&#39;);
+    [equipmentCategory, equipmentStatus].forEach(select =&gt; select.querySelectorAll(&#39;option[data-legacy-value]&#39;).forEach(option =&gt; option.remove()));
+    [[equipmentCategory, equipment?.category], [equipmentStatus, equipment?.status]].forEach(([select, value]) =&gt; {
+      if (value &amp;&amp; !Array.from(select.options).some(option =&gt; option.value === value)) {
+        const option = document.createElement(&#39;option&#39;);
+        option.value = value;
+        option.textContent = value;
+        option.dataset.legacyValue = &#39;true&#39;;
+        select.appendChild(option);
+      }
+    });
+    equipmentCategory.value = equipment?.category || &#39;体育器材&#39;;
+    document.getElementById(&#39;equipment-name&#39;).value = equipment?.name || &#39;&#39;;
+    document.getElementById(&#39;equipment-quantity&#39;).value = equipment?.quantity || &#39;&#39;;
+    equipmentStatus.value = equipment?.status || &#39;良好&#39;;
     document.getElementById(&#39;renovation-date&#39;).value = &#39;&#39;;
     document.getElementById(&#39;renovation-company&#39;).value = &#39;&#39;;
     document.getElementById(&#39;renovation-content&#39;).value = &#39;&#39;;
@@ -2232,7 +2336,8 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     const existing = (venue.playgroundModules || []).find(item =&gt; item.id === moduleId);
     const ballTypes = [&#39;篮球场&#39;,&#39;排球场&#39;,&#39;网球场&#39;,&#39;羽毛球场&#39;,&#39;乒乓球场&#39;];
     const details = type === &#39;户外草坪&#39; ? { irrigationMethod: document.getElementById(&#39;playground-module-irrigation&#39;).value } : type === &#39;田径场&#39; ? { laneCount: Number(document.getElementById(&#39;playground-module-lanes&#39;).value) || null, trackSpec: document.getElementById(&#39;playground-module-track-spec&#39;).value } : type === &#39;足球场&#39; ? { footballFormat: document.getElementById(&#39;playground-module-football-format&#39;).value, goalCount: Number(document.getElementById(&#39;playground-module-goals&#39;).value) || 0 } : ballTypes.includes(type) ? { courtSpec: document.getElementById(&#39;playground-module-court-spec&#39;).value.trim(), courtCount: Math.max(1, Number(document.getElementById(&#39;playground-module-count&#39;).value) || 1) } : {};
-    const saved = { id: existing?.id || `pm-${Date.now()}`, type, name, area: Number(areaText), material, customMaterial: material === &#39;其他&#39; ? customMaterial : &#39;&#39;, builtYear: builtYearText ? Number(builtYearText) : null, lastRenovatedYear: renovatedYearText ? Number(renovatedYearText) : null, status: document.getElementById(&#39;playground-module-status&#39;).value, remarks: document.getElementById(&#39;playground-module-remarks&#39;).value.trim(), details, renovations: existing?.renovations || [] };
+    const savedAt = formatDateTime();
+    const saved = { id: existing?.id || `pm-${Date.now()}`, type, name, area: Number(areaText), material, customMaterial: material === &#39;其他&#39; ? customMaterial : &#39;&#39;, builtYear: builtYearText ? Number(builtYearText) : null, lastRenovatedYear: renovatedYearText ? Number(renovatedYearText) : null, status: document.getElementById(&#39;playground-module-status&#39;).value, remarks: document.getElementById(&#39;playground-module-remarks&#39;).value.trim(), details, renovations: existing?.renovations || [], addedAt: existing?.addedAt || savedAt, updatedAt: savedAt };
     venue.playgroundModules = existing ? venue.playgroundModules.map(item =&gt; item.id === existing.id ? saved : item) : [...(venue.playgroundModules || []), saved];
     venue.playgroundAudit = [[existing ? &#39;编辑场地模块&#39; : &#39;新增场地模块&#39;, saved.name, &#39;张老师&#39;, formatDateTime()], ...(venue.playgroundAudit || [])];
     venue.updated = formatDateTime();
@@ -2253,8 +2358,12 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     if (kind === &#39;equipment&#39;) {
       const name = document.getElementById(&#39;equipment-name&#39;).value.trim();
       const quantity = Number(document.getElementById(&#39;equipment-quantity&#39;).value);
-      if (!name || !(quantity &gt; 0)) { error.textContent = &#39;请填写器材名称和有效数量。&#39;; error.hidden = false; return; }
-      venue.equipment = [...(Array.isArray(venue.equipment) ? venue.equipment : []), { id: `e${Date.now()}`, category: document.getElementById(&#39;equipment-category&#39;).value, name, quantity, status: document.getElementById(&#39;equipment-status&#39;).value, addedAt }];
+      if (!name || !Number.isInteger(quantity) || quantity &lt;= 0) { error.textContent = &#39;请填写器材名称和大于 0 的整数数量。&#39;; error.hidden = false; return; }
+      const equipmentId = playgroundRecordForm.dataset.equipmentId;
+      const existing = (Array.isArray(venue.equipment) ? venue.equipment : []).find(item =&gt; item.id === equipmentId);
+      const saved = { id: existing?.id || `e${Date.now()}`, category: document.getElementById(&#39;equipment-category&#39;).value, name, quantity, status: document.getElementById(&#39;equipment-status&#39;).value, addedAt: existing?.addedAt || addedAt, updatedAt: addedAt };
+      venue.equipment = existing ? venue.equipment.map(item =&gt; item.id === existing.id ? saved : item) : [...(Array.isArray(venue.equipment) ? venue.equipment : []), saved];
+      venue.playgroundAudit = [[existing ? &#39;编辑器材信息&#39; : &#39;新增器材信息&#39;, saved.name, &#39;张老师&#39;, addedAt], ...(venue.playgroundAudit || [])];
     } else {
       const date = document.getElementById(&#39;renovation-date&#39;).value;
       const company = document.getElementById(&#39;renovation-company&#39;).value.trim();
@@ -2265,6 +2374,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       module.renovations = [{ id: `pmr-${Date.now()}`, date, company, content: contentValue, addedAt }, ...(Array.isArray(module.renovations) ? module.renovations : [])];
       const recordYear = Number(String(date).slice(0, 4));
       if (recordYear &amp;&amp; (!module.lastRenovatedYear || recordYear &gt; module.lastRenovatedYear)) module.lastRenovatedYear = recordYear;
+      module.updatedAt = addedAt;
       venue.playgroundAudit = [[&#39;新增模块改造记录&#39;, module.name, &#39;张老师&#39;, addedAt], ...(venue.playgroundAudit || [])];
     }
     venue.updated = addedAt;
@@ -2273,7 +2383,9 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     playgroundRecordModal.hidden = true;
     renderDetail();
     refreshIcons();
-    showToast(kind === &#39;equipment&#39; ? &#39;器材信息已添加&#39; : &#39;改造记录已添加&#39;);
+    const equipmentUpdated = kind === &#39;equipment&#39; &amp;&amp; Boolean(playgroundRecordForm.dataset.equipmentId);
+    playgroundRecordForm.dataset.equipmentId = &#39;&#39;;
+    showToast(kind === &#39;equipment&#39; ? (equipmentUpdated ? &#39;器材信息已更新&#39; : &#39;器材信息已添加&#39;) : &#39;改造记录已添加&#39;);
   }
 
   function syncSchoolAreaDifference() {
@@ -2339,7 +2451,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   });
 
   portalSwitch.addEventListener(&#39;change&#39;, () =&gt; {
-    state.portal = portalSwitch.value; state.module = &#39;workspace&#39;; state.page = state.portal === &#39;school&#39; ? &#39;buildings&#39; : &#39;building-query&#39;; state.selectedVenue = null; state.selectedFacility = null; clearFilters(); render(); showToast(`已切换到${state.portal === &#39;school&#39; ? &#39;学校端&#39; : &#39;教育局端&#39;}`);
+    closeEquipmentDetailModal(); state.portal = portalSwitch.value; state.module = &#39;workspace&#39;; state.page = state.portal === &#39;school&#39; ? &#39;buildings&#39; : &#39;building-query&#39;; state.selectedVenue = null; state.selectedFacility = null; clearFilters(); clearDetailFilters(); render(); showToast(`已切换到${state.portal === &#39;school&#39; ? &#39;学校端&#39; : &#39;教育局端&#39;}`);
   });
 
   root.addEventListener(&#39;click&#39;, event =&gt; {
@@ -2349,13 +2461,13 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       return;
     }
     const workspaceButton = event.target.closest(&#39;[data-workspace]&#39;);
-    if (workspaceButton) { state.module = &#39;workspace&#39;; state.selectedVenue = null; state.selectedFacility = null; clearFilters(); render(); return; }
+    if (workspaceButton) { closeEquipmentDetailModal(); state.module = &#39;workspace&#39;; state.selectedVenue = null; state.selectedFacility = null; clearFilters(); clearDetailFilters(); render(); return; }
     const moduleButton = event.target.closest(&#39;[data-module]&#39;);
-    if (moduleButton) { state.module = moduleButton.dataset.module; state.page = state.portal === &#39;school&#39; ? &#39;buildings&#39; : &#39;building-query&#39;; state.selectedVenue = null; state.selectedFacility = null; clearFilters(); render(); return; }
+    if (moduleButton) { closeEquipmentDetailModal(); state.module = moduleButton.dataset.module; state.page = state.portal === &#39;school&#39; ? &#39;buildings&#39; : &#39;building-query&#39;; state.selectedVenue = null; state.selectedFacility = null; clearFilters(); clearDetailFilters(); render(); return; }
     const pageButton = event.target.closest(&#39;[data-page]&#39;);
-    if (pageButton) { state.page = pageButton.dataset.page; state.selectedVenue = null; state.selectedFacility = null; clearFilters(); render(); return; }
+    if (pageButton) { closeEquipmentDetailModal(); state.page = pageButton.dataset.page; state.selectedVenue = null; state.selectedFacility = null; clearFilters(); clearDetailFilters(); render(); return; }
     const detailButton = event.target.closest(&#39;[data-detail]&#39;);
-    if (detailButton) { state.selectedVenue = detailButton.dataset.detail; state.selectedFacility = null; state.selectedPlaygroundModule = null; state.detailTab = &#39;profile&#39;; render(); return; }
+    if (detailButton) { closeEquipmentDetailModal(); state.selectedVenue = detailButton.dataset.detail; state.selectedFacility = null; state.selectedPlaygroundModule = null; state.detailTab = &#39;profile&#39;; clearDetailFilters(); render(); return; }
     const addButton = event.target.closest(&#39;[data-add]&#39;);
     if (addButton) { openVenueModal(addButton.dataset.add); return; }
     const editSchoolArea = event.target.closest(&#39;[data-edit-school-area]&#39;);
@@ -2375,9 +2487,9 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     const resetButton = event.target.closest(&#39;[data-reset-filter]&#39;);
     if (resetButton) { clearFilters(); render(); return; }
     const backButton = event.target.closest(&#39;[data-back]&#39;);
-    if (backButton) { const venue = venues.find(v =&gt; v.id === state.selectedVenue); state.page = venue?.type === &#39;BUILDING&#39; ? (state.portal === &#39;bureau&#39; ? &#39;building-query&#39; : &#39;buildings&#39;) : (state.portal === &#39;bureau&#39; ? &#39;playground-query&#39; : &#39;playgrounds&#39;); state.selectedVenue = null; state.selectedFacility = null; render(); return; }
+    if (backButton) { closeEquipmentDetailModal(); const venue = venues.find(v =&gt; v.id === state.selectedVenue); state.page = venue?.type === &#39;BUILDING&#39; ? (state.portal === &#39;bureau&#39; ? &#39;building-query&#39; : &#39;buildings&#39;) : (state.portal === &#39;bureau&#39; ? &#39;playground-query&#39; : &#39;playgrounds&#39;); state.selectedVenue = null; state.selectedFacility = null; clearDetailFilters(); render(); return; }
     const tabButton = event.target.closest(&#39;[data-tab]&#39;);
-    if (tabButton) { state.detailTab = tabButton.dataset.tab; state.selectedFacility = null; state.selectedPlaygroundModule = null; renderDetail(); refreshIcons(); return; }
+    if (tabButton) { closeEquipmentDetailModal(); state.detailTab = tabButton.dataset.tab; state.selectedFacility = null; state.selectedPlaygroundModule = null; renderDetail(); refreshIcons(); return; }
     const editRowButton = event.target.closest(&#39;[data-edit-row]&#39;);
     if (editRowButton) {
       const venue = venues.find(v =&gt; v.id === editRowButton.dataset.editRow);
@@ -2406,6 +2518,8 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     if (facilityBack) { state.selectedFacility = null; renderDetail(); refreshIcons(); return; }
     const editFacility = event.target.closest(&#39;[data-edit-facility]&#39;);
     if (editFacility) { openFacilityModal(Number(editFacility.dataset.editFacility)); return; }
+    const deleteFacility = event.target.closest(&#39;[data-delete-facility]&#39;);
+    if (deleteFacility) { const facility = facilities.find(item =&gt; item.id === deleteFacility.dataset.deleteFacility); if (!facility || state.portal === &#39;bureau&#39;) return; state.pendingFacility = facility.id; document.getElementById(&#39;confirm-title&#39;).textContent = `确认删除“${facility.name}”？`; document.getElementById(&#39;confirm-message&#39;).textContent = `删除后将同步移除该专项设施的 ${facility.repairs?.length || 0} 条维修记录，请确认是否继续。`; confirmAction.textContent = &#39;确认删除&#39;; confirmModal.hidden = false; refreshIcons(); return; }
     const addRepair = event.target.closest(&#39;[data-add-repair]&#39;);
     if (addRepair) { openRepairModal(Number(addRepair.dataset.addRepair)); return; }
     const addPlaygroundModule = event.target.closest(&#39;[data-add-playground-module]&#39;);
@@ -2418,10 +2532,22 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     if (editPlaygroundModule) { openPlaygroundModuleModal(editPlaygroundModule.dataset.editPlaygroundModule); return; }
     const deletePlaygroundModule = event.target.closest(&#39;[data-delete-playground-module]&#39;);
     if (deletePlaygroundModule) { const venue = venues.find(item =&gt; item.id === state.selectedVenue); const module = venue?.playgroundModules?.find(item =&gt; item.id === deletePlaygroundModule.dataset.deletePlaygroundModule); if (!module || state.portal === &#39;bureau&#39;) return; state.pendingPlaygroundModule = module.id; document.getElementById(&#39;confirm-title&#39;).textContent = `确认删除“${module.name}”？`; document.getElementById(&#39;confirm-message&#39;).textContent = `删除后将同步移除该模块的 ${module.renovations?.length || 0} 条改造记录，操作将写入模拟日志。`; confirmAction.textContent = &#39;确认删除&#39;; confirmModal.hidden = false; refreshIcons(); return; }
+    const resetFacilityFilter = event.target.closest(&#39;[data-reset-facility-filter]&#39;);
+    if (resetFacilityFilter) { state.facilityTypeFilter = &#39;&#39;; state.facilityNameFilter = &#39;&#39;; state.facilityStatusFilter = &#39;&#39;; renderDetail(); refreshIcons(); return; }
+    const resetPlaygroundModuleFilter = event.target.closest(&#39;[data-reset-playground-module-filter]&#39;);
+    if (resetPlaygroundModuleFilter) { state.playgroundModuleTypeFilter = &#39;&#39;; state.playgroundModuleNameFilter = &#39;&#39;; state.playgroundModuleStatusFilter = &#39;&#39;; renderDetail(); refreshIcons(); return; }
     const addModuleRenovation = event.target.closest(&#39;[data-add-module-renovation]&#39;);
     if (addModuleRenovation) { state.selectedPlaygroundModule = addModuleRenovation.dataset.addModuleRenovation; openPlaygroundRecordModal(&#39;module-renovation&#39;); return; }
     const addEquipment = event.target.closest(&#39;[data-add-equipment]&#39;);
     if (addEquipment) { openPlaygroundRecordModal(&#39;equipment&#39;); return; }
+    const equipmentDetail = event.target.closest(&#39;[data-equipment-detail]&#39;);
+    if (equipmentDetail) { openEquipmentDetailModal(equipmentDetail.dataset.equipmentDetail); return; }
+    const closeEquipmentDetail = event.target.closest(&#39;[data-close-equipment-detail]&#39;);
+    if (closeEquipmentDetail) { closeEquipmentDetailModal(); return; }
+    const editEquipment = event.target.closest(&#39;[data-edit-equipment]&#39;);
+    if (editEquipment) { openPlaygroundRecordModal(&#39;equipment&#39;, editEquipment.dataset.editEquipment); return; }
+    const deleteEquipment = event.target.closest(&#39;[data-delete-equipment]&#39;);
+    if (deleteEquipment) { const venue = venues.find(item =&gt; item.id === state.selectedVenue &amp;&amp; item.type === &#39;PLAYGROUND&#39;); const equipment = venue?.equipment?.find(item =&gt; item.id === deleteEquipment.dataset.deleteEquipment); if (!equipment || state.portal === &#39;bureau&#39;) return; state.pendingEquipment = equipment.id; document.getElementById(&#39;confirm-title&#39;).textContent = `确认删除“${equipment.name}”？`; document.getElementById(&#39;confirm-message&#39;).textContent = &#39;删除后该器材记录将从当前操场档案中移除，请确认是否继续。&#39;; confirmAction.textContent = &#39;确认删除&#39;; confirmModal.hidden = false; refreshIcons(); return; }
     const closeFacility = event.target.closest(&#39;[data-close-facility]&#39;);
     if (closeFacility) { facilityModal.hidden = true; return; }
     const closeRepair = event.target.closest(&#39;[data-close-repair]&#39;);
@@ -2460,8 +2586,19 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   root.addEventListener(&#39;keydown&#39;, event =&gt; {
     if (event.key === &#39;Escape&#39;) { modal.hidden = true; confirmModal.hidden = true; facilityModal.hidden = true; repairModal.hidden = true; playgroundModuleModal.hidden = true; playgroundRecordModal.hidden = true; }
   });
-  root.querySelector(&#39;[data-cancel-confirm]&#39;).addEventListener(&#39;click&#39;, () =&gt; { confirmModal.hidden = true; state.pendingVenue = null; state.pendingPlaygroundModule = null; });
+  root.querySelector(&#39;[data-cancel-confirm]&#39;).addEventListener(&#39;click&#39;, () =&gt; { confirmModal.hidden = true; state.pendingVenue = null; state.pendingPlaygroundModule = null; state.pendingFacility = null; state.pendingEquipment = null; });
   confirmAction.addEventListener(&#39;click&#39;, () =&gt; {
+    if (state.pendingEquipment) {
+      const venue = venues.find(item =&gt; item.id === state.selectedVenue &amp;&amp; item.type === &#39;PLAYGROUND&#39;);
+      const equipment = venue?.equipment?.find(item =&gt; item.id === state.pendingEquipment);
+      if (venue &amp;&amp; equipment) { const deletedAt = formatDateTime(); venue.equipment = venue.equipment.filter(item =&gt; item.id !== equipment.id); venue.updated = deletedAt; venue.playgroundAudit = [[&#39;删除器材信息&#39;, equipment.name, &#39;张老师&#39;, deletedAt], ...(venue.playgroundAudit || [])]; persistVenueRecords(); persistPlaygroundRecords(); }
+      state.pendingEquipment = null; confirmModal.hidden = true; renderDetail(); refreshIcons(); showToast(&#39;器材信息已删除&#39;); return;
+    }
+    if (state.pendingFacility) {
+      const facility = facilities.find(item =&gt; item.id === state.pendingFacility);
+      if (facility) facilities = facilities.filter(item =&gt; item.id !== facility.id);
+      state.pendingFacility = null; state.selectedFacility = null; confirmModal.hidden = true; persistFacilities(); renderDetail(); refreshIcons(); showToast(&#39;专项设施及其维修记录已删除&#39;); return;
+    }
     if (state.pendingPlaygroundModule) {
       const venue = venues.find(item =&gt; item.id === state.selectedVenue &amp;&amp; item.type === &#39;PLAYGROUND&#39;);
       const module = venue?.playgroundModules?.find(item =&gt; item.id === state.pendingPlaygroundModule);
@@ -2586,10 +2723,11 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       fireQuantity: isFireFacility ? numberOrNull(&#39;facility-fire-quantity&#39;) : null,
       fireUnit: isFireFacility ? document.getElementById(&#39;facility-fire-unit&#39;).value : &#39;&#39;,
       detail,
-      history: &#39;刚刚更新&#39;
+      history: &#39;刚刚更新&#39;,
+      updatedAt: formatDateTime()
     };
     const index = Number(facilityForm.dataset.editIndex);
-    if (index &gt;= 0) facilities[index] = stripDeprecatedFacilityFields({ ...facilities[index], ...payload }); else facilities = [{ ...payload, repairs: [] }, ...facilities];
+    if (index &gt;= 0) facilities[index] = stripDeprecatedFacilityFields({ ...facilities[index], ...payload }); else facilities = [{ ...payload, id: `facility-${Date.now()}`, addedAt: payload.updatedAt, repairs: [] }, ...facilities];
     persistFacilities();
     facilityModal.hidden = true;
     renderDetail(); refreshIcons(); showToast(index &gt;= 0 ? &#39;专项设施子档案已更新&#39; : &#39;专项设施子档案已新增&#39;);
@@ -2610,8 +2748,10 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     const facility = facilities[facilityIndex];
     if (!facility) return;
     if (!Array.isArray(facility.repairs)) facility.repairs = [];
-    facility.repairs.unshift({ date, company, content: contentValue, warranty, createdAt: formatDateTime() });
+    const repairedAt = formatDateTime();
+    facility.repairs.unshift({ date, company, content: contentValue, warranty, createdAt: repairedAt });
     facility.history = `${facility.repairs.length}条维修记录`;
+    facility.updatedAt = repairedAt;
     persistFacilities();
     repairModal.hidden = true;
     renderDetail();
@@ -2653,10 +2793,14 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     }
     const filterMap = { &#39;status-filter&#39;: &#39;usageFilter&#39;, &#39;school-filter&#39;: &#39;schoolFilter&#39;, &#39;type-filter&#39;: &#39;typeFilter&#39;, &#39;purpose-filter&#39;: &#39;purposeFilter&#39;, &#39;year-filter&#39;: &#39;yearFilter&#39;, &#39;structure-filter&#39;: &#39;structureFilter&#39; };
     if (filterMap[event.target.id]) { state[filterMap[event.target.id]] = event.target.value; renderVenueList(currentVenueType()); refreshIcons(); }
+    const detailFilterMap = { &#39;facility-type-filter&#39;: &#39;facilityTypeFilter&#39;, &#39;facility-status-filter&#39;: &#39;facilityStatusFilter&#39;, &#39;playground-module-type-filter&#39;: &#39;playgroundModuleTypeFilter&#39;, &#39;playground-module-status-filter&#39;: &#39;playgroundModuleStatusFilter&#39; };
+    if (detailFilterMap[event.target.id]) { state[detailFilterMap[event.target.id]] = event.target.value; renderDetail(); refreshIcons(); }
   });
   content.addEventListener(&#39;input&#39;, event =&gt; {
     if (event.target.id === &#39;venue-search&#39;) { state.keyword = event.target.value; renderVenueList(currentVenueType()); document.getElementById(&#39;venue-search&#39;).focus(); document.getElementById(&#39;venue-search&#39;).setSelectionRange(state.keyword.length, state.keyword.length); refreshIcons(); }
     if (event.target.id === &#39;school-statistics-search&#39;) { state.schoolStatsKeyword = event.target.value; state.schoolStatsPage = 1; renderSchoolStatistics(); document.getElementById(&#39;school-statistics-search&#39;).focus(); document.getElementById(&#39;school-statistics-search&#39;).setSelectionRange(state.schoolStatsKeyword.length, state.schoolStatsKeyword.length); refreshIcons(); }
+    if (event.target.id === &#39;facility-name-filter&#39;) { state.facilityNameFilter = event.target.value; renderDetail(); const input = document.getElementById(&#39;facility-name-filter&#39;); input.focus(); input.setSelectionRange(state.facilityNameFilter.length, state.facilityNameFilter.length); refreshIcons(); }
+    if (event.target.id === &#39;playground-module-name-filter&#39;) { state.playgroundModuleNameFilter = event.target.value; renderDetail(); const input = document.getElementById(&#39;playground-module-name-filter&#39;); input.focus(); input.setSelectionRange(state.playgroundModuleNameFilter.length, state.playgroundModuleNameFilter.length); refreshIcons(); }
   });
 
   function saveVenueRecord() {
@@ -3057,6 +3201,8 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
         ['档案名称','facilityName','单行文本','用户输入','facilities[].name','是','非空文本','普通文本','空','无','专项设施列表标题','请输入档案名称'],
         ['当前状态','facilityStatus','下拉选择','配置枚举','facilities[].status','是','单选','良好、需维修','良好','固定枚举','不与消防检查结论自动联动','请选择当前状态'],
         ['最近改造年份','facilityYear','数字输入','用户输入','facilities[].year','否','1900–当前年份+1','四位年份','空','无','全部专项设施统一显示','年份不合法'],
+        ['专项设施添加时间','facilityAddedAt','只读展示','系统时间','facilities[].addedAt','否','精确到秒','YYYY-MM-DD HH:mm:ss','新增时生成','无','列表和详情展示；编辑保持不变','无'],
+        ['专项设施更新时间','facilityUpdatedAt','只读展示','系统时间','facilities[].updatedAt','否','精确到秒','YYYY-MM-DD HH:mm:ss','新增时生成','无','编辑或新增维修记录时刷新','无'],
         ['门类型','doorType','下拉选择','配置枚举','facilities[].doorType','否','单选','防盗门、木门、防火门、玻璃门','空','固定枚举','仅门显示','无'],
         ['门所在位置','doorLocation','单行文本','用户输入','facilities[].doorLocation','否','0–100 字符','普通文本','空','无','仅门显示','最多 100 字符'],
         ['门数量','doorCount','数字输入','用户输入','facilities[].doorCount','否','1–9999 整数','樘','空','无','仅门显示','请输入有效整数'],
@@ -3112,8 +3258,9 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
         ['场地模块类型／名称','playgroundModules.type/name','下拉／文本','用户输入','venues.playgroundModules[]','是','名称非空','文本','户外草坪','户外草坪、田径场、足球场、篮球场、排球场、网球场、羽毛球场、乒乓球场、其他','同类型允许重复新增','请完整填写模块信息'],
         ['模块面积／材质／状态','playgroundModules.area/material/status','数字／下拉','用户输入','venues.playgroundModules[]','是','面积>0，最多两位小数','㎡／文本','空','塑胶、人工草坪、天然草坪、硅PU、水泥、沥青、木地板、悬浮地板、其他','其他材质必须填名称','请输入有效面积和材质'],
         ['模块建造／最近改造年份','playgroundModules.builtYear/lastRenovatedYear','数字输入','用户输入','venues.playgroundModules[]','否','1800–当前年份+1','四位年份','空','无','新增改造记录时同步更新','年份不合法'],
+        ['模块添加／更新时间','playgroundModules.addedAt/updatedAt','只读展示','系统时间','venues.playgroundModules[]','否','精确到秒','YYYY-MM-DD HH:mm:ss','新增时生成','无','编辑或新增改造记录时刷新更新时间','无'],
         ['分类扩展信息','playgroundModules.details','动态表单','用户输入','venues.playgroundModules[].details','否','数量为非负整数','文本／整数','空','灌溉方式、跑道数、跑道规格、场地制式、球门数、球场规格和数量','按模块类型显示','数量格式不合法'],
-        ['器材分类／名称／数量／状态','equipment.*','表单字段','用户输入','venues.equipment[]','新增器材时必填','名称非空；数量>0整数','文本／整数','状态默认良好，其余为空','体育器材、健身器材；良好、需要维护、停用','保存后生成添加时间','器材信息不完整'],
+        ['器材分类／名称／数量／状态','equipment.*','表单字段','用户输入','venues.equipment[]','新增和编辑时必填','名称非空；数量>0整数','文本／整数','状态默认良好，其余为空','体育器材、健身器材；良好、需要维护、停用','列表连续编号；查看使用与编辑同尺寸的纯只读弹窗且仅提供关闭；学校端可在列表直接编辑并二次确认删除，教育局只读','器材信息不完整'],
         ['模块改造时间／施工单位／内容','playgroundModules.renovations.*','表单字段','用户输入','venues.playgroundModules[].renovations[]','新增改造时必填','日期、单位及内容非空','日期／文本','空','无','仅在所属场地模块详情展示','改造信息不完整'],
         ['备注','remarks','多行文本','用户输入','venues.remarks','否','0–300 字符','普通文本','空','无','无','备注最多 300 字符'],
         ['操场附件','attachments','文件多选','用户选择','venues.attachments','否','最多 10 个；单个≤10MB','名称、大小、类型、添加时间','空列表','PDF、DOC、DOCX、XLS、XLSX、PNG、JPG、JPEG','只保存元数据，不保存二进制','请选择有效文件']
