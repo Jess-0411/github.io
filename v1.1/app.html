@@ -952,6 +952,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
             &lt;label class=&quot;form-label&quot;&gt;设施类型 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;facility-type&quot;&gt;&lt;option&gt;门&lt;/option&gt;&lt;option&gt;窗&lt;/option&gt;&lt;option&gt;防水&lt;/option&gt;&lt;option&gt;外墙&lt;/option&gt;&lt;option&gt;内墙&lt;/option&gt;&lt;option&gt;卫生间&lt;/option&gt;&lt;option&gt;浴室&lt;/option&gt;&lt;option&gt;消防设施&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label&quot;&gt;档案名称 &lt;b&gt;*&lt;/b&gt;&lt;input class=&quot;form-control&quot; id=&quot;facility-name&quot; placeholder=&quot;例如：主楼防水&quot; required&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label&quot;&gt;当前状态 &lt;b&gt;*&lt;/b&gt;&lt;select class=&quot;form-select&quot; id=&quot;facility-status&quot;&gt;&lt;option&gt;良好&lt;/option&gt;&lt;option&gt;需维修&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+            &lt;label class=&quot;form-label&quot;&gt;维修状态&lt;input class=&quot;form-control&quot; id=&quot;facility-repair-status&quot; value=&quot;未维修&quot; readonly aria-readonly=&quot;true&quot;&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label&quot;&gt;&lt;span id=&quot;facility-year-label&quot;&gt;最近改造年份&lt;/span&gt;&lt;input class=&quot;form-control year-picker-input&quot; id=&quot;facility-year&quot; data-year-picker data-min-year=&quot;1900&quot; placeholder=&quot;请选择年份&quot; readonly&gt;&lt;/label&gt;
           &lt;/div&gt;
           &lt;div id=&quot;door-fields&quot; class=&quot;facility-extra-fields&quot;&gt;
@@ -1191,6 +1192,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   #education-management-app .status-tag { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 999px; background: color-mix(in srgb, var(--primary) 8%, var(--card)); color: var(--foreground); border: 1px solid color-mix(in srgb, var(--primary) 12%, var(--border)); white-space: nowrap; }
   #education-management-app .status-tag.active { background: color-mix(in srgb, var(--viz-series-2) 14%, var(--card)); border-color: color-mix(in srgb, var(--viz-series-2) 34%, var(--border)); }
   #education-management-app .status-tag.warning { background: color-mix(in srgb, var(--viz-series-3) 16%, var(--card)); border-color: color-mix(in srgb, var(--viz-series-3) 38%, var(--border)); }
+  #education-management-app .status-tag.expired { background: color-mix(in srgb, var(--destructive) 12%, var(--card)); border-color: color-mix(in srgb, var(--destructive) 32%, var(--border)); color: var(--destructive); }
   #education-management-app .status-tag.inactive { background: color-mix(in srgb, var(--muted) 72%, var(--card)); color: var(--muted-foreground); }
   #education-management-app .action-group { display: flex; align-items: center; gap: 4px; white-space: nowrap; }
   #education-management-app .action-link { appearance: none; border: 0; background: transparent; color: var(--primary); padding: 5px 4px; cursor: pointer; }
@@ -1448,6 +1450,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   #education-management-app .status-tag { padding: 3px 9px; border: 0; border-radius: 6px; background: #edf3f9; color: #667994; font-weight: 500; }
   #education-management-app .status-tag.active { background: #e7f8ef; color: #229968; }
   #education-management-app .status-tag.warning { background: #fff4e5; color: #d98517; }
+  #education-management-app .status-tag.expired { background: #fff0f0; color: #d9363e; }
   #education-management-app .status-tag.inactive { background: #eef1f5; color: #7b8798; }
   #education-management-app .action-link { color: #1677df; padding: 6px 5px; }
   #education-management-app .action-link:hover { color: #095fbe; }
@@ -1609,7 +1612,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
 
   const bathroomSeed = { type: &#39;浴室&#39;, name: &#39;体育馆一层公共浴室&#39;, status: &#39;良好&#39;, year: 2024, bathroomLocation: &#39;体育馆一层东侧&#39;, bathroomType: &#39;公共浴室&#39;, showerCount: 12, bathroomArea: 96.5, detail: &#39;浴室设施运行正常，地面及排水区域保持整洁。&#39;, repairs: [] };
   let facilities = [
-    { type: &#39;门&#39;, name: &#39;教学楼东侧入口门&#39;, status: &#39;良好&#39;, year: 2021, doorType: &#39;防火门&#39;, doorLocation: &#39;教学楼东侧入口&#39;, doorCount: 4, doorHardwareStatus: &#39;完好&#39;, detail: &#39;开启顺畅，闭门器运行正常。&#39;, repairs: [{ date: &#39;2024-03-18&#39;, company: &#39;北京启安门窗工程有限公司&#39;, content: &#39;更换损坏五金件并完成调试。&#39;, warranty: &#39;3年&#39;, createdAt: &#39;2024-03-18 15:42:16&#39; }] },
+    { type: &#39;门&#39;, name: &#39;教学楼东侧入口门&#39;, status: &#39;良好&#39;, year: 2021, doorType: &#39;防火门&#39;, doorLocation: &#39;教学楼东侧入口&#39;, doorCount: 4, doorHardwareStatus: &#39;完好&#39;, detail: &#39;开启顺畅，闭门器运行正常。&#39;, repairs: [{ date: &#39;2024-03-18&#39;, company: &#39;北京启安门窗工程有限公司&#39;, content: &#39;更换损坏五金件并完成调试。&#39;, warranty: &#39;1年&#39;, createdAt: &#39;2024-03-18 15:42:16&#39; }] },
     { type: &#39;窗&#39;, name: &#39;教学楼南立面窗&#39;, status: &#39;良好&#39;, year: 2021, windowType: &#39;平开窗&#39;, frameMaterial: &#39;断桥铝合金&#39;, glassType: &#39;双层中空Low-E&#39;, windowLocation: &#39;教学楼南立面&#39;, windowCount: 32, windowHardwareStatus: &#39;完好&#39;, windowSealingPerformance: &#39;良好&#39;, detail: &#39;窗扇启闭正常，密封条完整。&#39;, repairs: [] },
     { type: &#39;防水&#39;, name: &#39;主楼屋面防水&#39;, status: &#39;良好&#39;, year: 2023, roofType: &#39;可上人&#39;, waterproofLocation: &#39;屋面&#39;, waterproofMaterial: &#39;SBS改性沥青卷材&#39;, waterproofGrade: &#39;I级&#39;, waterproofArea: 860.5, detail: &#39;排水口周边及女儿墙收口完整。&#39;, repairs: [{ date: &#39;2025-06-12&#39;, company: &#39;华北校园防水工程有限公司&#39;, content: &#39;修补屋面排水口周边开裂区域并重新铺设卷材。&#39;, warranty: &#39;3年&#39;, createdAt: &#39;2025-06-12 10:18:35&#39; }] },
     { type: &#39;外墙&#39;, name: &#39;教学楼外墙&#39;, status: &#39;需维修&#39;, year: 2019, exteriorLocation: &#39;教学楼南立面&#39;, facadeMaterial: &#39;涂料&#39;, insulationType: &#39;外墙外保温&#39;, insulationMaterial: &#39;岩棉板&#39;, insulationThickness: &#39;60&#39;, detail: &#39;局部饰面需要修补。&#39;, repairs: [] },
@@ -1676,6 +1679,26 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     return date.getFullYear() === year &amp;&amp; date.getMonth() === month - 1 &amp;&amp; date.getDate() === day;
   };
   const warrantyDurations = [&#39;1个月&#39;, &#39;3个月&#39;, &#39;6个月&#39;, &#39;1年&#39;, &#39;3年&#39;, &#39;5年&#39;, &#39;8年&#39;, &#39;10年&#39;];
+  const warrantyMonthsByLabel = { &#39;1个月&#39;: 1, &#39;3个月&#39;: 3, &#39;6个月&#39;: 6, &#39;1年&#39;: 12, &#39;2年&#39;: 24, &#39;3年&#39;: 36, &#39;5年&#39;: 60, &#39;8年&#39;: 96, &#39;10年&#39;: 120 };
+  const addCalendarMonths = (value, months) =&gt; {
+    if (!isValidDateSelection(value) || !Number.isInteger(months)) return null;
+    const [year, month, day] = value.split(&#39;-&#39;).map(Number);
+    const targetMonth = month - 1 + months;
+    const lastDay = new Date(year, targetMonth + 1, 0).getDate();
+    return new Date(year, targetMonth, Math.min(day, lastDay));
+  };
+  const getFacilityRepairStatus = facility =&gt; {
+    const repairs = Array.isArray(facility?.repairs) ? facility.repairs : [];
+    if (!repairs.length) return &#39;未维修&#39;;
+    const latest = repairs.filter(repair =&gt; isValidDateSelection(repair.date)).sort((left, right) =&gt; right.date.localeCompare(left.date))[0];
+    if (!latest) return &#39;已维修&#39;;
+    const warrantyEnd = addCalendarMonths(latest.date, warrantyMonthsByLabel[latest.warranty]);
+    if (!warrantyEnd) return &#39;已维修&#39;;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return today &gt; warrantyEnd ? &#39;过保&#39; : &#39;已维修&#39;;
+  };
+  const repairStatusTag = status =&gt; `&lt;span class=&quot;status-tag${status === &#39;已维修&#39; ? &#39; active&#39; : status === &#39;过保&#39; ? &#39; expired&#39; : &#39; inactive&#39;}&quot;&gt;${status}&lt;/span&gt;`;
   const setYearSelectValue = (id, value) =&gt; {
     const input = document.getElementById(id);
     const normalized = value === null || value === undefined ? &#39;&#39; : String(value);
@@ -2084,7 +2107,8 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
                 : facility.type === &#39;消防设施&#39;
                   ? [[&#39;消防设施类别&#39;, facility.fireCategory], [&#39;设置位置&#39;, facility.fireLocation], [&#39;数量&#39;, facility.fireQuantity ? `${facility.fireQuantity}${facility.fireUnit || &#39;&#39;}` : &#39;&#39;], [&#39;单位&#39;, !facility.fireQuantity ? facility.fireUnit : &#39;&#39;]]
           : [];
-    const fields = [[&#39;设施类型&#39;, facility.type], [&#39;当前状态&#39;, facility.status], [&#39;最近改造年份&#39;, facility.year ? `${facility.year}年` : &#39;&#39;], [&#39;添加时间&#39;, formatDateTime(facility.addedAt)], [&#39;更新时间&#39;, formatDateTime(facility.updatedAt)], ...typeFields, [&#39;备注&#39;, facility.detail]].filter(item =&gt; item[1]);
+    const repairStatus = getFacilityRepairStatus(facility);
+    const fields = [[&#39;设施类型&#39;, facility.type], [&#39;当前状态&#39;, facility.status], [&#39;维修状态&#39;, repairStatusTag(repairStatus)], [&#39;最近改造年份&#39;, facility.year ? `${facility.year}年` : &#39;&#39;], [&#39;添加时间&#39;, formatDateTime(facility.addedAt)], [&#39;更新时间&#39;, formatDateTime(facility.updatedAt)], ...typeFields, [&#39;备注&#39;, facility.detail]].filter(item =&gt; item[1]);
     return `&lt;div class=&quot;facility-detail-view&quot;&gt;&lt;div class=&quot;facility-detail-header&quot;&gt;&lt;div class=&quot;facility-detail-title&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-facility-back&gt;${icon(&#39;arrow-left&#39;)} 返回专项设施&lt;/button&gt;&lt;strong&gt;${facility.type} &amp;#183; ${facility.name}&lt;/strong&gt;&lt;span class=&quot;facility-summary&quot;&gt;查看设施档案信息及历次维修记录&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;facility-detail-actions&quot;&gt;&lt;span class=&quot;status-tag${facility.status === &#39;需维修&#39; ? &#39; warning&#39; : &#39; active&#39;}&quot;&gt;${facility.status}&lt;/span&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-edit-facility=&quot;${facilityIndex}&quot;&gt;编辑档案&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;detail-grid&quot;&gt;${fields.map(item =&gt; `&lt;div class=&quot;detail-item&quot;&gt;&lt;span&gt;${item[0]}&lt;/span&gt;&lt;strong&gt;${item[1]}&lt;/strong&gt;&lt;/div&gt;`).join(&#39;&#39;)}&lt;/div&gt;${renderRepairModule(facility, facilityIndex, readonly)}&lt;/div&gt;`;
   }
 
@@ -2104,7 +2128,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       .filter(({ facility }) =&gt; !state.facilityStatusFilter || facility.status === state.facilityStatusFilter);
     const hasFilter = Boolean(state.facilityTypeFilter || state.facilityNameFilter.trim() || state.facilityStatusFilter);
     const countText = hasFilter ? `共 ${rows.length} 项，全部 ${facilities.length} 项` : `共 ${facilities.length} 项子档案`;
-    const table = rows.length ? `&lt;div class=&quot;table-responsive&quot;&gt;&lt;table class=&quot;table table-sm detail-list-table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th class=&quot;text-center&quot;&gt;序号&lt;/th&gt;&lt;th&gt;设施类型&lt;/th&gt;&lt;th&gt;档案名称&lt;/th&gt;&lt;th&gt;最近改造年份&lt;/th&gt;&lt;th&gt;当前状态&lt;/th&gt;&lt;th&gt;添加时间&lt;/th&gt;&lt;th&gt;更新时间&lt;/th&gt;&lt;th&gt;操作&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${rows.map(({ facility, index }, serial) =&gt; `&lt;tr&gt;&lt;td class=&quot;text-center&quot;&gt;${serial + 1}&lt;/td&gt;&lt;td&gt;${facility.type}&lt;/td&gt;&lt;td class=&quot;record-name&quot;&gt;${facility.name}&lt;/td&gt;&lt;td&gt;${facility.year ? `${facility.year}年` : &#39;—&#39;}&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;status-tag${facility.status === &#39;需维修&#39; ? &#39; warning&#39; : &#39; active&#39;}&quot;&gt;${facility.status}&lt;/span&gt;&lt;/td&gt;&lt;td&gt;${formatDateTime(facility.addedAt)}&lt;/td&gt;&lt;td&gt;${formatDateTime(facility.updatedAt)}&lt;/td&gt;&lt;td&gt;&lt;div class=&quot;action-group&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-facility-detail=&quot;${index}&quot;&gt;查看&lt;/button&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-edit-facility=&quot;${index}&quot;&gt;编辑&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;action-link is-danger&quot; data-delete-facility=&quot;${facility.id}&quot;&gt;删除&lt;/button&gt;`}&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;`).join(&#39;&#39;)}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;` : `&lt;div class=&quot;empty-state&quot;&gt;${icon(&#39;inbox&#39;)}&lt;p&gt;暂无符合条件的专项设施&lt;/p&gt;${hasFilter ? &#39;&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-reset-facility-filter&gt;清空筛选&lt;/button&gt;&#39; : &#39;&#39;}&lt;/div&gt;`;
+    const table = rows.length ? `&lt;div class=&quot;table-responsive&quot;&gt;&lt;table class=&quot;table table-sm detail-list-table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th class=&quot;text-center&quot;&gt;序号&lt;/th&gt;&lt;th&gt;设施类型&lt;/th&gt;&lt;th&gt;档案名称&lt;/th&gt;&lt;th&gt;最近改造年份&lt;/th&gt;&lt;th&gt;当前状态&lt;/th&gt;&lt;th&gt;维修状态&lt;/th&gt;&lt;th&gt;添加时间&lt;/th&gt;&lt;th&gt;更新时间&lt;/th&gt;&lt;th&gt;操作&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;${rows.map(({ facility, index }, serial) =&gt; `&lt;tr&gt;&lt;td class=&quot;text-center&quot;&gt;${serial + 1}&lt;/td&gt;&lt;td&gt;${facility.type}&lt;/td&gt;&lt;td class=&quot;record-name&quot;&gt;${facility.name}&lt;/td&gt;&lt;td&gt;${facility.year ? `${facility.year}年` : &#39;—&#39;}&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;status-tag${facility.status === &#39;需维修&#39; ? &#39; warning&#39; : &#39; active&#39;}&quot;&gt;${facility.status}&lt;/span&gt;&lt;/td&gt;&lt;td&gt;${repairStatusTag(getFacilityRepairStatus(facility))}&lt;/td&gt;&lt;td&gt;${formatDateTime(facility.addedAt)}&lt;/td&gt;&lt;td&gt;${formatDateTime(facility.updatedAt)}&lt;/td&gt;&lt;td&gt;&lt;div class=&quot;action-group&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-facility-detail=&quot;${index}&quot;&gt;查看&lt;/button&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;action-link&quot; data-edit-facility=&quot;${index}&quot;&gt;编辑&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;action-link is-danger&quot; data-delete-facility=&quot;${facility.id}&quot;&gt;删除&lt;/button&gt;`}&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;`).join(&#39;&#39;)}&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;` : `&lt;div class=&quot;empty-state&quot;&gt;${icon(&#39;inbox&#39;)}&lt;p&gt;暂无符合条件的专项设施&lt;/p&gt;${hasFilter ? &#39;&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-reset-facility-filter&gt;清空筛选&lt;/button&gt;&#39; : &#39;&#39;}&lt;/div&gt;`;
     return `&lt;div class=&quot;attachment-panel&quot;&gt;&lt;div class=&quot;detail-list-toolbar&quot;&gt;&lt;div class=&quot;detail-list-filters&quot;&gt;&lt;select class=&quot;form-select&quot; id=&quot;facility-type-filter&quot; aria-label=&quot;按设施类型筛选&quot;&gt;&lt;option value=&quot;&quot;&gt;全部设施类型&lt;/option&gt;${typeOptions.map(type =&gt; `&lt;option${state.facilityTypeFilter === type ? &#39; selected&#39; : &#39;&#39;}&gt;${type}&lt;/option&gt;`).join(&#39;&#39;)}&lt;/select&gt;&lt;input class=&quot;form-control&quot; id=&quot;facility-name-filter&quot; aria-label=&quot;按档案名称筛选&quot; placeholder=&quot;输入档案名称筛选&quot; value=&quot;${state.facilityNameFilter}&quot;&gt;&lt;select class=&quot;form-select&quot; id=&quot;facility-status-filter&quot; aria-label=&quot;按当前状态筛选&quot;&gt;&lt;option value=&quot;&quot;&gt;全部当前状态&lt;/option&gt;${[&#39;良好&#39;,&#39;需维修&#39;].map(status =&gt; `&lt;option${state.facilityStatusFilter === status ? &#39; selected&#39; : &#39;&#39;}&gt;${status}&lt;/option&gt;`).join(&#39;&#39;)}&lt;/select&gt;${hasFilter ? &#39;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-reset-facility-filter&gt;重置筛选&lt;/button&gt;&#39; : &#39;&#39;}&lt;/div&gt;&lt;div class=&quot;action-group&quot;&gt;&lt;span class=&quot;detail-list-count&quot;&gt;${countText}&lt;/span&gt;${readonly ? &#39;&#39; : `&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-add-facility&gt;${icon(&#39;plus&#39;)} 新增子档案&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;${table}&lt;/div&gt;`;
   }
 
@@ -2213,6 +2237,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     document.getElementById(&#39;facility-type&#39;).value = facility?.type || &#39;门&#39;;
     document.getElementById(&#39;facility-name&#39;).value = facility?.name || &#39;&#39;;
     document.getElementById(&#39;facility-status&#39;).value = facility?.status || &#39;良好&#39;;
+    document.getElementById(&#39;facility-repair-status&#39;).value = getFacilityRepairStatus(facility);
     setYearSelectValue(&#39;facility-year&#39;, facility?.year);
     document.getElementById(&#39;facility-door-type&#39;).value = facility?.doorType || &#39;&#39;;
     document.getElementById(&#39;facility-door-location&#39;).value = facility?.doorLocation || &#39;&#39;;
@@ -3293,6 +3318,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
         ['设施类型','facilityType','下拉选择','配置枚举','facilities[].type','是','单选','门、窗、防水、外墙、内墙、卫生间、浴室、消防设施','门','固定枚举','切换类型专属字段','请选择设施类型'],
         ['档案名称','facilityName','单行文本','用户输入','facilities[].name','是','非空文本','普通文本','空','无','专项设施列表标题','请输入档案名称'],
         ['当前状态','facilityStatus','下拉选择','配置枚举','facilities[].status','是','单选','良好、需维修','良好','固定枚举','不与消防检查结论自动联动','请选择当前状态'],
+        ['维修状态','repairStatus','只读展示','系统实时计算','不持久化','否','未维修、已维修、过保','状态标签','未维修','按最新维修日期和保修期限计算','紧跟当前状态展示；改造和更换记录不参与','无'],
         ['最近改造年份','facilityYear','年份下拉','配置枚举','facilities[].year','否','1900–当前年份+1','四位年份','空','按当前年份动态生成','全部专项设施统一显示','请选择有效年份'],
         ['专项设施添加时间','facilityAddedAt','只读展示','系统时间','facilities[].addedAt','否','精确到秒','YYYY-MM-DD HH:mm:ss','新增时生成','无','列表和详情展示；编辑保持不变','无'],
         ['专项设施更新时间','facilityUpdatedAt','只读展示','系统时间','facilities[].updatedAt','否','精确到秒','YYYY-MM-DD HH:mm:ss','新增时生成','无','编辑或新增维修记录时刷新','无'],

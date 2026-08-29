@@ -3,12 +3,12 @@
   "versions": [
     {
       "version": "1.1",
-      "releaseDate": "2026-08-28",
+      "releaseDate": "2026-08-29",
       "status": "CURRENT",
       "path": "./v1.1/",
       "notesPath": "./v1.1/release-notes.html",
-      "releaseTag": "v1.1.8",
-      "summary": "建筑管理场地模块与专项设施已列表化，器材详情已调整为纯只读弹窗。",
+      "releaseTag": "v1.1.9",
+      "summary": "建筑管理专项设施新增按维修记录与保修期限实时计算的维修状态。",
       "changes": [
         "教育局端项目管理下新增项目办理菜单与七类独立办理标签",
         "七类办理分别提供页面、详情和办理弹窗 PRD 及前置办理流程图",
@@ -23,13 +23,14 @@
         "建筑管理双端页面内 PRD 与独立 Markdown PRD 已按当前原型全量同步",
         "学校端和教育局端建筑管理新增 PC 云首页组件，展示角色范围内的学校、建筑和操场统计",
         "操场场地模块与建筑专项设施改为带组合筛选、序号、时间字段及双端权限控制的表格列表",
-        "器材详情改为纯只读弹窗，标题下不展示说明文字，底部仅保留关闭操作，学校端列表编辑入口保持不变"
+        "器材详情改为纯只读弹窗，标题下不展示说明文字，底部仅保留关闭操作，学校端列表编辑入口保持不变",
+        "专项设施在当前状态后新增只读维修状态，并按最新维修日期与保修期限实时计算未维修、已维修和过保"
       ],
-      "appSha256": "5e9fade1d27c059c8f2cb885ceadc31362bfcf11d14f67d2c84b374db14271c6",
-      "appGitBlobSha": "2362f67671a9a2d32e8ed8254a1119bd502f3e0b",
+      "appSha256": "2769b034427d67cdc6da8554a0b08f7bdbae2c1f69307a7926165333093dc521",
+      "appGitBlobSha": "e0f5b5cb0e26f1df125dec8965069328b96cd2a0",
       "projectSha256": "1b9f7cfb7b04896e0d27a0994a54dbd9f06e03fd279feb262a587169688d6dc0",
       "projectGitBlobSha": "14010e0a0c823b22be93f7ae4c82a20c04b82abc",
-      "packageSha256": "b78ce61ea4d7652f7d915a2c37288c149e51f92de5c033d5be59314123730e1b",
+      "packageSha256": "0f857193d940ad9f11fe39b49cf7c9e85375df78a785c763087bd08c4b7c3bff",
       "storageNamespace": "edu-prototype-v1.1:"
     },
     {
