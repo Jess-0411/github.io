@@ -25,11 +25,11 @@
         "操场场地模块与建筑专项设施改为带组合筛选、序号、时间字段及双端权限控制的表格列表",
         "器材详情改为纯只读弹窗，标题下不展示说明文字，底部仅保留关闭操作，学校端列表编辑入口保持不变"
       ],
-      "appSha256": "d3292ff6f299f925653c46e3c3bed8b614ea6123322eb1e823773eda0141a3cb",
-      "appGitBlobSha": "8b5b31bc6603e027ff12eca20a03140ba0efe5c0",
+      "appSha256": "5e9fade1d27c059c8f2cb885ceadc31362bfcf11d14f67d2c84b374db14271c6",
+      "appGitBlobSha": "2362f67671a9a2d32e8ed8254a1119bd502f3e0b",
       "projectSha256": "1b9f7cfb7b04896e0d27a0994a54dbd9f06e03fd279feb262a587169688d6dc0",
       "projectGitBlobSha": "14010e0a0c823b22be93f7ae4c82a20c04b82abc",
-      "packageSha256": "5083a1ef30a79feded09ecc0142d1c9e3d351ac5fabc9f22af03a3cf8643c980",
+      "packageSha256": "b78ce61ea4d7652f7d915a2c37288c149e51f92de5c033d5be59314123730e1b",
       "storageNamespace": "edu-prototype-v1.1:"
     },
     {
