@@ -4,17 +4,12 @@
 <script id="versioned-project-bootstrap-v1">
 (() => {
   const portal = new URLSearchParams(location.search).get('portal') === 'bureau' ? 'bureau' : 'school';
-  const workbenchUrl = () => {
-    const url = new URL('./app.html', location.href);
-    url.searchParams.set('view', 'workbench');
-    url.searchParams.set('portal', portal);
-    return url.href;
-  };
+  const projectSelectionUrl = 'https://jess-0411.github.io/project-management/';
   window.addEventListener('click', event => {
     if (!event.target.closest?.('#returnWorkbench,[data-return-workbench]')) return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    location.assign(workbenchUrl());
+    location.assign(projectSelectionUrl);
   }, true);
   window.addEventListener('DOMContentLoaded', () => {
     const selector = portal === 'bureau'

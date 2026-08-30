@@ -3233,11 +3233,14 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
 (() => {
   const frame = document.querySelector('iframe');
   if (!frame) return;
+  const buildingSelectionUrl = 'https://jess-0411.github.io/building-management/';
+  const projectSelectionUrl = 'https://jess-0411.github.io/project-management/';
   const parameters = new URLSearchParams(location.search);
   const portalParameter = parameters.get('portal');
   const requestedView = parameters.get('view');
   const portal = portalParameter === 'bureau' ? 'bureau' : 'school';
   const shouldOpenProject = requestedView === 'project' || (!requestedView && Boolean(portalParameter));
+  const shouldOpenBuilding = requestedView === 'building';
   const projectUrl = targetPortal => {
     const url = new URL('./project.html', location.href);
     url.searchParams.set('portal', targetPortal === 'bureau' ? 'bureau' : 'school');
@@ -3255,12 +3258,58 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   }
   let activePortal = portal;
   let ready = false;
+  let buildingRouteDocument = null;
+  const markReady = () => {
+    if (ready) return;
+    ready = true;
+    requestAnimationFrame(() => document.body.classList.add('route-ready'));
+  };
+  const updateBuildingLocation = targetPortal => {
+    const url = new URL(location.href);
+    url.searchParams.set('view', 'building');
+    url.searchParams.set('portal', targetPortal === 'bureau' ? 'bureau' : 'school');
+    history.replaceState(null, '', url);
+  };
+  const openBuilding = () => {
+    const documentInFrame = frame.contentDocument;
+    if (!documentInFrame) return false;
+    const target = documentInFrame.querySelector('[data-module="venue"]');
+    if (target) target.click();
+    if (target || documentInFrame.querySelector('[data-workspace]')) {
+      markReady();
+      return true;
+    }
+    return false;
+  };
+  const installBuildingRoute = () => {
+    const documentInFrame = frame.contentDocument;
+    if (!documentInFrame || buildingRouteDocument === documentInFrame) return;
+    buildingRouteDocument = documentInFrame;
+    documentInFrame.addEventListener('click', event => {
+      if (!event.target.closest?.('[data-workspace]')) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      location.assign(buildingSelectionUrl);
+    }, true);
+    documentInFrame.addEventListener('change', event => {
+      if (event.target?.id !== 'portal-switch') return;
+      setTimeout(() => {
+        activePortal = event.target.value === 'bureau' ? 'bureau' : 'school';
+        updateBuildingLocation(activePortal);
+        openBuilding();
+      }, 0);
+    }, true);
+  };
   const reveal = () => {
     frame.contentWindow?.postMessage({ type: 'set-portal', portal: activePortal }, '*');
-    if (!ready) {
-      ready = true;
-      requestAnimationFrame(() => document.body.classList.add('route-ready'));
+    if (shouldOpenBuilding) {
+      installBuildingRoute();
+      setTimeout(openBuilding, 0);
+      setTimeout(openBuilding, 60);
+      setTimeout(openBuilding, 180);
+      return;
     }
+    markReady();
   };
   frame.addEventListener('load', reveal);
   if (frame.contentDocument?.readyState === 'complete' || frame.contentDocument?.readyState === 'interactive') reveal();
@@ -3274,8 +3323,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       return;
     }
     if (event.data?.type === 'project-back') {
-      activePortal = event.data.portal === 'bureau' ? 'bureau' : 'school';
-      location.assign(workbenchUrl(activePortal));
+      location.assign(projectSelectionUrl);
     }
   });
 })();
