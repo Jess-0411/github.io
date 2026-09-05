@@ -26,11 +26,11 @@
         "器材详情改为纯只读弹窗，标题下不展示说明文字，底部仅保留关闭操作，学校端列表编辑入口保持不变",
         "专项设施在当前状态后新增只读维修状态，并按最新维修日期与保修期限实时计算未维修、已维修和过保"
       ],
-      "appSha256": "12ad2874a7da166e7df9438de3f03a23875972dae0ee08611e31853d889de5b7",
-      "appGitBlobSha": "378ba838a0b307cd6fabbce4f9cbd4da753c5de4",
+      "appSha256": "eb05c8bd018e3b11263329c99404a90faca2615f92df54babb9d612c70bcab63",
+      "appGitBlobSha": "da08b2bcf9f694c1b516153ce991d578c8b63c24",
       "projectSha256": "44b4b8ece8781b9c08fb0d135618f8c66d12236ac43a0135ce67cc87b6794461",
       "projectGitBlobSha": "b2343d357959e0c5f3b252405c8a58a49b4f794f",
-      "packageSha256": "4a09db16d032d4e289ca6b6fb6bc0f234ec3cdd9673b49b3069d28058790f8e9",
+      "packageSha256": "c9ad073c66fcc0f32d63d74386b451b18504c404e7cbd891127ebca22439e44e",
       "storageNamespace": "edu-prototype-v1.1:"
     },
     {
