@@ -1710,11 +1710,26 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     console.warn(&#39;统一操作日志读取失败，重新迁移默认日志。&#39;, error);
     venueAuditLogs = migrateLegacyVenueAuditLogs();
   }
+  const attachmentAuditAction = (verb, venueType) =&gt; venueType === &#39;BUILDING&#39; ? `${verb}建筑附件` : venueType === &#39;PLAYGROUND&#39; ? `${verb}操场附件` : `${verb}附件`;
+  const inferAuditVenueType = (log, logs) =&gt; {
+    const currentVenue = venues.find(venue =&gt; String(venue.id) === String(log.parentVenueId));
+    if (currentVenue?.type === &#39;BUILDING&#39; || currentVenue?.type === &#39;PLAYGROUND&#39;) return currentVenue.type;
+    const venueLog = logs.find(item =&gt; String(item.targetId) === String(log.parentVenueId) &amp;&amp; [&#39;建筑档案&#39;, &#39;操场档案&#39;].includes(item.targetType));
+    return venueLog?.targetType === &#39;建筑档案&#39; ? &#39;BUILDING&#39; : venueLog?.targetType === &#39;操场档案&#39; ? &#39;PLAYGROUND&#39; : null;
+  };
+  let attachmentAuditActionsNormalized = false;
+  venueAuditLogs = venueAuditLogs.map(log =&gt; {
+    if (![&#39;上传附件&#39;, &#39;删除附件&#39;].includes(log.action)) return log;
+    const venueType = inferAuditVenueType(log, venueAuditLogs);
+    if (!venueType) return log;
+    attachmentAuditActionsNormalized = true;
+    return { ...log, action: attachmentAuditAction(log.action === &#39;上传附件&#39; ? &#39;上传&#39; : &#39;删除&#39;, venueType) };
+  });
   const persistAuditLogs = () =&gt; {
     try { localStorage.setItem(venueAuditStorageKey, JSON.stringify(venueAuditLogs)); return true; }
     catch (error) { console.warn(&#39;统一操作日志暂存失败。&#39;, error); return false; }
   };
-  if (!venueAuditStorageReady) persistAuditLogs();
+  if (!venueAuditStorageReady || attachmentAuditActionsNormalized) persistAuditLogs();
   const appendAuditLogs = entries =&gt; {
     const occurredAt = formatDateTime();
     const created = entries.map((entry, index) =&gt; ({
@@ -1750,8 +1765,8 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     demoBuildings.slice(0, 3).forEach((building, index) =&gt; commitBusinessOperation(occurredAt =&gt; { building.name = `操作日志演示教学楼${index + 1}（已更新）`; building.remarks = &#39;已通过建筑档案编辑业务更新。&#39;; building.updated = occurredAt; }, persistVenueBusinessData, { action: &#39;编辑建筑档案&#39;, targetType: &#39;建筑档案&#39;, targetId: building.id, targetName: `操作日志演示教学楼${index + 1}（已更新）`, school, parentVenueId: building.id, sourceKey: venueRecordStorageKey }));
     const attachmentVenue = demoBuildings[0];
     const demoAttachments = Array.from({ length: 8 }, (_, index) =&gt; ({ id: `${auditDemoScenarioPrefix}-attachment-${index + 1}`, name: `操作日志演示附件${index + 1}.${index % 2 === 0 ? &#39;pdf&#39; : &#39;docx&#39;}`, size: 256000 + index * 32000, type: index % 2 === 0 ? &#39;PDF&#39; : &#39;Word&#39; }));
-    demoAttachments.forEach(attachment =&gt; commitBusinessOperation(occurredAt =&gt; { attachment.addedAt = occurredAt; attachmentVenue.attachments = [...(attachmentVenue.attachments || []), attachment]; }, persistAttachments, { action: &#39;上传附件&#39;, targetType: &#39;附件&#39;, targetId: attachment.id, targetName: attachment.name, school, parentVenueId: attachmentVenue.id, sourceKey: attachmentStorageKey }));
-    demoAttachments.slice(0, 3).forEach(attachment =&gt; commitBusinessOperation(() =&gt; { attachmentVenue.attachments = (attachmentVenue.attachments || []).filter(item =&gt; item.id !== attachment.id); }, persistAttachments, { action: &#39;删除附件&#39;, targetType: &#39;附件&#39;, targetId: attachment.id, targetName: attachment.name, school, parentVenueId: attachmentVenue.id, sourceKey: attachmentStorageKey }));
+    demoAttachments.forEach(attachment =&gt; commitBusinessOperation(occurredAt =&gt; { attachment.addedAt = occurredAt; attachmentVenue.attachments = [...(attachmentVenue.attachments || []), attachment]; }, persistAttachments, { action: attachmentAuditAction(&#39;上传&#39;, attachmentVenue.type), targetType: &#39;附件&#39;, targetId: attachment.id, targetName: attachment.name, school, parentVenueId: attachmentVenue.id, sourceKey: attachmentStorageKey }));
+    demoAttachments.slice(0, 3).forEach(attachment =&gt; commitBusinessOperation(() =&gt; { attachmentVenue.attachments = (attachmentVenue.attachments || []).filter(item =&gt; item.id !== attachment.id); }, persistAttachments, { action: attachmentAuditAction(&#39;删除&#39;, attachmentVenue.type), targetType: &#39;附件&#39;, targetId: attachment.id, targetName: attachment.name, school, parentVenueId: attachmentVenue.id, sourceKey: attachmentStorageKey }));
     const facilityTypes = [&#39;门&#39;, &#39;窗&#39;, &#39;防水&#39;, &#39;消防设施&#39;];
     const demoFacilities = facilityTypes.map((type, index) =&gt; ({ id: `${auditDemoScenarioPrefix}-facility-${index + 1}`, type, name: `操作日志演示${type}设施${index + 1}`, status: &#39;良好&#39;, year: 2022 + index, detail: &#39;由专项设施新增业务生成。&#39;, repairs: [] }));
     demoFacilities.forEach(facility =&gt; commitBusinessOperation(occurredAt =&gt; { facility.addedAt = occurredAt; facility.updatedAt = occurredAt; facilities = [...facilities, facility]; }, persistFacilities, { action: &#39;新增专项设施&#39;, targetType: &#39;专项设施&#39;, targetId: facility.id, targetName: facility.name, school, parentVenueId: attachmentVenue.id, sourceKey: facilityStorageKey }));
@@ -2801,7 +2816,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       if (!attachment || state.portal === &#39;bureau&#39;) return;
       venue.attachments = venue.attachments.filter(file =&gt; file.id !== deleteAttachment.dataset.deleteAttachment);
       const attachmentsPersisted = persistAttachments();
-      if (attachmentsPersisted) appendAuditLog({ action: &#39;删除附件&#39;, targetType: &#39;附件&#39;, targetId: attachment.id, targetName: attachment.name, school: venue.school, parentVenueId: venue.id, sourceKey: attachmentStorageKey });
+      if (attachmentsPersisted) appendAuditLog({ action: attachmentAuditAction(&#39;删除&#39;, venue.type), targetType: &#39;附件&#39;, targetId: attachment.id, targetName: attachment.name, school: venue.school, parentVenueId: venue.id, sourceKey: attachmentStorageKey });
       renderDetail(); refreshIcons(); showToast(`“${attachment?.name || &#39;附件&#39;}”已删除`);
       return;
     }
@@ -3035,7 +3050,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       const newAttachments = files.map((file, index) =&gt; ({ id: `a${Date.now()}-${index}`, name: file.name, size: file.size, type: attachmentType(file.name), addedAt }));
       venue.attachments = [...currentAttachments, ...newAttachments];
       const attachmentsPersisted = persistAttachments();
-      if (attachmentsPersisted) appendAuditLogs(newAttachments.map(attachment =&gt; ({ action: &#39;上传附件&#39;, targetType: &#39;附件&#39;, targetId: attachment.id, targetName: attachment.name, school: venue.school, parentVenueId: venue.id, occurredAt: addedAt, sourceKey: attachmentStorageKey })));
+      if (attachmentsPersisted) appendAuditLogs(newAttachments.map(attachment =&gt; ({ action: attachmentAuditAction(&#39;上传&#39;, venue.type), targetType: &#39;附件&#39;, targetId: attachment.id, targetName: attachment.name, school: venue.school, parentVenueId: venue.id, occurredAt: addedAt, sourceKey: attachmentStorageKey })));
       event.target.value = &#39;&#39;;
       renderDetail(); refreshIcons(); showToast(`已上传 ${files.length} 个附件`);
       return;
@@ -3634,11 +3649,12 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
       const acceptanceItems=schoolStatistics?['学校统计表格固定展示八列，字段来源与计算口径和第 4.1 节一致。','默认第 1 页且每页 10 所学校，上一页、页码、下一页状态正确，筛选后回到第 1 页。','导出当前筛选后的全部结果，文件名为“学校建筑统计.xlsx”，工作表名为“学校统计”。','Excel 数量和面积为数值单元格，面积最多保留两位小数，未登记学校面积留空。','无符合条件数据时显示空状态并禁用导出；导出和翻页均不修改 localStorage 业务数据。']:['PRD 仅出现当前“'+title+'”'+(isModal?'弹窗':'页面')+'实际存在的字段、筛选项、表头和操作。','不出现同模块其他页面、其他弹窗或当前界面不存在的状态。','当前界面每个可用按钮均产生明确交互结果，禁用按钮显示原因。','刷新后已保存数据仍可读取，页面不调用真实后端、数据库或文件服务器。'];if(hasListPagination)acceptanceItems.push('列表序号跨页连续，分页默认 10 条/页且可切换 10、20、50、100 条/页，单页和零数据仍展示分页组件。');
       if(type==='audit'){
         const auditReq=[
-          ['操作日志','全量成功变更','建筑档案、操场档案分别记录新增、编辑、删除；学校面积概况记录编辑；专项设施记录新增、编辑、删除及新增维修记录；场地模块记录新增、编辑、删除及新增模块改造记录；器材信息记录新增、编辑、删除；附件记录上传、删除。','P0','共 20 类运行时写操作'],
+          ['操作日志','全量成功变更','建筑档案、操场档案分别记录新增、编辑、删除；学校面积概况记录编辑；专项设施记录新增、编辑、删除及新增维修记录；场地模块记录新增、编辑、删除及新增模块改造记录；器材信息记录新增、编辑、删除；建筑附件和操场附件分别记录上传、删除。','P0','共 22 类运行时写操作'],
           ['操作日志','统一日志字段','每条日志包含 ID、操作类型、对象类型、对象 ID、对象名称、所属学校、上级场地 ID、操作人、操作时间和业务数据来源键。','P0','按操作时间倒序持久化'],
           ['操作日志','数据范围','学校端仅展示海淀区实验中学日志；教育局端展示管理范围内全部学校日志。','P0','删除业务对象后日志仍可查询'],
-          ['操作日志','生成边界','仅在业务数据保存成功后生成；查看、筛选、分页、预览、下载、导出、校验失败和取消操作不生成。','P0','批量上传 N 个附件生成 N 条日志'],
-          ['操作日志','一次性演示场景','首次加载 V1.1.12 时通过真实业务保存链路生成 28 条指定日志：新增建筑 5 条、编辑建筑 3 条、删除建筑 2 条、上传附件 8 条、删除附件 3 条、新增专项设施 4 条、新增维修记录 3 条。','P0','海淀区实验中学；张老师；保留原有 3 条默认日志'],
+          ['操作日志','生成边界','仅在业务数据保存成功后生成；查看、筛选、分页、预览、下载、导出、校验失败和取消操作不生成。','P0','批量上传 N 个附件生成 N 条所属场地类型对应的日志'],
+          ['操作日志','附件来源区分','建筑附件分别记录上传建筑附件、删除建筑附件；操场附件分别记录上传操场附件、删除操场附件，操作列直接区分。','P0','不增加列表列'],
+          ['操作日志','一次性演示场景','首次加载 V1.1.12 时通过真实业务保存链路生成 28 条指定日志：新增建筑 5 条、编辑建筑 3 条、删除建筑 2 条、上传建筑附件 8 条、删除建筑附件 3 条、新增专项设施 4 条、新增维修记录 3 条。','P0','海淀区实验中学；张老师；保留原有 3 条默认日志'],
           ['操作日志','迁移与重置','首次升级迁移旧学校面积日志、旧操场扩展日志及 3 条默认示例一次；一次性演示场景成功后写入标记，刷新不重复；重置清除运行时日志并仅恢复默认示例。','P0','重置后抑制 28 条演示日志自动重建']
         ];
         const auditSources=[
@@ -3646,11 +3662,11 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
           ['学校面积概况','edu-prototype-v1.1:education-school-area-profiles-v2','编辑学校面积概况'],
           ['专项设施与维修记录','edu-prototype-v1.1:education-building-facilities-v6','专项设施新增、编辑、删除及新增维修记录'],
           ['场地模块、改造记录和器材','edu-prototype-v1.1:education-playground-records-v1','模块、模块改造记录和器材的成功变更'],
-          ['附件','edu-prototype-v1.1:education-venue-attachments-v1','上传附件、删除附件'],
+          ['附件','edu-prototype-v1.1:education-venue-attachments-v1','上传建筑附件、删除建筑附件、上传操场附件、删除操场附件'],
           ['汇总操作日志','edu-prototype-v1.1:education-venue-audit-logs-v1','统一保存全部规范化日志记录'],
           ['一次性演示场景标记','edu-prototype-v1.1:education-venue-audit-demo-scenario-v1','记录 V1.1.12 的 28 次业务写入场景已完成或重置后已抑制']
         ];
-        return `<article class="venue-prd"><h3>1. 背景与目标</h3><p>将建筑管理分散日志和固定示例统一为可持久化、可追溯的运行时操作日志，覆盖全部成功数据变更并保留业务数据来源。</p><h3>2. 用户与使用场景</h3><p>学校端管理员查看本校建筑管理变更记录；教育局端管理员查看管理范围内跨学校变更记录，用于演示档案维护追溯。</p><h3>3. 需求范围</h3><h4>In Scope</h4><p>20 类成功写操作、统一日志字段、双端数据范围、旧日志一次性迁移、V1.1.12 的 28 次真实业务写入演示场景、分页及一键重置。</p><h4>Out of Scope</h4><p>查看、筛选、分页、预览、下载、导出、失败、取消等非成功变更行为；正式审计服务、真实 IP、服务端事务、防篡改及跨浏览器同步。</p><h3>4. 功能需求列表</h3>${table(['功能模块','功能点','需求描述','优先级（P0 / P1 / P2）','备注说明'],auditReq)}<h3>5. 核心流程与交互说明</h3><p>执行业务写操作 → 完成业务校验 → 持久化业务数据成功 → 生成规范化日志 → 写入统一日志集合 → 按时间倒序展示。V1.1.12 在场景标记不存在时按同一路径执行 28 次指定业务变更；全部成功后写入完成标记，刷新不重复执行。删除父对象引起的子数据级联清理仅生成父对象删除日志。</p><h3>6. 异常场景与边界条件</h3><ul><li>业务校验失败、用户取消或业务对象不存在时，不写入日志。</li><li>批量上传按每个成功保存的文件分别生成一条日志。</li><li>删除建筑、设施、模块、器材或附件后，日志中的对象名称、学校、上级场地和来源键保持不变。</li><li>统一日志键已存在时不重复迁移旧日志；一次性演示场景完成后刷新不得重复生成。</li><li>一键重置清除运行时日志并恢复原有 3 条默认示例，同时写入场景抑制标记，不生成“重置”日志。</li></ul><h3>7. 数据口径与埋点需求</h3>${table(['业务数据','数据来源','日志动作口径'],auditSources)}<p>日志字段为 id、action、targetType、targetId、targetName、school、parentVenueId、operator、occurredAt、sourceKey。一次性场景的所属学校固定为海淀区实验中学、操作人固定为张老师，业务数据与日志使用 audit-demo-v1112 前缀建立关联；原有 3 条默认日志保持不变。统一日志仅替代当前原型内的变更追踪，不接入正式埋点平台。</p><h3>8. 风险、依赖与限制</h3><p>日志与业务数据均保存在同一浏览器 localStorage；学校范围和教育局范围为前端演示约束，不具备生产级鉴权、事务一致性或防篡改能力。</p><h3>9. 验收标准</h3><ul><li>20 类成功写操作每次仅新增一条对应日志，批量上传 N 个附件新增 N 条日志。</li><li>首次加载通过业务写入生成 28 条指定日志，与未修改的 3 条默认日志合计 31 条；动作数量为 5、3、2、8、3、4、3。</li><li>28 条演示日志均包含对象名称、对象 ID、所属学校、上级场地 ID 和业务数据来源，按操作时间倒序展示。</li><li>删除业务对象后删除日志仍存在，且对象名称、所属学校、上级场地和来源键正确。</li><li>查看、筛选、翻页、详情、附件预览、下载、导出、校验失败和取消操作均不增加日志。</li><li>学校端仅展示本校日志，教育局端展示管理范围内全部日志；刷新后日志保留且不重复生成。</li><li>旧日志仅迁移一次；一键重置后仅恢复 3 条默认示例。</li></ul></article>`;
+        return `<article class="venue-prd"><h3>1. 背景与目标</h3><p>将建筑管理分散日志和固定示例统一为可持久化、可追溯的运行时操作日志，覆盖全部成功数据变更并保留业务数据来源。</p><h3>2. 用户与使用场景</h3><p>学校端管理员查看本校建筑管理变更记录；教育局端管理员查看管理范围内跨学校变更记录，用于演示档案维护追溯。</p><h3>3. 需求范围</h3><h4>In Scope</h4><p>22 类成功写操作、统一日志字段、建筑与操场附件动作区分、双端数据范围、旧日志一次性迁移、V1.1.12 的 28 次真实业务写入演示场景、分页及一键重置。</p><h4>Out of Scope</h4><p>查看、筛选、分页、预览、下载、导出、失败、取消等非成功变更行为；正式审计服务、真实 IP、服务端事务、防篡改及跨浏览器同步。</p><h3>4. 功能需求列表</h3>${table(['功能模块','功能点','需求描述','优先级（P0 / P1 / P2）','备注说明'],auditReq)}<h3>5. 核心流程与交互说明</h3><p>执行业务写操作 → 完成业务校验 → 持久化业务数据成功 → 根据所属场地类型生成规范化日志 → 写入统一日志集合 → 按时间倒序展示。V1.1.13 对历史通用附件日志执行幂等归类，不新增日志。删除父对象引起的子数据级联清理仅生成父对象删除日志。</p><h3>6. 异常场景与边界条件</h3><ul><li>业务校验失败、用户取消或业务对象不存在时，不写入日志。</li><li>批量上传按每个成功保存的文件分别生成一条建筑附件或操场附件日志。</li><li>历史通用附件日志优先通过 parentVenueId 匹配现存场地；父场地已删除时通过对应场地档案日志判断。</li><li>无法可靠判断所属场地类型的历史日志保留“上传附件／删除附件”，不得猜测归类。</li><li>删除建筑、设施、模块、器材或附件后，日志中的对象名称、学校、上级场地和来源键保持不变。</li><li>一键重置清除运行时日志并恢复原有 3 条默认示例，同时写入场景抑制标记，不生成“重置”日志。</li></ul><h3>7. 数据口径与埋点需求</h3>${table(['业务数据','数据来源','日志动作口径'],auditSources)}<p>日志字段为 id、action、targetType、targetId、targetName、school、parentVenueId、operator、occurredAt、sourceKey，字段结构保持不变。一次性场景的所属学校固定为海淀区实验中学、操作人固定为张老师；已有 V1.1.12 演示日志只转换可识别的附件动作，不重复生成。统一日志仅替代当前原型内的变更追踪，不接入正式埋点平台。</p><h3>8. 风险、依赖与限制</h3><p>日志与业务数据均保存在同一浏览器 localStorage；学校范围和教育局范围为前端演示约束，不具备生产级鉴权、事务一致性或防篡改能力。</p><h3>9. 验收标准</h3><ul><li>22 类成功写操作每次仅新增一条对应日志，批量上传 N 个附件新增 N 条所属场地类型对应的日志。</li><li>建筑附件显示上传建筑附件、删除建筑附件；操场附件显示上传操场附件、删除操场附件。</li><li>可识别的历史通用附件日志原位转换且刷新不重复，无法识别的日志保留原操作名称。</li><li>首次加载通过业务写入生成 28 条指定日志，与未修改的 3 条默认日志合计 31 条；动作数量为 5、3、2、8、3、4、3。</li><li>删除业务对象后删除日志仍存在，且对象名称、所属学校、上级场地和来源键正确。</li><li>查看、筛选、翻页、详情、附件预览、下载、导出、校验失败和取消操作均不增加日志。</li><li>学校端仅展示本校日志，教育局端展示管理范围内全部日志；刷新后日志保留且不重复生成。</li></ul></article>`;
       }
       if(schoolArea)return `<article class="venue-prd"><h3>1. 背景与目标</h3><p>学校面积概况是学校级独立统计数据，用于维护学校整体面积、租赁面积和自有面积，不从建筑或操场反推。</p><h3>2. 用户与使用场景</h3><p>学校端建筑物管理员在建筑管理页面单独编辑三项面积；教育局仅在学校统计页面读取结果。</p><h3>3. 需求范围</h3><h4>In Scope</h4><p>三项面积录入、数值校验、差额提示、独立 localStorage 保存和统一操作日志。</p><h4>Out of Scope</h4><p>建筑或操场面积汇总、权证、租赁合同、附件、教育局编辑和正式统计审计。</p><h3>4. 功能需求列表</h3>${table(['功能模块','功能点','需求描述','优先级（P0 / P1 / P2）','备注说明'],req)}<h4>4.1 当前界面表单字段</h4>${table(['字段名称','字段键','控件类型','数据来源','localStorage 字段','必填','长度／范围','格式规则','默认值','枚举选项','联动规则','错误提示'],safeFields)}<h4>4.2 当前界面按钮与权限</h4>${table(['按钮','出现条件','可操作端','可操作状态','点击结果','二次确认'],safeActions)}<h3>5. 核心流程与交互说明</h3><p>学校进入建筑管理 → 打开面积概况编辑弹窗 → 填写三项面积并校验 → 查看非阻断差额提示 → 保存独立记录 → 写入“编辑学校面积概况”操作日志。</p><h3>6. 异常场景与边界条件</h3><ul><li>学校整体面积必须大于 0，租赁和自有面积必须大于等于 0，均最多两位小数。</li><li>分项之和与整体面积不一致时仅提示差额，不阻止保存。</li><li>校验失败或取消操作不生成操作日志。</li><li>默认无记录时显示未登记状态，编辑弹窗使用空值；教育局端不提供编辑入口。</li></ul><h3>7. 数据口径与埋点需求</h3><p>业务数据写入 edu-prototype-v1.1:education-school-area-profiles-v2；成功保存后将来源键写入 edu-prototype-v1.1:education-venue-audit-logs-v1。保存不修改建筑、操场、项目或其更新时间。</p><h3>8. 风险、依赖与限制</h3><p>数据及日志仅保存在同一浏览器 localStorage；当前版本不包含正式面积统计口径、权证、合同、后端接口或生产级审计。</p><h3>9. 验收标准</h3><ul><li>默认无数据并可独立编辑三项面积。</li><li>校验、差额提示和保存反馈正确，成功保存仅新增一条对应日志。</li><li>刷新后数据和日志保留，且建筑、操场及项目数据不变。</li><li>教育局仅在学校统计中只读查看。</li></ul></article>`;
       if(schoolStatistics)return `<article class="venue-prd"><h3>1. 背景与目标</h3><p>当前版本为教育项目全过程管理交互原型。建设教育局端学校统计只读页面，按学校汇总面积概况、建筑和操场档案，并提供筛选、每页 10 条分页与离线 XLSX 导出。</p><h3>2. 用户与使用场景</h3><p>教育局端建筑物管理业务人员按学校名称检索统计结果，分页核对各校面积、建筑和操场汇总数据，并导出当前筛选范围内的全部结果。</p><h3>3. 需求范围</h3><h4>In Scope</h4><p>八项统计字段及来源口径、学校名称模糊筛选、每页 10 条分页、当前筛选结果的完整 Excel 导出、空值与无数据处理。</p><h4>Out of Scope</h4><p>统计数据编辑、排序、分页条数切换、导出确认、导出记录、后端文件生成、数据库、跨浏览器同步和正式统计审计。</p><h3>4. 功能需求列表</h3>${table(['功能模块','功能点','需求描述','优先级（P0 / P1 / P2）','备注说明'],req)}<h4>4.1 当前界面展示字段</h4>${table(['字段名称','数据来源与计算方式','展示格式','空值规则','权限差异'],displayRows)}<h4>4.2 当前界面表单字段</h4>${table(['字段名称','字段键','控件类型','数据来源','localStorage 字段','必填','长度／范围','格式规则','默认值','枚举选项','联动规则','错误提示'],safeFields)}<h4>4.3 当前界面列表与筛选</h4>${table(['筛选项','匹配字段','匹配方式','默认值','默认排序'],safeFilters)}<h4>4.4 当前界面按钮与权限</h4>${table(['按钮','出现条件','可操作端','可操作状态','点击结果','二次确认'],safeActions)}<h4>4.5 当前界面状态流转</h4>${table(['当前状态','操作','目标状态','操作端','记录内容','退回规则'],safeStates)}<h3>5. 核心流程与交互说明</h3><p>${processSteps.join(' → ')}。</p><p>学校名称筛选影响列表总量、有效页数和导出范围；分页只切分页面展示，导出始终读取当前筛选后的全部统计行。</p><h3>6. 异常场景与边界条件</h3><ul>${exceptionItems.map(item=>`<li>${esc(item)}</li>`).join('')}</ul><h3>7. 数据口径与埋点需求</h3><p>${esc(dataRules)}</p><h3>8. 风险、依赖与限制</h3><p>依赖同一浏览器 localStorage 中的建筑、操场基础档案和学校面积概况。Excel 由前端原生 JavaScript 在离线环境生成最小 Office Open XML 工作簿，不依赖后端、CDN 或运行时第三方库；浏览器按本地规则处理同名文件。</p><h3>9. 验收标准</h3><ul>${acceptanceItems.map(item=>`<li>${esc(item)}</li>`).join('')}</ul></article>`;
