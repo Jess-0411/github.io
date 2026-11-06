@@ -1,0 +1,68 @@
+{
+  "module": "building",
+  "repository": "Jess-0411/github.io",
+  "prefix": "",
+  "url": "https://jess-0411.github.io/github.io/",
+  "files": [
+    {
+      "path": ".nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "index.html",
+      "bytes": 5018,
+      "sha256": "75e998f078824c9ac00c8863bee41066df0f31e326f469345f8882b97aac7ea7"
+    },
+    {
+      "path": "v1.0/app.html",
+      "bytes": 226595,
+      "sha256": "ab626fcb184fc458012dc0f095f3831a802a3b2650c9fe27561e4e58e21c3787"
+    },
+    {
+      "path": "v1.0/assets/venue-management-logo.png",
+      "bytes": 862150,
+      "sha256": "d9c0cdef4fed9913381e0e6a54e7534c980af894d27188c707cc0f36b16775bc"
+    },
+    {
+      "path": "v1.0/index.html",
+      "bytes": 652,
+      "sha256": "03ff5a6126df2bee81999c6284f71623aa1012c565d7fb27b089b0c73b0fc8e8"
+    },
+    {
+      "path": "v1.0/release-notes.html",
+      "bytes": 3616,
+      "sha256": "bc01a230f5096497a5bad617c0cb80c453b9fe734a6ca8e9a8f6626133fe534f"
+    },
+    {
+      "path": "v1.1/app.html",
+      "bytes": 377974,
+      "sha256": "0b12f1abdde00cf7ed8f4dde39d018e930f72357067323f1c927a06384300a7e"
+    },
+    {
+      "path": "v1.1/assets/venue-management-logo.png",
+      "bytes": 862150,
+      "sha256": "d9c0cdef4fed9913381e0e6a54e7534c980af894d27188c707cc0f36b16775bc"
+    },
+    {
+      "path": "v1.1/index.html",
+      "bytes": 652,
+      "sha256": "0c5d8e66e15fd99b69782c4c5d035dd38fe718e8d57b0b05726a8fee467a81d3"
+    },
+    {
+      "path": "v1.1/release-notes.html",
+      "bytes": 3743,
+      "sha256": "9cf6e4145d2176ae429cbe550b5ff2a86604f0cdfd6f8d185d7097a75f91591d"
+    },
+    {
+      "path": "v1.1/VENUE_MANAGEMENT_PRD.md",
+      "bytes": 37717,
+      "sha256": "0b008a3233902e1ef3125c80f3b5ad1a148841cc9c051ca92ccfed2245310bf9"
+    },
+    {
+      "path": "versions.json",
+      "bytes": 999,
+      "sha256": "2cda6abc479150404e7808f2cf99c59828edc512be2f9c779c3dfae330bdc059"
+    }
+  ]
+}

@@ -1,10 +1,4 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>教育项目全过程管理系统｜版本选择</title>
-  <style>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>建筑管理｜版本选择</title><meta name="application-name" content="建筑管理"><style>
     :root{color-scheme:light;--blue:#1769e8;--blue-dark:#0e55bd;--blue-soft:#edf5ff;--text:#17243c;--muted:#6f7e96;--line:#dfe7f1;--bg:#f3f7fc;--card:#fff;--green:#15855d;--shadow:0 18px 50px rgba(36,63,105,.11)}
     *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;color:var(--text);background:var(--bg)}
     body:before{content:"";position:fixed;z-index:0;pointer-events:none;inset:0 0 auto;height:310px;background:linear-gradient(135deg,#0d5bd1,#2e83ef)}
@@ -13,38 +7,4 @@
     .versions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.version-card{border:1px solid var(--line);border-radius:12px;padding:22px;background:var(--card);display:flex;flex-direction:column;min-height:318px}.version-card.current{border-color:#97bff5;box-shadow:0 0 0 3px #edf5ff}.version-top{display:flex;align-items:center;justify-content:space-between;gap:16px}.version-top h3{margin:0;font-size:25px}.status{height:28px;padding:0 10px;border-radius:14px;display:inline-flex;align-items:center;background:#edf1f6;color:#647086;font-size:12px}.status.current{background:#e9f8f2;color:var(--green)}.date{color:var(--muted);font-size:13px;margin-top:9px}.summary{margin:18px 0 0;line-height:1.75;color:#46546d}.changes{margin:13px 0 24px;padding-left:20px;color:#637189;font-size:13px;line-height:1.8}.actions{display:flex;align-items:center;gap:12px;margin-top:auto}.enter{height:40px;padding:0 18px;border-radius:8px;background:var(--blue);color:#fff;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;font-weight:600}.enter:hover{background:var(--blue-dark)}.notes{color:var(--blue);text-decoration:none;font-size:13px}.notes:hover{text-decoration:underline}
     .foot{margin-top:20px;text-align:center;color:var(--muted);font-size:12px;line-height:1.8}.error{padding:40px;text-align:center;color:#b5474d;border:1px dashed #e0a6aa;border-radius:10px;background:#fff6f6}
     @media(max-width:760px){.page{width:min(100% - 24px,1120px);padding-top:30px}.hero h1{font-size:27px}.panel{padding:20px}.panel-head{align-items:flex-start;flex-direction:column}.isolation{white-space:normal}.versions{grid-template-columns:1fr}.version-card{min-height:auto}}
-  </style>
-</head>
-<body>
-  <main class="page">
-    <header class="hero">
-      <div class="eyebrow">INTERACTIVE PROTOTYPE</div>
-      <h1>教育项目全过程管理系统</h1>
-      <p>请选择需要查看的交互原型版本。历史版本保持冻结，当前版本用于最新需求演示与评审。</p>
-    </header>
-    <section class="panel">
-      <div class="panel-head">
-        <div><h2>版本选择</h2><p>版本需求、演示数据与页面 PRD 均独立保留。</p></div>
-        <div class="isolation">各版本演示数据独立保存，切换不会相互覆盖</div>
-      </div>
-      <div class="versions" id="versions"><div class="error">正在读取版本信息…</div></div>
-    </section>
-    <footer class="foot">本页面仅用于客户演示、需求确认和交互评审，不作为生产系统入口。</footer>
-  </main>
-  <script>
-    const fallback={versions:[
-      {version:'1.1',releaseDate:'2026-08-20',status:'CURRENT',path:'./v1.1/',notesPath:'./v1.1/release-notes.html',summary:'当前教育局项目办理与正式审批衔接版本。',changes:['七类办理分别提供独立 PRD 与前置办理流程图','PRD 补充原型与正式后端双层数据口径、状态生成规则和异常边界','七类办理列表使用各业务专属字段，办理确认突出发起部门']},
-      {version:'1.0',releaseDate:'2026-08-15',status:'HISTORICAL',path:'./v1.0/',notesPath:'./v1.0/release-notes.html',summary:'历史需求基线及付款审批演示数据补丁。',changes:['保留V1.0原学校端与教育局端业务交互','学校端付款审批补充五种审批状态演示记录','付款审批仅待校审记录可执行审批，其余状态只读查看']}
-    ]};
-    const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
-    const render=data=>{
-      const versions=Array.isArray(data?.versions)?data.versions:fallback.versions;
-      document.getElementById('versions').innerHTML=versions.map(item=>{
-        const current=item.status==='CURRENT';
-        return `<article class="version-card ${current?'current':''}"><div class="version-top"><h3>V${escapeHtml(item.version)}</h3><span class="status ${current?'current':''}">${current?'当前版本':'历史版本'}</span></div><div class="date">发布日期：${escapeHtml(item.releaseDate)}</div><p class="summary">${escapeHtml(item.summary)}</p><ul class="changes">${(item.changes||[]).map(change=>`<li>${escapeHtml(change)}</li>`).join('')}</ul><div class="actions"><a class="enter" href="${escapeHtml(item.path)}">进入版本</a><a class="notes" href="${escapeHtml(item.notesPath)}">查看版本说明</a></div></article>`;
-      }).join('');
-    };
-    fetch('./versions.json',{cache:'no-store'}).then(response=>{if(!response.ok)throw new Error('load failed');return response.json()}).then(render).catch(()=>render(fallback));
-  </script>
-</body>
-</html>
+  </style></head><body data-module-site="building"><main class="page"><header class="hero"><div class="eyebrow">INTERACTIVE PROTOTYPE</div><h1>建筑管理</h1><p>请选择建筑管理版本。学校端与教育局端在同一版本内切换。</p></header><section class="panel"><div class="panel-head"><div><h2>版本选择</h2><p>各版本保留对应的业务流程与演示数据。</p></div><div class="isolation">建筑管理独立更新</div></div><div class="versions"><article class="version-card current"><div class="version-top"><h3>V1.1</h3><span class="status current">当前版本</span></div><div class="date">v1.1.13</div><p class="summary">建筑、操场、学校面积、专项设施及操作日志管理。</p><ul class="changes"><li>两端建筑与操场查询，学校统计和导出</li><li>专项设施、场地模块和器材信息维护</li><li>22 类成功写操作持久化日志，附件操作区分建筑和操场</li></ul><div class="actions"><a class="enter" href="./v1.1/app.html?portal=school">进入 V1.1</a><a class="notes" href="./v1.1/release-notes.html">查看版本说明</a></div></article><article class="version-card"><div class="version-top"><h3>V1.0</h3><span class="status">历史版本</span></div><div class="date">v1.0.4</div><p class="summary">建筑物基础档案历史版本。</p><ul class="changes"><li>保留学校端与教育局端建筑物业务交互</li><li>保留本版本建筑物演示数据</li></ul><div class="actions"><a class="enter" href="./v1.0/app.html?portal=school">进入 V1.0</a><a class="notes" href="./v1.0/release-notes.html">查看版本说明</a></div></article></div></section><footer class="foot">本页面仅用于客户演示、需求确认和交互评审。</footer></main></body></html>

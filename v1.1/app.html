@@ -1911,8 +1911,8 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   function renderChrome() {
     const school = state.portal === &#39;school&#39;;
     const workspace = state.module === &#39;workspace&#39;;
-    root.classList.toggle(&#39;is-workspace&#39;, workspace || state.module === &#39;project&#39;);
-    document.getElementById(&#39;header-title&#39;).textContent = workspace ? (school ? &#39;学校端工作台&#39; : &#39;教育局端工作台&#39;) : state.module === &#39;project&#39; ? &#39;项目管理应用&#39; : state.selectedVenue ? &#39;建筑物档案详情&#39; : pageTitle();
+    root.classList.toggle(&#39;is-workspace&#39;, workspace);
+    document.getElementById(&#39;header-title&#39;).textContent = workspace ? (school ? &#39;学校端工作台&#39; : &#39;教育局端工作台&#39;) : state.selectedVenue ? &#39;建筑物档案详情&#39; : pageTitle();
     const headerSubtitle = document.getElementById(&#39;header-subtitle&#39;);
     const hideBuildingSubtitle = school &amp;&amp; state.module === &#39;venue&#39; &amp;&amp; state.page === &#39;buildings&#39; &amp;&amp; !state.selectedVenue;
     headerSubtitle.textContent = hideBuildingSubtitle ? &#39;&#39; : school ? &#39;海淀区实验中学&#39; : &#39;示范区教育局&#39;;
@@ -1921,7 +1921,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     document.querySelector(&#39;#user-button strong&#39;).textContent = school ? &#39;张老师&#39; : &#39;王科长&#39;;
     document.querySelector(&#39;#user-button small&#39;).textContent = school ? &#39;海淀区实验中学&#39; : &#39;示范区教育局&#39;;
     portalSwitch.value = state.portal;
-    nav.innerHTML = state.module === &#39;venue&#39; ? `&lt;button type=&quot;button&quot; class=&quot;nav-button workspace-back&quot; data-workspace&gt;${icon(&#39;arrow-left&#39;)}&lt;span&gt;返回应用工作台&lt;/span&gt;&lt;/button&gt;` + navs[state.portal].map(item =&gt; `&lt;button type=&quot;button&quot; class=&quot;nav-button${state.page === item[0] &amp;&amp; !state.selectedVenue ? &#39; is-active&#39; : &#39;&#39;}&quot; data-page=&quot;${item[0]}&quot;&gt;${icon(item[1])}&lt;span&gt;${item[2]}&lt;/span&gt;&lt;/button&gt;`).join(&#39;&#39;) : &#39;&#39;;
+    nav.innerHTML = state.module === &#39;venue&#39; ? `&lt;button type=&quot;button&quot; class=&quot;nav-button workspace-back&quot; data-workspace&gt;${icon(&#39;arrow-left&#39;)}&lt;span&gt;返回版本选择&lt;/span&gt;&lt;/button&gt;` + navs[state.portal].map(item =&gt; `&lt;button type=&quot;button&quot; class=&quot;nav-button${state.page === item[0] &amp;&amp; !state.selectedVenue ? &#39; is-active&#39; : &#39;&#39;}&quot; data-page=&quot;${item[0]}&quot;&gt;${icon(item[1])}&lt;span&gt;${item[2]}&lt;/span&gt;&lt;/button&gt;`).join(&#39;&#39;) : &#39;&#39;;
     refreshIcons();
   }
 
@@ -1978,56 +1978,7 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
     content.innerHTML = `&lt;div class=&quot;cloud-widget-page&quot;&gt;${heading(&#39;云首页组件&#39;, &#39;建筑管理应用在学校云平台首页的 PC 端组件预览&#39;)}&lt;div class=&quot;cloud-widget-stage&quot;&gt;&lt;section class=&quot;card cloud-widget-card&quot;&gt;&lt;div class=&quot;cloud-widget-head&quot;&gt;&lt;div class=&quot;cloud-widget-title&quot;&gt;&lt;span class=&quot;cloud-widget-app-icon&quot;&gt;${icon(&#39;building-2&#39;)}&lt;/span&gt;&lt;strong&gt;建筑管理&lt;/strong&gt;&lt;/div&gt;&lt;button type=&quot;button&quot; class=&quot;cloud-widget-more&quot; data-page=&quot;${data.target}&quot;&gt;查看更多 ${icon(&#39;chevron-right&#39;)}&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;cloud-widget-metrics ${school ? &#39;is-school&#39; : &#39;is-bureau&#39;}&quot;&gt;${data.metrics.map(metricItem =&gt; cloudWidgetMetric(...metricItem)).join(&#39;&#39;)}&lt;/div&gt;${data.empty ? `&lt;div class=&quot;cloud-widget-empty&quot;&gt;${school ? &#39;当前学校暂无建筑、操场或学校面积数据&#39; : &#39;当前教育局范围内暂无学校、建筑或操场数据&#39;}&lt;/div&gt;` : &#39;&#39;}&lt;/section&gt;&lt;/div&gt;&lt;/div&gt;`;
   }
 
-  function renderWorkspace() {
-    const school = state.portal === &#39;school&#39;;
-    const venueFeatures = school
-      ? [&#39;建筑物档案维护&#39;, &#39;楼宇房间管理&#39;, &#39;操场设施记录&#39;, &#39;建筑物使用状态&#39;]
-      : [&#39;辖区建筑物查询&#39;, &#39;学校建筑物总览&#39;, &#39;建筑物状态统计&#39;, &#39;档案详情查看&#39;];
-    const projectFeatures = school
-      ? [&#39;项目申请与草稿&#39;, &#39;校内审批跟踪&#39;, &#39;项目进度查看&#39;, &#39;材料附件管理&#39;]
-      : [&#39;待审批项目&#39;, &#39;审批流程配置&#39;, &#39;项目全过程资料&#39;, &#39;项目统计查询&#39;];
-    const features = items =&gt; items.map(item =&gt; `&lt;span&gt;${icon(&#39;check-circle-2&#39;)}${item}&lt;/span&gt;`).join(&#39;&#39;);
-    content.innerHTML = `
-      &lt;div class=&quot;workspace-shell&quot;&gt;
-        &lt;section class=&quot;workspace-hero&quot;&gt;
-          &lt;span class=&quot;workspace-kicker&quot;&gt;${icon(school ? &#39;school&#39; : &#39;landmark&#39;)} ${school ? &#39;海淀区实验中学&#39; : &#39;示范区教育局&#39;}&lt;/span&gt;
-          &lt;h2&gt;${school ? &#39;学校端应用工作台&#39; : &#39;教育局端应用工作台&#39;}&lt;/h2&gt;
-          &lt;p&gt;${school ? &#39;统一进入学校建筑物维护与项目全过程管理应用，业务数据按本校权限隔离。&#39; : &#39;统一进入辖区建筑物查询与项目审批管理应用，业务数据按管理范围授权。&#39;}&lt;/p&gt;
-        &lt;/section&gt;
-        &lt;div class=&quot;module-grid&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;module-card&quot; data-module=&quot;venue&quot;&gt;
-            &lt;span class=&quot;module-card-head&quot;&gt;
-              &lt;span class=&quot;module-icon&quot;&gt;${icon(&#39;building&#39;)}&lt;/span&gt;
-              &lt;span class=&quot;module-arrow&quot;&gt;${icon(&#39;arrow-up-right&#39;)}&lt;/span&gt;
-            &lt;/span&gt;
-            &lt;span class=&quot;module-card-copy&quot;&gt;
-              &lt;strong&gt;建筑管理&lt;/strong&gt;
-              &lt;span&gt;${school ? &#39;维护校舍、操场及附属设施档案，持续更新建筑物使用状态。&#39; : &#39;查询辖区学校建筑物档案，查看校舍与操场基础信息。&#39;}&lt;/span&gt;
-            &lt;/span&gt;
-            &lt;span class=&quot;module-features&quot;&gt;${features(venueFeatures)}&lt;/span&gt;
-            &lt;span class=&quot;module-card-footer&quot;&gt;
-              &lt;span class=&quot;module-stage&quot;&gt;建筑物信息管理&lt;/span&gt;
-              &lt;span class=&quot;module-enter&quot;&gt;进入应用 ${icon(&#39;arrow-right&#39;)}&lt;/span&gt;
-            &lt;/span&gt;
-          &lt;/button&gt;
-          &lt;button type=&quot;button&quot; class=&quot;module-card&quot; data-project-link&gt;
-            &lt;span class=&quot;module-card-head&quot;&gt;
-              &lt;span class=&quot;module-icon&quot;&gt;${icon(&#39;clipboard-list&#39;)}&lt;/span&gt;
-              &lt;span class=&quot;module-arrow&quot;&gt;${icon(&#39;arrow-up-right&#39;)}&lt;/span&gt;
-            &lt;/span&gt;
-            &lt;span class=&quot;module-card-copy&quot;&gt;
-              &lt;strong&gt;项目管理&lt;/strong&gt;
-              &lt;span&gt;${school ? &#39;发起项目申请，跟踪学校审批及项目全过程进度。&#39; : &#39;处理学校业务申请，管理审批流程并查看项目资料。&#39;}&lt;/span&gt;
-            &lt;/span&gt;
-            &lt;span class=&quot;module-features&quot;&gt;${features(projectFeatures)}&lt;/span&gt;
-            &lt;span class=&quot;module-card-footer&quot;&gt;
-              &lt;span class=&quot;module-stage&quot;&gt;项目全过程管理&lt;/span&gt;
-              &lt;span class=&quot;module-enter&quot;&gt;进入应用 ${icon(&#39;arrow-right&#39;)}&lt;/span&gt;
-            &lt;/span&gt;
-          &lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;`;
-  }
+  function renderWorkspace() { state.module = &#39;venue&#39;; render(); }
 
   function venueTable(data, compact = false, serialOffset = 0) {
     if (!data.length) return `&lt;div class=&quot;empty-state&quot;&gt;${icon(&#39;inbox&#39;)}&lt;p&gt;暂无符合条件的建筑物档案&lt;/p&gt;&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-reset-filter&gt;清空筛选&lt;/button&gt;&lt;/div&gt;`;
@@ -2697,11 +2648,6 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
   });
 
   root.addEventListener(&#39;click&#39;, event =&gt; {
-    const projectButton = event.target.closest(&#39;[data-project-link]&#39;);
-    if (projectButton) {
-      window.parent.postMessage({ type: &#39;open-project-management&#39;, portal: state.portal }, &#39;*&#39;);
-      return;
-    }
     const workspaceButton = event.target.closest(&#39;[data-workspace]&#39;);
     if (workspaceButton) { closeEquipmentDetailModal(); state.module = &#39;workspace&#39;; state.selectedVenue = null; state.selectedFacility = null; clearFilters(); clearDetailFilters(); render(); return; }
     const moduleButton = event.target.closest(&#39;[data-module]&#39;);
@@ -3384,103 +3330,26 @@ i[data-lucide=&quot;folder-kanban&quot;]::before{content:&quot;▣&quot;;font-si
 <script id="versioned-workbench-router-v1">
 (() => {
   const frame = document.querySelector('iframe');
-  if (!frame) return;
-  const buildingSelectionUrl = 'https://jess-0411.github.io/building-management/';
-  const projectSelectionUrl = 'https://jess-0411.github.io/project-management/';
-  const parameters = new URLSearchParams(location.search);
-  const portalParameter = parameters.get('portal');
-  const requestedView = parameters.get('view');
-  const portal = portalParameter === 'bureau' ? 'bureau' : 'school';
-  const shouldOpenProject = requestedView === 'project' || (!requestedView && Boolean(portalParameter));
-  const shouldOpenBuilding = requestedView === 'building';
-  const projectUrl = targetPortal => {
-    const url = new URL('./project.html', location.href);
-    url.searchParams.set('portal', targetPortal === 'bureau' ? 'bureau' : 'school');
-    return url.href;
-  };
-  const workbenchUrl = targetPortal => {
-    const url = new URL('./app.html', location.href);
-    url.searchParams.set('view', 'workbench');
-    url.searchParams.set('portal', targetPortal === 'bureau' ? 'bureau' : 'school');
-    return url.href;
-  };
-  if (shouldOpenProject) {
-    location.replace(projectUrl(portal));
-    return;
-  }
-  let activePortal = portal;
-  let ready = false;
-  let buildingRouteDocument = null;
-  const markReady = () => {
-    if (ready) return;
-    ready = true;
+  const portal = new URLSearchParams(location.search).get('portal') === 'bureau' ? 'bureau' : 'school';
+  let installedDocument;
+  const reveal = () => {
+    const doc = frame?.contentDocument;
+    if (!doc?.querySelector('#education-management-app')) return;
+    if (installedDocument !== doc) {
+      installedDocument = doc;
+      doc.addEventListener('click', event => {
+        if (!event.target.closest?.('[data-workspace]')) return;
+        event.preventDefault(); event.stopImmediatePropagation();
+        location.assign(new URL('../', location.href));
+      }, true);
+    }
+    frame.contentWindow?.postMessage({ type: 'set-portal', portal }, '*');
     requestAnimationFrame(() => document.body.classList.add('route-ready'));
   };
-  const updateBuildingLocation = targetPortal => {
-    const url = new URL(location.href);
-    url.searchParams.set('view', 'building');
-    url.searchParams.set('portal', targetPortal === 'bureau' ? 'bureau' : 'school');
-    history.replaceState(null, '', url);
-  };
-  const openBuilding = () => {
-    const documentInFrame = frame.contentDocument;
-    if (!documentInFrame) return false;
-    const target = documentInFrame.querySelector('[data-module="venue"]');
-    if (target) target.click();
-    if (target || documentInFrame.querySelector('[data-workspace]')) {
-      markReady();
-      return true;
-    }
-    return false;
-  };
-  const installBuildingRoute = () => {
-    const documentInFrame = frame.contentDocument;
-    if (!documentInFrame || buildingRouteDocument === documentInFrame) return;
-    buildingRouteDocument = documentInFrame;
-    documentInFrame.addEventListener('click', event => {
-      if (!event.target.closest?.('[data-workspace]')) return;
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      location.assign(buildingSelectionUrl);
-    }, true);
-    documentInFrame.addEventListener('change', event => {
-      if (event.target?.id !== 'portal-switch') return;
-      setTimeout(() => {
-        activePortal = event.target.value === 'bureau' ? 'bureau' : 'school';
-        updateBuildingLocation(activePortal);
-        openBuilding();
-      }, 0);
-    }, true);
-  };
-  const reveal = () => {
-    frame.contentWindow?.postMessage({ type: 'set-portal', portal: activePortal }, '*');
-    if (shouldOpenBuilding) {
-      installBuildingRoute();
-      setTimeout(openBuilding, 0);
-      setTimeout(openBuilding, 60);
-      setTimeout(openBuilding, 180);
-      return;
-    }
-    markReady();
-  };
-  frame.addEventListener('load', reveal);
-  if (frame.contentDocument?.readyState === 'complete' || frame.contentDocument?.readyState === 'interactive') reveal();
-  setTimeout(reveal, 0);
-  setTimeout(reveal, 120);
+  frame?.addEventListener('load', reveal);
+  setTimeout(reveal, 0); setTimeout(reveal, 120);
   window.addEventListener('message', event => {
-    if (event.source !== frame.contentWindow) return;
-    if (event.data?.type === 'reset-venue-demo-data') {
-      location.reload();
-      return;
-    }
-    if (event.data?.type === 'open-project-management') {
-      activePortal = event.data.portal === 'bureau' ? 'bureau' : 'school';
-      location.assign(projectUrl(activePortal));
-      return;
-    }
-    if (event.data?.type === 'project-back') {
-      location.assign(projectSelectionUrl);
-    }
+    if (event.source === frame?.contentWindow && event.data?.type === 'reset-venue-demo-data') location.reload();
   });
 })();
 </script>

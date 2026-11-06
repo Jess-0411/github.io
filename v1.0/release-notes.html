@@ -1,36 +1,10 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>V1.0 版本说明</title>
-  <style>body{margin:0;background:#f3f7fc;color:#17243c;font:14px/1.8 "Microsoft YaHei","PingFang SC",Arial,sans-serif}.page{width:min(860px,calc(100% - 32px));margin:36px auto;background:#fff;border:1px solid #dfe7f1;border-radius:12px;padding:30px 36px;box-shadow:0 12px 35px rgba(36,63,105,.08)}h1{margin:0 0 8px;font-size:26px}h2{margin:28px 0 8px;font-size:18px}p,li{color:#54627a}a{color:#1769e8;text-decoration:none}.tag{display:inline-flex;padding:2px 9px;border-radius:12px;background:#edf1f6;color:#647086;font-size:12px}.actions{display:flex;gap:18px;margin-top:28px;padding-top:18px;border-top:1px solid #e7edf4}</style>
-</head>
-<body>
-  <main class="page">
-    <span class="tag">历史版本</span>
-    <h1>V1.0 版本说明</h1>
-    <p>基线发布日期：2026-08-15 · 入口路由补丁日期：2026-08-30 · 技术发布标签：v1.0.4</p>
-    <h2>版本定位</h2>
-    <p>V1.0 保留双版本发布前的学校端、教育局端及页面 PRD 需求基线。本次仅补充学校端付款审批演示数据并优化线上运行稳定性，不引入 V1.1 的项目办理需求。</p>
-    <h2>V1.0.3 数据与稳定性补丁</h2>
-    <ul>
-      <li>学校端“付款申请—付款审批”补充待校审、待局审、审批中、已通过、已退回五种状态记录。</li>
-      <li>付款审批标签展示上述五种审批相关状态，草稿和已撤回仍在付款申请标签管理。</li>
-      <li>仅待校审记录显示“审批”操作，其他状态保留“查看”用于流程结果演示。</li>
-      <li>默认提供三条不同付款类型和金额的校内待审批记录，支持连续演示通过与退回。</li>
-      <li>修复旧迁移标识导致一键重置后无法恢复可审批记录的问题。</li>
-      <li>修复付款标签脚本作用域异常，并将项目页面改为独立静态载荷与共享 DOM 增强调度。</li>
-    </ul>
-    <h2>V1.0.4 独立入口路由补丁</h2>
-    <ul>
-      <li>建筑管理支持通过 <code>view=building</code> 直接进入对应身份的建筑页面，不再显示综合应用工作台。</li>
-      <li>建筑管理与项目管理的返回入口分别回到各自的版本选择页，身份切换保持在当前管理模块。</li>
-      <li>业务数据、审批状态和 localStorage 存储结构保持不变。</li>
-    </ul>
-    <h2>基线保护</h2>
-    <p>原始 V1.0 页面继续由 <code>v1.0.0</code> 标签冻结，原始页面 Git blob 为 <code>766689dc60cf033907097798cc399c51c93513d3</code>。既有付款与稳定性补丁由 <code>v1.0.1</code> 至 <code>v1.0.3</code> 保留，本次入口路由补丁由 <code>v1.0.4</code> 追溯。</p>
-    <div class="actions"><a href="../">进入 V1.0</a><a href="../../">返回版本选择</a></div>
-  </main>
-</body>
-</html>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>建筑管理 V1.0 版本说明</title><style>
+    :root{color-scheme:light;--blue:#1769e8;--blue-dark:#0e55bd;--blue-soft:#edf5ff;--text:#17243c;--muted:#6f7e96;--line:#dfe7f1;--bg:#f3f7fc;--card:#fff;--green:#15855d;--shadow:0 18px 50px rgba(36,63,105,.11)}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;color:var(--text);background:var(--bg)}
+    body:before{content:"";position:fixed;z-index:0;pointer-events:none;inset:0 0 auto;height:310px;background:linear-gradient(135deg,#0d5bd1,#2e83ef)}
+    .page{position:relative;z-index:1;width:min(1120px,calc(100% - 40px));margin:0 auto;padding:52px 0 62px}.hero{color:#fff;margin-bottom:34px}.eyebrow{font-size:14px;letter-spacing:.12em;opacity:.84}.hero h1{margin:12px 0 10px;font-size:34px;line-height:1.35}.hero p{margin:0;opacity:.9;line-height:1.8}
+    .panel{background:rgba(255,255,255,.98);border:1px solid rgba(255,255,255,.6);border-radius:16px;padding:30px;box-shadow:var(--shadow)}.panel-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:22px}.panel-head h2{margin:0 0 7px;font-size:22px}.panel-head p{margin:0;color:var(--muted);font-size:14px}.isolation{padding:10px 14px;border-radius:8px;background:var(--blue-soft);color:#345b8e;font-size:13px;white-space:nowrap}
+    .versions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.version-card{border:1px solid var(--line);border-radius:12px;padding:22px;background:var(--card);display:flex;flex-direction:column;min-height:318px}.version-card.current{border-color:#97bff5;box-shadow:0 0 0 3px #edf5ff}.version-top{display:flex;align-items:center;justify-content:space-between;gap:16px}.version-top h3{margin:0;font-size:25px}.status{height:28px;padding:0 10px;border-radius:14px;display:inline-flex;align-items:center;background:#edf1f6;color:#647086;font-size:12px}.status.current{background:#e9f8f2;color:var(--green)}.date{color:var(--muted);font-size:13px;margin-top:9px}.summary{margin:18px 0 0;line-height:1.75;color:#46546d}.changes{margin:13px 0 24px;padding-left:20px;color:#637189;font-size:13px;line-height:1.8}.actions{display:flex;align-items:center;gap:12px;margin-top:auto}.enter{height:40px;padding:0 18px;border-radius:8px;background:var(--blue);color:#fff;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;font-weight:600}.enter:hover{background:var(--blue-dark)}.notes{color:var(--blue);text-decoration:none;font-size:13px}.notes:hover{text-decoration:underline}
+    .foot{margin-top:20px;text-align:center;color:var(--muted);font-size:12px;line-height:1.8}.error{padding:40px;text-align:center;color:#b5474d;border:1px dashed #e0a6aa;border-radius:10px;background:#fff6f6}
+    @media(max-width:760px){.page{width:min(100% - 24px,1120px);padding-top:30px}.hero h1{font-size:27px}.panel{padding:20px}.panel-head{align-items:flex-start;flex-direction:column}.isolation{white-space:normal}.versions{grid-template-columns:1fr}.version-card{min-height:auto}}
+  </style></head><body><main class="page"><header class="hero"><h1>建筑管理 V1.0</h1><p>v1.0.4</p></header><section class="panel"><h2>版本说明</h2><p>建筑物基础档案历史版本。</p><ul><li>保留学校端与教育局端建筑物业务交互</li><li>保留本版本建筑物演示数据</li></ul><p>入口拆分日期：2026-11-06。保留本版本业务功能，单独维护与发布。</p><a class="enter" href="../">返回版本选择</a></section></main></body></html>

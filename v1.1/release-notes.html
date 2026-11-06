@@ -1,57 +1,10 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>V1.1 版本说明</title>
-  <style>body{margin:0;background:#f3f7fc;color:#17243c;font:14px/1.8 "Microsoft YaHei","PingFang SC",Arial,sans-serif}.page{width:min(860px,calc(100% - 32px));margin:36px auto;background:#fff;border:1px solid #dfe7f1;border-radius:12px;padding:30px 36px;box-shadow:0 12px 35px rgba(36,63,105,.08)}h1{margin:0 0 8px;font-size:26px}h2{margin:28px 0 8px;font-size:18px}p,li{color:#54627a}a{color:#1769e8;text-decoration:none}.tag{display:inline-flex;padding:2px 9px;border-radius:12px;background:#e9f8f2;color:#15855d;font-size:12px}.actions{display:flex;gap:18px;margin-top:28px;padding-top:18px;border-top:1px solid #e7edf4}</style>
-</head>
-<body>
-  <main class="page">
-    <span class="tag">当前版本</span>
-    <h1>V1.1 版本说明</h1>
-    <p>发布日期：2026-09-10 · 技术发布标签：v1.1.13</p>
-    <h2>相对 V1.0 的需求变更</h2>
-    <ul>
-      <li>建筑和操场附件日志在操作列直接区分为“上传建筑附件”“删除建筑附件”“上传操场附件”和“删除操场附件”，不增加列表列。</li>
-      <li>V1.1.12 已保存的通用附件日志优先按上级场地归类；父场地已删除时按场地历史日志判断，无法可靠判断时保留原操作名称。</li>
-      <li>V1.1.12 首次加载时通过实际业务保存链路生成 28 条操作日志：新增建筑 5 条、编辑建筑 3 条、删除建筑 2 条、上传建筑附件 8 条、删除建筑附件 3 条、新增专项设施 4 条、新增维修记录 3 条；与未修改的 3 条默认日志合计 31 条。</li>
-      <li>一次性演示日志统一归属海淀区实验中学、操作人为张老师，完整记录对象名称、对象 ID、所属学校、上级场地 ID 和业务数据来源；刷新不重复生成，一键重置后仅恢复原有 3 条默认日志。</li>
-      <li>建筑、操场、学校面积、专项设施、维修记录、场地模块、模块改造记录、器材和附件共 22 类成功写操作统一生成运行时操作日志。</li>
-      <li>操作日志使用独立版本化 localStorage，固定保存对象、所属学校、上级场地、操作人、操作时间和业务数据来源；删除业务对象后日志继续保留。</li>
-      <li>学校端仅展示本校日志，教育局端新增操作日志入口并展示管理范围内跨学校记录；批量上传按每个附件逐条生成日志。</li>
-      <li>查看、筛选、分页、详情、附件预览、下载、导出、校验失败和取消不生成日志；一键重置清除运行时日志并恢复少量默认示例。</li>
-      <li>页面内操作日志 PRD 与独立建筑管理 PRD 同步补齐完整动作范围、六项数据来源、一次性迁移和验收口径。</li>
-      <li>学校端建筑物新增／编辑表单补充选填的鉴定等级与鉴定日期；鉴定等级最多输入 20 个字符。</li>
-      <li>专项设施“防水”的防水信息首位新增选填屋面类型，可选择“可上人”或“不可上人”。</li>
-      <li>教育局端在“项目管理”下方新增“项目办理”，统一承接项目、采购、开工、付款、事项、验收和归档七类业务办理。</li>
-      <li>学校侧流程完成且开启教育局审批后，业务先进入对应办理标签；确认办理后再进入原正式审批流程。</li>
-      <li>七类办理列表使用各业务专属字段，编号、名称、项目、日期及金额等不同语义字段独立展示，宽表支持横向滚动。</li>
-      <li>办理确认提示仅突出发起部门；系统仍保存办理人员与部门快照，用于办理记录、权限校验和后续部门主管路由。</li>
-      <li>办理支持项目名称、办理人和办理状态筛选；筛选栏采用紧凑响应式布局，不展示顶部统计卡。</li>
-      <li>教育局各业务审批待办补齐正式审批操作；原管理／审批双标签、正式审批节点和审批轨迹继续保留。</li>
-      <li>办理驳回直接退回学校，确认办理需要二次确认；学校重提后开启新办理轮次并保留历史记录。</li>
-      <li>项目、采购、开工、付款、事项、验收和归档七类办理分别提供独立页面 PRD 与前置办理流程图；查看详情和办理弹窗同步提供当前业务专属文档。</li>
-      <li>七类 PRD 补充原型 localStorage 数据来源、正式后端规划接口、任务模型、状态生成规则、幂等规则和异常边界，并明确后端能力尚未实现。</li>
-      <li>线上项目页面改为独立静态载荷，DOM 增强使用共享调度器并移除 600ms 定时扫描。</li>
-      <li>学校端建筑管理新增独立学校面积概况，默认未登记，可单独维护学校整体、租赁和自有面积。</li>
-      <li>修复学校端面积概况点击保存无反馈的问题，保存后同步刷新面积卡片并保留操作日志。</li>
-      <li>建筑和操场基础档案统一写入版本化 localStorage，学校端变更可由教育局端刷新或切换菜单读取。</li>
-      <li>操场详情使用可重复场地模块维护户外草坪、田径场、足球场及球类场地，改造记录归属于具体模块。</li>
-      <li>教育局端新增学校统计页面，展示八项学校、建筑和操场指标，支持每页 10 条分页及筛选结果 XLSX 导出。</li>
-      <li>学校端和教育局端建筑管理左侧新增“云首页组件”，按角色范围展示学校、建筑和操场统计，并支持跳转至对应业务页面。</li>
-      <li>操场场地模块与建筑专项设施改为标准表格列表，补充组合筛选、连续序号、添加时间、更新时间及双端操作权限。</li>
-      <li>器材详情改为纯只读弹窗，标题下不展示说明文字，底部仅保留“关闭”；学校端仍可通过列表中的独立“编辑”操作维护器材。</li>
-      <li>专项设施在“当前状态”后新增只读“维修状态”，按最新维修日期与保修期限实时显示未维修、已维修或过保。</li>
-      <li>建筑、操场、操作日志、专项设施、场地模块和器材信息六类列表统一增加跨页连续序号，右下角展示总条数及分页组件，默认每页 10 条，可切换 10、20、50、100 条。</li>
-      <li>学校端和教育局端页面内 PRD、建筑管理总 PRD及版本发布断言已按当前原型全量同步。</li>
-      <li>建筑管理与项目管理使用独立版本选择入口；建筑版本可直接进入对应身份页面，模块内返回及身份切换不再进入综合工作台。</li>
-    </ul>
-    <h2>数据规则</h2>
-    <p>V1.1 使用独立 localStorage 和 sessionStorage 命名空间，不读取或覆盖 V1.0 演示状态；学校端与教育局端在 V1.1 内继续共享同一份业务数据。</p>
-    <h2>原型限制</h2>
-    <p>本版本仍为纯前端静态交互原型，不包含真实后端、审批引擎、正式权限控制和生产级并发处理。</p>
-    <div class="actions"><a href="../">进入 V1.1</a><a href="https://github.com/Jess-0411/github.io/blob/main/v1.1/VENUE_MANAGEMENT_PRD.md">查看建筑管理 PRD</a><a href="../../">返回版本选择</a></div>
-  </main>
-</body>
-</html>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>建筑管理 V1.1 版本说明</title><style>
+    :root{color-scheme:light;--blue:#1769e8;--blue-dark:#0e55bd;--blue-soft:#edf5ff;--text:#17243c;--muted:#6f7e96;--line:#dfe7f1;--bg:#f3f7fc;--card:#fff;--green:#15855d;--shadow:0 18px 50px rgba(36,63,105,.11)}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;color:var(--text);background:var(--bg)}
+    body:before{content:"";position:fixed;z-index:0;pointer-events:none;inset:0 0 auto;height:310px;background:linear-gradient(135deg,#0d5bd1,#2e83ef)}
+    .page{position:relative;z-index:1;width:min(1120px,calc(100% - 40px));margin:0 auto;padding:52px 0 62px}.hero{color:#fff;margin-bottom:34px}.eyebrow{font-size:14px;letter-spacing:.12em;opacity:.84}.hero h1{margin:12px 0 10px;font-size:34px;line-height:1.35}.hero p{margin:0;opacity:.9;line-height:1.8}
+    .panel{background:rgba(255,255,255,.98);border:1px solid rgba(255,255,255,.6);border-radius:16px;padding:30px;box-shadow:var(--shadow)}.panel-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:22px}.panel-head h2{margin:0 0 7px;font-size:22px}.panel-head p{margin:0;color:var(--muted);font-size:14px}.isolation{padding:10px 14px;border-radius:8px;background:var(--blue-soft);color:#345b8e;font-size:13px;white-space:nowrap}
+    .versions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.version-card{border:1px solid var(--line);border-radius:12px;padding:22px;background:var(--card);display:flex;flex-direction:column;min-height:318px}.version-card.current{border-color:#97bff5;box-shadow:0 0 0 3px #edf5ff}.version-top{display:flex;align-items:center;justify-content:space-between;gap:16px}.version-top h3{margin:0;font-size:25px}.status{height:28px;padding:0 10px;border-radius:14px;display:inline-flex;align-items:center;background:#edf1f6;color:#647086;font-size:12px}.status.current{background:#e9f8f2;color:var(--green)}.date{color:var(--muted);font-size:13px;margin-top:9px}.summary{margin:18px 0 0;line-height:1.75;color:#46546d}.changes{margin:13px 0 24px;padding-left:20px;color:#637189;font-size:13px;line-height:1.8}.actions{display:flex;align-items:center;gap:12px;margin-top:auto}.enter{height:40px;padding:0 18px;border-radius:8px;background:var(--blue);color:#fff;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;font-weight:600}.enter:hover{background:var(--blue-dark)}.notes{color:var(--blue);text-decoration:none;font-size:13px}.notes:hover{text-decoration:underline}
+    .foot{margin-top:20px;text-align:center;color:var(--muted);font-size:12px;line-height:1.8}.error{padding:40px;text-align:center;color:#b5474d;border:1px dashed #e0a6aa;border-radius:10px;background:#fff6f6}
+    @media(max-width:760px){.page{width:min(100% - 24px,1120px);padding-top:30px}.hero h1{font-size:27px}.panel{padding:20px}.panel-head{align-items:flex-start;flex-direction:column}.isolation{white-space:normal}.versions{grid-template-columns:1fr}.version-card{min-height:auto}}
+  </style></head><body><main class="page"><header class="hero"><h1>建筑管理 V1.1</h1><p>v1.1.13</p></header><section class="panel"><h2>版本说明</h2><p>建筑、操场、学校面积、专项设施及操作日志管理。</p><ul><li>两端建筑与操场查询，学校统计和导出</li><li>专项设施、场地模块和器材信息维护</li><li>22 类成功写操作持久化日志，附件操作区分建筑和操场</li></ul><p>入口拆分日期：2026-11-06。保留本版本业务功能，单独维护与发布。</p><a class="enter" href="../">返回版本选择</a></section></main></body></html>
